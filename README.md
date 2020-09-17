@@ -1,6 +1,8 @@
 # About
 NERVE is a vulnerability scanner tailored to find vulnerabilities in specific application configurations, network services, and unpatched services.
 
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
+
 # Installation using Docker
 ## Clone the repository
 `git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
