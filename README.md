@@ -30,4 +30,4 @@ Navigate in your browser to http://ip.add.re.ss:8080
 
 # Screenshots
 ## Login Screen
-![Login](https://github.com/PaytmLabs/nerve/blob/master/1.png?raw=true)
+![Login](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/1.png?raw=true)
