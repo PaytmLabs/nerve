@@ -15,7 +15,7 @@ WEB_PASSW = os.environ.get('password', 'admin')
 WEB_LOG = 'nerve.log'
 
 # Web Security
-# Setting this the True will return all responses with security headers.
+# Setting this to True will return all responses with security headers.
 WEB_SECURITY = True
 WEB_SEC_HEADERS = {
   'CSP':'default-src \'self\' \'unsafe-inline\'; object-src \'none\'; img-src \'self\' data:',
