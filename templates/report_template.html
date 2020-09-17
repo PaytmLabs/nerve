@@ -207,13 +207,10 @@
 
 <h2>Vulnerabilities</h2>
 
-<!-- for rule_id in vulnerabilities - SORT BY severity -->
-
 <table id="details">
   {% if json_data.vulns %}
   {% for key, value in json_data.vulns.items() %}
   <tr>
-      <!-- class is rule_id.severity -->
       <th class='sev_{{value.rule_sev}}'>{{value.rule_id}}</th>
       <th class='sev_{{value.rule_sev}}'>{{value.rule_desc}}</th>
       
