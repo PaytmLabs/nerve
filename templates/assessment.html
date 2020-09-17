@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NERVE</title>
+    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
+    <link href="static/css/nerve.css" rel="stylesheet">
+    <link href="static/css/master.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="sidebar">{% include 'sidebar.html' %}</div>
+
+        <div id="body">
+            <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <div class="nav-dropdown">
+                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span>{{session['session']|capitalize}}</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                                    <ul class="nav-list">
+                                        <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
+                                        <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                        <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                          <div class="nav-dropdown">
+                            {% if status == "Ready" %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
+                            {% else %}
+                               <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
+                            {% endif %}
+                          </div>
+                      </li>  
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="content">
+              <div class="container-fluid">
+                  <div class="page-title">
+                      <h3>Assessment</h3>
+                  </div>
+                  <div class="box box-primary">
+                      <div class="box-body">
+                          <ul class="nav nav-tabs" id="myTab" role="tablist">
+                              <li class="nav-item">
+                                  <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" id="targets-tab" data-toggle="tab" href="#targets" role="tab" aria-controls="targets" aria-selected="false">Targets</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" id="config-tab" data-toggle="tab" href="#config" role="tab" aria-controls="config" aria-selected="false">Configuration</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" id="dictionary-tab" data-toggle="tab" href="#dictionary" role="tab" aria-controls="dictionary" aria-selected="false">Dictionary</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab" aria-controls="schedule" aria-selected="false">Schedule</a>
+                            </li>
+                              <li class="nav-item">
+                                <a class="nav-link" id="notification-tab" data-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">Notifications</a>
+                            </li>
+                          </ul>
+                          
+                          <div class="tab-content" id="myTabContent">
+                              <div class="tab-pane fade active show" id="general" role="tabpanel" aria-labelledby="general-tab">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="title" class="form-control-label">Assessment Title <i><span class="required">Required</span></i></label>
+                                          <input type="text" id="title" name="title" class="form-control">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="description" class="form-control-label">Assessment Description</label>
+                                          <textarea class="form-control" id="description" name="description"></textarea>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="engineer" class="form-control-label">Name of Engineer </label>
+                                        <input type="text" name="engineer" id="engineer" class="form-control">
+                                    </div>
+                              </div>
+                            </div>
+                            
+
+                              <div class="tab-pane fade" id="targets" role="tabpanel" aria-labelledby="targets-tab">
+                                  <div class="col-md-6">
+                                    <p class="text-muted">Specify either Networks, Domains, or both.<br>
+                                    </p>
+                                    <p class="mb-0"><strong>Targets</strong> <span class="required">Required</span></p>  
+                                      <div class="form-group">
+                                          <label for="networks" class="form-control-label">Networks</i></label>
+                                          <input type="text" id="networks" name="networks" class="form-control" placeholder="192.168.0.0/24, 192.168.1.0/24">
+                                      </div>
+
+                                    
+                                      <div class="form-group">
+                                        <label for="domains" class="form-control-label">Domains</i></label>
+                                        <input type="text" id="domains" name="domains" class="form-control" placeholder="sub1.domain.com,sub2.domain.com">
+                                    </div>                                      
+
+                                    <p class="mb-0"><strong>Exclusion</strong></p>
+                                    <div class="form-group">
+                                        <label for="exc_networks" class="form-control-label">Excluded Networks <i></i></label>
+                                        <input type="text" id="exc_networks" name="exc_networks" placeholder="192.168.0.10/32, 192.168.10.0/24" class="form-control">
+                                    </div>
+
+                                  </div>
+                              </div>
+                              <div class="tab-pane fade" id="config" role="tabpanel" aria-labelledby="config-tab">
+                                  <div class="col-md-6">
+                                      <label for="" class="form-control-label"><b>Assessment Configuration</b></label>
+                                      <div class="form-group">
+                                        <select id="aggressive_level" name="aggressive_level" class="form-control">
+                                            <option value="3">Extremely Aggressive (Release the Beast)</option>
+                                            <option value="2">Aggressive (Scans, Discovers and Probes)</option>
+                                            <option value="1">Mildly Aggressive (Scans & Discovers Services)</option>
+                                            <option value="0">Gentle (Port Scanning)</option>
+                                        </select>
+                                    </div>
+                                      <div class="form-group">
+                                        <label for="" class="form-control-label">Allow Outbound Internet Connections</label>
+                                        <div class="custom-control custom-switch">
+                                          <input type="checkbox" class="custom-control-input" name="attempt_0" id="attempt_0" checked>
+                                          <label class="custom-control-label" for="attempt_0"></label>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-control-label">Attempt Brute Force Attacks</label>
+                                        <div class="custom-control custom-switch">
+                                          <input type="checkbox" class="custom-control-input" name="attempt_3" id="attempt_3" checked>
+                                          <label class="custom-control-label" for="attempt_3"></label>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="form-control-label">Attempt Denial of Service Attacks</label>
+                                        
+                                        <div class="custom-control custom-switch">
+                                          <input type="checkbox" class="custom-control-input" name="attempt_1" id="attempt_1">
+                                          <label class="custom-control-label" for="attempt_1"></label>
+                                      </div>
+                                    </div>
+                                    
+                                      <label for="" class="form-control-label"><b>Port Scanning Options</b></label>
+                                      <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="" class="form-control-label">Ethernet</label>
+                                            <input type="text" id="interface" name="interface" placeholder="eth0" class="form-control">
+                                            <small class="text-muted">Uses default if not specified</small>
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="" class="form-control-label">Maximum Ports</label>
+                                          <select name="max_ports" id="max_ports" class="form-control">
+                                            <option value="10">10</option>  
+                                            <option value="100" selected>100</option>
+                                            <option value="500">500</option>
+                                            <option value="1000">1000</option>
+                                            <option value="2000">2000</option>
+                                            <option value="3000">3000</option>
+                                            <option value="4000">4000</option>
+                                            <option value="5000">5000</option>
+                                            <option value="6000">6000</option>
+                                            <option value="7000">7000</option>
+                                          </select>
+                                          <small class="text-muted">1000 = one thousand most commonly used ports</small>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="parallel_scans" class="form-control-label">Parallel Scan</label>
+                                          <select name="parallel_scans" id="parallel_scans" class="form-control">
+                                              <option value="10">10</option>
+                                              <option value="30">30</option>
+                                              <option value="50" selected>50</option>
+                                              <option value="100">100</option>
+                                          </select>
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="parallel_attack" class="form-control-label">Parallel Attack</label>
+                                          <select name="parallel_attack" id="parallel_attack" class="form-control">
+                                            <option value="10">10</option>
+                                            <option value="30" selected>30</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                          </select>
+                                      </div>  
+                                    
+                                  </div>
+                              </div>
+
+                              <div class="tab-pane fade" id="dictionary" role="tabpanel" aria-labelledby="dictionary-tab">
+                                <div class="col-md-6">
+                                <p class="text-muted">Add your preferred word lists to be used in Brute Force attacks.<br>
+                                    <b>Note:</b> If no dictionary is specified, a built in dictionary will be used.
+                                </p>
+                                <label for="" class="form-control-label"><b>Brute Force</b></label>
+                                <div class="form-group">
+                                  <label class="form-control-label">Usernames</label>
+                                  <textarea class="form-control" id="usernames" name="usernames" placeholder="Paste your list here" rows="6"></textarea>
+                                  <small class="text-muted">Separate the usernames with a new line.</small><br>
+                              </div>
+                              <div class="form-group">
+                                  <label class="form-control-label">Passwords</i></label>
+                                  <textarea class="form-control" id="passwords" name="passwords" placeholder="Paste your list here" rows="6"></textarea>
+                                  <small class="text-muted">Separate the passwords with a new line.</small><br>
+                              </div>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane fade" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
+                                <div class="col-md-6">
+                                    <label for="" class="form-control-label"><b>Assessment Schedule</b></label>
+                                    <div class="form-group">
+                                      <select id="frequency" name="frequency" class="form-control">
+                                          <option value="once" selected>Run Once</option>
+                                          <option value="continuous">Run Continuously</option>
+                                      </select>
+                                      <small class="text-muted">* Running continuously will not stop until you reset the system</small><br>
+                                  </div>
+
+                                </div>
+                            </div>
+
+                              <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="engineer" class="form-control-label">Webhook </label>
+                                  <input type="text" name="webhook" id="webhook" class="form-control" placeholder="https://notify.example.com/receive">
+                                  <small class="text-muted">Calls back at the end of the assessment with relevant data (JSON POST)</small>
+                              </div>
+                            </div>
+                              </div>
+
+                          </div>
+                          
+                          <div class="form-group text-right">
+                            <button class="btn btn-info" type="submit" onclick="submit_assessment();"> <i class="fas fa-check"></i> Run Assessment</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
+    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
+    <script src="static/vendor/toastr/toastr.min.js"></script>
+    <script src="static/js/script.js"></script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+        <script>
+        {% for category, message in messages %}
+        toastr.{{category}}("{{ message }}");
+        {% endfor %}
+        </script>
+     {% endif %}
+    {% endwith %}
+
+    <script>
+        $(function() {
+        $('#approach').change(function(){
+            $('.approaches').hide();
+            $('#' + $(this).val()).show();
+        });
+    });
+    </script>
+
+    <script>
+        function trim_whitespace(text){
+            return text.replace(/\s+/g, '');
+        }
+
+        function submit_assessment(){
+            var networks = []
+            var exc_networks = []
+            var domains = []
+            var users = []
+            var passwords = []
+            var webhook = null
+            var title = document.getElementById("title").value
+            var description = document.getElementById("description").value
+            var engineer = document.getElementById("engineer").value
+            
+            var frequency = 'once'
+            var aggressive_level = 3
+            var dos = true
+            var outbound = true
+            var bruteforce = true;
+            var net_interface = null
+            var max_ports = 100
+            var parallel_scans = 10
+            var parallel_attack = 10
+
+            
+            if(title == '') {
+                toastr.warning("Assessment title must be set.")
+                return;
+            }
+
+            if(title.length > 30){
+                toastr.warning("Assessment title must not exceed 30 characters")
+                return;
+            }
+
+            if(description != '' && description.length > 200){
+                toastr.warning("Assessment description must not exceed 200 characters.")
+                return;
+            }
+
+            if(engineer != '' && engineer.length > 20){
+                toastr.warning("Engineer name must not exceed 20 characters.")
+                return;
+            }
+
+            if(document.getElementById("webhook").value){
+                webhook = document.getElementById("webhook").value
+            }
+
+            if(document.getElementById("frequency").value){
+                frequency = document.getElementById("frequency").value
+            }
+            
+            var u_networks = document.getElementById("networks")
+            if (u_networks && u_networks.value != ''){
+                networks = trim_whitespace(u_networks.value).split(",")
+            }
+
+            var u_exc_networks = document.getElementById("exc_networks")
+            if (u_exc_networks && u_exc_networks.value != ''){
+                exc_networks = trim_whitespace(u_exc_networks.value).split(",")
+            }
+
+            var u_domains = document.getElementById("domains")
+            if (u_domains && u_domains.value != ''){
+                domains = trim_whitespace(u_domains.value).split(",")
+            }
+
+
+            if (domains.length == 0 && networks.length == 0){
+                toastr.warning("Networks or Domains must be defined.")
+                return;
+            }
+            
+            var e = document.getElementById("aggressive_level");
+            if (e){
+                aggressive_level = parseInt(e.options[e.selectedIndex].value)
+            }
+            
+
+            if (document.getElementById("attempt_0")){
+                outbound = document.getElementById("attempt_0").checked
+            }
+
+            if (document.getElementById("attempt_1")){
+                dos = document.getElementById("attempt_1").checked
+            }
+
+            if (document.getElementById("attempt_3")) {
+                bruteforce = document.getElementById("attempt_3").checked
+            }
+
+        
+            if (document.getElementById("interface")){
+                net_interface = document.getElementById("interface").value
+            }
+            
+            if (document.getElementById("max_ports")){
+                max_ports = parseInt(document.getElementById("max_ports").value)
+            }
+            
+            var e = document.getElementById("parallel_scans");
+            if (e){
+                parallel_scans = parseInt(e.options[e.selectedIndex].value)
+            }
+
+            var e = document.getElementById("parallel_attack");
+            if (e){
+                parallel_attack = parseInt(e.options[e.selectedIndex].value)
+            }
+
+            var u_usernames = document.getElementById("usernames")
+            if (u_usernames && u_usernames.value != ''){
+                users = u_usernames.value.split("\n")
+            }
+                
+            var u_passwords = document.getElementById("passwords")
+            if (u_passwords && u_passwords.value != '') {
+                passwords = u_passwords.value.split("\n")
+            }
+                
+            var data = {
+                'targets':{
+                    'networks':networks,
+                    'excluded_networks':exc_networks,
+                    'domains':domains
+                },
+                'config':{
+                    'name':title,
+                    'description':description,
+                    'engineer':engineer,
+                    'allow_aggressive':aggressive_level,
+                    'allow_dos':dos,
+                    'allow_bf':bruteforce,
+                    'allow_internet':outbound,
+                    'dictionary':{
+                    'usernames':users,
+                    'passwords':passwords
+                    },
+                    'scan_opts':{
+                        'interface':net_interface,
+                        'max_ports':max_ports,
+                        'parallel_scan':parallel_scans,
+                        'parallel_attack':parallel_attack,
+                    },
+                    'notifications':{
+                    'webhook':webhook
+                    },
+                    'frequency':frequency
+                }
+                }
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status == 200) {
+                    var resp = JSON.parse(this.responseText);
+                    toastr.success(resp.status);
+                    setTimeout(() => {  
+                        window.location = "/dashboard";
+                     }, 3000);
+                }
+                else if (this.readyState === 4 && this.status != 200) {
+                    var resp = JSON.parse(this.responseText);
+                    toastr.error(resp.status);
+                }
+            };
+            xhttp.open("POST", "/scan", true);
+            xhttp.withCredentials = true;
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data))
+            return true;
+        }
+    </script>
+</body>
+</html>

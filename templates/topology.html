@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% if status != "Ready" %}<meta http-equiv="refresh" content="30; URL=/topology">{% endif %}
+    <title>NERVE</title>
+    <script type="text/javascript" src="static/vendor/visjs/vis-network.min.js"></script>
+    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
+    <link href="static/css/nerve.css" rel="stylesheet">
+    <link href="static/css/master.css" rel="stylesheet">
+    <style type="text/css">
+            #mynetwork {
+            width: 100%;
+            height: 800px;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+      <div id="sidebar">{% include 'sidebar.html' %}</div>
+            <div id="body">
+            <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                      <li class="nav-item dropdown">
+                              
+                        <div class="nav-dropdown">
+                            <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span>{{session['session']|capitalize}}</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                                <ul class="nav-list">
+                                  <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
+                                  <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                  <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                        <li class="nav-item dropdown">
+                          <div class="nav-dropdown">
+                            {% if status == "Ready" %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
+                            {% else %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
+                            {% endif %}
+                          </div>
+                      </li>  
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="page-title">
+                        <h3>Network Topology</i></h3>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12 col-lg-12">                      
+                        <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                  <th>LEGEND</th>
+                                  <th><img width="30px" height="30px" src="/static/img/black_triangle.png"> Self</th>
+                                  <th><img width="30px" height="30px" src="/static/img/blue_square.png">  Asset</th>
+                                  <th><img width="35px" height="35px" src="/static/img/green_circle.png"> Low</th>
+                                  <th><img width="30px" height="30px" src="/static/img/orange_circle.png"> Medium</th>
+                                  <th><img width="30px" height="30px" src="/static/img/red_circle.png"> High</th>
+                                  <th><img width="30px" height="30px" src="/static/img/black_circle.png"> Critical</th>
+                                  </tr>
+                              </thead>
+                          </table>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div id="mynetwork"></div>
+                    </div>
+                    </div>
+                    </div>
+
+                    <script>
+
+var nodes = null;
+var edges = null;
+var network = null;
+
+var LENGTH_MAIN = 350,
+  LENGTH_SERVER = 150,
+  LENGTH_SUB = 120,
+  WIDTH_SCALE = 2,
+  GREEN = "green",
+  RED = "#C5000B",
+  ORANGE = "orange",
+  GRAY = "gray",
+  BLACK = "#2B1B17";
+
+// Called when the Visualization API is loaded.
+function draw() {
+  // Create a data table with nodes.
+  nodes = [];
+
+  // Create a data table with links.
+  edges = [];
+
+  // group around 2
+  var value = 1;
+  var width = WIDTH_SCALE * 2;
+  var color = GRAY;
+  var label = null;
+  
+  {% if data %}
+    // Starting point - map center
+    nodes.push({ id: 2, label: "NERVE", group: "nerve", value: 10 });
+    
+    {% for key in data %}
+      nodes.push({
+        id: "{{key.decode('utf-8')}}",
+        label: "{{key.decode('utf-8')}}",
+        group: "endpoint",
+        value: value
+      });
+      edges.push({
+        from: 2,
+        to: "{{key.decode('utf-8')}}",
+        length: LENGTH_SUB,
+        color: color,
+        fontColor: color,
+        width: width,
+        label: label
+      });
+    {% endfor %}
+  {% endif %}
+
+  {% if vulns %}
+    {% for key, value in vulns.items() %}
+        {% if value.rule_sev == 1 %}
+        nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_low', value: 1});
+        edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140, width: WIDTH_SCALE * 1, color:RED});
+        {% elif value.rule_sev == 2 %}
+        nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_med', value: 1});
+        edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140, width: WIDTH_SCALE * 1, color:RED});
+        {% elif value.rule_sev == 3 %}
+        nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_high', value: 1});
+        edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140, width: WIDTH_SCALE * 1, color:RED});
+        {% elif value.rule_sev == 4 %}
+        nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_crit', value: 1});
+        edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}",length: 140, width: WIDTH_SCALE * 1, color:RED});
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+ 
+
+  var mynetwork = document.getElementById("mynetwork");
+  var x = -mynetwork.clientWidth / 2 + 50;
+  var y = -mynetwork.clientHeight / 2 + 50;
+  var step = 100;
+
+  // Create a network
+  var container = document.getElementById("mynetwork");
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {
+    nodes: {
+      scaling: {
+        min: 16,
+        max: 32
+      },
+    },
+    edges: {
+      color: GRAY,
+      smooth: false
+    },
+    physics: {
+      barnesHut: { gravitationalConstant: -30000 },
+      stabilization: { iterations: 2500 }
+    },
+    groups: {
+      nerve: {
+        shape: "triangle",
+        color: "black" // orange
+      },
+      endpoint: {
+        shape: "square",
+        color: "#2B7CE9" // blue
+      },
+      vulnerability_low: {
+        shape: "dot",
+        color: "green" // red
+      },
+      vulnerability_med: {
+        shape: "dot",
+        color: "orange" // red
+      },
+      vulnerability_high: {
+        shape: "dot",
+        color: "red" // red
+      },
+      vulnerability_crit: {
+        shape: "dot",
+        color: "black" // red
+      },
+    }
+  };
+  network = new vis.Network(container, data, options);
+  
+}
+
+window.addEventListener("load", () => {
+  draw();
+});
+
+
+
+                </script>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
+    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
+    <script src="static/vendor/toastr/toastr.min.js"></script>
+    <script src="static/js/script.js"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+       <script>
+       {% for category, message in messages %}
+       toastr.{{category}}("{{ message }}");
+       {% endfor %}
+       </script>
+    {% endif %}
+   {% endwith %}
+
+    
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+/*------------------------------------------------------------------
+* Bootstrap Simple Admin Template
+* Email: heyalexluna@gmail.com
+* Version: 1.1
+* Author: Alexis Luna
+* Copyright 2019 Alexis Luna
+* Website: https://github.com/mralexisluna/bootstrap-simple-admin-template
+-------------------------------------------------------------------*/
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #293142;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: .6rem 1rem;
+}
+
+#sidebar ul.components {
+    padding: 0 0;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: .8rem 1.5rem;
+    font-size: 1rem;
+    display: block;
+    color: #b6cdff;
+}
+
+#sidebar ul li a .svg-inline--fa {
+    min-width: 20px;
+    margin-right: 5px;
+}
+
+#sidebar ul li a:hover,
+#sidebar ul li a.active {
+    color: #fff;
+    background: #2196F3;
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: inherit;
+}
+
+#sidebar ul ul a {
+    font-size: 1rem;
+    background: #1f293e;
+}
+
+#sidebar a[data-toggle="collapse"] {
+    position: relative;
+}
+
+#sidebar .dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #sidebarCollapse span {
+        display: none;
+    }
+}

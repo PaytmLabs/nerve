@@ -1,0 +1,258 @@
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+  <link href="https://fonts.googleapis.com/css2?family=Recursive:wght@600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+      body {
+          background-color: #5c5554;
+          color: #333;
+          margin: 0 auto;
+          width: 960px;
+          font-family:Verdana, Geneva, Tahoma, sans-serif
+
+      }
+      h1, h2, h3, h4 {
+          color:white;
+          font-family: 'Recursive', sans-serif;
+      }
+      .headerdiv{
+
+          background-size:cover;
+          display:flex;
+          flex-flow:row nowrap;
+          justify-content:center;
+      }
+      .headerdiv h1{
+          padding:20px 0 10px 20px;
+          color:white;
+          font-family: 'Recursive', sans-serif;
+      }
+
+      .details{
+          font-family: monospace;
+
+      }
+      .overviewDiv{
+          display:flex;
+          flex-flow:row nowrap;
+          margin-top:20px;
+      }
+      #summary{ 
+          width:100%;
+      }
+      #overview {
+          width:95%;
+          border-top-left-radius: 2em;
+          border-bottom-right-radius: 2em;
+          overflow: hidden;
+      
+      }
+      #overview th {
+          background-color:#13869A;
+          padding: 5px 12px;
+          color:white;
+      }
+      #overview td {
+          background-color:lightgrey;
+          padding:5px 12px;
+          font-family:monospace;
+      }
+      #overview td:hover{
+          background-color:white;
+      }
+      
+      #summary {
+          border-top-left-radius: 2em;
+          border-bottom-right-radius: 2em;
+          overflow: hidden;
+      }
+
+      #summary th {
+          background-color:#13869A;
+          padding: 5px 12px;
+          color:white;
+      }
+
+      #summary td {
+          background-color:darkgrey;
+          text-align: center;
+          padding: 4px 8px;
+          font-family:monospace;
+          font-size:15px;
+      }
+      #summary tr:nth-child(even) td{
+          background-color:lightgrey;
+      }
+      #summary tr:nth-child(even) td:hover{
+          background-color:white;
+      }
+      #summary td:hover {
+          background-color:white;
+      }
+
+      #details{
+          border-top-left-radius: 2em;
+          overflow: hidden;
+      }
+
+      #details th {
+          padding: 5px 12px;
+      }
+      #details tr:nth-child(even) td{
+          background-color:darkgrey;
+      }
+      #details tr:nth-child(even) td:hover{
+          background-color:white;
+      }
+
+      #details .sev_4 {
+          background-color:#ff6666;
+      }
+      #details .sev_3 {
+          background-color:#ff9b8b;
+      }
+      #details .sev_2 {
+          background-color:#ffffcc;
+      }
+      #details .sev_1 {
+          background-color:#88eeaa;
+      }
+      #details .sev_0 {
+          background-color:lightblue;
+      }
+
+      #details td {
+          background-color: lightgrey;
+          padding: 5px 12px;
+          font-family:monospace;
+          font-size:15px;
+      }
+      
+
+      #details td:hover{
+          background-color:white;
+      }
+
+
+      footer p{
+          font-size:12px;
+          color:white;
+      }
+      
+  </style>
+</head>
+
+<body>
+<div class='headerdiv'>
+  <h1>NERVE <span style="font-size:10px">{{json_data.version}}</span></h1>
+</div>
+<h2>Overview</h2>
+<div class='overviewDiv'>
+
+  <div style='width:50%'>
+      <table id="overview">
+          <tr>
+              <th>TIMESTAMP</th>
+              <td colspan="5">{{json_data.conf.metadata.timestamp}}</td>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <td colspan="5">{{json_data.conf.metadata.unique_id|upper}}</td>
+        </tr>
+          <tr>
+            <th>NAME</th>
+            <td colspan="5">{{json_data.conf.config.name}}</td>
+        </tr>
+          <tr>
+              <th>ENGINEER</th>
+              <td colspan="5">{{json_data.conf.config.engineer}}</td>
+          </tr>
+          <tr>
+            <th>SOURCE IP</th>
+            <td colspan="5">{{json_data.conf.metadata.issuer.source_ip}}</td>
+        </tr>
+      </table>
+  </div>
+
+  <div style='width:50%;'>
+  
+
+  <table id='summary'>
+      <tr>
+          <th>CRITICAL</th>
+          <td>{{json_data.vuln_count.4}}</td>
+      </tr>
+      <tr>
+          <th>HIGH</th>
+          <td>{{json_data.vuln_count.3}}</td>
+      </tr>
+      <tr>
+          <th>MEDIUM</th>
+          <td>{{json_data.vuln_count.2}}</td>
+      </tr>
+      <tr>
+          <th>LOW</th>
+          <td>{{json_data.vuln_count.1}}</td>
+      </tr>
+      <tr>
+          <th>INFO</th>
+          <td>{{json_data.vuln_count.0}}</td>
+      </tr>
+
+  </table>
+  </div>
+
+
+</div>
+
+<h2>Vulnerabilities</h2>
+
+<!-- for rule_id in vulnerabilities - SORT BY severity -->
+
+<table id="details">
+  {% if json_data.vulns %}
+  {% for key, value in json_data.vulns.items() %}
+  <tr>
+      <!-- class is rule_id.severity -->
+      <th class='sev_{{value.rule_sev}}'>{{value.rule_id}}</th>
+      <th class='sev_{{value.rule_sev}}'>{{value.rule_desc}}</th>
+      
+  </tr>
+<tr>
+    <th class='sev_{{value.rule_sev}}'>TITLE</th>
+    <td>{{value.rule_desc}}</td>
+</tr>
+  <tr>
+      <th class='sev_{{value.rule_sev}}'>FINDINGS</th>
+      <td>{{value.rule_confirm}}</td>
+  </tr>
+
+  <tr>
+      <th class='sev_{{value.rule_sev}}'>ADDRESS</th>
+      <td>{{value.ip}} {% if value.domain %} ({{value.domain}}) {% endif %}</td>
+  </tr>
+  <tr>
+    <th class='sev_{{value.rule_sev}}'>PORT</th>
+    <td>{{value.port}}</td>
+</tr>
+  <tr>
+      <th class='sev_{{value.rule_sev}}'>DETAILS</th>
+      <td class='details'>{{value.rule_details}}</td>
+  </tr>
+
+  <tr>
+      <th class='sev_{{value.rule_sev}}'>MITIGATION</th>
+      <td>{{value.rule_mitigation}}</td>
+  </tr>
+  {% endfor %}
+      {% endif %}
+
+
+</table>
+
+
+
+<footer>
+  <center><p>NERVE</p></center>
+</footer>
+</body>

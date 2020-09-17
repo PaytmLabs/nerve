@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NERVE</title>
+    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
+    <link href="static/css/nerve.css" rel="stylesheet">
+    <link href="static/css/master.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+      <div id="sidebar">{% include 'sidebar.html' %}</div>
+        <div id="body">
+            <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                      <li class="nav-item dropdown">
+                              
+                        <div class="nav-dropdown">
+                            <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span>{{session['session']|capitalize}}</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                                <ul class="nav-list">
+                                  <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
+                                  <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                  <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                        <li class="nav-item dropdown">
+                          <div class="nav-dropdown">
+                            {% if status == "Ready" %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
+                            {% else %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
+                            {% endif %}
+                          </div>
+                      </li>  
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="page-title">
+                        <h3>API</h3>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header"><b>Usage</b></div>
+                            <div class="card-body">
+                              <div id="toc_container">
+                                <p class="toc_title">Table of Contents</p>
+                                <ul class="toc_list">
+                                  <li><a href="#authentication">1. Authentication</a>
+                                </li>
+                                <li><a href="#endpoints">2. API Endpoints</a>
+                                  <ul>
+                                    <li><a href="#get_health">GET /health</a></li>
+                                    <li><a href="#post_scan">POST /api/scan</a></li>
+                                    <li><a href="#get_status">GET /api/scan/status</a></li>
+                                    <li><a href="#put_reset">PUT /api/scan/reset</a></li>
+                                  </ul>
+                                </li>
+                                </div>
+                            </div>    
+                            
+
+                        </div>
+
+                    </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                            <div id="authentication" class="card-header"><b>Authentication</b></div>
+                            <div class="card-body">
+                              <p>API Authentication is done using Basic Authentication.</p>
+                              <p>Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password</p>
+                              <p>With each API call, you need to pass the credentials. Here is an example with Python and the requests library:</p>
+                              <hr>
+                              <pre class="bash">import requests
+from requests.auth import HTTPBasicAuth
+username = 'admin'
+password = 'admin'
+requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password), json={'key':'value'})</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header"><b>API Endpoints</b></div>
+                            <div class="card-body">
+
+                                <table id="api" class="table">
+                                  <thead>
+                                      <tr>
+                                      <th>ID</th>
+                                      <th>Method</th>
+                                      <th>Endpoint</th>
+                                      <th>Authentication</th>
+                                      <th>Information</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                      <th scope="row">1.</th>
+                                      <td><code>GET</code></td>
+                                      <td><a href="#get_health">/health</a></td>
+                                      <td>False</td>
+                                      <td>Returns Server Health Status</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">2.</th>
+                                        <td><code>POST</code></td>
+                                        <td><a href="#post_scan">/api/scan</a></td>
+                                        <td>True</td>
+                                        <td>Submits an Assessment</td>
+                                      </tr>
+                                      <tr>
+                                      <th scope="row">3.</th>
+                                      <td><code>GET</code></td>
+                                      <td><a href="#get_status">/api/scan/status</a></td>
+                                      <td>True</td>
+                                      <td>Returns Assessment Status & Results</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">4.</th>
+                                        <td><code>PUT</code></td>
+                                        <td><a href="#put_reset">/api/scan/reset</a></td>
+                                        <td>True</td>
+                                        <td>Resets the Server. Roll Back.</td>
+                                        </tr>
+                                  </tbody>
+                              </table>
+                                
+                            </div>
+                            
+                        </div>
+                      
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                        <div id="get_health" class="card-header"><b><code>GET /health</code></b></div>
+                        <div class="card-body">
+                        <pre>
+import requests
+>>> requests.get('http://endpoint/health')
+
+<<< {'status': 'OK'}
+                        </pre>           
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                    <div id="post_scan" class="card-header"><b><code>POST /api/scan</code></b></div>
+                    <div class="card-body">
+                      <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+DEFAULT_SCAN = {
+  'targets':{
+    'networks':[],
+    'excluded_networks':[],
+    'domains':[]
+  },
+  'config':{
+    'name':'Default',
+    'description':'My Default Scan',
+    'engineer':'Default',
+    'allow_aggressive':3,
+    'allow_dos':True,
+    'allow_bf':True,
+    'allow_internet':True,
+    'dictionary':{
+      'usernames':[],
+      'passwords':[]
+    },
+    'scan_opts':{
+      'interface':None,
+      'max_ports':1000,
+      'parallel_scan':50,
+      'parallel_attack':30,
+    },
+    'notifications':{
+      'webhook':None
+    },
+    'frequency':'once'
+  }
+}
+
+
+
+>>> requests.post('http://endpoint/api/scan', auth=HTTPBasicAuth("admin", "admin"), json=DEFAULT_SCAN)
+
+<<< {'status': 'Registered a new scan successfully!'}
+                        </pre>        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+                <div id="get_status" class="card-header"><b><code>GET /api/scan/status</code></b></div>
+                <div class="card-body">
+                  <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+>>> resp = requests.get('http://endpoint/api/scan/status', auth=HTTPBasicAuth("admin", "admin"))
+
+<<<
+.. snip .. 
+{'scan_config': {'metadata': {'issuer': {'source_ip': '127.0.0.1'},
+                     'timestamp': '2020-07-29 00:19:27',
+                     'unique_id': '6eddab7b'},
+                'status': 'incomplete',
+                'vulnerabilities': {}}
+.. snip ..    
+</pre>
+                </div>
+                
+            </div>
+          
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+            <div id="put_reset" class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
+            <div class="card-body">
+              <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+>>> requests.put('http://endpoint/api/scan/reset', auth=HTTPBasicAuth("admin", "admin"))
+
+<<< {'status': 'flushed scan state'}
+              </pre>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
+    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
+    <script src="static/vendor/toastr/toastr.min.js"></script>
+    <script src="static/js/script.js"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+        <script>
+        {% for category, message in messages %}
+        toastr.{{category}}("{{ message }}");
+        {% endfor %}
+        </script>
+     {% endif %}
+    {% endwith %}
+</body>
+
+</html>

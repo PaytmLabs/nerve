@@ -1,0 +1,66 @@
+2020-09-16 21:28:27,261 - INFO - 47596 - Storing the new configuration
+2020-09-16 21:28:27,261 - INFO - 47596 - Scheduling network(s): 192.168.0.0/24
+2020-09-16 21:28:27,261 - INFO - 47596 - A scan was initiated
+2020-09-16 21:28:36,364 - INFO - 47594 - Starting a new session...
+2020-09-16 21:28:54,025 - INFO - 47596 - Discovered Asset: 192.168.0.10
+2020-09-16 21:29:07,677 - INFO - 47594 - Attacking Asset: 192.168.0.10 on port: 80
+2020-09-16 21:29:07,785 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:07,785 - INFO - 47594 - Attacking Asset: 192.168.0.10 on port: 22
+2020-09-16 21:29:07,797 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:08,308 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:08,309 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:08,309 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:08,310 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:08,310 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:08,311 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:08,367 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:08,588 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:12,741 - INFO - 47594 - Vulnerability detected
+2020-09-16 21:29:19,989 - INFO - 47594 - Discovered Asset: 192.168.0.14
+2020-09-16 21:29:19,990 - INFO - 47594 - Discovered Asset: 192.168.0.1
+2020-09-16 21:29:36,993 - INFO - 47596 - Attacking Asset: 192.168.0.1 on port: 139
+2020-09-16 21:29:36,997 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:36,998 - INFO - 47596 - Attacking Asset: 192.168.0.1 on port: 80
+2020-09-16 21:29:37,047 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,048 - INFO - 47596 - Attacking Asset: 192.168.0.1 on port: 53
+2020-09-16 21:29:37,052 - INFO - 47596 - Attacking Asset: 192.168.0.1 on port: 443
+2020-09-16 21:29:37,097 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,097 - INFO - 47596 - Attacking Asset: 192.168.0.1 on port: 445
+2020-09-16 21:29:37,102 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,105 - INFO - 47596 - Attacking Asset: 192.168.0.14 on port: 8080
+2020-09-16 21:29:37,444 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,451 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,456 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,458 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,462 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,464 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,465 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,465 - INFO - 47596 - Attacking Asset: 192.168.0.14 on port: 9999
+2020-09-16 21:29:37,470 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:37,515 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:51,432 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:51,433 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:51,433 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:51,434 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:51,435 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:29:51,436 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:30:07,054 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:30:08,058 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:30:22,883 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:30:23,321 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:30:38,466 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:30:38,504 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:30:52,899 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:30:53,269 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:05,160 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:07,542 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:19,272 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:29,215 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:32,430 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:38,170 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:41,306 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:47,422 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:31:58,521 - INFO - 47596 - Vulnerability detected
+2020-09-16 21:32:56,475 - INFO - 47594 - Session is about to end...
+2020-09-16 21:32:56,479 - INFO - 47594 - Post assessment actions will now be taken...
+2020-09-16 21:32:56,479 - INFO - 47594 - The session has ended.

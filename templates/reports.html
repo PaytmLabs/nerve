@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NERVE</title>
+    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
+    <link href="static/css/nerve.css" rel="stylesheet">
+    <link href="static/css/master.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="sidebar">{% include 'sidebar.html' %}</div>
+
+        <div id="body">
+            <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                              
+                            <div class="nav-dropdown">
+                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span>{{session['session']|capitalize}}</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                                    <ul class="nav-list">
+                                      <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
+                                      <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                      <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <div class="nav-dropdown">
+                            {% if status == "Ready" %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
+                            {% else %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
+                            {% endif %}
+                          </div>
+                      </li>  
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="page-title">
+                        <h3>Reports</h3>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header"><b>Detailed Report (HTML)</b></div>
+                            <div class="card-body">
+                                <p class="card-title">Report for the auditors</p>
+                                <center><a href="/download/report_html"><img src="static/img/report.png" width="150px" height="150px"/></a></center>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header"><b>Raw Report (TXT)</b></div>
+                            <div class="card-body">
+                                <p class="card-title">Report for the minimalists </p>
+                                <center><a href="/download/report_txt"><img src="static/img/report_txt.png" width="150px" height="150px"/></a></center>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                          <div class="card-header"><b>Raw Report (CSV)</b></div>
+                          <div class="card-body">
+                              <p class="card-title">Report for the nerds</p>
+                              <center><a href="/download/report_csv"><img src="static/img/report_csv.png" width="150px" height="150px"/></a></center>
+                          </div>
+                      </div>
+                  </div>  
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
+    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
+    <script src="static/vendor/toastr/toastr.min.js"></script>
+    <script src="static/js/script.js"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+        <script>
+        {% for category, message in messages %}
+        toastr.{{category}}("{{ message }}");
+        {% endfor %}
+        </script>
+     {% endif %}
+    {% endwith %}
+</body>
+
+</html>

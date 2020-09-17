@@ -1,0 +1,50 @@
+<div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a href="/"><img src="static/img/nerve_logo.png" class="app-logo" width="100px" height="40px"></a>
+                <span class="app-logo"><b> <span class="logo-text">  v.{{version}} </span></b></span>
+            </div>
+            <ul class="list-unstyled components">
+              <li>
+                <a href="/qs"><i class="fas fa-home"></i> Quick Start</a>
+               </li>  
+               <li>
+                <a href="/dashboard"><i class="fas fa-rocket"></i> Dashboard</a>
+               </li>  
+               <li>
+                <a href="/assets"><i class="fas fa-laptop"></i> Assets</a>
+              </li>
+               <li>
+                <a href="/assessment"><i class="fas fa-crosshairs"></i> Assessment</a>
+              </li>
+               <li>
+                <a href="/topology"><i class="fas fa-network-wired"></i> Network Topology</a>
+                </li>
+                <li>
+                    <a href="/vulnerabilities"><i class="fas fa-bug"></i> Vulnerabilities</a>
+                </li>
+                <li>
+                    <a href="/reports"><i class="fas fa-file"></i> Reports</a>
+                </li>
+                <li>
+                    <a href="/log"><i class="fas fa-desktop"></i> Console</a>
+                </li>
+                <li>
+                    <a href="#authmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-university"></i> Documentation</a>
+                    <ul class="collapse list-unstyled" id="authmenu">
+                        <li>
+                            <a href="/documentation"><i class="fas fa-code"></i> API</a>
+                        </li>
+                    </ul>
+                </li>
+                {% if frequency == "continuous" %}
+                <li>
+                    <a href="/startover"><i class="fas fa-history"></i> Reset System</a>
+                </li>
+                 <center><span class="scan_type_indicator">Continuous Scan Mode</span></center>
+                {% endif %}
+            </ul>
+            
+        </nav>
+
+</div>

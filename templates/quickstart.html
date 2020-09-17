@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NERVE</title>
+    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
+    <link href="static/css/nerve.css" rel="stylesheet">
+    <link href="static/css/master.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="sidebar">{% include 'sidebar.html' %}</div>
+
+        <div id="body">
+            <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                              
+                            <div class="nav-dropdown">
+                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span>{{session['session']|capitalize}}</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                                    <ul class="nav-list">
+                                      <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
+                                      <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                      <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <div class="nav-dropdown">
+                            {% if status == "Ready" %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
+                            {% else %}
+                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
+                            {% endif %}
+                          </div>
+                      </li>  
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="page-title">
+                        <h3>Quick Start</h3>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                          <div class="card">
+                              <div class="card-header">Quick Start</div>
+                              <div class="card-body">
+                                  <p class="card-title">This is the <b>quickest</b> way to get started.</p>
+                                  <p>There is <span class="c-red"><u>no guarantee there will be no service disruption</u></span>, the quick start method uses default settings as we see fit.</p>
+                                  <p>All you need to do is define the network and click GO.</p>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2">CIDR Network<br>
+                                        <small class="form-text text-muted"><a href="https://www.ipaddressguide.com/cidr" target="_blank">What is CIDR?</a></small>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <form method="POST" action="/qs" class="form-inline" accept-charset="utf-8">
+                                          <div class="form-group">
+                                              <label for="username" class="sr-only">Network</label>
+                                              <input type="text" size="30" name="network" placeholder="192.168.0.0/24" class="form-control">
+                                          </div>
+                                          <div class="form-group">
+                                              <button type="submit" class="btn btn-success">GO!</button>
+                                          </div> 
+                                      </form>
+                                      <div>    
+                                    </div>
+                                    </div>
+                                </div>
+                              </div>    
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
+    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
+    <script src="static/vendor/toastr/toastr.min.js"></script>
+    <script src="static/js/script.js"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+        <script>
+        {% for category, message in messages %}
+        toastr.{{category}}("{{ message }}");
+        {% endfor %}
+        </script>
+     {% endif %}
+    {% endwith %}
+</body>
+
+</html>

@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% if status != "Ready" %}<meta http-equiv="refresh" content="60; URL=/dashboard">{% endif %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NERVE</title>
+    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
+    <link href="static/css/nerve.css" rel="stylesheet">
+    <link href="static/css/master.css" rel="stylesheet">
+    <link href="static/vendor/chartsjs/Chart.min.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <div class="wrapper">
+        <div id="sidebar">{% include 'sidebar.html' %}</div>
+            <div id="body">
+                <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+                    <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                          <li class="nav-item dropdown">
+                              
+                                <div class="nav-dropdown">
+                                    <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span>{{session['session']|capitalize}}</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                                        <ul class="nav-list">
+                                          <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
+                                          <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                          <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <div class="nav-dropdown">
+                                {% if status == "Ready" %}
+                                <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
+                                {% else %}
+                                <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
+                                {% endif %}
+                              </div>
+                          </li>  
+                        </ul>
+                    </div>
+                </nav>
+            
+            <div class="content">
+                <div class="container-fluid">
+  
+                    <div class="row">
+                      <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                          <div class="card">
+                              <div class="content">
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                          <div class="icon-big text-center">
+                                              <i class="teal fas fa-laptop"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-8">
+                                          <div class="detail text-center">
+                                              <p>Hosts Discovered</p>
+                                              <span class="number">{{hosts|length}}</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="footer">
+                                      <hr />
+                                      <div class="stats">
+                                          <i class="fas fa-redo-alt"></i> Since Last Assessment
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                          <div class="card">
+                              <div class="content">
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                          <div class="icon-big text-center">
+                                              <i class="olive fas fa-microscope"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-8">
+                                          <div class="detail text-center">
+                                              <p>Scans Executed</p>
+                                              <span class="number">{{scan_count.decode('utf-8')}}</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="footer">
+                                      <hr />
+                                      <div class="stats">
+                                          <i class="fas fa-calendar"></i> Since Last System Reset
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                          <div class="card">
+                              <div class="content">
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                          <div class="icon-big text-center">
+                                              <i class="violet fas fa-eye"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-8">
+                                          <div class="detail text-center">
+                                              <p>Last Scanned</p>
+                                              <span class="number"><span style="font-size:17px"><b>{{last_scan.decode('utf-8')}}</b></span></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="footer">
+                                      <hr />
+                                      <div class="stats">
+                                          <i class="fas fa-stopwatch"></i> Since Last Assessment
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                          <div class="card">
+                              <div class="content">
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                          <div class="icon-big text-center">
+                                              <i class="orange fas fa-bug"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-8">
+                                          <div class="detail text-center">
+                                              <p>Total Vulnerabilities</p>
+                                              <span class="number"><a class="c-red" href="/vulnerabilities">{{vulns|length}}</a></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="footer">
+                                      <hr />
+                                      <div class="stats">
+                                          <i class="fas fa-fire-extinguisher"></i> Since Last Assessment
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="head">
+                                    <h4 class="mb-0">Vulnerability Distribution</h4>
+                                </div>
+                                <div class="canvas-wrapper">
+                                    <canvas class="chart" id="doughnutchart"></canvas>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                 
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="content">
+                                <div class="head">
+                                    <h4 class="mb-0">Port Distribution</h4>
+                                </div>
+                        <div class="canvas-wrapper">
+                            <canvas class="chart" id="radar"></canvas>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                </div>
+               
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="head">
+                                <h4 class="mb-0">Networks Scanned</h4>
+                                <p class="text-muted">Your last assessment included these networks</p>
+                            </div>
+                            <div class="canvas-wrapper">
+                                <table class="table no-margin bg-lighter-grey">
+                                    <thead class="success">
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-right">Networks</th>
+                                        </tr>
+                                    </thead}>
+                                    {% if networks %}
+                                    {% for network in networks %}
+                                    <tbody>
+                                        <tr>
+                                            <td><i class="fa fa-network-wired"></i></td>
+                                            <td class="text-right">{{network}}</td>
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                    {% endif %}
+                                </table>
+                            </div>
+                            <br>
+                            <div class="head">
+                                <h4 class="mb-0">Domains Scanned</h4>
+                                <p class="text-muted">Your last assessment included these domains</p>
+                            </div>
+                            <div class="canvas-wrapper">
+                                <table class="table no-margin bg-lighter-grey">
+                                    <thead class="success">
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-right">Domains</th>
+                                        </tr>
+                                    </thead}>
+                                    {% if domains %}
+                                    {% for domain in domains %}
+                                    <tbody>
+                                        <tr>
+                                            <td><i class="fa fa-globe"></i></td>
+                                            <td class="text-right">{{domain}}</td>
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                    {% endif %}
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+             
+                <div class="col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="content">
+                            <div class="head">
+                                <h4 class="mb-0">Live Hosts</h4>
+                                <p class="text-muted">These hosts were identified to be alive</p>
+                            </div>
+                            <div class="canvas-wrapper">
+                                <table class="table no-margin bg-lighter-grey">
+                                    <thead class="success">
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-right">IP Addresses</th>
+                                        </tr>
+                                    </thead>
+                                    {% if hosts %}
+                                    {% for host in hosts %}
+                                    <tbody>
+                                        <tr>
+                                            <td><i class="fa fa-laptop c-lightgreen"></i></td>
+                                            <td class="text-right">{{host.decode('utf-8')}}</td>
+                                        </tr>
+                                    </tbody>
+                                    {% endfor %}
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
+    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
+    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
+    <script src="static/vendor/toastr/toastr.min.js"></script>
+    <script src="static/vendor/chartsjs/Chart.min.js"></script>
+    
+    <script>
+    {% if vulns %}
+    var donut = document.getElementById("doughnutchart");
+    var radar = document.getElementById("radar");
+    
+    var myChart1 = new Chart(donut, {
+        type: 'doughnut',
+        data: {
+            labels: ["Critical", "High", "Medium", "Low"],
+            datasets: [{
+                {% if chart %}
+                data: [{{chart.4}}, {{chart.3}}, {{chart.2}}, {{chart.1}}],
+                {% else %}
+                data: [0, 0, 0, 0],
+                {% endif %}
+                backgroundColor: ["black","red","orange","green"],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {display: true,fullWidth: true,position: 'right',},
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var allData = data.datasets[tooltipItem.datasetIndex].data;
+                        var tooltipLabel = data.labels[tooltipItem.index];
+                        var tooltipData = allData[tooltipItem.index];
+                        var total = 0;
+                        var label = tooltipLabel.split(" - ");
+                        for (var i in allData) {total += allData[i];}
+                        var tooltipPercentage = Math.round((tooltipData / total) * 100);
+                        return label[0] + ' (' + tooltipPercentage + '%)';
+                    }
+                }
+            },
+        }
+    });
+
+    
+    {% if radar %}
+    var data_from_python = {{ radar|tojson }}
+    var radar = new Chart(radar, {
+    type: 'radar',
+    data: {
+        labels:Object.keys(data_from_python),
+        datasets: [{
+            label: '',
+            backgroundColor : "rgba(48, 164, 255, 0.2)",
+            borderColor : "rgba(48, 164, 255, 0.8)",
+            pointBackgroundColor : "rgba(48, 164, 255, 1)",
+            pointStrokeColor : "#fff",
+            pointHighlightFill : "#fff",
+            pointHighlightStroke : "rgba(48, 164, 255, 1)",
+            data: Object.values(data_from_python),
+        }]
+    },
+    options: {
+        legend: {position: 'top',display: false,},
+        title: {display: true,text: 'Ports'},
+        scale: {
+            angleLines: {
+              display: false
+            },
+            ticks: {
+                    beginAtZero: true,
+                    precision:0
+
+                }
+        }
+    }
+});
+    {% endif %}
+    </script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+       <script>
+       {% for category, message in messages %}
+       toastr.{{category}}("{{ message }}");
+       {% endfor %}
+       </script>
+    {% endif %}
+   {% endwith %}
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NERVE</title>
+    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/auth.css" rel="stylesheet">
+    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="wrapper">
+        <div class="auth-content">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <img class="brand" src="static/img/nerve_logo_black.png" width="30%" height="30%">
+                        <br>
+                        <span style="font-size:10px"><b>Powered  by  <a href="https://paytm.com">Paytm</a></b></span>
+                    </div>
+                    <form action="/login" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        </div>
+                        <button class="btn btn-primary shadow-2 mb-4">Login</button>
+                        <br>
+                        {% if err %}
+                        <span style="color:red">Error: {{err}}</span>
+                        {% endif %}
+                        <br>
+                    </form>
+                </div>
+            </div>
+            <center><small style="color:darkgrey"><a href="https://github.com/PaytmLabs/nerve/issues">Report a Bug</a></small></center>
+        </div>
+    </div>
+    
+    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
+    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="static/vendor/toastr/toastr.min.js"></script>
+    <script src="static/js/script.js"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
+        <script>
+        {% for category, message in messages %}
+        toastr.{{category}}("{{ message }}");
+        {% endfor %}
+        </script>
+     {% endif %}
+    {% endwith %}
+</body>
+</html>

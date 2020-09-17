@@ -1,0 +1,131 @@
+#toc_container {
+  background: #f9f9f9 none repeat scroll 0 0;
+  border: 1px solid #aaa;
+  display: table;
+  font-size: 95%;
+  margin-bottom: 1em;
+  padding: 20px;
+  width: auto;
+}
+
+.toc_title {
+  font-weight: 700;
+  text-align: center;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+  list-style: outside none none !important;
+}
+
+pre.bash {
+  background-color: #000;
+  border: 1px solid #000;
+  color: white;
+  padding: 8px;
+  font-family: courier new;
+}
+
+pre.topology {
+  background-color: #000;
+  border: 1px solid #000;
+  color: white;
+  padding: 8px;
+  font-family: courier new;
+  height: auto;
+  max-height: 200px;
+  overflow: auto;
+  word-break: normal !important;
+  word-wrap: normal !important;
+  white-space: pre !important;
+  display: flex; 
+  flex-direction: column-reverse;
+}
+
+span.required {
+  font-style: italic;
+  font-size: 10px;
+  color:blue;
+  font-weight: bold;
+}
+span.banner_sm {
+  font-size: 7px;
+}
+
+.navbar-status {
+  font-size: 14px;
+}
+
+.scan_type_indicator {
+  font-size:10px;
+  font-weight: bold;
+  color:red;
+  letter-spacing: 2px;
+}
+
+.logo-text {
+  font-size:8px;
+  letter-spacing: 2.5px;
+  position:relative;
+  color:lightgrey;
+  top:4px;
+  right:-5px;  
+  font-weight: bold;
+}
+
+.c-lightgreen {
+  color:lightgreen;
+}
+
+.c-grey {
+  color:grey;
+}
+
+.c-white {
+  color:white;
+}
+.c-yellow {
+  color:yellow
+}
+
+.c-green {
+  color:lightgreen;
+}
+
+.c-lightgreen {
+  color:rgb(78, 177, 78);
+}
+
+.c-black {
+  color:black
+}
+
+.c-darkgreen {
+  color:darkgreen
+}
+.c-orange {
+  color:orange
+}
+
+.c-red {
+  color:red
+}
+
+.critical {
+  color:black
+}
+
+.high {
+  color:red
+}
+
+.medium {
+  color:orange
+}
+
+.low {
+  color:green
+}
+
+.informational {
+  color:blue
+}
