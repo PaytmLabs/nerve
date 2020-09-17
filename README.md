@@ -1,5 +1,5 @@
 # About
-NERVE is a vulnerability scanner tailored to find vulnerabilities in specific application configurations, network services, and unpatched services.
+NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
 
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
 
