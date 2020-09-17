@@ -13,7 +13,7 @@ NERVE is a vulnerability scanner tailored to find vulnerabilities in specific ap
 
 Navigate in your browser to http://ip.add.re.ss:80
 
-# Installation on bare bone server (CentOS 7.x and Ubuntu 18.x)
+# Installation using CentOS 7.x / Ubuntu 18.x
 ## Navigate to /opt
 `cd /opt/`
 
@@ -30,4 +30,20 @@ Navigate in your browser to http://ip.add.re.ss:8080
 
 # Screenshots
 ## Login Screen
-![Login](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/1.png?raw=true)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/1.png?raw=true)
+## Dashboard Screen
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
+## Assessment Configuration
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/3.png?raw=true)
+## API Documentation
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/4.png?raw=true)
+## Reporting
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/5.png?raw=true)
+## Network Map
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/6.png?raw=true)
+## Vulnerability page
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/7.png?raw=true)
+## Log Console
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/8.png?raw=true)
+## HTML Report
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/9.png?raw=true)
