@@ -1,5 +1,5 @@
 ## Table of Contents
-* [Continuous Security](#Continuous%20Security)
+* [Continuous Security](#Continuous-Security)
 * [About NERVE](#)
   * [What is NERVE](#about)
   * [Deployment Recommendations](#deployment)
