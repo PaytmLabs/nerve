@@ -8,7 +8,6 @@
 * [Installation](#installation)
   * [Installation - Docker](#docker)
   * [Installation - Bare Metal](#server)
-  * [Using SSL for HTTPS](#ssl)
 * [Usage](#usage)
 * [License](#license)
 
@@ -34,7 +33,7 @@ NERVE will do "some" CVE checks, but this is primarily coming from version finge
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
 
 ## Deployment
-The best way to deploy it, is to run it against your infrastructure, and have it run from multiple regions, and toggle continuous mode so that you can catch short-lived vulnerabilities in dynamic environments/cloud.
+The best way to deploy it, is to run it against your infrastructure from multiple regions (e.g. multiple instances of NERVE, in multiple countries), and toggle continuous mode so that you can catch short-lived vulnerabilities in dynamic environments/cloud.
 
 We typically recommend not to whitelist the IP addresses where NERVE will be initiating the scans from, to truly test your infrastructure from an attacker standpoint.
 
