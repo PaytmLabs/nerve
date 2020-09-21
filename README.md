@@ -54,11 +54,11 @@ To make NERVE fairly lightweight, there's no use of a database other than Redis.
 If you want to store your vulnerabilities long term, we recommend using the Web hook feature. At the end of each scan cycle, NERVE will dispatch a JSON payload to an endpoint of your choice, and you can then store it in a database for further analysis.
 
 Here are the high level steps we recommend to get the most optimal results:
-* 1. Deploy NERVE on 1 or more servers.
-* 2. Create a script that fetches your Cloud services (such as AWS Route53 to get the DNS, AWS EC2 to get the instance IPs, AWS RDS to get the database IPs, etc.) and maybe a static list of IP addresses if you have assets in a Datacenter.
-* 3. Call NERVE API (`POST /api/scan/submit`) and schedule a scan using the assets you gathered in step #2.
-* 4. Fetch the results programmatically and act on them (SOAR, JIRA, SIEM, etc.)
-* 5. Add your own logic (exclude certain alerts, add to database, etc.)
+1. Deploy NERVE on 1 or more servers.
+2. Create a script that fetches your Cloud services (such as AWS Route53 to get the DNS, AWS EC2 to get the instance IPs, AWS RDS to get the database IPs, etc.) and maybe a static list of IP addresses if you have assets in a Datacenter.
+3. Call NERVE API (`POST /api/scan/submit`) and schedule a scan using the assets you gathered in step #2.
+4. Fetch the results programmatically and act on them (SOAR, JIRA, SIEM, etc.)
+5. Add your own logic (exclude certain alerts, add to database, etc.)
 
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/arch.png?raw=true)
 
