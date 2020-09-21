@@ -6,7 +6,7 @@ LOG_LEVEL = 'INFO'
 # Webserver Configuration
 WEB_HOST = '0.0.0.0'
 WEB_PORT = 8080
-WEB_DEBUG = True
+WEB_DEBUG = False
 WEB_USER = os.environ.get('username', 'admin')
 WEB_PASSW = os.environ.get('password', 'admin')
 WEB_LOG = 'nerve.log'
