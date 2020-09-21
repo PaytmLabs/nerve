@@ -15,20 +15,24 @@
 ## Network Exploitation, Reconnaissance & Vulnerability Engine
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
 
+It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode. 
+
+
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
 
 ## Deployment
-The best way to deploy it, is to run it against your infrastructure in multiple regions, and toggle continuous mode.
+The best way to deploy it, is to run it against your infrastructure and have it run from multiple regions, and toggle continuous mode.
+
+We typically recommend not to whitelist the IP addresses where NERVE will be initiating the scans from, to truly test your infrastructure from an attacker standpoint.
 
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/arch.png?raw=true)
 
 
 
-
 # Prerequisites
-NERVE will install all prerequisites for you automatically. it comes with a Dockerfile, or, if you prefer, you could install it on a Server (CentOS 7.x and Ubuntu 18.x were tested) using the automated installation (Below)
+NERVE will install all prerequisites for you automatically (By using `install/setup.sh` script). it comes with a Dockerfile for your convenience, or, if you prefer, you could install it on a Server (CentOS 7.x and Ubuntu 18.x were tested)
 
-Keep in mind, NERVE requires python 3.x and libraries such as python-nmap, requests, etc.
+Keep in mind, NERVE requires python 3.x and libraries such as python-nmap, requests, etc. and needs root access for the initial setup.
 
 
 # Installation
@@ -43,7 +47,7 @@ Keep in mind, NERVE requires python 3.x and libraries such as python-nmap, reque
 ### Create a container from the image
 `docker run -e username="YOUR_USER" -e password="YOUR_PASSWORD" -d -p 80:8080 nerve`
 
-Navigate in your browser to http://ip.add.re.ss:80 and login with the credentials you specified to in the previous command.
+In your browser, navigate to http://ip.add.re.ss:80 and login with the credentials you specified to in the previous command.
 
 # Server
 ## Navigate to /opt
@@ -58,7 +62,7 @@ Navigate in your browser to http://ip.add.re.ss:80 and login with the credential
 ## Check NERVE is running
 `systemctl status nerve`
 
-Navigate in your browser to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
+In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
 
 # License
 It is distributed under the MIT License. See LICENSE for more information.
