@@ -206,10 +206,10 @@
 </div>
 
 <h2>Vulnerabilities</h2>
-
 <table id="details">
   {% if json_data.vulns %}
   {% for key, value in json_data.vulns.items() %}
+  {% if value.rule_sev != 0 %}
   <tr>
       <th class='sev_{{value.rule_sev}}'>{{value.rule_id}}</th>
       <th class='sev_{{value.rule_sev}}'>{{value.rule_desc}}</th>
@@ -241,13 +241,56 @@
       <th class='sev_{{value.rule_sev}}'>MITIGATION</th>
       <td>{{value.rule_mitigation}}</td>
   </tr>
+  {% endif %}
   {% endfor %}
-      {% endif %}
+  {% endif %}
 
 
 </table>
 
+<h2>Best Practices</h2>
 
+<table id="details">
+    {% if json_data.vulns %}
+    {% for key, value in json_data.vulns.items() %}
+    {% if value.rule_sev == 0 %}
+    <tr>
+        <th class='sev_{{value.rule_sev}}'>{{value.rule_id}}</th>
+        <th class='sev_{{value.rule_sev}}'>{{value.rule_desc}}</th>
+        
+    </tr>
+  <tr>
+      <th class='sev_{{value.rule_sev}}'>TITLE</th>
+      <td>{{value.rule_desc}}</td>
+  </tr>
+    <tr>
+        <th class='sev_{{value.rule_sev}}'>FINDINGS</th>
+        <td>{{value.rule_confirm}}</td>
+    </tr>
+  
+    <tr>
+        <th class='sev_{{value.rule_sev}}'>ADDRESS</th>
+        <td>{{value.ip}} {% if value.domain %} ({{value.domain}}) {% endif %}</td>
+    </tr>
+    <tr>
+      <th class='sev_{{value.rule_sev}}'>PORT</th>
+      <td>{{value.port}}</td>
+  </tr>
+    <tr>
+        <th class='sev_{{value.rule_sev}}'>DETAILS</th>
+        <td class='details'>{{value.rule_details}}</td>
+    </tr>
+  
+    <tr>
+        <th class='sev_{{value.rule_sev}}'>MITIGATION</th>
+        <td>{{value.rule_mitigation}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  
+  
+</table>
 
 <footer>
   <center><p>NERVE</p></center>

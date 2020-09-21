@@ -37,6 +37,7 @@ from core.reports   import (
 from bin.scanner    import scanner
 from bin.attacker   import attacker
 from bin.scheduler  import scheduler
+from version        import VERSION
 
 auth = HTTPBasicAuth()
 app = Flask(__name__)
@@ -257,6 +258,7 @@ def welcome():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+  msg = ''
   if request.method == 'POST':
     username = request.form.get('username', None)
     password = request.form.get('password', None)
@@ -270,7 +272,9 @@ def login():
     else:
       return render_template('login.html', err='Incorrect username or password.')
   
-  return render_template('login.html')
+  if not utils.is_version_latest():
+    msg = 'New Version is Available'
+  return render_template('login.html', msg=msg)
   
 @app.route('/logout')
 def logout():
@@ -279,7 +283,8 @@ def logout():
 
   flash('Logged out successfully', 'success')
   
-  return render_template('login.html')
+  #return render_template('login.html')
+  return redirect('/login')
 
 @app.route('/log')
 @session_required
@@ -418,7 +423,7 @@ def status():
 
 @app.context_processor
 def show_version():
-  return dict(version=config.VERSION)
+  return dict(version=VERSION)
 
 # Context Processors
 @app.context_processor

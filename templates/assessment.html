@@ -70,7 +70,7 @@
                                 <a class="nav-link" id="schedule-tab" data-toggle="tab" href="#schedule" role="tab" aria-controls="schedule" aria-selected="false">Schedule</a>
                             </li>
                               <li class="nav-item">
-                                <a class="nav-link" id="notification-tab" data-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">Notifications</a>
+                                <a class="nav-link" id="post_event-tab" data-toggle="tab" href="#post_event" role="tab" aria-controls="post_event" aria-selected="false">Post Event</a>
                             </li>
                           </ul>
                           
@@ -118,8 +118,10 @@
                                   </div>
                               </div>
                               <div class="tab-pane fade" id="config" role="tabpanel" aria-labelledby="config-tab">
+                                  
                                   <div class="col-md-6">
-                                      <label for="" class="form-control-label"><b>Assessment Configuration</b></label>
+                                    <label for="" class="form-control-label"><b>Assessment Configuration</b></label><br>  
+                                      <label for="" class="form-control-label">Assessment Behaviour</label>
                                       <div class="form-group">
                                         <select id="aggressive_level" name="aggressive_level" class="form-control">
                                             <option value="3">Extremely Aggressive (Default)</option>
@@ -170,8 +172,11 @@
                                             <option value="3000">3000</option>
                                             <option value="4000">4000</option>
                                             <option value="5000">5000</option>
-                                            <option value="6000">6000</option>
-                                            <option value="7000">7000</option>
+                                            <option value="10000">10,000</option>
+                                            <option value="30000">30,000</option>
+                                            <option value="40000">40,000</option>
+                                            <option value="50000">50,000</option>
+                                            <option value="65535">All Ports (EXTREMELY slow.)</option>
                                           </select>
                                           <small class="text-muted">1000 = one thousand most commonly used ports</small>
                                       </div>
@@ -230,7 +235,7 @@
                                 </div>
                             </div>
 
-                              <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                              <div class="tab-pane fade" id="post_event" role="tabpanel" aria-labelledby="post_event-tab">
                                 <div class="col-md-6">
                                 <div class="form-group">
                                   <label for="engineer" class="form-control-label">Webhook </label>
@@ -425,7 +430,7 @@
                         'parallel_scan':parallel_scans,
                         'parallel_attack':parallel_attack,
                     },
-                    'notifications':{
+                    'post_event':{
                     'webhook':webhook
                     },
                     'frequency':frequency

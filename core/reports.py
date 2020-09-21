@@ -3,7 +3,7 @@ import jinja2
 
 from core.redis import rds
 from core.utils import Utils
-from config import VERSION
+from version import VERSION
 
 utils = Utils()
 

@@ -12,11 +12,6 @@ def get_rules(role):
     for r in glob.glob('rules/**/rule_*.py', recursive=True):      
       fname = os.path.basename(r.split('.')[0])
       rules.append(fname)
-
-  elif role == 'simulator':
-    for r in glob.glob('rules/**/rule_*.py', recursive=True):  
-      fname = os.path.basename(r.split('.')[0])
-      rules.append(fname)
       
   return rules
     

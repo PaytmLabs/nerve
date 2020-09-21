@@ -32,11 +32,16 @@
                         {% if err %}
                         <span style="color:red">Error: {{err}}</span>
                         {% endif %}
+
+                        {% if msg == "New Version is Available" %}
+                            <span style="color:darkorange; font-weight:bold">{{msg}}!</a></span><br>
+                            <span style="color:orange"><a href="https://github.com/PaytmLabs/nerve">Download</a></span>
+                        {% endif %}
                         <br>
                     </form>
                 </div>
             </div>
-            <center><small style="color:darkgrey"><a href="https://github.com/PaytmLabs/nerve/issues">Report a Bug</a></small></center>
+            <center><small style="color:darkgrey"><a href="https://github.com/PaytmLabs/nerve/issues" target="_blank">Report a Bug</a></small></center>
         </div>
     </div>
     

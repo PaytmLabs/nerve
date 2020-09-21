@@ -1,15 +1,12 @@
 import os
 
-# Version
-VERSION = '2.4.3'
-
 # Logger Configuration
 LOG_LEVEL = 'INFO'
 
 # Webserver Configuration
 WEB_HOST = '0.0.0.0'
 WEB_PORT = 8080
-WEB_DEBUG = False
+WEB_DEBUG = True
 WEB_USER = os.environ.get('username', 'admin')
 WEB_PASSW = os.environ.get('password', 'admin')
 WEB_LOG = 'nerve.log'
@@ -35,7 +32,7 @@ RDS_HOST = '127.0.0.1'
 RDS_PORT = 6379
 
 # Scan Configuration
-USER_AGENT = 'NERVE/' + VERSION
+USER_AGENT = 'NERVE'
 
 # Default scan configuration
 # This will be used in the "Quick Start" scan. 
@@ -51,8 +48,8 @@ DEFAULT_SCAN = {
     'description':'My Default Scan',
     'engineer':'Default',
     'allow_aggressive':3,
-    'allow_dos':True,
-    'allow_bf':True,
+    'allow_dos':False,
+    'allow_bf':False,
     'allow_internet':True,
     'dictionary':{
       'usernames':[],
@@ -64,7 +61,7 @@ DEFAULT_SCAN = {
       'parallel_scan':50,
       'parallel_attack':30,
     },
-    'notifications':{
+    'post_event':{
       'webhook':None
     },
     'frequency':'once'

@@ -1,4 +1,6 @@
 import socket
+
+from socket import gethostname
 from core.utils import Network, Utils
 
 
@@ -10,6 +12,7 @@ class SchemaParser:
     self.metadata = {
       'unique_id' : self.utils.generate_uuid(),
       'timestamp' : self.utils.get_datetime(),
+      'node': gethostname(),
       'issuer':{
         'source_ip':req.remote_addr
         }
@@ -30,7 +33,7 @@ class SchemaParser:
       name = self.data['config']['name']
       description = self.data['config']['description']
       engineer = self.data['config']['engineer']
-      webhook = self.data['config']['notifications']['webhook']
+      webhook = self.data['config']['post_event']['webhook']
       intrusive_level = self.data['config']['allow_aggressive']
       allow_dos = self.data['config']['allow_dos']
       allow_bf = self.data['config']['allow_bf']
@@ -88,7 +91,7 @@ class SchemaParser:
         verified = False
         
       try:
-        if max_ports < 10 or max_ports > 7001:
+        if max_ports < 10 or max_ports > 65535:
           error = 'Option [MAX_PORTS] must be between 10-7000'
           verified = False
           
@@ -197,7 +200,6 @@ class ScanParser:
   def get_ports(self):
     return self.values['ports']
   
-
   def get_domain(self):
     return self.values['domain']
   
@@ -260,7 +262,7 @@ class ConfParser:
     return self.values['config']['scan_opts']['parallel_scan']
 
   def get_cfg_webhook(self):
-    return self.values['config']['notifications']['webhook']
+    return self.values['config']['post_event']['webhook']
   
   def get_cfg_frequency(self):
     return self.values['config']['frequency']

@@ -45,7 +45,231 @@
                 </div>
             </nav>
             
-            <div class="content">
+
+            <div class="content" id="gui">
+              <div class="container-fluid">
+                  <div class="page-title">
+                      <h3>Graphical User Interface</h3>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card">
+                          <div class="card-header"><b>Usage</b></div>
+                          <div class="card-body">
+                            <div id="toc_container">
+                              <p class="toc_title">Table of Contents</p>
+                              <ul class="toc_list">
+                                <li><a href="#quickstart">1. Quickstart</a>
+                              </li>
+                              <li><a href="#assessment">2. Assessment</a>
+                                <ul>
+                                  <li><a href="#general">General</a></li>
+                                  <li><a href="#targets">Targets</a></li>
+                                  <li><a href="#configuration">Configuration</a></li>
+                                  <li><a href="#dictionary">Dictionary</a></li>
+                                  <li><a href="#schedule">Schedule</a></li>
+                                  <li><a href="#post_event">Post Event</a></li>
+                                </ul>
+                              </li>
+                              <li><a href="#reports">3. Reports</a></li>
+                              <li><a href="#notifications">4. Notifications</a></li>
+                              </div>
+                          </div>
+                        
+                          <div class="card-body" >
+                          <h3 id="quickstart"><b>Quickstart</b></h3>
+                          <p>Quickstart is the best way to try out NERVE in its most simplest form. Think of it as running a basic scan, without the ability to define how it will execute.</p>
+                          <p>By using this option, you are required to specify <a href="https://www.ipaddressguide.com/cidr">Network CIDR notations</a>, Quickstart <b> doesn't support DNS.</b></p>
+                          <p>For example, if you want to scan your home network, you could simply type <b>192.168.0.0/24</b>. Of course, the IP will depend on your router's IP scope.</p>
+                          <br>
+                          <p>The settings of the scan if you choose to use Quickstart is as follows:</p>
+                          <ul>
+                            <li>Exclusions: <b>None</b></li>
+                            <li>Aggressive level: <b>Maximum</b></li>
+                            <li>Denial of Service: <b>Disabled</b></li>
+                            <li>Brute Force: <b>Disabled</b></li>
+                            <li>Outbound Internet Connections: <b>Enabled</b></li>
+                            <li>Interface: <b>Default</b></li>
+                            <li>Max Ports: <b>100</b></li>
+                            <li>Parallel Scan: <b>50</b></li>
+                            <li>Parallel Attack: <b>30</b></li>
+                            <li>Post Event: <b>None</b></li>
+                            <li>Frequency: <b>Once</b></li>
+                          </ul>
+                          <hr>
+                          <h3 id="assessment"><b>Assessment</b></h3>
+                          <p>Assessment is where you configure your first advanced scan.</p>
+                          <h4 id="general">General</h4>
+                          <p>You start by defining some metadata about your scan.</p>
+                          <p><b>Assessment Title</b></p>
+                          <p>This is the name of the assessment. This name appears in the reports you generate in the GUI, such as the HTML. It will also show up in the API output when you call <a href="#get_status">/api/scan/status</a></b></p>
+                          <p><b>Assessment Description</b></p>
+                          <p>This is the description of the assessment. It's a free text description of what this assessment is about. similiarly to the <b>Assessment Title</b>, it will show up in the API output when you call <a href="#get_status">/api/scan/status</a> </b></p>
+                          <p><b>Name of Engineer</b></p>
+                          <p>This is a field to describe who is running the assessment. Similiarly to the <b>Assessment Title</b>, it will show up in the reports, and also in the API output when you call <a href="#get_status">/api/scan/status</a> </b></p>
+                          <hr>
+                          <p><h4 id="targets">Targets</h4></p>
+                          <p>Targets are the endpoints that will be scanned and assessed. These can be IP addresses, Domains and Subdomains.</p>
+                          <p>NERVE doesn't do DNS discovery for a given parent domain. There are tools you could potentially use in conjuction with NERVE that will do this work for you. Such as Passive DNS, RiskIQ, Fierce, OWASP Amass, etc.</p>
+                          <p><b>Networks</b></p>
+                          <p>This field takes a list of CIDR Networks (Comma separated). Example: <b>212.199.1.0/24, 212.199.2.0/24</b></p>
+                          <p><b>Excluded Networks</b></p>
+                          <p>This field takes a list of CIDR Networks (Comma separated). Example: <b>212.199.1.1/32, 212.199.2.1/32</b>. Note: Any networks defined here will be excluded from the assessment.</p>
+                          <p><b>Domains</b></p>
+                          <p>This field takes a list of DNS records (Comma separated). Example: <b>example.com, sub.example.com</b></p>
+                          <hr>
+                          <h4 id="configuration">Configuration</h4>
+                          <p>This is where the advanced configuration of the scan is defined.</p>
+                          <p><b>Assessment Behaviour</b></p>
+                          <p>This is going to ultimately decide which rules (checking if SSH is open is an example of a rule) run against your target scope. The more aggressive it is, the more rules are going to run.</p>
+                          <p>For example, a rule that makes a lot of HTTP GET requests will be run only if you choose the use the aggressive mode. A rule that checks if a port is open, would run under all conditions.</p>
+                          <p><b>Allow Outbound Connections</b></p>
+                          <p>Some rules require making outbound internet connections, such as checking against CVE lists, etc.</p>
+                          <p>If you run NERVE internally in a dark network without internet, you could simply toggle this off.</p>
+                          <p><b>Attempt Brute Force Attacks</b></p>
+                          <p>Some rules can run brute force attacks against a given server. For example, if a server is determined to have an SSH port open and it also accepts passwords as a mean of authentication, NERVE can attempt to run through a list of passwords and try to authenticate.</p>
+                          <p>Note that if you provide a list of usernames and passwords via the <a href="#dictionary">Dictionary option</a>, it may take a long time for a full assessment to complete. Use with caution.</p>
+                          <p><b>Attempt Denial of Service Attacks</b></p>
+                          <p>Some rules can run test for Denial of Service vulnerabilities against a given server. Disable if you want to ensure your services are not bombarded.</p>
+                          <p><b>Ethernet</b></p>
+                          <p>Defining the Ethernet to use for port scanning. This is optional. if nothing is specified, it will use the default.</p>
+
+                          <p><b>Ethernet</b></p>
+                          <p>Defining the Ethernet to use for port scanning. This is optional. if nothing is specified, it will use the default.</p>
+
+                          <p><b>Maximum Ports</b></p>
+                          <p>This is a relatively important option. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.</p>
+                          <p>However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you. 
+                             Too little ports means you may miss out on services, too many means you may sacrifice speed.</p>
+                          <p>The default value for maximum ports is <b>100</b> ports (this ensures that at least http/https/ftp/ssh are covered).</p>
+                          
+                          <p><b>Parallel Scan</b></p>
+                          <p>This value represents the number of hosts which will be scanned simultaneously, for example, 60 means the port scan will run against 60 hosts at the same time.</p>
+                          <p>The default value for Parallel Scan is <b>50</b></p>
+                          <p><b>Parallel Attack</b></p>
+                          <p>This value represents the number of hosts which will be attacked simultaneously, for example, 60 means the attack rules will run against 60 hosts at the same time.</p>
+                          <p>The default value for Parallel Attack is <b>30</b></p>
+                          <hr>
+                          <h4 id="dictionary">Dictionary</h4>
+                          <p>Dictionary allows you to bring your own usernames and credentials list.</p>
+                          <p>When the <b>Attempt Brute Force</b> option is enabled, we will take your list and run it against any brute-forceable services we identify.</p>
+                          <p>If you do not provide a list of usernames and passwords, we will simply use our (very short) list of usernames and passwords.</p>
+                          <p>Think of this more of  a sanity check, than a comprehensive brute force attempt. Our goal is not to try millions of passwords, this will not be efficient.</p>
+                          <p>When providing the list, make sure it is separated by a new line, e.g.</p>
+                          <p>
+                            <pre>password123<br>admin123</pre>
+                          </p>
+                          <hr>
+                          <h4 id="schedule">Schedule</h4>
+                          <p>Schedule is how often you want to run an assessment. There are 2 options: <b>Once</b> and <b>Continuously</b></p>
+                          <p><b>Once</b> means a scan will run 1 time, and then it's over.</p>
+                          <p><b>Continuously</b> means, a scan will run, and then another 1 will follow, until the end of humanity.</p>
+                          <p>When running in Continuous Mode, a "Status" indicator will appear on the sidebar (Menu bar) indicating the system will run forever.<br>
+                          If you want to stop, just click on the new button that will appear on the side bar called <b>Reset System</b>.
+
+                          <p>To achieve true Continuous Security, we recommend to run it in Continuous mode.</p>
+                        </p>
+                        <hr>
+                        <h4 id="post_event">Post Event</h4>
+                        <p>You can configure NERVE to send you post events.</p>
+                        <p><b>Web Hook</b></p>
+                        <p>A web hook is basically a post-process event that happens after some condition is met (such as, after a scan is completed.)</p>
+                        <p>NERVE can send you the Assessment data as soon as a scan completes, to an endpoint of your choice. Your endpoint must be able to be accessed by NERVE, and receive JSON data.</p>
+                        <p>The data NERVE is going to send, may look like the following:</p>
+                        <pre>
+                          {
+                            "status":"done",
+                            "vulnerabilities":{
+                               "vuln_0e365ca243180c516c3cbf5382017aa4eb8de62e":{
+                                  "ip":"192.168.1.55",
+                                  "port":22,
+                                  "domain":null,
+                                  "rule_id":"SVC_6509",
+                                  "rule_sev":3,
+                                  "rule_desc":"Checks for Remote Management Ports",
+                                  "rule_confirm":"Remote Server Exposes Administration Port(s)",
+                                  "rule_details":"Open Port: 22 (SSH)",
+                                  "rule_mitigation":"Bind all possible services to localhost, and confirm only those which require remote clients are allowed remotely."
+                               }
+                            },
+                            "scan_config":{
+                               "targets":{
+                                  "networks":[
+                                     "192.168.1.1/24"
+                                  ],
+                                  "excluded_networks":[
+                                  ],
+                                  "domains":[
+                                     
+                                  ]
+                               },
+                               "config":{
+                                  "name":"test",
+                                  "description":"",
+                                  "engineer":"",
+                                  "allow_aggressive":3,
+                                  "allow_dos":false,
+                                  "allow_bf":true,
+                                  "allow_internet":true,
+                                  "dictionary":{
+                                     "usernames":[
+                                        
+                                     ],
+                                     "passwords":[
+                                        
+                                     ]
+                                  },
+                                  "scan_opts":{
+                                     "interface":null,
+                                     "max_ports":100,
+                                     "parallel_scan":50,
+                                     "parallel_attack":30
+                                  },
+                                  "notifications":{
+                                     "webhook":"http://192.168.1.10:8000"
+                                  },
+                                  "frequency":"once"
+                               },
+                               "metadata":{
+                                  "unique_id":"be3c7849",
+                                  "timestamp":"2020-09-21 14:20:58",
+                                  "node":"HOSTNAME1",
+                                  "issuer":{
+                                     "source_ip":"127.0.0.1"
+                                  }
+                               }
+                            }
+                         }
+                           
+                        </pre>
+                        <p>A webhook endpoint may look like this: <b>http://example.com/recieve</b>, or with a specified port <b>https://example.com:8000/receive</b></p>
+                        <hr>
+                        <h4 id="reports">Reports</h4>
+                        <p>NERVE supports 3 types of reports. These reports are only available via the Web Interface.</p>
+                        <ul>
+                          <li>HTML</li>
+                          <li>TXT</li>
+                          <li>CSV</li>
+                        </ul>
+                        If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a>
+
+                        <hr>
+                        <h4 id="notifications">Notifications</h4>
+                        <p>NERVE supports delivering notifications via 2 methods: <b>Email</b> or <b>Slack</b>.</p>
+                        <p>You can find these settings under the top right menu (Username) -> Settings</p>
+                        <p>For email, you can use Amazon SES or a different provider. You will receive an attachment with the findings in a JSON format, once a scan is completed.</p>
+                        <p>For slack, use an <a href="https://api.slack.com/messaging/webhooks">incoming webhook</a> and paste the URL Slack gives you at the end of the process. You will receive a slack notification with the results once a scan is completed.</p>
+                        If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a>
+                        </div>
+
+                      </div>
+                  </div>
+                  </div>
+              
+            </div>
+        </div>
+
+            <div class="content" id="api">
                 <div class="container-fluid">
                     <div class="page-title">
                         <h3>API</h3>
@@ -69,6 +293,9 @@
                                   </ul>
                                 </li>
                                 </div>
+                                <p>Welcome to the API section of NERVE.</p>
+                                <p>NERVE's API is simple, you can post a scan, get the scan result and status, and reset the system.</p>
+                                <p>For posting a scan, NERVE uses the same settings that exist in the Web Interface, should you need to understand more about what a particular setting does, just refer to the <a href="#gui">Graphical User Interface section</a> of the document.</p>
                             </div>    
                             
 
@@ -94,7 +321,7 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="card">
@@ -148,122 +375,128 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                         </div>
                       
                     </div>
-                </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="card">
+                            <div id="get_health" class="card-header"><b><code>GET /health</code></b></div>
+                            <div class="card-body">
+                            <pre>
+    import requests
+    >>> requests.get('http://endpoint/health')
+
+    <<< {'status': 'OK'}
+                            </pre>           
+                            </div>                  
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card">
+                          <div id="post_scan" class="card-header"><b><code>POST /api/scan</code></b></div>
+                          <div class="card-body">
+                            <pre>
+      import requests
+      from requests.auth import HTTPBasicAuth
+
+      DEFAULT_SCAN = {
+        'targets':{
+          'networks':[],
+          'excluded_networks':[],
+          'domains':[]
+        },
+        'config':{
+          'name':'Default',
+          'description':'My Default Scan',
+          'engineer':'Default',
+          'allow_aggressive':3,
+          'allow_dos':True,
+          'allow_bf':True,
+          'allow_internet':True,
+          'dictionary':{
+            'usernames':[],
+            'passwords':[]
+          },
+          'scan_opts':{
+            'interface':None,
+            'max_ports':1000,
+            'parallel_scan':50,
+            'parallel_attack':30,
+          },
+          'notifications':{
+            'webhook':None
+          },
+          'frequency':'once'
+        }
+      }
+
+
+
+      >>> requests.post('http://endpoint/api/scan', auth=HTTPBasicAuth("admin", "admin"), json=DEFAULT_SCAN)
+
+      <<< {'status': 'Registered a new scan successfully!'}
+                              </pre>        
+                          </div>
+                      </div>
+                  </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card">
+                          <div id="get_status" class="card-header"><b><code>GET /api/scan/status</code></b></div>
+                          <div class="card-body">
+                            <pre>
+          import requests
+          from requests.auth import HTTPBasicAuth
+
+          >>> resp = requests.get('http://endpoint/api/scan/status', auth=HTTPBasicAuth("admin", "admin"))
+
+          <<<
+          .. snip .. 
+          {'scan_config': {'metadata': {'issuer': {'source_ip': '127.0.0.1'},
+                              'timestamp': '2020-07-29 00:19:27',
+                              'unique_id': '6eddab7b'},
+                          'status': 'incomplete',
+                          'vulnerabilities': {}}
+          .. snip ..    
+          </pre>
+                          </div>
+                          
+                      </div>
+                    
+                  </div>
+                  </div>
 
                 <div class="row">
                   <div class="col-md-12">
                     <div class="card">
-                        <div id="get_health" class="card-header"><b><code>GET /health</code></b></div>
+                        <div id="put_reset" class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
                         <div class="card-body">
-                        <pre>
-import requests
->>> requests.get('http://endpoint/health')
+                          <pre>
+            import requests
+            from requests.auth import HTTPBasicAuth
 
-<<< {'status': 'OK'}
-                        </pre>           
-                        </div>                  
+            >>> requests.put('http://endpoint/api/scan/reset', auth=HTTPBasicAuth("admin", "admin"))
+
+            <<< {'status': 'flushed scan state'}
+                          </pre>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card">
-                    <div id="post_scan" class="card-header"><b><code>POST /api/scan</code></b></div>
-                    <div class="card-body">
-                      <pre>
-import requests
-from requests.auth import HTTPBasicAuth
-
-DEFAULT_SCAN = {
-  'targets':{
-    'networks':[],
-    'excluded_networks':[],
-    'domains':[]
-  },
-  'config':{
-    'name':'Default',
-    'description':'My Default Scan',
-    'engineer':'Default',
-    'allow_aggressive':3,
-    'allow_dos':True,
-    'allow_bf':True,
-    'allow_internet':True,
-    'dictionary':{
-      'usernames':[],
-      'passwords':[]
-    },
-    'scan_opts':{
-      'interface':None,
-      'max_ports':1000,
-      'parallel_scan':50,
-      'parallel_attack':30,
-    },
-    'notifications':{
-      'webhook':None
-    },
-    'frequency':'once'
-  }
-}
-
-
-
->>> requests.post('http://endpoint/api/scan', auth=HTTPBasicAuth("admin", "admin"), json=DEFAULT_SCAN)
-
-<<< {'status': 'Registered a new scan successfully!'}
-                        </pre>        
-                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card">
-                <div id="get_status" class="card-header"><b><code>GET /api/scan/status</code></b></div>
-                <div class="card-body">
-                  <pre>
-import requests
-from requests.auth import HTTPBasicAuth
-
->>> resp = requests.get('http://endpoint/api/scan/status', auth=HTTPBasicAuth("admin", "admin"))
-
-<<<
-.. snip .. 
-{'scan_config': {'metadata': {'issuer': {'source_ip': '127.0.0.1'},
-                     'timestamp': '2020-07-29 00:19:27',
-                     'unique_id': '6eddab7b'},
-                'status': 'incomplete',
-                'vulnerabilities': {}}
-.. snip ..    
-</pre>
-                </div>
                 
-            </div>
-          
-        </div>
-    </div>
+              </div>
+          </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-            <div id="put_reset" class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
-            <div class="card-body">
-              <pre>
-import requests
-from requests.auth import HTTPBasicAuth
 
->>> requests.put('http://endpoint/api/scan/reset', auth=HTTPBasicAuth("admin", "admin"))
-
-<<< {'status': 'flushed scan state'}
-              </pre>
-            </div>
-        </div>
-    </div>
-</div>
-            </div>
-        </div>
-    </div>
+     </div>
+     </div>
+     
 
     <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
     <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>

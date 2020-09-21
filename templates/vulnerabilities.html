@@ -58,7 +58,7 @@
                               <div class="card-header">Vulnerabilities</div>
                               <div class="card-body">
                                   <p class="card-title"></p>
-                                  <table class="table table-hover" id="dataTables-example" width="100%">
+                                  <table class="table table-hover" id="dataTables-vulnerabilities" width="100%">
                                       <thead>
                                           <tr>
                                               <th>#</th>
@@ -73,14 +73,14 @@
                                       </thead>
                                       {% if data %}
                                       {% for key, value in data.items() %}
-                                       <tr>
+                                      {% if value.rule_sev != 0 %} 
+                                      <tr>
                                          <td>{{loop.index}}.</td>
                                          <td>{{value.ip}}</td>
                                          <td>{% if value.domain %} {{value.domain}} {% else %} N/A {% endif %}</td>
                                          <td>{{value.port}}</td>
-                                        {% if value.rule_sev == 0 %}
-                                        <td><span class="informational">Informational</td>
-                                        {% elif value.rule_sev == 1 %}
+                                        
+                                        {% if value.rule_sev == 1 %}
                                         <td><span class="low">Low</td>
                                         {% elif value.rule_sev == 2 %}
                                         <td><span class="medium">Medium</td>
@@ -93,6 +93,7 @@
                                          <td>{{value.rule_confirm}}</td>
                                          <td>{{value.rule_details}}</td>
                                        </tr>
+                                       {% endif %}
                                        {% endfor %}
                                        {% endif %}
                           
@@ -101,6 +102,48 @@
                           </div>
                       </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-header">Best Practices</div>
+                            <div class="card-body">
+                                <p class="card-title"></p>
+                                <table class="table table-hover" id="dataTables-bestpractices" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Target</th>
+                                            <th>Domain</th>
+                                            <th>Port</th>
+                                            <th>Severity</th>
+                                            <th>Description</th>
+                                            <th>Result</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    {% if data %}
+                                    {% for key, value in data.items() %}
+                                    {% if value.rule_sev == 0 %}
+                                     <tr>
+                                       <td>{{loop.index}}.</td>
+                                       <td>{{value.ip}}</td>
+                                       <td>{% if value.domain %} {{value.domain}} {% else %} N/A {% endif %}</td>
+                                       <td>{{value.port}}</td>
+                                      <td><span class="informational">Informational</td>
+                                      <td>{{value.rule_desc}}</td>
+                                      <td>{{value.rule_confirm}}</td>
+                                      <td>{{value.rule_details}}</td>
+                                     </tr>
+                                     {% endif %}
+                                     {% endfor %}
+                                     {% endif %}
+                        
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
               </div>
           </div>
         </div>

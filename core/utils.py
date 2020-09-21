@@ -13,6 +13,7 @@ import ipaddress
 from core.logging import logger
 from config import WEB_LOG, USER_AGENT
 from urllib.parse import urlparse
+from version import VERSION
 
 class Utils:
   def generate_uuid(self):
@@ -57,6 +58,17 @@ class Utils:
     if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
       return False
     return True
+
+  def is_version_latest(self):
+    try:
+      resp = requests.get('https://pastebin.com/raw/NYASvnp0', timeout=10)
+      repo_ver = resp.text.replace('.', '')
+      curr_ver = VERSION.replace('.', '').replace('\'', '')
+      if int(repo_ver) > int(curr_ver):
+        return False
+      return True
+    except:
+      return True
   
 class Network:
   def get_nics(self):
@@ -91,7 +103,7 @@ class Network:
     return ip
 
   def is_network_in_denylist(self, network):
-    hosts_limit = 10000
+    hosts_limit = 65535
     deny_list = ['127.0.0.1', '127.0.0.1/32', '127.0.']
     
     for deny in deny_list:
