@@ -44,8 +44,6 @@
                     </ul>
                 </div>
             </nav>
-            
-
             <div class="content" id="gui">
               <div class="container-fluid">
                   <div class="page-title">
@@ -73,6 +71,7 @@
                               </li>
                               <li><a href="#reports">3. Reports</a></li>
                               <li><a href="#notifications">4. Notifications</a></li>
+                              <li><a href="#security">5. Security</a></li>
                               </div>
                           </div>
                         
@@ -260,8 +259,17 @@
                         <p>For email, you can use Amazon SES or a different provider. You will receive an attachment with the findings in a JSON format, once a scan is completed.</p>
                         <p>For slack, use an <a href="https://api.slack.com/messaging/webhooks">incoming webhook</a> and paste the URL Slack gives you at the end of the process. You will receive a slack notification with the results once a scan is completed.</p>
                         If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a>
-                        </div>
-
+                        
+                        <hr>
+                        <h4 id="security">Security</h4>
+                        <p>There are a few security mechanisms implemented into NERVE you need to be aware of.</p>
+                        <ul>
+                          <li>Content Security Policy - A response header which controls where resource scan be loaded from.</li>
+                          <li>Brute Force Protection - A user will get locked if more than 5 incorrect login attempts are made.</li>
+                          <li>Cookie Protection - Cookie security flags are used, such as SameSite, HttpOnly, etc.</li>
+                        </ul>
+                        If you identify a security vulnerability, please submit a bug to us on GitHub.
+                      </div>
                       </div>
                   </div>
                   </div>
