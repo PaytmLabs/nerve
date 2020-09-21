@@ -30,7 +30,7 @@ It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authentic
 NERVE will do "some" CVE checks, but this is primarily coming from version fingerprinting. 
 
 Example of some of NERVE's detection capabilities:
-* Interesting Panels (Solr, Django, Laravel, etc.)
+* Interesting Panels (Solr, Django, PHPMyAdmin, etc.)
 * Subdomain takeovers
 * Open Repositories
 * Information Disclosures
