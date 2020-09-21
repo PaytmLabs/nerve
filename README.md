@@ -1,6 +1,6 @@
 ## Table of Contents
 * [Continuous Security](#Continuous-Security)
-* [About NERVE](#)
+* [About NERVE](#About-Nerve)
   * [What is NERVE](#about)
   * [Deployment Recommendations](#deployment)
   * [Screenshots](#screenshots)
@@ -21,14 +21,26 @@ The benefit of running security scanning contiuously can be any of the following
 
 NERVE was created to address this problem. Commercial tools are great, but they are also heavy, not easily extendible, and cost money. 
 
-# About
-## Network Exploitation, Reconnaissance & Vulnerability Engine
+# About NERVE
+## Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
 
-It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode.
+It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode only.
 
 NERVE will do "some" CVE checks, but this is primarily coming from version fingerprinting. 
 
+Example of some of NERVE's detection capabilities:
+* Interesting Panels (Solr, Django, Laravel, etc.)
+* Subdomain takeovers
+* Open Repositories
+* Information Disclosures
+* Abandoned / Default Web Pages
+* Misconfigurations in services (Nginx, Apache, IIS, etc.)
+* SSH Servers
+* Open Databases
+* Open Caches
+* Directory Indexing
+* Best Practices
 
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
 
