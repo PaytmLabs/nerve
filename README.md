@@ -1,3 +1,6 @@
+# Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
+
 ## Table of Contents
 * [Continuous Security](#Continuous-Security)
 * [About NERVE](#About-Nerve)
@@ -22,7 +25,6 @@ The benefit of running security scanning contiuously can be any of the following
 NERVE was created to address this problem. Commercial tools are great, but they are also heavy, not easily extendible, and cost money. 
 
 # About NERVE
-## Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
 
 It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode only.
@@ -41,8 +43,6 @@ Example of some of NERVE's detection capabilities:
 * Open Caches
 * Directory Indexing
 * Best Practices
-
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
 
 ## Deployment
 The best way to deploy it, is to run it against your infrastructure from multiple regions (e.g. multiple instances of NERVE, in multiple countries), and toggle continuous mode so that you can catch short-lived vulnerabilities in dynamic environments/cloud.
