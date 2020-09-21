@@ -31,7 +31,7 @@ COPY config.py $TARGET_FOLDER
 COPY main.py $TARGET_FOLDER
 COPY requirements.txt $TARGET_FOLDER
 COPY start.sh $TARGET_FOLDER
-
+COPY version.py $TARGET_FOLDER
 WORKDIR $TARGET_FOLDER/
 
 RUN pip3 install --user -r requirements.txt
