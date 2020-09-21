@@ -1,7 +1,7 @@
 # Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
 
-## Table of Contents
+# Table of Contents
 * [Continuous Security](#Continuous-Security)
 * [About NERVE](#About-Nerve)
   * [What is NERVE](#about)
