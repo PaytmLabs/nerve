@@ -2,6 +2,7 @@
 
 * [About NERVE](#)
   * [What is NERVE](#about)
+  * [Deployment Recommendations](#deployment)
   * [Screenshots](#screenshots)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
@@ -14,12 +15,15 @@
 ## Network Exploitation, Reconnaissance & Vulnerability Engine
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
 
-The best way to deploy it, is to run it against your infrastructure in multiple regions, and toggle continuous mode.
-
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
 
+## Deployment
+The best way to deploy it, is to run it against your infrastructure in multiple regions, and toggle continuous mode.
 
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/arch.png?raw=true)
+
+
+
 
 # Prerequisites
 NERVE will install all prerequisites for you automatically. it comes with a Dockerfile, or, if you prefer, you could install it on a Server (CentOS 7.x and Ubuntu 18.x were tested) using the automated installation (Below)
