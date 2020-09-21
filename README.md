@@ -46,7 +46,7 @@ If you want to store your vulnerabilities long term, we recommend using the Web 
 
 
 # Prerequisites
-NERVE will install all prerequisites for you automatically (b y using `install/setup.sh` script). it comes with a Dockerfile for your convenience, or, if you prefer, you could install it on a Server (CentOS 7.x and Ubuntu 18.x were tested)
+NERVE will install all prerequisites for you automatically if you choose the Server installation (CentOS 7.x and Ubuntu 18.x were tested) (by using `install/setup.sh` script). It also comes with a Dockerfile for your convenience. 
 
 Keep in mind, NERVE requires python 3.x and libraries such as python-nmap, requests, etc. and needs root access for the initial setup.
 
