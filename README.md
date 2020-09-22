@@ -102,6 +102,11 @@ In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials pr
 To learn about NERVE (GUI, API, etc.) we advise you to check out the documentation available to you via the platform.
 Once you deploy it, authenticate and ont he left sidebar you will find a documentation link for API and GUI usage.
 
+## GUI Documentation
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/10.png?raw=true)
+
+## API Documentation
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/11.png?raw=true)
 
 # License
 It is distributed under the MIT License. See LICENSE for more information.
