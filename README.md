@@ -60,7 +60,7 @@ Here are the high level steps we recommend to get the most optimal results:
 4. Fetch the results programmatically and act on them (SOAR, JIRA, SIEM, etc.)
 5. Add your own logic (exclude certain alerts, add to database, etc.)
 
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/arch.png?raw=true)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/12.png?raw=true)
 
 
 # Prerequisites
@@ -97,6 +97,11 @@ In your browser, navigate to http://ip.add.re.ss:80 and login with the credentia
 `systemctl status nerve`
 
 In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
+
+# Usage
+To learn about NERVE (GUI, API, etc.) we advise you to check out the documentation available to you via the platform.
+Once you deploy it, authenticate and ont he left sidebar you will find a documentation link for API and GUI usage.
+
 
 # License
 It is distributed under the MIT License. See LICENSE for more information.
