@@ -14,6 +14,7 @@ class SchemaParser:
       'timestamp' : self.utils.get_datetime(),
       'node': gethostname(),
       'issuer':{
+        'user_agent':req.headers.get('User-Agent'),
         'source_ip':req.remote_addr
         }
       }
