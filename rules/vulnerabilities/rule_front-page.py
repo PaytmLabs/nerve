@@ -29,7 +29,7 @@ class Rule:
     if not resp:
       return
     
-    if resp.headers['Content-Length'] == '247':
+    if 'Content-Length' in resp.headers and resp.headers['Content-Length'] == '247':
       self.rule_details = 'Exposed FrontPage at /_vti_inf.html'
       js_data = {
         'ip': ip,
