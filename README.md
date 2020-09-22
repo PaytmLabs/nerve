@@ -22,7 +22,7 @@ The benefit of running security scanning contiuously can be any of the following
 * You want to be the first to catch issues before anyone else
 * You want the ability to respond quicker.
 
-NERVE was created to address this problem. Commercial tools are great, but they are also heavy, not easily extendible, and cost money. 
+NERVE was created to address this problem. Commercial tools are great, but they are also heavy, not easily extensible, and cost money. 
 
 # About NERVE
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.

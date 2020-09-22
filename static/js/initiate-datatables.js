@@ -6,11 +6,3 @@ $('#dataTables-vulnerabilities').DataTable({
     searching: true,
     ordering: true
 });
-
-$('#dataTables-bestpractices').DataTable({
-    responsive: true,
-    pageLength: 20,
-    lengthChange: false,
-    searching: true,
-    ordering: true
-});

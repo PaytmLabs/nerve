@@ -149,7 +149,7 @@ class Rule:
             
       for match in val['match']:  
         if resp and t.string_in_headers(resp, match):
-          self.rule_details = '{} Indicator: "{}" ({})'.format(app, match, app_title)
+          self.rule_details = '{} - ({})'.format(app, app_title)
           js_data = {
               'ip':ip,
               'port':port,

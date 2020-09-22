@@ -263,7 +263,7 @@ class Rule:
         if resp:
           for i in val['match']:
             if i in resp.text:
-              self.rule_details = '{} Indicator: "{}" ({})'.format(app, i, app_title)
+              self.rule_details = '{} - ({})'.format(app, app_title)
               js_data = {
                 'ip':ip,
                 'port':port,
