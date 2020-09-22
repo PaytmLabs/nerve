@@ -22,7 +22,7 @@ class Rule:
     module = p.get_module()
     
     if port in svc_ports:
-      self.rule_details = 'Open Port: {} ({})'.format(port, self.rule_match_port[port])
+      self.rule_details = 'Open Port: {} ({})'.format(port, svc_ports[port])
       
       js_data = {
                 'ip':ip,

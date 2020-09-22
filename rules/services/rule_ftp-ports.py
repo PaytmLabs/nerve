@@ -22,7 +22,7 @@ class Rule:
     domain = p.get_domain()
     
     if port in ftp_ports:
-      self.rule_details = 'Open Port: {} ({})'.format(port, self.rule_match_string[port])
+      self.rule_details = 'Open Port: {} ({})'.format(port, ftp_ports[port])
         
       js_data = {
           'ip':ip,

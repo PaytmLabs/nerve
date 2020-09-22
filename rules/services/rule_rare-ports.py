@@ -11,7 +11,6 @@ class Rule:
     self.rule_confirm = 'Remote Server Exposes Rare Port(s)'
     self.rule_details = ''
     self.rule_mitigation = '''Bind all possible network services to localhost, and configure only those which require remote clients on an external interface.'''
-    self.rule_match_port = known_ports
     self.intensity = 0
 
   def check_rule(self, ip, port, values, conf):
@@ -27,7 +26,6 @@ class Rule:
     for ports in known_ports:
       if port in ports:
         known = True
-        
     
     if not known:    
       self.rule_details = 'Open Port: {} ({})'.format(port, h.portTranslate(port))

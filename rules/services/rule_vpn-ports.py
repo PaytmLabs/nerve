@@ -23,7 +23,7 @@ class Rule:
     
     if port in vpn_ports:
       
-      self.rule_details = 'Open Port: {} ({})'.format(port, self.rule_match_port[port])
+      self.rule_details = 'Open Port: {} ({})'.format(port, vpn_ports[port])
       js_data = {
           'ip':ip,
           'port':port,
