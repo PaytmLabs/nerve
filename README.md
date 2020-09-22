@@ -4,7 +4,7 @@
 # Table of Contents
 * [Continuous Security](#Continuous-Security)
 * [About NERVE](#)
-  * [What is NERVE](#bout-Nerve)
+  * [What is NERVE](#about-Nerve)
   * [Deployment Recommendations](#deployment)
   * [Screenshots](#screenshots)
 * [Prerequisites](#prerequisites)
