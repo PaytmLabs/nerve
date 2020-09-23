@@ -4,3 +4,4 @@ dump.rdb
 .DS_Store
 reports/
 **/reports/*.html
+**/logs/nerve.log
