@@ -133,13 +133,10 @@
                           <p><b>Ethernet</b></p>
                           <p>Defining the Ethernet to use for port scanning. This is optional. if nothing is specified, it will use the default.</p>
 
-                          <p><b>Ethernet</b></p>
-                          <p>Defining the Ethernet to use for port scanning. This is optional. if nothing is specified, it will use the default.</p>
-
                           <p><b>Maximum Ports</b></p>
                           <p>This is a relatively important option. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.</p>
                           <p>However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you. 
-                             Too little ports means you may miss out on services, too many means you may sacrifice speed.</p>
+                             Too little ports means you may miss out on services, but the scan is going to be faster. Too many means you may sacrifice speed.</p>
                           <p>The default value for maximum ports is <b>100</b> ports (this ensures that at least http/https/ftp/ssh are covered).</p>
                           
                           <p><b>Parallel Scan</b></p>
@@ -224,7 +221,7 @@
                                      "parallel_scan":50,
                                      "parallel_attack":30
                                   },
-                                  "notifications":{
+                                  "post_event":{
                                      "webhook":"http://192.168.1.10:8000"
                                   },
                                   "frequency":"once"
