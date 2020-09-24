@@ -5,14 +5,15 @@
 * [Continuous Security](#Continuous-Security)
 * [About NERVE](#)
   * [What is NERVE](#about-Nerve)
-  * [Deployment Recommendations](#deployment)
-  * [Screenshots](#screenshots)
+  * [Features](#features)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
+  * [Deployment Recommendations](#Deployment-Recommendation)
   * [Installation - Docker](#docker)
   * [Installation - Bare Metal](#server)
 * [Usage](#usage)
 * [License](#license)
+* [Screenshots](#screenshots)
 
 # Continuous Security
 We believe security scanning should be done continuously. Not daily, weekly, monthly, or quarterly.
@@ -23,6 +24,8 @@ The benefit of running security scanning contiuously can be any of the following
 * You want the ability to respond quicker.
 
 NERVE was created to address this problem. Commercial tools are great, but they are also heavy, not easily extensible, and cost money. 
+
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/12.png?raw=true)
 
 # About NERVE
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
@@ -44,7 +47,36 @@ Example of some of NERVE's detection capabilities:
 * Directory Indexing
 * Best Practices
 
-## Deployment
+# Features
+NERVE offers the following features:
+* Dashboard (With a Login interface)
+* REST API (Scheduling assessments, Obtaining results, etc)
+* Notifications
+  * Slack
+  * Email
+  * Webhook
+* Reports
+  * TXT
+  * CSV
+  * HTML
+* Customizable scans
+  * Configurable intrusiveness levels
+  * Scan depth
+  * Exclusions
+  * DNS / IP Based
+  * Threading
+* Network Topology Graphs
+
+We put together Graphical User Interface primarily for ease of use, but we will be putting more emphasis on detections and new signatures than creating full blown user interface. 
+
+# Prerequisites
+NERVE will install all the prerequisites for you automatically if you choose the Server installation (CentOS 7.x and Ubuntu 18.x were tested) (by using `install/setup.sh` script). It also comes with a Dockerfile for your convenience. 
+
+Keep in mind, NERVE requires python 3.x and libraries such as python-nmap, requests, etc. and needs root access for the initial setup.
+
+
+# Installation
+## Deployment Recommendation
 The best way to deploy it, is to run it against your infrastructure from multiple regions (e.g. multiple instances of NERVE, in multiple countries), and toggle continuous mode so that you can catch short-lived vulnerabilities in dynamic environments/cloud.
 
 We typically recommend not to whitelist the IP addresses where NERVE will be initiating the scans from, to truly test your infrastructure from an attacker standpoint.
@@ -59,17 +91,6 @@ Here are the high level steps we recommend to get the most optimal results:
 3. Call NERVE API (`POST /api/scan/submit`) and schedule a scan using the assets you gathered in step #2.
 4. Fetch the results programmatically and act on them (SOAR, JIRA, SIEM, etc.)
 5. Add your own logic (exclude certain alerts, add to database, etc.)
-
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/12.png?raw=true)
-
-
-# Prerequisites
-NERVE will install all prerequisites for you automatically if you choose the Server installation (CentOS 7.x and Ubuntu 18.x were tested) (by using `install/setup.sh` script). It also comes with a Dockerfile for your convenience. 
-
-Keep in mind, NERVE requires python 3.x and libraries such as python-nmap, requests, etc. and needs root access for the initial setup.
-
-
-# Installation
 
 ## Docker
 ### Clone the repository
