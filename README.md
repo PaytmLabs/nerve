@@ -11,6 +11,7 @@
   * [Deployment Recommendations](#Deployment-Recommendation)
   * [Installation - Docker](#docker)
   * [Installation - Bare Metal](#server)
+* [Security](#security)
 * [Usage](#usage)
 * [License](#license)
 * [Screenshots](#screenshots)
@@ -118,6 +119,16 @@ In your browser, navigate to http://ip.add.re.ss:80 and login with the credentia
 `systemctl status nerve`
 
 In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
+
+# Security
+There are a few security mechanisms implemented into NERVE you need to be aware of.
+
+* Content Security Policy - A response header which controls where resource scan be loaded from.
+* Other Security Policies - These Response headers are enabled: Content-Type Options, X-XSS-Protection, X-Frame-Options, Referer-Policy
+* Brute Force Protection - A user will get locked if more than 5 incorrect login attempts are made.
+* Cookie Protection - Cookie security flags are used, such as SameSite, HttpOnly, etc.
+
+If you identify a security vulnerability, please submit a bug to us on GitHub.
 
 # Usage
 To learn about NERVE (GUI, API, etc.) we advise you to check out the documentation available to you via the platform.
