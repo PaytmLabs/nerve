@@ -5,11 +5,11 @@ from core.parser  import ScanParser, ConfParser
 class Rule:
   def __init__(self):
     self.rule = 'DSC_38A9'
-    self.rule_severity = 1
+    self.rule_severity = 2
     self.rule_description = 'Checks for Composer JSON'
     self.rule_confirm = 'Identified a Composer JSON'
     self.rule_details = ''
-    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
+    self.rule_mitigation = '''Identify whether the file in question is supposed to be exposed to the network.'''
     self.rule_match_string = {
     '/composer.json':{
       'app':'COMPOSER_JSON',

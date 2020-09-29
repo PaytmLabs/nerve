@@ -5,7 +5,7 @@ from core.parser  import ScanParser, ConfParser
 class Rule:
   def __init__(self):
     self.rule = 'DSC_SSB9'
-    self.rule_severity = 1
+    self.rule_severity = 2
     self.rule_description = 'Checks for Artifactory Panels'
     self.rule_confirm = 'Identified an Artifactory Panel'
     self.rule_details = ''

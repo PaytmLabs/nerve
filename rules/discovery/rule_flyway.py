@@ -6,7 +6,7 @@ class Rule:
   def __init__(self):
     self.rule = 'DSC_3GGB'
     self.rule_severity = 1
-    self.rule_description = 'Checks for Flywway App'
+    self.rule_description = 'Checks for Flyway App'
     self.rule_confirm = 'Identified a Flyway App'
     self.rule_details = ''
     self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''

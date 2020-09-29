@@ -6,7 +6,7 @@ class Rule:
   def __init__(self):
     self.rule = 'DSC_100F'
     self.rule_severity = 1
-    self.rule_description = 'Checks for GLobal Protect Panels'
+    self.rule_description = 'Checks for Global Protect Panels'
     self.rule_confirm = 'Identified a Global Protect Panel'
     self.rule_details = ''
     self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''

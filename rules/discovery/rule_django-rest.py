@@ -5,7 +5,7 @@ from core.parser  import ScanParser, ConfParser
 class Rule:
   def __init__(self):
     self.rule = 'DSC_BSZ2'
-    self.rule_severity = 1
+    self.rule_severity = 2
     self.rule_description = 'Checks for Django API Endpoints'
     self.rule_confirm = 'Identified a Django API Endpoint'
     self.rule_details = ''

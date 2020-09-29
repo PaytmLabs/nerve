@@ -5,11 +5,11 @@ from core.parser  import ScanParser, ConfParser
 class Rule:
   def __init__(self):
     self.rule = 'DSC_GEG2'
-    self.rule_severity = 1
+    self.rule_severity = 2
     self.rule_description = 'Checks for ASP.NET Configs'
     self.rule_confirm = 'Identified an ASP.NET Config'
     self.rule_details = ''
-    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
+    self.rule_mitigation = '''Identify whether the configuration file is supposed to be exposed to the network.'''
     self.rule_match_string = {    
     '/web.config':{
       'app':'ASPNET_CONFIG',
