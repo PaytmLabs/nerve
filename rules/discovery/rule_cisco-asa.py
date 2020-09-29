@@ -9,7 +9,7 @@ class Rule:
     self.rule_description = 'Checks for Cisco ASA Panels'
     self.rule_confirm = 'Identified a Cisco ASA Panel'
     self.rule_details = ''
-    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the local network.'''
+    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
     self.rule_match_string = {    
     '/+CSCOE+/logon.html':{
       'app':'CISCO_ASA',

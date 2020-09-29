@@ -10,7 +10,7 @@ class Rule:
     self.rule_description = 'Checks for Open Directories'
     self.rule_confirm = 'Remote Server has Directory Indexing Enabled'
     self.rule_details = ''
-    self.rule_mitigation = '''Disable Directory Indexing on the server'''
+    self.rule_mitigation = '''Disable Directory Indexing on the server. Directory Indexing can allow access to files on the server to untrusted sources.'''
     self.uris = COMMON_WEB_PATHS
     self.intensity = 3
 

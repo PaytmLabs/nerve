@@ -9,7 +9,8 @@ class Rule:
     self.rule_description = 'Finds Open API Docs'
     self.rule_confirm = 'Remote Server is exposing Swagger API'
     self.rule_details = ''
-    self.rule_mitigation = '''Swagger API may have been incorrectly configured to allow access to the local network.'''
+    self.rule_mitigation = '''Swagger API may have been incorrectly configured to allow access to untrusted clients Check whether this can be restricted, as it may \
+lead to attackers identifying your application endpoints.'''
     self.rule_match_string = {
                               '/v2/api-docs':{
                                 'app':'SWAGGER',

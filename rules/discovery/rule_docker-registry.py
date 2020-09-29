@@ -9,7 +9,7 @@ class Rule:
     self.rule_description = 'Checks for Docker Registry Endpoints'
     self.rule_confirm = 'Identified a Docker Registry Endpoint'
     self.rule_details = ''
-    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the local network.'''
+    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
     self.rule_match_string = {    
     '/v2/_catalog':{
       'app':'DOCKER_REGISTRY_LIST',

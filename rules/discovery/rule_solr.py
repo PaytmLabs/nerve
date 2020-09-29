@@ -9,7 +9,7 @@ class Rule:
     self.rule_description = 'Checks for Apache Solr Panels'
     self.rule_confirm = 'Identified an Apache Solr Panel'
     self.rule_details = ''
-    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the local network.'''
+    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
     self.rule_match_string = {    
     '/solr':{
       'app':'APACHE_SOLR',

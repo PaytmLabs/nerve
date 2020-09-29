@@ -9,7 +9,7 @@ class Rule:
     self.rule_description = 'Checks for ASP.NET Configs'
     self.rule_confirm = 'Identified an ASP.NET Config'
     self.rule_details = ''
-    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the local network.'''
+    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
     self.rule_match_string = {    
     '/web.config':{
       'app':'ASPNET_CONFIG',

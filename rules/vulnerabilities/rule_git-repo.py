@@ -11,7 +11,8 @@ class Rule:
     self.rule_description = 'Checks for Git Repositories'
     self.rule_confirm = 'Remote Server Exposes Git Repository'
     self.rule_details = ''
-    self.rule_mitigation = '''Configure the server in a way that makes git repository unreachable'''
+    self.rule_mitigation = '''Git repository was found to be accessible. \
+Configure the server in a way that makes git repository unreachable to untrusted clients'''
     self.intensity = 3
     self.uris = COMMON_WEB_PATHS
   

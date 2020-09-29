@@ -9,7 +9,7 @@ class Rule:
     self.rule_description = 'Checks for Open Wordpress Upload Directories'
     self.rule_confirm = 'Remote Wordpress has an Uploads Folder with Indexing Enabled'
     self.rule_details = ''
-    self.rule_mitigation = '''Disable Directory Indexing on the Wordpress instance'''
+    self.rule_mitigation = '''Disable Directory Indexing on the Wordpress instance.'''
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):

@@ -13,7 +13,7 @@ class Rule:
     self.rule_confirm = 'Remote Server with weak PostgreSQL credentials'
     self.rule_details = ''
     self.rule_mitigation = '''PostgreSQL Allows connections with a weak password. 
-PostgreSQL must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication'''
+PostgreSQL must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.'''
     self.intensity = 3
 
   def psql_attack(self, ip, username, password):

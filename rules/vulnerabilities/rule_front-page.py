@@ -10,7 +10,7 @@ class Rule:
     self.rule_description = 'FrontPage configuration information disclosure'
     self.rule_confirm = 'FrontPage misconfiguration'
     self.rule_details = ''
-    self.rule_mitigation = '''Make sure SharePoint is not anonymously accessible'''
+    self.rule_mitigation = '''Ensure SharePoint is not anonymously accessible'''
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):

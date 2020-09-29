@@ -9,7 +9,8 @@ class Rule:
     self.rule_description = 'Checks for Open Elasticsearch instances'
     self.rule_confirm = 'Identified an open Elasticsearch'
     self.rule_details = ''
-    self.rule_mitigation = '''Identify whether ElasticSearch should allow access to any local network host.'''
+    self.rule_mitigation = '''Identify whether ElasticSearch should allow access to untrusted clients.\
+https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-security.html'''
     self.rule_match_string = {
                               '/_cat/indices?v':{
                                 'app':'ELASTICSEARCH1',

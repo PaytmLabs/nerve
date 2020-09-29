@@ -9,7 +9,7 @@ class Rule:
     self.rule_description = 'Checks for Struts Consoles'
     self.rule_confirm = 'Identified a Struts Console'
     self.rule_details = ''
-    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the local network.'''
+    self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
     self.rule_match_string = {    
     '/struts/webconsole.html':{
       'app':'OGNL_CONSOLE',

@@ -11,7 +11,7 @@ class Rule:
     self.rule_description = 'Checks for Beanstalk Takeovers'
     self.rule_confirm = 'DNS Entry allows takeover of Beanstalk server'
     self.rule_details = ''
-    self.rule_mitigation = '''Verify the DNS is in use, remove if unnecessary.'''
+    self.rule_mitigation = '''Verify the DNS is in use, remove the record if unnecessary.'''
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):

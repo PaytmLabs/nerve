@@ -11,7 +11,7 @@ class Rule:
     self.rule_description = 'Remote Code Execution Via User-Agent shellshock'
     self.rule_confirm = 'Shellshock RCE'
     self.rule_details = ''
-    self.rule_mitigation = '''Patch the vulnerable system'''
+    self.rule_mitigation = '''Patch the vulnerable system's kernel to a non-vulnerable version.'''
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):

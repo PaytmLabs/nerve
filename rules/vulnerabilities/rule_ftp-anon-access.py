@@ -12,7 +12,7 @@ class Rule:
     self.rule_description = 'Checks if FTP allows Anonymous Access'
     self.rule_details = ''
     self.rule_confirm = 'FTP Anonymous Access Allowed'
-    self.rule_mitigation = '''Disable Anonymous FTP access.'''
+    self.rule_mitigation = '''FTP allows anonymous users access. Disable Anonymous FTP access if this is not a business requirement.'''
     self.rule_match_port = ftp_ports
     self.intensity = 0 
 

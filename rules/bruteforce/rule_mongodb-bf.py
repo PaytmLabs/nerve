@@ -14,7 +14,7 @@ class Rule:
     self.rule_confirm = 'Remote Server with weak MongoDB credentials'
     self.rule_details = ''
     self.rule_mitigation = '''MongoDB Server Allows connections with a weak password. 
-MongoDB must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication'''
+MongoDB must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.'''
     self.intensity = 3
 
   def mongodb_attack(self, ip, port, username, password):

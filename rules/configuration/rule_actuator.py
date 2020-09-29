@@ -9,7 +9,7 @@ class Rule:
     self.rule_description = 'Actuator Misconfiguration'
     self.rule_confirm = 'Remote Server Actuator is misconfigured'
     self.rule_details = ''
-    self.rule_mitigation = '''Server has a misconfigured Actuator, which is potentially leaking out sensitive data.
+    self.rule_mitigation = '''Server has a misconfigured Actuator, which is potentially leaking out sensitive data. \
 Restrict access to the endpoint to trusted sources only.'''
     self.rule_match_string = {
                               '/admin/dump':{

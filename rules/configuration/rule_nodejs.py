@@ -11,7 +11,7 @@ class Rule:
     self.rule_description = 'Checks for NodeJS Server.js exposures'
     self.rule_confirm = 'Remote NodeJS Server is leaking server.js'
     self.rule_details = ''
-    self.rule_mitigation = '''NodeJS has been configured to serve server.js which may allow local attackers access to backend code.'''
+    self.rule_mitigation = '''NodeJS has been configured to serve server.js which may allow attackers access to backend code.'''
     self.rule_match_string = [
       "require('http')",
       "module.exports",

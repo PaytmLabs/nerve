@@ -6,11 +6,13 @@ from core.parser import ScanParser, ConfParser
 class Rule:
   def __init__(self):
     self.rule = 'VLN_4SD5'
-    self.rule_severity = 1
+    self.rule_severity = 2
     self.rule_description = 'Checks for Host Header Injections'
-    self.rule_confirm = 'Host Header Injection'
+    self.rule_confirm = 'Identified Host Header Injection'
     self.rule_details = ''
-    self.rule_mitigation = '''Redirect only to allowed hosts, otherwise ignore the Host Header'''
+    self.rule_mitigation = '''Redirect only to allowed hosts, otherwise ignore the Host Header.\
+This may not indicate an immediate problem, but could potentially become an issue if any URLS are being constructed using the Host header.\
+https://www.acunetix.com/blog/articles/automated-detection-of-host-header-attacks'''
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):

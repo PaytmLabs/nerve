@@ -11,7 +11,7 @@ class Rule:
     self.rule_description = 'Checks for password forms in HTTP'
     self.rule_confirm = 'Unencrypted Login Form'
     self.rule_details = ''
-    self.rule_mitigation = '''Website login form should be done over SSL.'''
+    self.rule_mitigation = '''Website accepts credentials via HTML Forms, howeverm, it offers no encryptions and may allow attackers to intercept them.'''
     self.intensity = 1
 
   def contains_password_form(self, text):

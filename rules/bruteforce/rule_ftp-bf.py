@@ -14,7 +14,7 @@ class Rule:
     self.rule_confirm = 'Remote Server with weak FTP credentials'
     self.rule_details = ''
     self.rule_mitigation = '''FTP Server Allows connections with a weak password. 
-FTP must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication'''
+FTP must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.'''
     self.intensity = 3
 
   def ftp_attack(self, ip, username, password):

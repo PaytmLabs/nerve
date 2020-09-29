@@ -10,7 +10,7 @@ class Rule:
     self.rule_confirm = 'Unmaintained Webserver'
     self.rule_details = ''
     self.rule_mitigation = '''Server is configured with the default web server page. 
-This may indicate a forgotten/unmaintained server, and may not necessarily pose a security concern'''
+This may indicate a forgotten/unmaintained server, and may not necessarily pose a security concern.'''
     self.rule_match_string  = {
                     'Apache':{
                       'app':'APACHE',

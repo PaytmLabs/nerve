@@ -10,9 +10,10 @@ class Rule:
     self.rule = 'CFG_DZ19'
     self.rule_severity = 1
     self.rule_description = 'Checks if CORS Allows Arbitrary Origin Trust'
-    self.rule_confirm = 'CORS Allow Arbitrary Origins'
+    self.rule_confirm = 'CORS Allows Arbitrary Origins'
     self.rule_details = ''
-    self.rule_mitigation = '''Consider hardening your CORS Policy to define specific Origins'''
+    self.rule_mitigation = '''Consider hardening your CORS Policy to define specific Origins \
+https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS'''
     self.intensity = 1
   
   def randomize_origin(self):
@@ -43,7 +44,7 @@ class Rule:
       return
     
     if 'Access-Control-Allow-Origin' in resp.headers and resp.headers['Access-Control-Allow-Origin'] == random_origin:
-      info = 'Header used: "Origin: {}"'.format(random_origin)    
+      self.rule_details = 'Header used: "Origin: {}"'.format(random_origin)    
       js_data = {
                 'ip':ip,
                 'port':port,

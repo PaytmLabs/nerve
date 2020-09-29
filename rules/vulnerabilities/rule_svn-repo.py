@@ -10,7 +10,7 @@ class Rule:
     self.rule_description = 'Checks for SVN Repositories'
     self.rule_confirm = 'SVN Repository Found'
     self.rule_details = ''
-    self.rule_mitigation = '''Block remote access to SVN.'''
+    self.rule_mitigation = '''Block remote access to the Subversion repository.'''
     self.intensity = 0
                                     
   def check_rule(self, ip, port, values, conf):

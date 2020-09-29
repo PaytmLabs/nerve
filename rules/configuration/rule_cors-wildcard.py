@@ -5,11 +5,13 @@ from core.parser  import ScanParser, ConfParser
 class Rule:
   def __init__(self):
     self.rule = 'CFG_DFFF'
-    self.rule_severity = 0
+    self.rule_severity = 1
     self.rule_description = 'Checks if CORS Headers support Wildcard Origins'
     self.rule_confirm = 'Webserver is allowing all domains in CORS'
     self.rule_details = ''
-    self.rule_mitigation = '''Consider hardening your CORS Policy to define specific Origins'''
+    self.rule_mitigation = '''Consider hardening your CORS Policy to define specific Origins \
+https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+'''
     self.intensity = 1
     
   def check_rule(self, ip, port, values, conf):
