@@ -73,8 +73,15 @@ We put together Graphical User Interface primarily for ease of use, but we will 
 # Prerequisites
 NERVE will install all the prerequisites for you automatically if you choose the Server installation (CentOS 7.x and Ubuntu 18.x were tested) (by using `install/setup.sh` script). It also comes with a Dockerfile for your convenience. 
 
-Keep in mind, NERVE requires python 3.x and libraries such as python-nmap, requests, etc. and needs root access for the initial setup.
+Keep in mind, NERVE requires root access for the initial setup on bare metal (package installation, etc).
 
+Services and Packages required for NERVE to run:
+* Web Server (Flask)
+* Redis server (binds locally)
+* Nmap package (binary and Python nmap library)
+* Inbound access on HTTP/S port (you can define this in config.py) 
+
+The installation script takes care of everything for you, but if you want to install it by yourself, keep in mind these are required.
 
 # Installation
 ## Deployment Recommendation
@@ -129,6 +136,12 @@ There are a few security mechanisms implemented into NERVE you need to be aware 
 * Cookie Protection - Cookie security flags are used, such as SameSite, HttpOnly, etc.
 
 If you identify a security vulnerability, please submit a bug to us on GitHub.
+
+We recommend to take the following steps before and after installation
+1. Set a strong password (a password will be set for you if you use the bare metal installation)
+2. Protect the inbound access to the panel (Add your management IP addresses to the allow list of the local firewall)
+3. Add HTTPS (you can either patch Flask directly, or use a reverse proxy like nginx)
+4. Keep the instance patched
 
 # Usage
 To learn about NERVE (GUI, API, etc.) we advise you to check out the documentation available to you via the platform.
