@@ -80,7 +80,7 @@
                                          <td>{{value.port}}</td>
                                          {% if value.rule_sev == 0 %}
                                          <td><span class="informational">Informational</td> 
-                                        {% if value.rule_sev == 1 %}
+                                        {% elif value.rule_sev == 1 %}
                                         <td><span class="low">Low</td>
                                         {% elif value.rule_sev == 2 %}
                                         <td><span class="medium">Medium</td>
