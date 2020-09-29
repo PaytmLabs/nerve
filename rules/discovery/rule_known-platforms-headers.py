@@ -6,9 +6,8 @@ class Rule:
   def __init__(self):
     self.rule = 'DSC_FB18'
     self.rule_severity = 1
-    self.rule_confirm = 'Known Platform Found'
     self.rule_description = 'Checks if a Known Platform is exposed'
-    self.rule_confirm = 'Identified a Known Platform'
+    self.rule_confirm = 'Identified a Known Platform via its Headers'
     self.rule_details = ''
     self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
     self.rule_match_string = {
@@ -149,7 +148,7 @@ class Rule:
             
       for match in val['match']:  
         if resp and t.string_in_headers(resp, match):
-          self.rule_details = '{} - ({})'.format(app, app_title)
+          self.rule_details = '{} ({})'.format(app, app_title)
           js_data = {
               'ip':ip,
               'port':port,
