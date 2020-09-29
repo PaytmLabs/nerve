@@ -13,7 +13,7 @@ class Rule:
     self.rule_confirm = 'Shellshock RCE'
     self.rule_details = ''
     self.rule_mitigation = '''Patch the vulnerable system's kernel to a non-vulnerable version.'''
-    self.intensity = 1
+    self.intensity = 3
 
   def check_rule(self, ip, port, values, conf):
     c = ConfParser(conf)
@@ -32,7 +32,6 @@ class Rule:
 
       if not resp:
         continue
-
 
       if resp and re.search('root:[x*]:0:0', resp.text):
         self.rule_details = 'Remote Code Execution Shellshock'
