@@ -78,7 +78,8 @@
                                          <td>{{value.ip}}</td>
                                          <td>{% if value.domain %} {{value.domain}} {% else %} N/A {% endif %}</td>
                                          <td>{{value.port}}</td>
-                                        
+                                         {% if value.rule_sev == 0 %}
+                                         <td><span class="informational">Informational</td> 
                                         {% if value.rule_sev == 1 %}
                                         <td><span class="low">Low</td>
                                         {% elif value.rule_sev == 2 %}

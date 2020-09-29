@@ -173,16 +173,16 @@ class Rule:
                       'match':['nesssus6.js', 'nessus6.css', '<title>Nessus</title>'],
                       'title':'Nessus VA Console'
                     },
-                     'Jenkins':{
-                       'app':'JENKINS',
-                       'match':['Sign in [Jenkins]', 'Welcome to Jenkins'],
-                       'title':'Jenkins'
-                     },
-                     'Polycom':{
-                       'app':'POLYCOM',
-                       'match':['- Polycom'],
-                       'title':'Polycom'
-                     },
+                    'Jenkins':{
+                      'app':'JENKINS',
+                      'match':['Sign in [Jenkins]', 'Welcome to Jenkins'],
+                      'title':'Jenkins'
+                    },
+                    'Polycom':{
+                      'app':'POLYCOM',
+                      'match':['- Polycom'],
+                      'title':'Polycom'
+                    },
                     'KongAPI':{
                        'app':'KONG_API',
                        'match':['prng_seeds'],
@@ -198,46 +198,46 @@ class Rule:
                       'match':['Greenbone Security Manager'],
                       'title':'OpenVAS Panel'
                     },
-                     'DMS Panel':{
-                        'app':'DMS',
-                        'match':['<title>dmspanel</title>'],
-                        'title':'DMS Panel'
-                      },
-                      'Kubernetes Dashboard':{
-                        'app':'K8S_DASHBOARD',
-                        'match':['Kubernetes Dashboard'],
-                        'title':'Kubernetes Dashboard'
-                      },
-                      'Netweaver Panel':{
-                        'app':'NETWEAVER',
-                        'match':['data-sap-ls-system-userAgent', 'sap-system-login'],
-                        'title':'Netweaver Panel'
-                      },
-                      'DMS Panel':{
-                       'app':'DMS',
-                       'match':['<title>dmspanel</title>'],
-                       'title':'DMS Panel'
-                     },
-                     'F5 BIGIP':{
-                       'app':'F5_BIGIP',
-                       'match':['<title>BIG-IP', 'BIG-IP-F5'],
-                       'title':'F5 BIG-IP'
-                     },
-                     'Pritunl':{
-                       'app':'PRITUNL',
-                       'match':['<title>Pritunl</title>'],
-                       'title':'Distributed VPN'
-                     },
-                     'Adobe AEM':{
-                       'app':'ADOBE_AEM',
-                       'match':['/etc.clientlibs/', 'etc.clientlibs/'],
-                       'title':'Adobe AEM'
-                     },
-                     'Github':{
-                       'app':'Github',
-                       'match':['GitHub · Enterprise'],
-                       'title':'GitHub Enterprise'
-                     }
+                    'DMS Panel':{
+                      'app':'DMS',
+                      'match':['<title>dmspanel</title>'],
+                      'title':'DMS Panel'
+                    },
+                    'Kubernetes Dashboard':{
+                      'app':'K8S_DASHBOARD',
+                      'match':['Kubernetes Dashboard'],
+                      'title':'Kubernetes Dashboard'
+                    },
+                    'Netweaver Panel':{
+                      'app':'NETWEAVER',
+                      'match':['data-sap-ls-system-userAgent', 'sap-system-login'],
+                      'title':'Netweaver Panel'
+                    },
+                    'DMS Panel':{
+                      'app':'DMS',
+                      'match':['<title>dmspanel</title>'],
+                      'title':'DMS Panel'
+                    },
+                    'F5 BIGIP':{
+                      'app':'F5_BIGIP',
+                      'match':['<title>BIG-IP', 'BIG-IP-F5'],
+                      'title':'F5 BIG-IP'
+                    },
+                    'Pritunl':{
+                      'app':'PRITUNL',
+                      'match':['<title>Pritunl</title>'],
+                      'title':'Distributed VPN'
+                    },
+                    'Adobe AEM':{
+                      'app':'ADOBE_AEM',
+                      'match':['/etc.clientlibs/', 'etc.clientlibs/'],
+                      'title':'Adobe AEM'
+                    },
+                    'Github':{
+                      'app':'Github',
+                      'match':['GitHub · Enterprise'],
+                      'title':'GitHub Enterprise'
+                    }
                   }
 
     self.intensity = 3

@@ -8,7 +8,7 @@ from core.parser  import ScanParser, ConfParser
 class Rule:
   def __init__(self):
     self.rule = 'CFG_DZ19'
-    self.rule_severity = 0
+    self.rule_severity = 1
     self.rule_description = 'Checks if CORS Allows Arbitrary Origin Trust'
     self.rule_confirm = 'CORS Allow Arbitrary Origins'
     self.rule_details = ''

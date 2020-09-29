@@ -8,6 +8,7 @@ class Rule:
     self.rule_severity = 1
     self.rule_description = 'Nginx Misconfiguration'
     self.rule_details = ''
+    self.rule_confirm = 'Nginx Server is misconfigured'
     self.rule_mitigation = '''Nginx is configured with default configurations, which exposes one or more status endpoints.
 Nginx status may unintentionally reveal information which should not be remotely accessible.
 The following article discusses the status module in-depth: http://nginx.org/en/docs/http/ngx_http_stub_status_module.html.'''
@@ -49,7 +50,7 @@ The following article discusses the status module in-depth: http://nginx.org/en/
       if resp is not None:
         for match in values['match']:
           if match in resp.text:
-            self.rule_details = 'Nginx Misconfig - {} at {}'.format(app_title, uri)
+            self.rule_details = 'Nginx Misconfiguration - {} at {}'.format(app_title, uri)
             js_data = {
               'ip':ip,
               'port':port,
