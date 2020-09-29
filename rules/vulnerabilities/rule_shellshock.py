@@ -1,8 +1,8 @@
+import re
+
 from core.redis import rds
 from core.triage import Triage
 from core.parser import ScanParser, ConfParser
-import re
-
 
 class Rule:
   def __init__(self):
