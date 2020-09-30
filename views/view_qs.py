@@ -7,7 +7,13 @@ from core.parser import SchemaParser
 from core.register  import Register
 from core.logging   import logger
 
-from flask import Blueprint, render_template, flash, request, redirect
+from flask import (
+  Blueprint, 
+  render_template, 
+  flash, 
+  request, 
+  redirect
+)
 
 qs = Blueprint('qs', __name__,
                 template_folder='templates')

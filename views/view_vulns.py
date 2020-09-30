@@ -3,7 +3,7 @@ from flask import Blueprint, render_template
 from core.redis import rds
 
 vulns = Blueprint('vulnerabilities', __name__,
-                    template_folder='templates')
+                   template_folder='templates')
 
 @vulns.route('/vulnerabilities')
 @session_required

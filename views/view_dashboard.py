@@ -4,9 +4,8 @@ from core.redis import rds
 
 from flask import Blueprint, render_template
 
-
 dashboard = Blueprint('dashboard', __name__,
-                        template_folder='templates')
+                      template_folder='templates')
 
 @dashboard.route('/dashboard')
 @session_required

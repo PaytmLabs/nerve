@@ -2,7 +2,7 @@ from core.security import session_required
 from flask import Blueprint, render_template
 
 documentation = Blueprint('documentation', __name__,
-                        template_folder='templates')
+                         template_folder='templates')
 
 @documentation.route('/documentation')
 @session_required

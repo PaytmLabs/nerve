@@ -2,7 +2,7 @@ from core.security import session_required
 from flask import Blueprint, render_template
 
 console = Blueprint('console', __name__,
-                        template_folder='templates')
+                    template_folder='templates')
 
 @console.route('/console')
 @session_required

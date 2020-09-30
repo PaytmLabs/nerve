@@ -1,14 +1,13 @@
 from core.security import session_required
 from flask import (
   Blueprint, 
-  render_template, 
   request, 
   redirect,
   make_response
 )
 
 index = Blueprint('index', __name__,
-                        template_folder='templates')
+                   template_folder='templates')
 
 @index.route('/')
 @session_required

@@ -14,6 +14,4 @@ def view_stream():
       while True:
         yield f.read()
         time.sleep(1)
-  
-  #return stream.view_stream.response_class(generate(), mimetype='text/plain')
   return Response(stream_with_context(generate()), mimetype='text/plain')

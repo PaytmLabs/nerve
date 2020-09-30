@@ -6,7 +6,7 @@ from core.mailer  import send_email
 from flask import Blueprint, render_template, request
 
 settings = Blueprint('settings', __name__,
-                    template_folder='templates')
+                     template_folder='templates')
 
 @settings.route('/settings', methods=['GET', 'POST', 'DELETE'])
 @session_required

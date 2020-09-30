@@ -10,15 +10,14 @@ from core.reports import (
 )
 
 from flask import (
-  Blueprint, 
-  request, 
+  Blueprint,
   flash,
   redirect,
   send_from_directory
 )
 
 download = Blueprint('download', __name__,
-                        template_folder='templates')
+                      template_folder='templates')
 
 @download.route('/download/<file>')
 @session_required

@@ -1,14 +1,10 @@
-from core.redis import rds
-from core.parser import SchemaParser
-from core.register import Register
-#from core.security  import auth, session_required, verify_password
+from core.redis     import rds
+from core.parser    import SchemaParser
+from core.register  import Register
 from core.security  import auth
 
-from flask_restful import Resource
-
-from flask import (
-  request
-)
+from flask_restful  import Resource
+from flask import request
 
 class Scan(Resource):
   @auth.login_required

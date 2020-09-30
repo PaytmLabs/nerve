@@ -8,4 +8,4 @@ welcome = Blueprint('welcome', __name__,
 @welcome.route('/welcome')
 @session_required
 def view_welcome():
-  return render_template('welcome.html', data=data)
+  return render_template('welcome.html')
