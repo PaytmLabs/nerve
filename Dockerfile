@@ -27,6 +27,9 @@ ADD reports $TARGET_FOLDER/reports
 ADD rules $TARGET_FOLDER/rules
 ADD static $TARGET_FOLDER/static
 ADD templates $TARGET_FOLDER/templates
+ADD views $TARGET_FOLDER/views
+ADD views_api $TARGET_FOLDER/views_api
+
 COPY config.py $TARGET_FOLDER
 COPY main.py $TARGET_FOLDER
 COPY requirements.txt $TARGET_FOLDER
