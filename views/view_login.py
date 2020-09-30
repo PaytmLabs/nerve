@@ -29,7 +29,8 @@ def view_login():
       session['session'] = username
       return redirect('/')
     else:
-      return render_template('login.html', err='Incorrect username or password.')
+      return render_template('login.html', err='Incorrect username or password. \
+                                                After 5 attempts, you will get blocked.')
   
   if not utils.is_version_latest():
     msg = 'New Version is Available'

@@ -209,7 +209,7 @@ class RedisManager:
       if int(attempts) >= config.MAX_LOGIN_ATTEMPTS:
         return True
     else:
-      self.r.set(key, 0, ex=300)  
+      self.r.set(key, 1, ex=300)  
     return False
   
   def log_attempt(self, ip):
