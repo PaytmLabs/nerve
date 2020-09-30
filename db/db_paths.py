@@ -9,3 +9,5 @@ COMMON_WEB_PATHS = [
                  ]
 
 COMMON_LOGIN_PATHS = ['/', '/login', '/remote/login', '/admin', '/administrator', '/panel', '/dashboard', '/adm', '/members', '/private', '/manager']
+
+COMMON_CGI_PATHS = ['/cgi-bin/status', '/cgi-bin', '/cgi-bin/php', '/cgi-bin/php5', '/cgi-bin/php4']

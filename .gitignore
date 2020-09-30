@@ -5,3 +5,4 @@ dump.rdb
 reports/
 **/reports/*.html
 **/logs/nerve.log
+tests/

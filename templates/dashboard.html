@@ -285,10 +285,12 @@
     <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
     <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
     <script src="static/vendor/toastr/toastr.min.js"></script>
+    <script src="static/js/script.js"></script>
     <script src="static/vendor/chartsjs/Chart.min.js"></script>
     
+  
+{% if vulns %}
     <script>
-    {% if vulns %}
     var donut = document.getElementById("doughnutchart");
     var radar = document.getElementById("radar");
     
@@ -361,16 +363,17 @@
 });
     {% endif %}
     </script>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-       <script>
-       {% for category, message in messages %}
-       toastr.{{category}}("{{ message }}");
-       {% endfor %}
-       </script>
-    {% endif %}
-   {% endwith %}
 {% endif %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <script>
+    {% for category, message in messages %}
+    toastr.{{category}}("{{ message }}");
+    {% endfor %}
+    </script>
+{% endif %}
+{% endwith %}
+
 </body>
 </html>

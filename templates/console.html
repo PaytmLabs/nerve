@@ -95,7 +95,7 @@
     <script>
     var output = document.getElementById('output');
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '{{ url_for('stream') }}');
+    xhr.open('GET', '/log');
     xhr.send();
 
     setInterval(function() {
