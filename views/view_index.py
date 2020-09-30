@@ -3,7 +3,8 @@ from flask import (
   Blueprint, 
   request, 
   redirect,
-  make_response
+  make_response,
+  render_template
 )
 
 index = Blueprint('index', __name__,
