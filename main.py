@@ -58,8 +58,8 @@ app.config.update(
   SESSION_COOKIE_SAMESITE='Strict',
 )
 app.secret_key = os.urandom(24)
+
 api = Api(app)
-    
 api.add_resource(Health, '/health')
 api.add_resource(Scan, '/api/scan', '/api/scan/<string:action>')
 
@@ -95,7 +95,6 @@ def status():
 def show_version():
   return dict(version=VERSION)
 
-# Context Processors
 @app.context_processor
 def show_frequency():
   config = rds.get_scan_config()
