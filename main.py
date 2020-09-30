@@ -63,6 +63,7 @@ api = Api(app)
 api.add_resource(Health, '/health')
 api.add_resource(Scan, '/api/scan', '/api/scan/<string:action>')
 
+
 # Set Security Headers
 @app.after_request
 def add_security_headers(resp):
@@ -73,7 +74,7 @@ def add_security_headers(resp):
     resp.headers['X-Frame-Options'] = config.WEB_SEC_HEADERS['XFO']
     resp.headers['Referrer-Policy'] = config.WEB_SEC_HEADERS['RP']
     resp.headers['Server'] = config.WEB_SEC_HEADERS['Server']
-    return resp  
+  return resp  
 
 # Context Processors
 @app.context_processor
@@ -103,7 +104,6 @@ def show_frequency():
     scan_frequency = config['config']['frequency']
   return dict(frequency=scan_frequency)
     
-  
 if __name__ == '__main__':  
   rds.initialize()
   start_workers()
