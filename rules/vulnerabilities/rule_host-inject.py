@@ -11,7 +11,7 @@ class Rule:
     self.rule_confirm = 'Identified Host Header Injection'
     self.rule_details = ''
     self.rule_mitigation = '''Redirect only to allowed hosts, otherwise ignore the Host Header.
-This may not indicate an immediate problem, but could potentially become an issue if any URLs are being constructed using the Host header. 
+This may not indicate an immediate problem, but could potentially become an issue if any URLs are being constructed using the Host header.
 Refer to the following Acunetix article for more information on Host Header Injections: https://www.acunetix.com/blog/articles/automated-detection-of-host-header-attacks'''
     self.intensity = 1
 
