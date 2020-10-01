@@ -1,12 +1,12 @@
 from core.redis  import rds
 from core.triage import Triage
-from core.parser import ScanParser, ConfParser
+from core.parser import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'CFG_ECC8'
     self.rule_severity = 1
-    self.rule_description = 'Nginx Misconfiguration'
+    self.rule_description = 'This rule checks for misconfigurations in Nginx'
     self.rule_details = ''
     self.rule_confirm = 'Nginx Server is misconfigured'
     self.rule_mitigation = '''Nginx is configured with default configurations, which exposes one or more status endpoints.
@@ -32,7 +32,6 @@ The following article discusses the status module in-depth: http://nginx.org/en/
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -50,8 +49,8 @@ The following article discusses the status module in-depth: http://nginx.org/en/
       if resp is not None:
         for match in values['match']:
           if match in resp.text:
-            self.rule_details = 'Nginx Misconfiguration - {} at {}'.format(app_title, uri)
-            js_data = {
+            self.rule_details = 'Nginx Misconfiguration - {} at {}'.format(app_title, resp.url)
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -61,8 +60,6 @@ The following article discusses the status module in-depth: http://nginx.org/en/
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            
-            rds.store_vuln(js_data)
+            })
             
     return

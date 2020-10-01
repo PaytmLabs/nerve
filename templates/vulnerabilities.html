@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NERVE</title>
-    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
-    <link href="static/vendor/DataTables/datatables.min.css" rel="stylesheet">
-    <link href="static/css/nerve.css" rel="stylesheet">
-    <link href="static/css/master.css" rel="stylesheet">
+    <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="vendor/DataTables/datatables.min.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -66,9 +68,8 @@
                                               <th>Domain</th>
                                               <th>Port</th>
                                               <th>Severity</th>
-                                              <th>Description</th>
                                               <th>Result</th>
-                                              <th>Details</th>
+                                              <th>Actions</th>
                                           </tr>
                                       </thead>
                                       {% if data %}
@@ -89,9 +90,15 @@
                                         {% elif value.rule_sev == 4 %}
                                         <td><span class="critical">Critical</td>
                                         {% endif %}
-                                         <td>{{value.rule_desc}}</td>
                                          <td>{{value.rule_confirm}}</td>
-                                         <td>{{value.rule_details}}</td>
+                                         <td>
+                                            <a href="/alert/view/{{key}}">
+                                            <button type="button" class="btn btn-outline-info mb-2">View</button>
+                                            </a>
+                                            <a href="/alert/resolve/{{key}}">
+                                                <button type="button" class="btn btn-outline-success mb-2">Resolve</button>
+                                            </a>
+                                        </td>
                                        </tr>
                                        {% endfor %}
                                        {% endif %}
@@ -107,14 +114,15 @@
         </div>
     </div>
 
-    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
-    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
-    <script src="static/vendor/DataTables/datatables.min.js"></script>
-    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
-    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
-    <script src="static/vendor/toastr/toastr.min.js"></script>
-    <script src="static/js/initiate-datatables.js"></script>
-    <script src="static/js/script.js"></script>
+    <script src={{ url_for('static', filename="vendor/jquery3/jquery-3.4.1.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/bootstrap4/js/bootstrap.bundle.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/DataTables/datatables.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/fontawesome5/js/solid.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/fontawesome5/js/fontawesome.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/toastr/toastr.min.js") }}></script>
+    <script src={{ url_for('static', filename="js/initiate-datatables.js") }} ></script>
+    <script src={{ url_for('static', filename="js/script.js") }}></script>
+
     {% with messages = get_flashed_messages(with_categories=true) %}
      {% if messages %}
         <script>

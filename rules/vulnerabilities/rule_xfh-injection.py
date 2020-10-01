@@ -1,20 +1,19 @@
 from core.redis   import rds
 from core.triage  import Triage
-from core.parser  import ScanParser, ConfParser
+from core.parser  import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'VLN_ZD10'
     self.rule_severity = 2
-    self.rule_description = 'Checks for X-Forwarded-Host Injection'
+    self.rule_description = 'This rule checks for X-Forwarded-Host Injection'
     self.rule_confirm = 'Remote Server suffers from X-Forwarded-Host Injection'
     self.rule_details = ''
-    self.rule_mitigation = '''Configure the server to not redirect based on arbitrary \
-XFH headers provided by the user.'''
+    self.rule_mitigation = '''Configure the server to not redirect based on arbitrary XFH headers provided by the user.
+Refer to the following OWASP article for more information: https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection'''
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -24,15 +23,14 @@ XFH headers provided by the user.'''
     if 'http' not in module: 
       return
     
-    target = 'www.nerve.local'
-    resp = t.http_request(ip, port, follow_redirects=False, headers={'X-Forwarded-Host':target})
+    resp = t.http_request(ip, port, follow_redirects=False, headers={'X-Forwarded-Host':'www.nerve.local'})
     
     if resp is None:
       return
     
-    if 'Location' in resp.headers and resp.headers['Location'] == target:
+    if 'Location' in resp.headers and resp.headers['Location'] == 'www.nerve.local':
       self.rule_details = 'Server Redirected to an Arbitrary Location'
-      js_data = {
+      rds.store_vuln({
         'ip':ip,
         'port':port,
         'domain':domain,
@@ -42,7 +40,6 @@ XFH headers provided by the user.'''
         'rule_confirm':self.rule_confirm,
         'rule_details':self.rule_details,
         'rule_mitigation':self.rule_mitigation
-      }
-      rds.store_vuln(js_data)
+      })
     
     return

@@ -5,14 +5,14 @@ import random
 
 from core.redis  import rds
 from core.triage import Triage
-from core.parser import ScanParser, ConfParser
+from core.parser import ScanParser
 from db.db_paths import COMMON_WEB_PATHS
 
 class Rule:
   def __init__(self):
     self.rule = 'VLN_AS91'
     self.rule_severity = 1
-    self.rule_description = 'Checks for .DS_Store files'
+    self.rule_description = 'This rule checks for forgotten .DS_Store files'
     self.rule_confirm = '.DS_Store File Found'
     self.rule_details = ''
     self.rule_mitigation = '''A .DS_Store file is a special MacOSX file which reveals the files within the same folder where it lives. and may indicate what other files exists on the webserver.
@@ -45,7 +45,6 @@ Remove this file and add .DS_Store to .gitignore'''
     return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -54,8 +53,8 @@ Remove this file and add .DS_Store to .gitignore'''
   
     if 'http' not in module:
       return
+
     for uri in self.uris:
-      
       filename = self.generate_filename()
       resp = t.http_request(ip, port, uri=uri + '/.DS_Store')
 
@@ -69,8 +68,8 @@ Remove this file and add .DS_Store to .gitignore'''
 
         with open(filename, 'rb') as f:
           if self.is_file_ds_store(f.read()):
-            self.rule_details = 'Found .DS_Store file at {}'.format(uri)
-            js_data = {
+            self.rule_details = 'Identified .DS_Store file at {}'.format(resp.url)
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -80,8 +79,7 @@ Remove this file and add .DS_Store to .gitignore'''
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            rds.store_vuln(js_data)
+            })
           
         os.remove(filename)
     return

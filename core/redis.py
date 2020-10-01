@@ -123,6 +123,12 @@ class RedisManager:
           logger.error('Error retrieving key')
 
     return kv
+  
+  def get_vuln_by_id(self, alert_id):
+    vuln = self.r.get(alert_id)
+    if vuln:
+      return pickle.loads(vuln)
+    return None
 
   def get_inventory_data(self):
     kv = {}

@@ -10,11 +10,12 @@ class Rule:
   def __init__(self):
     self.rule = 'BRF_4F74'
     self.rule_severity = 4
-    self.rule_description = 'Checks if MySQL is configured with weak credentials'
+    self.rule_description = 'This rule checks if MySQL is configured to accept remote connections using weak credentials'
     self.rule_confirm = 'Remote Server with weak MySQL credentials'
     self.rule_details = ''
     self.rule_mitigation = '''MySQL Allows connections with a weak password. 
-MySQL must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.'''
+MySQL must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.
+Refer to the MySQL Hardening Guideline for more information: https://dev.mysql.com/doc/refman/8.0/en/security-guidelines.html'''
     self.intensity = 3
 
   def mysql_attack(self, ip, username, password):
@@ -48,8 +49,8 @@ MySQL must not be listening on an external interface, and if required, it must a
     for username in usernames:
       for password in passwords:
         if self.mysql_attack(ip, username, password):
-          self.rule_details = 'Credentials are set to: {}'.format(result)
-          js_data = {
+          self.rule_details = 'MySQL Credentials are set to: {}:{}'.format(username, password)
+          rds.store_vuln({
             'ip':ip,
             'port':port,
             'domain':domain,
@@ -59,8 +60,7 @@ MySQL must not be listening on an external interface, and if required, it must a
             'rule_confirm':self.rule_confirm,
             'rule_details':self.rule_details,
             'rule_mitigation':self.rule_mitigation
-          }
-          rds.store_vuln(js_data)
+          })
       
     return
 

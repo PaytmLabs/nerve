@@ -1,15 +1,15 @@
 from core.redis  import rds
 from core.triage import Triage
-from core.parser import ScanParser, ConfParser
+from core.parser import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'VLN_EZSD'
     self.rule_severity = 4
-    self.rule_description = 'Finds Exposed UNIX Filesystems'
+    self.rule_description = 'This rule checks for exposed UNIX Filesystems'
     self.rule_confirm = 'UNIX File Disclosure'
     self.rule_details = ''
-    self.rule_mitigation = '''Disable any ability to directly browse to file system paths'''
+    self.rule_mitigation = '''Disable the ability to directly browse to file system paths'''
     self.rule_match_string = {
                               '/.ssh/authorized_keys':{
                                 'app':'SSH_AUTH_KEYS',
@@ -45,7 +45,6 @@ class Rule:
     self.intensity = 2
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -58,7 +57,6 @@ class Rule:
     resp = None
 
     for uri, values in self.rule_match_string.items():
-      app_name = values['app']
       app_title = values['title']
       
       resp = t.http_request(ip, port, uri=uri)
@@ -66,8 +64,8 @@ class Rule:
       if resp is not None:
         for match in values['match']:
           if match in resp.text:
-            self.rule_details = '{} at {}'.format(app_title, uri)
-            js_data = {
+            self.rule_details = 'UNIX File Disclosure - {} at {}'.format(app_title, resp.url)
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -77,7 +75,5 @@ class Rule:
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }        
-            
-            rds.store_vuln(js_data)
+            })
     return

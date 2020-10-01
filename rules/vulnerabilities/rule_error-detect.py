@@ -3,13 +3,13 @@ import string
 
 from core.redis   import rds
 from core.triage  import Triage
-from core.parser  import ScanParser, ConfParser
+from core.parser  import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'VLN_AB1D'
     self.rule_severity = 2
-    self.rule_description = 'Checks for Information Revealing Errors'
+    self.rule_description = 'This rule checks for Information Revealing Errors'
     self.rule_confirm = 'Application is Leaking Information'
     self.rule_details = ''
     self.rule_mitigation = '''Server is configured with one or more frameworks which are incorrectly configured.
@@ -65,7 +65,6 @@ Disable any debug modes in the application and ensure proper error handling exis
     return '/' + ''.join(random.choices(string.ascii_letters + string.digits, k=8))
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -78,7 +77,6 @@ Disable any debug modes in the application and ensure proper error handling exis
     resp = None
 
     for uri, values in self.rule_match_string.items():
-      app_name = values['app']
       app_title = values['title']
       
       resp = t.http_request(ip, port, uri=uri)
@@ -86,8 +84,8 @@ Disable any debug modes in the application and ensure proper error handling exis
       if resp is not None:
         for match in values['match']:
           if match in resp.text:
-            self.rule_details = 'Info Leakage - {}, Path: {}'.format(app_title, uri)   
-            js_data = {
+            self.rule_details = 'Information Leakage via {} at {}'.format(app_title, resp.url)   
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -97,6 +95,5 @@ Disable any debug modes in the application and ensure proper error handling exis
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            rds.store_vuln(js_data)
+            })
     return

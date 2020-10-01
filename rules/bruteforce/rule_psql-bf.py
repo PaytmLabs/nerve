@@ -9,11 +9,12 @@ class Rule:
   def __init__(self):
     self.rule = 'BRF_DC78'
     self.rule_severity = 4
-    self.rule_description = 'Checks if PostgreSQL is configured with weak credentials'
+    self.rule_description = 'This rule checks if PostgreSQL is configured to accept remote connections using weak credentials'
     self.rule_confirm = 'Remote Server with weak PostgreSQL credentials'
     self.rule_details = ''
     self.rule_mitigation = '''PostgreSQL Allows connections with a weak password. 
-PostgreSQL must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.'''
+PostgreSQL must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.
+Refer to the PostgreSQL Hardening Guideline for more information: https://www.postgresql.org/docs/7.0/security.htm'''
     self.intensity = 3
 
   def psql_attack(self, ip, username, password):
@@ -48,8 +49,8 @@ PostgreSQL must not be listening on an external interface, and if required, it m
     for username in usernames:
       for password in passwords:
         if self.psql_attack(ip, username, password):
-          self.rule_details = 'Credentials are set to {}:{}'.format(username, password)
-          js_data = {
+          self.rule_details = 'PostgreSQL Credentials are set to {}:{}'.format(username, password)
+          rds.store_vuln({
             'ip': ip,
             'port': port,
             'domain': domain,
@@ -59,8 +60,7 @@ PostgreSQL must not be listening on an external interface, and if required, it m
             'rule_confirm': self.rule_confirm,
             'rule_details': self.rule_details,
             'rule_mitigation': self.rule_mitigation
-          }
-          rds.store_vuln(js_data)
+          })
           return
 
     return

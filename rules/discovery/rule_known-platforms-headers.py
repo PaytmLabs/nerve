@@ -1,12 +1,12 @@
 from core.redis   import rds
 from core.triage  import Triage
-from core.parser  import ScanParser, ConfParser
+from core.parser  import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'DSC_FB18'
     self.rule_severity = 1
-    self.rule_description = 'Checks if a Known Platform is exposed'
+    self.rule_description = 'This rule checks for the exposure of Known Platform based on response header signatures'
     self.rule_confirm = 'Identified a Known Platform via its Headers'
     self.rule_details = ''
     self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
@@ -130,7 +130,6 @@ class Rule:
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     p = ScanParser(port, values)
     t = Triage()
     
@@ -142,24 +141,23 @@ class Rule:
    
     resp = t.http_request(ip, port)
     
-    for app, val in self.rule_match_string.items():
-      app_name = val['app']
+    for _, val in self.rule_match_string.items():
       app_title = val['title']
             
       for match in val['match']:  
         if resp and t.string_in_headers(resp, match):
-          self.rule_details = '{} ({})'.format(app, app_title)
-          js_data = {
-              'ip':ip,
-              'port':port,
-              'domain':domain,
-              'rule_id':self.rule,
-              'rule_sev':self.rule_severity,
-              'rule_desc':self.rule_description,
-              'rule_details':self.rule_details,
-              'rule_mitigation':self.rule_mitigation
-            }
-          rds.store_vuln(js_data)
+          self.rule_details = 'Exposed {} at {}'.format(app_title, resp.url)
+          rds.store_vuln({
+            'ip':ip,
+            'port':port,
+            'domain':domain,
+            'rule_id':self.rule,
+            'rule_sev':self.rule_severity,
+            'rule_desc':self.rule_description,
+            'rule_details':self.rule_details,
+            'rule_mitigation':self.rule_mitigation
+          })
+          break
     return 
 
   

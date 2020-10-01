@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NERVE</title>
-    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
-    <link href="static/vendor/DataTables/datatables.min.css" rel="stylesheet">
-    <link href="static/css/nerve.css" rel="stylesheet">
-    <link href="static/css/master.css" rel="stylesheet">
+    <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="vendor/DataTables/datatables.min.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
 </head>
 
 <body>
@@ -73,11 +73,12 @@
                                       {% for d, values in data.items() %}
                                     <tr>
                                       <td>{{loop.index}}.</td>
-                                      <td>{{d[4:]}}</td>
-
+                                      <td><a href="http://geoiplookup.net/ip/{{d[4:]}}" target="_blank">{{d[4:]}}</a></td>
                                       <td>
                                         {% if values.domain %}
-                                        {{values.domain}}
+                                            <a href="https://whois.domaintools.com/{{values.domain}}" target="_blank">{{values.domain}}</a>
+                                        {% else %}
+                                        N/A
                                         {% endif %}
                                       </td>
                                       <td>
@@ -111,14 +112,15 @@
         </div>
     </div>
 
-    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
-    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
-    <script src="static/vendor/DataTables/datatables.min.js"></script>
-    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
-    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
-    <script src="static/vendor/toastr/toastr.min.js"></script>
-    <script src="static/js/initiate-datatables.js"></script>
-    <script src="static/js/script.js"></script>
+    <script src={{ url_for('static', filename="vendor/jquery3/jquery-3.4.1.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/bootstrap4/js/bootstrap.bundle.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/DataTables/datatables.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/fontawesome5/js/solid.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/fontawesome5/js/fontawesome.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/toastr/toastr.min.js") }}></script>
+    <script src={{ url_for('static', filename="js/initiate-datatables.js") }}></script>
+    <script src={{ url_for('static', filename="js/script.js") }}></script>    
+    
     {% with messages = get_flashed_messages(with_categories=true) %}
      {% if messages %}
         <script>
