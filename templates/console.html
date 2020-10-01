@@ -19,19 +19,28 @@
                     <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                          
                             <li class="nav-item dropdown">
                                 <div class="nav-dropdown">
-                                    <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span>{{session['session']|capitalize}}</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                                    <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span></span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
                                         <ul class="nav-list">
                                           <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
                                           <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                          <div class="dropdown-divider"></div>
                                           <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </li>
+                              <li class="nav-item dropdown">
+                                <div class="nav-dropdown">
+                                  {% if vuln_count %}
+                                  <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger"><a href="/vulnerabilities">{{vuln_count}}</a></span>
+                                  {% else %}
+                                  <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success"><a href="/vulnerabilities">{{vuln_count}}</a></span> 
+                                  {% endif %}
+                                </div>
+                            </li>  
                             <li class="nav-item dropdown">
                               <div class="nav-dropdown">
                                 {% if status == "Ready" %}
@@ -55,18 +64,13 @@
                           <div class="card">
                               <div class="card-header">Console Output</div>
                               <div class="card-body">
-
                                   <p class="card-title"><b>This console will start populating once data comes in...</b></p>
                                  <i class="fa fa-spinner fa-spin"></i> <small>File is streaming...</small>
-                                  
                                   <pre class="bash" id="output"></pre>              
-                                 
                                   <form method="GET" action="/download/server_log">
                                     <button type="submit">Download</button>
                                  </form>
-
                               </div>
-                              
                           </div>
                       </div>
                     </div>

@@ -105,7 +105,11 @@ def show_frequency():
   if config:
     scan_frequency = config['config']['frequency']
   return dict(frequency=scan_frequency)
-    
+
+@app.context_processor
+def show_vuln_count():
+  return dict(vuln_count=len(rds.get_vuln_data()))
+
 if __name__ == '__main__':  
   rds.initialize()
   start_workers()
