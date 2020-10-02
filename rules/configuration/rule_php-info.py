@@ -1,15 +1,15 @@
 from core.redis  import rds
 from core.triage import Triage
-from core.parser import ScanParser, ConfParser
+from core.parser import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'CFG_BS3R'
     self.rule_severity = 2
-    self.rule_description = 'PHP Misconfiguration'
-    self.rule_confirm = 'PHP is leaking information'
+    self.rule_description = 'This rule checks for misconfigurations in PHP'
+    self.rule_confirm = 'PHP Information Leakage'
     self.rule_details = ''
-    self.rule_mitigation = '''Server's PHP is leaking out environment information, which may under \
+    self.rule_mitigation = '''The Remote Server's PHP is leaking out environment information, which may under \
 certain situations reveal sensitive data such as environment variables, modules installed, etc.
 Disable PHP info by either adding
 `disable_functions = phpinfo`
@@ -69,7 +69,6 @@ in .htaccess file.
     
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -87,8 +86,8 @@ in .htaccess file.
       if resp is not None:
         for match in values['match']:
           if match in resp.text:
-            self.rule_details = 'PHP Misconfiguration - {} at {}'.format(app_title, uri)
-            js_data = {
+            self.rule_details = 'PHP Misconfiguration - {} at {}'.format(app_title, resp.url)
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -98,7 +97,5 @@ in .htaccess file.
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            
-            rds.store_vuln(js_data)
+            })
     return

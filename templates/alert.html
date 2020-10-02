@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NERVE</title>
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
-    <link href={{ url_for('static', filename="vendor/DataTables/datatables.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
-</head>
 
+    <script src=></script>
+</head>
 <body>
     <div class="wrapper">
         <div id="sidebar">{% include 'sidebar.html' %}</div>
@@ -20,11 +20,10 @@
             <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
                 <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                              
+                    <ul class="nav navbar-nav ml-auto"> 
+                        <li class="nav-item dropdown"> 
                             <div class="nav-dropdown">
-                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i><i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
                                     <ul class="nav-list">
                                       <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
@@ -37,11 +36,11 @@
                         </li>
                         <li class="nav-item dropdown">
                             <div class="nav-dropdown">
-                                {% if vuln_count %}
-                                <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
-                                {% else %}
-                                <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
-                                {% endif %}
+                            {% if vuln_count %}
+                            <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
+                            {% else %}
+                            <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
+                            {% endif %}
                             </div>
                         </li>  
                         <li class="nav-item dropdown">
@@ -60,62 +59,39 @@
             <div class="content">
               <div class="container-fluid">
                   <div class="page-title">
-                      <h3>Assets</h3>
+                      <h3><i class="teal fas fa-laptop"></i> {{vuln.data.ip}}:{{vuln.data.port}}</h3>
+                    </div>
                   </div>
+
                   <div class="row">
-                      <div class="col-md-12 col-lg-12">
-                          <div class="card">
-                              <div class="card-header">Assets</div>
-                              <div class="card-body">
-                                  <p class="card-title"></p>
-                                  <table class="table table-hover" id="dataTables-example" width="100%">
-                                      <thead>
-                                          <tr>
-                                              <th>#</th>
-                                              <th>IP Address</th>
-                                              <th>Domain</th>
-                                              <th>Ports</th>
-                                              <th>Services</th>
-                                              <th>Operating System</th>
-                                          </tr>
-                                      </thead>
-                                      {% if data %}
-                                      {% for d, values in data.items() %}
-                                    <tr>
-                                      <td>{{loop.index}}.</td>
-                                      <td><a href="http://geoiplookup.net/ip/{{d[4:]}}" target="_blank">{{d[4:]}}</a></td>
-                                      <td>
-                                        {% if values.domain %}
-                                            <a href="https://whois.domaintools.com/{{values.domain}}" target="_blank">{{values.domain}}</a>
-                                        {% else %}
-                                        N/A
-                                        {% endif %}
-                                      </td>
-                                      <td>
-                                        <h6>
-                                        {% for port in values.ports %}
-                                        <span class="badge badge-info">{{port}}</span>
-                                        {% endfor %}
-                                        </h6>
-                                      </td>
-                                      <td>
-                                        <h6>
-                                        {% for key, value in values.port_data.items() %}
-                                      <span class="badge badge-secondary">{{value.product}}</span>
-                                      {% endfor %}
-                                    </h6>
-                                    </td>
-                                    <td>
-                                        <h6><span class="badge badge-primary">{% if values.os %} {{values.os}} {% endif %}</span></h6>
-                                    </td>
-                                    </tr>
-                                    {% endfor %}
-                                    {% endif %}
-                          
-                                  </table>
+                    <div class="col-md-12 col-lg-12">
+                      <div class="card">
+                          <div class="card-header">Alert</div>
+                          <div class="card-body">
+                              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                  <li class="nav-item">
+                                      <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#result" role="tab" aria-controls="result" aria-selected="true">Result</a>
+                                </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#mitigation" role="tab" aria-controls="mitigation" aria-selected="true">Mitigation</a>
+                                  </li>
+
+                              </ul>
+                              <div class="tab-content" id="myTabContent">   
+                                  <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">{% if vuln %} {{ vuln.data.rule_desc }}. {% endif %}</div>
+                                  <div class="tab-pane fade" id="result" role="tabpanel" aria-labelledby="result-tab">{% if vuln %} {{ vuln.data.rule_details }}. {% endif %}</div>
+                                  <div class="tab-pane fade" id="mitigation" role="tabpanel" aria-labelledby="mitigation-tab">{% if vuln %} {{ vuln.data.rule_mitigation }} {% endif %}</div>
+                                  <hr>
+                                  <a href="/alert/resolve/{{vuln.key}}">
+                                    <button type="button" class="btn btn-square btn-success mb-2">Resolve</button>
+                                </a>
                               </div>
                           </div>
                       </div>
+                  </div>
                   </div>
               </div>
           </div>
@@ -129,8 +105,9 @@
     <script src={{ url_for('static', filename="vendor/fontawesome5/js/fontawesome.min.js") }}></script>
     <script src={{ url_for('static', filename="vendor/toastr/toastr.min.js") }}></script>
     <script src={{ url_for('static', filename="js/initiate-datatables.js") }}></script>
-    <script src={{ url_for('static', filename="js/script.js") }}></script>    
-    
+    <script src={{ url_for('static', filename="js/script.js") }}></script>
+
+
     {% with messages = get_flashed_messages(with_categories=true) %}
      {% if messages %}
         <script>

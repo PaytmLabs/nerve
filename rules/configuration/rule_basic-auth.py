@@ -1,24 +1,23 @@
 from core.redis   import rds
 from core.triage  import Triage
-from core.parser  import ScanParser, ConfParser
+from core.parser  import ScanParser
 from db.db_paths  import COMMON_LOGIN_PATHS
 
 class Rule:
   def __init__(self):
     self.rule = 'CFG_D2A9'
     self.rule_severity = 2
-    self.rule_description = 'Checks if Basic Auth is enabled'
+    self.rule_description = 'This rule checks if a Web Server has Basic Authentication enabled'
     self.rule_confirm = 'Basic Authentication is Configured'
     self.rule_details = ''
     self.rule_mitigation = '''Basic authentication is a simple authentication scheme built into the HTTP protocol.
 The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a \
 space and a base64-encoded string username:password
-Change to a stronger password or alternatively use Single Sign On solution, such as Google.'''
+Basic Authentication does not have brute force protection mechanisms, and may potentially be a target for attackers'''
     self.rule_doc_roots = COMMON_LOGIN_PATHS
-    self.intensity = 1
+    self.intensity = 2
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -36,8 +35,8 @@ Change to a stronger password or alternatively use Single Sign On solution, such
         if 'WWW-Authenticate' in resp.headers:
           header = resp.headers['WWW-Authenticate']
           if header.startswith('Basic'):
-            self.rule_details = '{} at {}'.format(self.rule_confirm, uri)
-            js_data = {
+            self.rule_details = '{} at {}'.format(self.rule_confirm, resp.url)
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -47,7 +46,6 @@ Change to a stronger password or alternatively use Single Sign On solution, such
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            rds.store_vuln(js_data)
+            })
               
     return

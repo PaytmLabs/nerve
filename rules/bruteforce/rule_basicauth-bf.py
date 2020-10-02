@@ -12,11 +12,11 @@ class Rule:
   def __init__(self):
     self.rule = 'BRF_42FE'
     self.rule_severity = 4
-    self.rule_description = 'Checks if Basic Authentication is using weak credentials'
+    self.rule_description = 'This rule checks if a Web Server is configured with Basic Authentication using weak credentials'
     self.rule_confirm = 'Basic Authentication with Weak Credentials'
     self.rule_details = ''
     self.rule_mitigation = '''Basic Authentication is configured on the remote server with weak credentials.
-Change to a stronger password or alternatively use Single Sign On solution, such as Google.'''
+Change to a stronger password or alternatively use a Single Sign On solution.'''
     self.rule_doc_roots = COMMON_LOGIN_PATHS
     self.intensity = 3
 
@@ -46,9 +46,8 @@ Change to a stronger password or alternatively use Single Sign On solution, such
             for password in passwords:
               auth_attempt = requests.get(resp.url, auth = HTTPBasicAuth(username, password))
               if auth_attempt is not None and auth_attempt.status_code == 200:
-                
-                self.rule_details = 'Credentials are set to {}:{} at {}'.format(username, password, uri)
-                js_data = {
+                self.rule_details = 'Basic Authentication Credentials are set to {}:{} at {}'.format(username, password, uri)
+                rds.store_vuln({
                 'ip':ip,
                 'port':port,
                 'domain':domain,
@@ -58,8 +57,6 @@ Change to a stronger password or alternatively use Single Sign On solution, such
                 'rule_confirm':self.rule_confirm,
                 'rule_details':self.rule_details,
                 'rule_mitigation':self.rule_mitigation
-                }
-                
-                rds.store_vuln(js_data)
+                })
       
     return

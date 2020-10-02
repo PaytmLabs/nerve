@@ -12,12 +12,13 @@ class Rule:
   def __init__(self):
     self.rule = 'BRF_A953'
     self.rule_severity = 4
-    self.rule_description = 'Checks if SSH is set with a weak password'
+    self.rule_description = 'This rule checks if an SSH Server is configured to accept remote connections using weak credentials'
     self.rule_confirm = 'Remote server with weak credentials'
     self.rule_details = ''
     self.rule_mitigation = '''SSH Allows connections with a weak password. 
 SSH must allow only trusted sources remote access, such as specific IP addresses, and use stronger authentication such as \
-Public Key Authentication, in addition to a strong password authentication.'''
+Public Key Authentication, in addition to a strong password authentication.
+Refer to an OpenSSH Hardening Guidelines for more information: https://linux-audit.com/audit-and-harden-your-ssh-configuration/'''
     self.intensity = 3
 
   def ssh_attack(self, ip, port, username, password):
@@ -57,8 +58,8 @@ Public Key Authentication, in addition to a strong password authentication.'''
         for username in usernames:
           for password in passwords:
             if self.ssh_attack(ip, port, username, password):
-              self.rule_details = 'Credentials are set to {}:{}'.format(username, password)
-              js_data = {
+              self.rule_details = 'SSH Server Credentials are set to {}:{}'.format(username, password)
+              rds.store_vuln({
                 'ip':ip,
                 'port':port,
                 'domain':domain,
@@ -68,7 +69,6 @@ Public Key Authentication, in addition to a strong password authentication.'''
                 'rule_confirm':self.rule_confirm,
                 'rule_details':self.rule_details,
                 'rule_mitigation':self.rule_mitigation
-              }
-              rds.store_vuln(js_data)
+              })
         
     return

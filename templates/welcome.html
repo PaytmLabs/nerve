@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NERVE</title>
-    <link href="static/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/vendor/toastr/toastr.min.css" rel="stylesheet">
-    <link href="static/css/master.css" rel="stylesheet">
-    <link href="static/css/nerve.css" rel="stylesheet">
+    <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
 </head>
 
 <body>
@@ -23,16 +23,26 @@
                             <li class="nav-item dropdown">
                               
                                 <div class="nav-dropdown">
-                                    <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <span>{{session['session']|capitalize}}</span> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
+                                    <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
                                         <ul class="nav-list">
                                           <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
                                           <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                          <div class="dropdown-divider"></div>
                                           <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown">
+                                <div class="nav-dropdown">
+                                    {% if vuln_count %}
+                                    <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
+                                    {% else %}
+                                    <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
+                                    {% endif %}
+                                </div>
+                            </li>  
                             <li class="nav-item dropdown">
                               <div class="nav-dropdown">
                                 {% if status == "Ready" %}
@@ -58,7 +68,7 @@
                               <div class="card-body">
                                   <p class="card-title">Welcome to <b>NERVE</b>, the <b>N</b>etwork <b>E</b>xploitation, <b>R</b>econnaissance & <b>V</b>ulnerability <b>E</b>ngine</p>
                                   <p>Its purpose is to scan and identify short and long lived security flaws using one-time or continous scan modes on a given network or host.</p>
-                                  <p>This can be acheived either programmatically via the <a href="/documentattion">API</a> or using the Graphical User Interface</p>
+                                  <p>This can be acheived either programmatically via the <a href="/documentation">API</a> or using the Graphical User Interface</p>
                                   
                                   <p><b>How does it work?</b></p>
                                   <ol>
@@ -75,7 +85,7 @@
                                       You wait for the results!
                                     </li>
                                   </ol>
-                                  <center><img src="/static/img/network.png" /></center>
+                                  <center><img src="/static/screenshots/12.png" /></center>
                               </div>
                           </div>
                       </div>
@@ -85,11 +95,11 @@
         </div>
     </div>
 
-    <script src="static/vendor/jquery3/jquery-3.4.1.min.js"></script>
-    <script src="static/vendor/bootstrap4/js/bootstrap.bundle.min.js"></script>
-    <script src="static/vendor/fontawesome5/js/solid.min.js"></script>
-    <script src="static/vendor/fontawesome5/js/fontawesome.min.js"></script>
-    <script src="static/vendor/toastr/toastr.min.js"></script>
-    <script src="static/js/script.js"></script>
+    <script src={{ url_for('static', filename="vendor/jquery3/jquery-3.4.1.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/bootstrap4/js/bootstrap.bundle.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/fontawesome5/js/solid.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/fontawesome5/js/fontawesome.min.js") }}></script>
+    <script src={{ url_for('static', filename="vendor/toastr/toastr.min.js") }}></script>
+    <script src={{ url_for('static', filename="js/script.js") }}></script>
 </body>
 </html>

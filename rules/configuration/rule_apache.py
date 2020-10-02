@@ -1,16 +1,17 @@
 from core.redis  import rds
 from core.triage import Triage
-from core.parser import ScanParser, ConfParser
+from core.parser import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'CFG_91Z0'
     self.rule_severity = 1
-    self.rule_description = 'Checks for Apache Misconfigurations'
-    self.rule_confirm = 'Apache Server Misconfiguration'
+    self.rule_description = 'This rule checks for Apache Web Server Misconfigurations'
+    self.rule_confirm = 'Misconfigured Apache Server'
     self.rule_details = ''
     self.rule_mitigation = '''Apache Web Server is misconfigured and exposes one or more files \
-related to configuration, statistics or example servlets.'''
+related to configuration, statistics or example servlets.
+Refer to an Apache Hardening Guideline for more information: https://geekflare.com/apache-web-server-hardening-security/'''
     self.rule_match_string = {
                               '/server-status':{
                                 'app':'APACHE_SERVER_STATUS',
@@ -37,7 +38,6 @@ related to configuration, statistics or example servlets.'''
 
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -55,8 +55,8 @@ related to configuration, statistics or example servlets.'''
       if resp is not None:
         for match in values['match']:
           if match in resp.text:
-            self.rule_details = 'Apache misconfiguration - {} at {}'.format(app_title, uri)
-            js_data = {
+            self.rule_details = 'Apache misconfiguration - {} at {}'.format(app_title, resp.url)
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -66,6 +66,5 @@ related to configuration, statistics or example servlets.'''
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            rds.store_vuln(js_data)
+            })
     return

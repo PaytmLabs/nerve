@@ -9,11 +9,12 @@ class Rule:
   def __init__(self):
     self.rule = 'BRF_DD00'
     self.rule_severity = 4
-    self.rule_description = 'Checks if Redis is configured with weak credentials'
+    self.rule_description = 'This rule checks if Redis is configured to accept remote connections using weak credentials'
     self.rule_confirm = 'Remote Server with weak Redis credentials'
     self.rule_details = ''
     self.rule_mitigation = '''Redis Server Allows connections with a weak password. 
-Redis must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.'''
+Redis must not be listening on an external interface, and if required, it must allow only specific source IP addresses, in addition to a strong password authentication.
+Refer to the Redis Hardening Guidelines for more information: https://redis.io/topics/security'''
     self.intensity = 3
 
   def redis_attack(self, ip, port, password):
@@ -58,7 +59,7 @@ Redis must not be listening on an external interface, and if required, it must a
         for password in passwords:  
           if self.redis_attack(ip, port, password):
             self.rule_details = 'Redis Credentials are set to: {}'.format(password)
-            js_data = {
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -68,8 +69,7 @@ Redis must not be listening on an external interface, and if required, it must a
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            rds.store_vuln(js_data)
+            })
             return
     except:
       return

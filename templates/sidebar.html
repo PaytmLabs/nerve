@@ -1,7 +1,8 @@
 <div class="wrapper">
         <nav id="sidebar">
             <div class="sidebar-header">
-                <a href="/"><img src="static/img/nerve_logo.png" class="app-logo" width="100px" height="40px"></a>
+                
+                <a href="/"><img src={{ url_for('static', filename="/img/nerve_logo.png") }} class="app-logo" width="100px" height="40px"></a>
                 <span class="app-logo"><b> <span class="logo-text">  v.{{version}} </span></b></span>
             </div>
             <ul class="list-unstyled components">

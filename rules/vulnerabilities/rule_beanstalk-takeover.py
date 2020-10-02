@@ -1,22 +1,19 @@
 import dns.resolver
 
 from core.redis   import rds
-from core.triage  import Triage
-from core.parser  import ScanParser, ConfParser
+from core.parser  import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'VLN_ZZ13'
     self.rule_severity = 3
-    self.rule_description = 'Checks for Beanstalk Takeovers'
+    self.rule_description = 'This rule checks for Beanstalk DNS Takeovers'
     self.rule_confirm = 'DNS Entry allows takeover of Beanstalk server'
     self.rule_details = ''
     self.rule_mitigation = '''Verify the DNS is in use, remove the record if unnecessary.'''
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
-    t = Triage()
     p = ScanParser(port, values)
     
     domain = p.get_domain()
@@ -31,9 +28,8 @@ class Rule:
           try:
             dns.resolver.query(resolved)
           except dns.resolver.NXDOMAIN:
-            info = 'Beanstalk Takeover'
-            self.rule_details = 'Beanstalk Takeover at {} ({})'.format(domain, resolved)
-            js_data = {
+            self.rule_details = 'Beanstalk DNS Takeover at {} ({})'.format(domain, resolved)
+            rds.store_vuln({
                 'ip':ip,
                 'port':port,
                 'domain':domain,
@@ -43,8 +39,7 @@ class Rule:
                 'rule_confirm':self.rule_confirm,
                 'rule_details':self.rule_details,
                 'rule_mitigation':self.rule_mitigation
-              }
-            rds.store_vuln(js_data)
+              })
             return  
           except:
             continue

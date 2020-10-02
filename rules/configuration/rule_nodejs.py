@@ -2,13 +2,13 @@ import json
 
 from core.redis  import rds
 from core.triage import Triage
-from core.parser import ScanParser, ConfParser
+from core.parser import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'CFG_ESTR'
     self.rule_severity = 4
-    self.rule_description = 'Checks for NodeJS Server.js exposures'
+    self.rule_description = 'Thisr ule checks for NodeJS Server.js file exposures'
     self.rule_confirm = 'Remote NodeJS Server is leaking server.js'
     self.rule_details = ''
     self.rule_mitigation = '''NodeJS has been configured to serve server.js which may allow attackers access to backend code.'''
@@ -21,7 +21,6 @@ class Rule:
     self.intensity = 1
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -36,8 +35,8 @@ class Rule:
         
       for i in self.rule_match_string:
         if i in resp.text:
-          self.rule_details = 'Identified a NodeJS Leakage Indicator: {}'.format(i)
-          js_data = {
+          self.rule_details = 'Identified a NodeJS Leakage at {} Indicator: {}'.format(resp.url, i)
+          rds.store_vuln({
                 'ip':ip,
                 'port':port,
                 'domain':domain,
@@ -47,7 +46,5 @@ class Rule:
                 'rule_confirm':self.rule_confirm,
                 'rule_details':self.rule_details,
                 'rule_mitigation':self.rule_mitigation
-              }
-
-          rds.store_vuln(js_data)
+              })
     return

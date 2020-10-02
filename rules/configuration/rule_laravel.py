@@ -1,16 +1,15 @@
 from core.redis   import rds
 from core.triage  import Triage
-from core.parser  import ScanParser, ConfParser
+from core.parser  import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'CFG_823E'
     self.rule_severity = 3
-    self.rule_description = 'Laravel Misconfiguration'
+    self.rule_description = 'This rule checks for misconfigurations in Laravel'
     self.rule_confirm = 'Remote Server Misconfigured Laravel'
     self.rule_mitigation = '''Laravel has been misconfigured and may leak environment or log data. \
-Use the laravel guide for hardening best practices: https://laravel.com/docs/7.x/configuration
-'''
+Use the Laravel Hardening Guidelines for reference: https://laravel.com/docs/7.x/configuration'''
     self.rule_details = ''
     self.rule_match_string = {
                               '/storage/logs/laravel.log':{
@@ -29,11 +28,10 @@ Use the laravel guide for hardening best practices: https://laravel.com/docs/7.x
     
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser
     t = Triage()
     p = ScanParser(port, values)
     
-    module   = p.get_module()
+    module = p.get_module()
     domain = p.get_domain()
     
     if 'http' not in module:
@@ -47,8 +45,8 @@ Use the laravel guide for hardening best practices: https://laravel.com/docs/7.x
       if resp is not None:
         for match in values['match']:
           if match in resp.text:
-            self.rule_details = 'Laravel Misconfiguration - {} at {}'.format(app_title, uri)
-            js_data = {
+            self.rule_details = 'Laravel Misconfiguration - {} at {}'.format(app_title, resp.url)
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -58,6 +56,5 @@ Use the laravel guide for hardening best practices: https://laravel.com/docs/7.x
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            rds.store_vuln(js_data)
+            })
     return

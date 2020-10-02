@@ -1,19 +1,19 @@
 from core.redis   import rds
 from core.triage  import Triage
-from core.parser  import ScanParser, ConfParser
+from core.parser  import ScanParser
 from db.db_paths  import COMMON_LOGIN_PATHS
 
 class Rule:
   def __init__(self):
     self.rule = 'DSC_A4F1'
     self.rule_severity = 1
-    self.rule_description = 'Checks if a Web Panel is exposed'
+    self.rule_description = 'This rule checks for the exposure of Web Panels'
     self.rule_confirm = 'Identified a Known Web Panel'
     self.rule_details = ''
     self.rule_mitigation = '''Identify whether the application in question is supposed to be exposed to the network.'''
     self.rule_doc_roots = COMMON_LOGIN_PATHS
     self.rule_match_string  = {
-                    'Generic':{
+                    'Generic Panel':{
                       'app':'GENERIC',
                       'match':['Sign In', 'Login', 'Forgot Password', 'Authenticate', 'input type="password"'],
                       'title':'Login Page'
@@ -234,7 +234,7 @@ class Rule:
                       'title':'Adobe AEM'
                     },
                     'Github':{
-                      'app':'Github',
+                      'app':'GITHUB',
                       'match':['GitHub · Enterprise'],
                       'title':'GitHub Enterprise'
                     }
@@ -243,7 +243,6 @@ class Rule:
     self.intensity = 3
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -256,15 +255,13 @@ class Rule:
     for uri in self.rule_doc_roots:
       resp = t.http_request(ip, port, uri=uri)
       
-      for app, val in self.rule_match_string.items():
-        app_name = val['app']
+      for _, val in self.rule_match_string.items():
         app_title = val['title']
-        
         if resp:
           for i in val['match']:
             if i in resp.text:
-              self.rule_details = '{} - ({})'.format(app, app_title)
-              js_data = {
+              self.rule_details = '{} Exposed at {}'.format(app_title, resp.url)
+              rds.store_vuln({
                 'ip':ip,
                 'port':port,
                 'domain':domain,
@@ -274,8 +271,7 @@ class Rule:
                 'rule_confirm':self.rule_confirm,
                 'rule_details':self.rule_details,
                 'rule_mitigation':self.rule_mitigation
-              }
-              rds.store_vuln(js_data)
+              })
               break
     
     return

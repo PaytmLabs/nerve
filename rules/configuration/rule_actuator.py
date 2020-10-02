@@ -1,16 +1,17 @@
 from core.redis  import rds
 from core.triage import Triage
-from core.parser import ScanParser, ConfParser
+from core.parser import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'CFG_9B88'
     self.rule_severity = 3
-    self.rule_description = 'Actuator Misconfiguration'
-    self.rule_confirm = 'Remote Server Actuator is misconfigured'
+    self.rule_description = 'This rule checks for misconfigurations in Spring Boot Actuator'
+    self.rule_confirm = 'Spring Boot Actuator is misconfigured'
     self.rule_details = ''
     self.rule_mitigation = '''Server has a misconfigured Actuator, which is potentially leaking out sensitive data. \
-Restrict access to the endpoint to trusted sources only.'''
+Restrict access to the endpoint to trusted sources only.
+Refer to the following Spring Boot Actuator Hardening Guideline for more information: https://www.devglan.com/spring-security/securing-spring-boot-actuator-endpoints-with-spring-security'''
     self.rule_match_string = {
                               '/admin/dump':{
                                 'app':'SPRING_BOOT_ACTUATOR_DUMP',
@@ -57,7 +58,6 @@ Restrict access to the endpoint to trusted sources only.'''
 
 
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -68,7 +68,6 @@ Restrict access to the endpoint to trusted sources only.'''
       return
     
     for uri, values in self.rule_match_string.items():
-      app_name = values['app']
       app_title = values['title']
 
       resp = t.http_request(ip, port, uri=uri)
@@ -76,9 +75,8 @@ Restrict access to the endpoint to trusted sources only.'''
       if resp is not None:
         for match in values['match']:
           if match in resp.text:
-            self.rule_details = 'Exposed {} at {}'.format(app_title, uri)
-            
-            js_data = {
+            self.rule_details = 'Exposed {} at {}'.format(app_title, resp.url)  
+            rds.store_vuln({
               'ip':ip,
               'port':port,
               'domain':domain,
@@ -88,8 +86,6 @@ Restrict access to the endpoint to trusted sources only.'''
               'rule_confirm':self.rule_confirm,
               'rule_details':self.rule_details,
               'rule_mitigation':self.rule_mitigation
-            }
-            
-            rds.store_vuln(js_data)   
+            })   
   
     return

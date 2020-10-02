@@ -26,6 +26,7 @@ from views.view_stream     import stream
 from views.view_settings   import settings
 from views.view_scan       import scan
 from views.view_vulns      import vulns
+from views.view_alert      import alert
 from views.view_startover  import startover
 
 # Import REST API Endpoints
@@ -52,6 +53,7 @@ app.register_blueprint(topology)
 app.register_blueprint(vulns)
 app.register_blueprint(settings)
 app.register_blueprint(scan)
+app.register_blueprint(alert)
 app.register_blueprint(startover)
 
 app.config.update(
@@ -103,7 +105,11 @@ def show_frequency():
   if config:
     scan_frequency = config['config']['frequency']
   return dict(frequency=scan_frequency)
-    
+
+@app.context_processor
+def show_vuln_count():
+  return dict(vuln_count=len(rds.get_vuln_data()))
+
 if __name__ == '__main__':  
   rds.initialize()
   start_workers()

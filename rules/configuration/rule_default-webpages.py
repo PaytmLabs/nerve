@@ -1,12 +1,12 @@
 from core.redis  import rds
 from core.triage import Triage
-from core.parser import ScanParser, ConfParser
+from core.parser import ScanParser
 
 class Rule:
   def __init__(self):
     self.rule = 'CFG_E9AF'
     self.rule_severity = 0
-    self.rule_description = 'Checks if a Default Page is Served'
+    self.rule_description = 'This rule checks if a Default Page is Served by a Web Server'
     self.rule_confirm = 'Unmaintained Webserver'
     self.rule_details = ''
     self.rule_mitigation = '''Server is configured with the default web server page. 
@@ -86,7 +86,6 @@ This may indicate a forgotten/unmaintained server, and may not necessarily pose 
     self.intensity = 1
     
   def check_rule(self, ip, port, values, conf):
-    c = ConfParser(conf)
     t = Triage()
     p = ScanParser(port, values)
     
@@ -102,14 +101,12 @@ This may indicate a forgotten/unmaintained server, and may not necessarily pose 
       return
     
     for app, val in self.rule_match_string.items():
-      app_name = val['app']
       app_title = val['title']
-      
       
       for match in val['match']:
         if match in resp.text:
-          self.rule_details = '{} Indicator: "{}" ({})'.format(app, match, app_title)
-          js_data = {
+          self.rule_details = 'Identified a default page: {} Indicator: "{}" ({})'.format(resp.url, match, app_title)
+          rds.store_vuln({
             'ip':ip,
             'port':port,
             'domain':domain,
@@ -119,7 +116,6 @@ This may indicate a forgotten/unmaintained server, and may not necessarily pose 
             'rule_confirm':self.rule_confirm,
             'rule_details':self.rule_details,
             'rule_mitigation':self.rule_mitigation
-          }
-          rds.store_vuln(js_data)
+          })
     
     return
