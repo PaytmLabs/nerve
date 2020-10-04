@@ -46,12 +46,14 @@ class RedisManager:
     return settings
     
   def store_vuln(self, value):
-    logger.info('Vulnerability detected')
     key = '{}{}{}{}'.format(value['ip'], value['port'], 
                             value['rule_id'], value['rule_details'])
     key_hash = 'vuln_' + self.utils.hash_sha1(key)
+    
     if self.r.exists(key_hash):
       return False
+    
+    logger.info('Vulnerability detected')
     
     self.store_json(key_hash, value)
     
