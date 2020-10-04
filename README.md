@@ -34,10 +34,6 @@ NERVE was created to address this problem. Commercial tools are great, but they 
 # About NERVE
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
 
-It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode only.
-
-NERVE will do "some" CVE checks, but this is primarily coming from version fingerprinting. 
-
 Example of some of NERVE's detection capabilities:
 * Interesting Panels (Solr, Django, PHPMyAdmin, etc.)
 * Subdomain takeovers
@@ -50,6 +46,8 @@ Example of some of NERVE's detection capabilities:
 * Open Caches
 * Directory Indexing
 * Best Practices
+
+It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode only.
 
 # Features
 NERVE offers the following features:
