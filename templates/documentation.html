@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NERVE</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/DataTables/datatables.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
@@ -130,7 +131,7 @@
                           <hr>
                           <h4 id="configuration">Configuration</h4>
                           <p>This is where the advanced configuration of the scan is defined.</p>
-                          <p><b>Assessment Behaviour</b></p>
+                          <p><b>Aggressiveness Level</b></p>
                           <p>This is going to ultimately decide which rules (checking if SSH is open is an example of a rule) run against your target scope. The more aggressive it is, the more rules are going to run.</p>
                           <p>For example, a rule that makes a lot of HTTP GET requests will be run only if you choose the use the aggressive mode. A rule that checks if a port is open, would run under all conditions.</p>
                           <p><b>Allow Outbound Connections</b></p>
@@ -149,6 +150,11 @@
                           <p>However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you. 
                              Too little ports means you may miss out on services, but the scan is going to be faster. Too many means you may sacrifice speed.</p>
                           <p>The default value for maximum ports is <b>100</b> ports (this ensures that at least http/https/ftp/ssh are covered).</p>
+                          
+                          <p><b>Custom Ports</b></p>
+                          <p>You could specify your own custom list of ports. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.</p>
+                          <p>By default, if you do not specify a Custom Port list, NERVE will use the Maximum Ports value of <b>100</b>.</p>
+                          <p>If you specify <b>both</b> Maximum Ports and Custom Ports, <b>Custom Ports will take presedence</b> and Maximum Ports will simply be ignored.</p>
                           
                           <p><b>Parallel Scan</b></p>
                           <p>This value represents the number of hosts which will be scanned simultaneously, for example, 60 means the port scan will run against 60 hosts at the same time.</p>
@@ -229,6 +235,7 @@
                                   "scan_opts":{
                                      "interface":null,
                                      "max_ports":100,
+                                     "custom_ports":[],
                                      "parallel_scan":50,
                                      "parallel_attack":30
                                   },
@@ -440,6 +447,7 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
           'scan_opts':{
             'interface':None,
             'max_ports':1000,
+            'custom_ports':[],
             'parallel_scan':50,
             'parallel_attack':30,
           },

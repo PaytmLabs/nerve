@@ -27,7 +27,8 @@ def scanner():
     if hosts:
       conf = rds.get_scan_config()
       scan_data = scanner.scan(hosts, 
-                          ports = conf['config']['scan_opts']['max_ports'],
+                          max_ports = conf['config']['scan_opts']['max_ports'],
+                          custom_ports = conf['config']['scan_opts']['custom_ports'],
                           interface = conf['config']['scan_opts']['interface'])
 
       if scan_data:

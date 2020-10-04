@@ -27,9 +27,10 @@ WEB_SEC_HEADERS = {
 MAX_LOGIN_ATTEMPTS = 5
 
 # Redis Configuration
-# This should not be set to anything else except localhost 
+# This should not be set to anything else except localhost unless you want to do a multi-node deployment.
 RDS_HOST = '127.0.0.1'
 RDS_PORT = 6379
+RDS_PASSW = None
 
 # Scan Configuration
 USER_AGENT = 'NERVE'
@@ -45,7 +46,7 @@ DEFAULT_SCAN = {
   'config':{
     'name':'Default',
     'description':'My Default Scan',
-    'engineer':'Default',
+    'engineer':'John Doe',
     'allow_aggressive':3,
     'allow_dos':False,
     'allow_bf':False,
@@ -57,6 +58,7 @@ DEFAULT_SCAN = {
     'scan_opts':{
       'interface':None,
       'max_ports':100,
+      'custom_ports':[],
       'parallel_scan':50,
       'parallel_attack':30,
     },

@@ -20,13 +20,23 @@ class Scanner():
     }
     self.utils = Utils()
     
-  def scan(self, hosts, ports=100, interface=None):
+  def scan(self, hosts, max_ports, custom_ports, interface=None):
     data = {}
     hosts = ' '.join(hosts.keys())
-    ports = '--top-ports {}'.format(ports)
     extra_args = ''
     scan_cmdline = 'unpriv_scan'
+    ports = ''
     
+    if custom_ports:
+      ports = '-p {}'.format(','.join([str(p) for p in set(custom_ports)]))
+    
+    elif max_ports:
+      ports = '--top-ports {}'.format(max_ports)
+    
+    else:
+      ports = '--top-ports 100'
+
+
     if interface:
       extra_args += '-e {}'.format(interface)
     

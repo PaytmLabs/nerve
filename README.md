@@ -11,6 +11,7 @@
   * [Deployment Recommendations](#Deployment-Recommendation)
   * [Installation - Docker](#docker)
   * [Installation - Bare Metal](#server)
+  * [Multi-node installation](#Multi-Node-Installation)
 * [Security](#security)
 * [Usage](#usage)
 * [License](#license)
@@ -126,6 +127,15 @@ In your browser, navigate to http://ip.add.re.ss:80 and login with the credentia
 `systemctl status nerve`
 
 In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
+
+
+# Multi Node Installation
+If you want to install NERVE in a multi-node deployment, you can follow the normal bare metal installation process, afterwards:
+1. Modify the config.py file on each node
+2. Change the server address of Redis `RDS_HOST` to point to a central Redis server that all NERVE instances will report to.
+3. Run `service nerve restart` or `systemctl restart nerve` to reload the configuration
+4. Run `apt-get remove redis` / `yum remove redis` (Depending on the Linux Distribution) since you will no longer need each instance to report to itself.
+Don't forget to allow port 3769 inbound on the Redis instance, so that the NERVE instances can communicate with it.
 
 # Security
 There are a few security mechanisms implemented into NERVE you need to be aware of.

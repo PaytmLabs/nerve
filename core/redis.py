@@ -3,6 +3,7 @@ import sys
 import redis
 import threading
 import pickle
+
 from core.logging import logger
 from core.utils   import Utils
 
@@ -11,7 +12,7 @@ class RedisManager:
     self.utils = Utils()
     self.r = None
     try:
-      self.conn_pool = redis.ConnectionPool(host=config.RDS_HOST, port=config.RDS_PORT, db=0)
+      self.conn_pool = redis.ConnectionPool(host=config.RDS_HOST, port=config.RDS_PORT, password=config.RDS_PASSW, db=0)
       self.r = redis.Redis(connection_pool=self.conn_pool)
     except TimeoutError:
       logger.error('Redis Connection Timed Out!')
