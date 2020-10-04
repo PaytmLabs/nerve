@@ -166,11 +166,11 @@ class Integration:
     logger.info('Sending the webhook...')
     try:
       data = {'status':'done', 'vulnerabilities':data, 'scan_config':cfg}
-      resp = requests.post(webhook, 
-                          json=data, 
-                          headers={'User-Agent':USER_AGENT, 
-                                  'Content-Type':'application/json'},
-                          verify=False)
+      requests.post(webhook, 
+                    json=data, 
+                    headers={'User-Agent':USER_AGENT, 
+                            'Content-Type':'application/json'},
+                    verify=False)
       return True
     except Exception as e:
       logger.error('Could not submit webhook: {}'.format(e))
