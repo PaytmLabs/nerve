@@ -15,7 +15,9 @@
 * [Security](#security)
 * [Usage](#usage)
 * [License](#license)
+* [Mentions](#mentions)
 * [Screenshots](#screenshots)
+
 
 # Continuous Security
 We believe security scanning should be done continuously. Not daily, weekly, monthly, or quarterly.
@@ -165,6 +167,14 @@ Once you deploy it, authenticate and on the left sidebar you will find a documen
 
 # License
 It is distributed under the MIT License. See LICENSE for more information.
+
+# Mentions
+:trophy: NERVE has been mentioned in various places so far, here are a few links.
+* Kitploit - https://www.kitploit.com/2020/09/nerve-network-exploitation.html
+* Hakin9 - https://hakin9.org/nerve-network-exploitation-reconnaissance-vulnerability-engine/
+* PentestTools - https://pentesttools.net/nerve-network-exploitation-reconnaissance-vulnerability-engine/
+* SecnHack.in - https://secnhack.in/nerve-exploitation-reconnaissance-vulnerability-engine/
+* 100security.com - https://www.100security.com.br/nerve
 
 # Screenshots
 ## Login Screen
