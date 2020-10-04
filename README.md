@@ -66,10 +66,11 @@ NERVE offers the following features:
   * Scan depth
   * Exclusions
   * DNS / IP Based
-  * Threading
+  * Thread Control
+  * Custom Ports
 * Network Topology Graphs
 
-We put together Graphical User Interface primarily for ease of use, but we will be putting more emphasis on detections and new signatures than creating full blown user interface. 
+We put together the Graphical User Interface primarily for ease of use, but we will be putting more emphasis on detections and new signatures than creating a full blown user interface. 
 
 # Prerequisites
 NERVE will install all the prerequisites for you automatically if you choose the Server installation (CentOS 7.x and Ubuntu 18.x were tested) (by using `install/setup.sh` script). It also comes with a Dockerfile for your convenience. 
