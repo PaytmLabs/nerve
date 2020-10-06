@@ -116,16 +116,16 @@ Here are the high level steps we recommend to get the most optimal results:
 In your browser, navigate to http://ip.add.re.ss:80 and login with the credentials you specified to in the previous command.
 
 # Server
-## Navigate to /opt
+### Navigate to /opt
 `cd /opt/`
 
-## Clone the repository
+### Clone the repository
 `git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
 
-## Run Installer (requires root)
+### Run Installer (requires root)
 `bash install/setup.sh`
 
-## Check NERVE is running
+### Check NERVE is running
 `systemctl status nerve`
 
 In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
