@@ -189,73 +189,71 @@
                         <p>A web hook is basically a post-process event that happens after some condition is met (such as, after a scan is completed.)</p>
                         <p>NERVE can send you the Assessment data as soon as a scan completes, to an endpoint of your choice. Your endpoint must be able to be accessed by NERVE, and receive JSON data.</p>
                         <p>The data NERVE is going to send, may look like the following:</p>
-                        <pre>
-                          {
-                            "status":"done",
-                            "vulnerabilities":{
-                               "vuln_0e365ca243180c516c3cbf5382017aa4eb8de62e":{
-                                  "ip":"192.168.1.55",
-                                  "port":22,
-                                  "domain":null,
-                                  "rule_id":"SVC_6509",
-                                  "rule_sev":3,
-                                  "rule_desc":"Checks for Remote Management Ports",
-                                  "rule_confirm":"Remote Server Exposes Administration Port(s)",
-                                  "rule_details":"Open Port: 22 (SSH)",
-                                  "rule_mitigation":"Bind all possible services to localhost, and confirm only those which require remote clients are allowed remotely."
-                               }
-                            },
-                            "scan_config":{
-                               "targets":{
-                                  "networks":[
-                                     "192.168.1.1/24"
-                                  ],
-                                  "excluded_networks":[
-                                  ],
-                                  "domains":[
-                                     
-                                  ]
-                               },
-                               "config":{
-                                  "name":"test",
-                                  "description":"",
-                                  "engineer":"",
-                                  "allow_aggressive":3,
-                                  "allow_dos":false,
-                                  "allow_bf":true,
-                                  "allow_internet":true,
-                                  "dictionary":{
-                                     "usernames":[
-                                        
-                                     ],
-                                     "passwords":[
-                                        
-                                     ]
-                                  },
-                                  "scan_opts":{
-                                     "interface":null,
-                                     "max_ports":100,
-                                     "custom_ports":[],
-                                     "parallel_scan":50,
-                                     "parallel_attack":30
-                                  },
-                                  "post_event":{
-                                     "webhook":"http://192.168.1.10:8000"
-                                  },
-                                  "frequency":"once"
-                               },
-                               "metadata":{
-                                  "unique_id":"be3c7849",
-                                  "timestamp":"2020-09-21 14:20:58",
-                                  "node":"HOSTNAME1",
-                                  "issuer":{
-                                     "source_ip":"127.0.0.1"
-                                  }
-                               }
-                            }
-                         }
-                           
-                        </pre>
+<pre>
+{
+  "status":"done",
+  "vulnerabilities":{
+      "vuln_0e365ca243180c516c3cbf5382017aa4eb8de62e":{
+        "ip":"192.168.1.55",
+        "port":22,
+        "domain":null,
+        "rule_id":"SVC_6509",
+        "rule_sev":3,
+        "rule_desc":"Checks for Remote Management Ports",
+        "rule_confirm":"Remote Server Exposes Administration Port(s)",
+        "rule_details":"Open Port: 22 (SSH)",
+        "rule_mitigation":"..snip..Bind all possible services to localhost..snip.."
+      }
+  },
+  "scan_config":{
+      "targets":{
+        "networks":[
+            "192.168.1.1/24"
+        ],
+        "excluded_networks":[
+        ],
+        "domains":[
+            
+        ]
+      },
+      "config":{
+        "name":"test",
+        "description":"",
+        "engineer":"",
+        "allow_aggressive":3,
+        "allow_dos":false,
+        "allow_bf":true,
+        "allow_internet":true,
+        "dictionary":{
+            "usernames":[
+              
+            ],
+            "passwords":[
+              
+            ]
+        },
+        "scan_opts":{
+            "interface":null,
+            "max_ports":100,
+            "custom_ports":[],
+            "parallel_scan":50,
+            "parallel_attack":30
+        },
+        "post_event":{
+            "webhook":"http://192.168.1.10:8000"
+        },
+        "frequency":"once"
+      },
+      "metadata":{
+        "unique_id":"be3c7849",
+        "timestamp":"2020-09-21 14:20:58",
+        "node":"HOSTNAME1",
+        "issuer":{
+            "source_ip":"127.0.0.1"
+        }
+      }
+  }
+}</pre>
                         <p>A webhook endpoint may look like this: <b>http://example.com/recieve</b>, or with a specified port <b>https://example.com:8000/receive</b></p>
                         <hr>
                         <h4 id="reports">Reports</h4>
@@ -264,6 +262,7 @@
                           <li>HTML</li>
                           <li>TXT</li>
                           <li>CSV</li>
+                          <li>XML</li>
                         </ul>
                         <p>All the reports are saved on disk at <b>/opt/nerve/reports</b> if you need to go back in time and fetch historical reports.</p>
                         <p>If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a></p>
