@@ -61,6 +61,7 @@ NERVE offers the following features:
   * TXT
   * CSV
   * HTML
+  * XML
 * Customizable scans
   * Configurable intrusiveness levels
   * Scan depth
