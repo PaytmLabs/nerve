@@ -6,7 +6,8 @@ from core.security import session_required
 from core.reports import (
   generate_html, 
   generate_csv, 
-  generate_txt
+  generate_txt,
+  generate_xml
 )
 
 from flask import (
@@ -57,6 +58,14 @@ def view_download(file):
       return response
     elif file == 'report_csv':
       report_file = generate_csv(data)
+      response = send_from_directory(directory='reports', 
+                                      filename=report_file,
+                                      as_attachment=True,
+                                      cache_timeout=0)
+      return response
+
+    elif file == 'report_xml':
+      report_file = generate_xml(data)
       response = send_from_directory(directory='reports', 
                                       filename=report_file,
                                       as_attachment=True,

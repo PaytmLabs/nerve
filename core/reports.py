@@ -1,5 +1,6 @@
 import csv
 import jinja2
+import xml.etree.ElementTree as xml
 
 from core.redis import rds
 from core.utils import Utils
@@ -28,7 +29,6 @@ def generate_csv(data):
   
   return filename
 
-
 def generate_html(vulns, conf):
   vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0}
   filename = 'report-{}-{}.html'.format(utils.generate_uuid(), utils.get_date())
@@ -56,7 +56,6 @@ def generate_html(vulns, conf):
   
   return filename
 
-
 def generate_txt(vulns):
   filename = 'report-{}-{}.txt'.format(utils.generate_uuid(), utils.get_date())
   data = ''
@@ -71,4 +70,41 @@ def generate_txt(vulns):
   
   return filename
   
-  
+def generate_xml(vulns):
+  filename = 'report-{}-{}.xml'.format(utils.generate_uuid(), utils.get_date())
+  root = xml.Element("Vulnerabilities")
+  for key, value in vulns.items():
+    vuln_element = xml.Element(key)
+    root.append(vuln_element)
+
+    ip = xml.SubElement(vuln_element, "ip")
+    ip.text =  value['ip']
+
+    port = xml.SubElement(vuln_element, "port")
+    port.text = str(value['port'])
+
+    domain = xml.SubElement(vuln_element, "domain")
+    domain.text = value['domain']
+
+    sev = xml.SubElement(vuln_element, "severity")
+    sev.text = utils.sev_to_human(value['rule_sev'])
+
+    description = xml.SubElement(vuln_element, "description")
+    description.text = value['rule_desc']
+    
+
+    confirm = xml.SubElement(vuln_element, "confirm")
+    confirm.text = value['rule_confirm']
+    
+    details = xml.SubElement(vuln_element, "details")
+    details.text = value['rule_details']
+
+    mitigation = xml.SubElement(vuln_element, "mitigation")
+    mitigation.text = value['rule_mitigation']
+
+  data = xml.tostring(root)
+  f = open('reports/' + filename, "w")
+  f.write(data.decode('utf-8'))
+  f.close()
+
+  return filename
