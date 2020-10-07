@@ -91,7 +91,6 @@ def generate_xml(vulns):
 
     description = xml.SubElement(vuln_element, "description")
     description.text = value['rule_desc']
-    
 
     confirm = xml.SubElement(vuln_element, "confirm")
     confirm.text = value['rule_confirm']

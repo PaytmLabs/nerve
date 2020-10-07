@@ -1,10 +1,10 @@
 import socket
 
 from core.redis    import rds
-from core.triage   import Triage
 from core.parser   import ScanParser, ConfParser
 from db.db_passwds import known_weak
 from core.logging import logger
+
 class Rule:
   def __init__(self):
     self.rule = 'BRF_DD00'
@@ -36,7 +36,6 @@ Refer to the Redis Hardening Guidelines for more information: https://redis.io/t
       
   def check_rule(self, ip, port, values, conf):
     c = ConfParser(conf)
-    t = Triage()
     p = ScanParser(port, values)
     
     domain = p.get_domain()
@@ -72,7 +71,7 @@ Refer to the Redis Hardening Guidelines for more information: https://redis.io/t
             })
             return
     except:
-      return
+      pass
     
     return
         

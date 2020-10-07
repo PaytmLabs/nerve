@@ -99,7 +99,6 @@ class Network:
     except TypeError:
       return False
 
-    
   def get_primary_ip(self):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:

@@ -7,7 +7,7 @@ class Rule:
     self.rule = 'CFG_DFFF'
     self.rule_severity = 1
     self.rule_description = 'This rule checks if Cross Origin Resource Sharing Headers support Wildcard Origins'
-    self.rule_confirm = 'Webserver is allowing all domains in CORS'
+    self.rule_confirm = 'CORS Policy allows any domain'
     self.rule_details = ''
     self.rule_mitigation = '''Consider hardening your Cross Origin Resource Sharing Policy to define specific Origins \
 https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS'''

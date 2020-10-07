@@ -1,6 +1,5 @@
 import psycopg2
 from core.redis import rds
-from core.triage import Triage
 from core.parser import ScanParser, ConfParser
 from db.db_passwds import known_weak
 from db.db_users import known_users
@@ -24,14 +23,13 @@ Refer to the PostgreSQL Hardening Guideline for more information: https://www.po
         connection.close()
         return True
 
-    except Exception as e:
+    except:
       return
 
     return False
 
   def check_rule(self, ip, port, values, conf):
     c = ConfParser(conf)
-    t = Triage()
     p = ScanParser(port, values)
 
     domain = p.get_domain()

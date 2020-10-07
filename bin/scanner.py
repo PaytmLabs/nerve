@@ -1,12 +1,11 @@
 import time
 
 from core.redis   import rds
-from core.utils   import Utils
 from core.logging import logger
 from core.port_scanner import Scanner
+from core.parser import ConfParser
 
 def scanner():
-  utils = Utils()
   scanner = Scanner()
   
   logger.info('Scanner process started')
@@ -16,20 +15,22 @@ def scanner():
       time.sleep(10)
       continue
     
-    conf  = rds.get_scan_config()
+    conf = rds.get_scan_config()
     
     if not conf:
       time.sleep(10)
       continue
     
-    hosts = rds.get_ips_to_scan(limit = conf['config']['scan_opts']['parallel_scan'])
+    c = ConfParser(conf)
+
+    hosts = rds.get_ips_to_scan(limit = c.get_cfg_scan_threads())
 
     if hosts:
       conf = rds.get_scan_config()
       scan_data = scanner.scan(hosts, 
-                          max_ports = conf['config']['scan_opts']['max_ports'],
-                          custom_ports = conf['config']['scan_opts']['custom_ports'],
-                          interface = conf['config']['scan_opts']['interface'])
+                          max_ports = c.get_cfg_max_ports(),
+                          custom_ports = c.get_cfg_custom_ports(),
+                          interface = c.get_cfg_netinterface())
 
       if scan_data:
         for host, values in scan_data.items():

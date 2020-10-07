@@ -1,6 +1,5 @@
 from pymongo import MongoClient
 from core.redis import rds
-from core.triage import Triage
 from core.parser import ScanParser, ConfParser
 from db.db_passwds import known_weak
 from db.db_users import known_users
@@ -27,7 +26,7 @@ Refer to the MongoDB hardening guide for more information: https://docs.mongodb.
         MongoClient(ip, port).list_database_names()
         return True
 
-      except Exception as e:
+      except:
         return
 
     else:
@@ -37,12 +36,11 @@ Refer to the MongoDB hardening guide for more information: https://docs.mongodb.
         MongoClient('mongodb://{username}:{password}@{ip}/admin'.format(username=username, password=password, ip=ip))
         return True
 
-      except Exception as e:
+      except:
         return
 
   def check_rule(self, ip, port, values, conf):
     c = ConfParser(conf)
-    t = Triage()
     p = ScanParser(port, values)
 
     domain = p.get_domain()
