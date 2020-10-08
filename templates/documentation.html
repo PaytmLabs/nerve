@@ -84,6 +84,7 @@
                               <li><a href="#reports">3. Reports</a></li>
                               <li><a href="#notifications">4. Notifications</a></li>
                               <li><a href="#security">5. Security</a></li>
+                              <li><a href="#upgrade">6. Upgrade</a></li>
                               </div>
                           </div>
                         
@@ -285,6 +286,16 @@
                           <li><b>Cookie Protection</b> - Cookie security flags are used, such as SameSite, HttpOnly, etc.</li>
                         </ul>
                         If you identify a security vulnerability, please submit a bug to us on GitHub.
+                        <hr>
+                        <h4 id="upgrade">Upgrade</h4>
+                        <p>If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.</p>
+                        <ol>
+                          <li>Make a copy of <b>config.py</b> if you wish to save your configurations</li>
+                          <li>Remove <b>/opt/nerve</b> and git clone it again from: <a href="https://github.com/PaytmLabs/nerve">GitHub</a></li>
+                          <li>Move <b>config.py</b> file back into <b>/opt/nerve</b></li>
+                          <li>Restart the service using <b>systemctl restart nerve</b></li>
+                        </ol>
+                        <p>You could set up a cron task auto-upgrade NERVE, there's an API endpoint to check whether you have the latest version or not that you could use for this purpose: <a href="#get_update">/api/update/platform</a></p>
                       </div>
                       </div>
                   </div>
@@ -314,6 +325,7 @@
                                     <li><a href="#post_scan">POST /api/scan</a></li>
                                     <li><a href="#get_status">GET /api/scan/status</a></li>
                                     <li><a href="#put_reset">PUT /api/scan/reset</a></li>
+                                    <li><a href="#get_update">GET /api/update/platform</a></li>
                                   </ul>
                                 </li>
                                 </div>
@@ -336,12 +348,13 @@
                               <p>API Authentication is done using Basic Authentication.</p>
                               <p>Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password</p>
                               <p>With each API call, you need to pass the credentials. Here is an example with Python and the requests library:</p>
-                              <hr>
-                              <pre class="bash">import requests
+<pre>
+import requests
 from requests.auth import HTTPBasicAuth
 username = 'admin'
 password = 'admin'
-requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password), json={'key':'value'})</pre>
+requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password), json={'key':'value'})
+</pre>
                             </div>
                         </div>
                     </div>
@@ -391,6 +404,13 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                                         <td>True</td>
                                         <td>Resets the Server. Roll Back.</td>
                                         </tr>
+                                      <tr>
+                                        <th scope="row">5.</th>
+                                        <td><code>GET</code></td>
+                                        <td><a href="#get_update">/api/update/platform</a></td>
+                                        <td>True</td>
+                                        <td>Checks if updates are available</td>
+                                      </tr>
                                   </tbody>
                               </table>
                                 
@@ -407,10 +427,10 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                             <div id="get_health" class="card-header"><b><code>GET /health</code></b></div>
                             <div class="card-body">
                             <pre>
-    import requests
-    >>> requests.get('http://endpoint/health')
+import requests
+>>> requests.get('http://endpoint/health')
 
-    <<< {'status': 'OK'}
+<<< {'status': 'OK'}
                             </pre>           
                             </div>                  
                         </div>
@@ -423,46 +443,46 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                           <div id="post_scan" class="card-header"><b><code>POST /api/scan</code></b></div>
                           <div class="card-body">
                             <pre>
-      import requests
-      from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
 
-      DEFAULT_SCAN = {
-        'targets':{
-          'networks':[],
-          'excluded_networks':[],
-          'domains':[]
-        },
-        'config':{
-          'name':'Default',
-          'description':'My Default Scan',
-          'engineer':'Default',
-          'allow_aggressive':3,
-          'allow_dos':True,
-          'allow_bf':True,
-          'allow_internet':True,
-          'dictionary':{
-            'usernames':[],
-            'passwords':[]
-          },
-          'scan_opts':{
-            'interface':None,
-            'max_ports':1000,
-            'custom_ports':[],
-            'parallel_scan':50,
-            'parallel_attack':30,
-          },
-          'post_event':{
-            'webhook':None
-          },
-          'frequency':'once'
-        }
-      }
+DEFAULT_SCAN = {
+  'targets':{
+    'networks':[],
+    'excluded_networks':[],
+    'domains':[]
+  },
+  'config':{
+    'name':'Default',
+    'description':'My Default Scan',
+    'engineer':'Default',
+    'allow_aggressive':3,
+    'allow_dos':True,
+    'allow_bf':True,
+    'allow_internet':True,
+    'dictionary':{
+      'usernames':[],
+      'passwords':[]
+    },
+    'scan_opts':{
+      'interface':None,
+      'max_ports':1000,
+      'custom_ports':[],
+      'parallel_scan':50,
+      'parallel_attack':30,
+    },
+    'post_event':{
+      'webhook':None
+    },
+    'frequency':'once'
+  }
+}
 
 
 
-      >>> requests.post('http://endpoint/api/scan', auth=HTTPBasicAuth("admin", "admin"), json=DEFAULT_SCAN)
+>>> requests.post('http://endpoint/api/scan', auth=HTTPBasicAuth("admin", "admin"), json=DEFAULT_SCAN)
 
-      <<< {'status': 'Registered a new scan successfully!'}
+<<< {'status': 'Registered a new scan successfully!'}
                               </pre>        
                           </div>
                       </div>
@@ -475,19 +495,19 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                           <div id="get_status" class="card-header"><b><code>GET /api/scan/status</code></b></div>
                           <div class="card-body">
                             <pre>
-          import requests
-          from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
 
-          >>> resp = requests.get('http://endpoint/api/scan/status', auth=HTTPBasicAuth("admin", "admin"))
+>>> resp = requests.get('http://endpoint/api/scan/status', auth=HTTPBasicAuth("admin", "admin"))
 
-          <<<
-          .. snip .. 
-          {'scan_config': {'metadata': {'issuer': {'source_ip': '127.0.0.1'},
-                              'timestamp': '2020-07-29 00:19:27',
-                              'unique_id': '6eddab7b'},
-                          'status': 'incomplete',
-                          'vulnerabilities': {}}
-          .. snip ..    
+<<<
+.. snip .. 
+{'scan_config': {'metadata': {'issuer': {'source_ip': '127.0.0.1'},
+                    'timestamp': '2020-07-29 00:19:27',
+                    'unique_id': '6eddab7b'},
+                'status': 'incomplete',
+                'vulnerabilities': {}}
+.. snip ..    
           </pre>
                           </div>
                           
@@ -502,18 +522,35 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                         <div id="put_reset" class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
                         <div class="card-body">
                           <pre>
-            import requests
-            from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
 
-            >>> requests.put('http://endpoint/api/scan/reset', auth=HTTPBasicAuth("admin", "admin"))
+>>> requests.put('http://endpoint/api/scan/reset', auth=HTTPBasicAuth("admin", "admin"))
 
-            <<< {'status': 'flushed scan state'}
+<<< {'status': 'flushed scan state'}
                           </pre>
                         </div>
                     </div>
                 </div>
                 </div>
 
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                        <div id="get_update" class="card-header"><b><code>GET /api/update/platform</code></b></div>
+                        <div class="card-body">
+                          <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+>>> requests.put('http://endpoint/api/update/platform', auth=HTTPBasicAuth("admin", "admin"))
+
+<<< {'status': 'system is up to date'}
+                          </pre>
+                        </div>
+                    </div>
+                </div>
+                </div>
                 
               </div>
           </div>
