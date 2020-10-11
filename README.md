@@ -11,7 +11,8 @@
   * [Deployment Recommendations](#Deployment-Recommendation)
   * [Installation - Docker](#docker)
   * [Installation - Bare Metal](#server)
-  * [Multi-node installation](#Multi-Node-Installation)
+  * [Installation - Multi Node](#Multi-Node-Installation)
+  * [Upgrade](#upgrade)
 * [Security](#security)
 * [Usage](#usage)
 * [License](#license)
@@ -138,6 +139,16 @@ If you want to install NERVE in a multi-node deployment, you can follow the norm
 3. Run `service nerve restart` or `systemctl restart nerve` to reload the configuration
 4. Run `apt-get remove redis` / `yum remove redis` (Depending on the Linux Distribution) since you will no longer need each instance to report to itself.
 Don't forget to allow port 3769 inbound on the Redis instance, so that the NERVE instances can communicate with it.
+
+# Upgrade
+If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.
+
+* Make a copy of `config.py` if you wish to save your configurations
+* Remove `/opt/nerve` and git clone it again.
+* Move `config.py` file back into `/opt/nerve`
+* Restart the service using `systemctl restart nerve`.
+
+You could set up a cron task to auto-upgrade NERVE. There's an API endpoint to check whether you have the latest version or not that you could use for this purpose: `GET /api/update/platform`
 
 # Security
 There are a few security mechanisms implemented into NERVE you need to be aware of.
