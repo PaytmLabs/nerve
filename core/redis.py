@@ -161,6 +161,12 @@ class RedisManager:
       count += 1
     return count
   
+  def get_exclusions(self):
+    exc = self.r.get('p_rule-exclusions')
+    if exc: 
+      return pickle.loads(exc)
+    return {}
+    
   def get_last_scan(self):
     return self.r.get('p_last-scan')
   
@@ -234,7 +240,7 @@ class RedisManager:
     return self.r.dbsize()
   
   def initialize(self):
-    self.flushdb()
+    self.clear_session()
     self.r.set('p_scan-count', 0)
     self.r.set('p_last-scan', 'N/A')
     

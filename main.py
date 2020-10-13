@@ -34,6 +34,7 @@ from views.view_startover  import startover
 from views_api.api_health import Health
 from views_api.api_scan import Scan
 from views_api.api_update import Update
+from views_api.api_exclusions import Exclusion
 
 app = Flask(__name__)
 
@@ -68,6 +69,7 @@ api = Api(app)
 api.add_resource(Health, '/health')
 api.add_resource(Update, '/api/update', '/api/update/<string:component>')
 api.add_resource(Scan,   '/api/scan', '/api/scan/<string:action>')
+api.add_resource(Exclusion,   '/api/exclusion', '/api/exclusion')
 
 
 # Set Security Headers

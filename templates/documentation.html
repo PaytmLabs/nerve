@@ -325,6 +325,8 @@
                                     <li><a href="#post_scan">POST /api/scan</a></li>
                                     <li><a href="#get_status">GET /api/scan/status</a></li>
                                     <li><a href="#put_reset">PUT /api/scan/reset</a></li>
+                                    <li><a href="#get_exclusion">GET /api/exclusion</a></li>
+                                    <li><a href="#post_exclusion">POST /api/exclusion</a></li>
                                     <li><a href="#get_update">GET /api/update/platform</a></li>
                                   </ul>
                                 </li>
@@ -342,8 +344,9 @@
 
                     <div class="row">
                       <div class="col-md-12">
+                        <h3 id="authentication"><b>Authentication</b></h3>
                         <div class="card">
-                            <div id="authentication" class="card-header"><b>Authentication</b></div>
+                            <div class="card-header"><b>Authentication</b></div>
                             <div class="card-body">
                               <p>API Authentication is done using Basic Authentication.</p>
                               <p>Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password</p>
@@ -361,10 +364,10 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                     </div>
                     <div class="row">
                       <div class="col-md-12">
+                        <h3 id="endpoints" ><b>API Table</b></h3>
                         <div class="card">
                             <div class="card-header"><b>API Endpoints</b></div>
                             <div class="card-body">
-
                                 <table id="api" class="table">
                                   <thead>
                                       <tr>
@@ -404,8 +407,22 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                                         <td>True</td>
                                         <td>Resets the Server. Roll Back.</td>
                                         </tr>
+                                        <tr>
+                                          <th scope="row">5.</th>
+                                          <td><code>GET</code></td>
+                                          <td><a href="#get_exclusion">/api/exclusion</a></td>
+                                          <td>True</td>
+                                          <td>Returns the current exclusion list</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">6.</th>
+                                          <td><code>POST</code></td>
+                                          <td><a href="#post_exclusion">/api/exclusion</a></td>
+                                          <td>True</td>
+                                          <td>Submits an exclusion list</td>
+                                        </tr>
                                       <tr>
-                                        <th scope="row">5.</th>
+                                        <th scope="row">7.</th>
                                         <td><code>GET</code></td>
                                         <td><a href="#get_update">/api/update/platform</a></td>
                                         <td>True</td>
@@ -423,8 +440,10 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
 
                     <div class="row">
                       <div class="col-md-12">
+                        <h3 id="get_health">GET /health</h3>
+                        <p>Health is an endpoint to do basic sanity-checks for monitoring systems, etc.</p>
                         <div class="card">
-                            <div id="get_health" class="card-header"><b><code>GET /health</code></b></div>
+                            <div class="card-header"><b><code>GET /health</code></b></div>
                             <div class="card-body">
                             <pre>
 import requests
@@ -439,8 +458,11 @@ import requests
 
                   <div class="row">
                     <div class="col-md-12">
+                      <h3 id="post_scan">POST /api/scan</h3>
+                      <p>This endpoint is where you can submit new scans with a configuration file similar to the Web Interface.<br>
+                      The configuration file must be provided as-is without removing any entries.</p>
                       <div class="card">
-                          <div id="post_scan" class="card-header"><b><code>POST /api/scan</code></b></div>
+                          <div class="card-header"><b><code>POST /api/scan</code></b></div>
                           <div class="card-body">
                             <pre>
 import requests
@@ -491,8 +513,11 @@ DEFAULT_SCAN = {
 
                   <div class="row">
                     <div class="col-md-12">
+                      <h3 id="get_status"> <b>GET /api/scan/status</b></h3>
+                      <p>This endpoint is where you can view the state of a running scan.<br>
+                      Note that you do not need to wait for a scan to complete, results will be shown as soon as new data is created.</p>
                       <div class="card">
-                          <div id="get_status" class="card-header"><b><code>GET /api/scan/status</code></b></div>
+                          <div class="card-header"><b><code>GET /api/scan/status</code></b></div>
                           <div class="card-body">
                             <pre>
 import requests
@@ -518,8 +543,10 @@ from requests.auth import HTTPBasicAuth
 
                 <div class="row">
                   <div class="col-md-12">
+                    <h3 id="put_reset"><b>PUT /api/scan/reset</b></h3>
+                    <p>This endpoint allows you to reset the system / stop a currently running assessment (such as continuous)</p>
                     <div class="card">
-                        <div id="put_reset" class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
+                        <div class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
                         <div class="card-body">
                           <pre>
 import requests
@@ -536,8 +563,60 @@ from requests.auth import HTTPBasicAuth
 
                 <div class="row">
                   <div class="col-md-12">
+                    <h3 id="get_exclusion"><b>GET /api/exclusion</b></h3>
+                    <p>This endpoint is where you get the current exclusion list.<br>
+                    You may want to the Exclusion functionality to prevent certain traffic from running against certain assets, or to prevent certain alerts from getting created.</p>
                     <div class="card">
-                        <div id="get_update" class="card-header"><b><code>GET /api/update/platform</code></b></div>
+                        <div class="card-header"><b><code>GET /api/exclusion</code></b></div>
+                        <div class="card-body">
+                          <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+>>> requests.get('http://endpoint/api/exclusion', auth=HTTPBasicAuth("admin", "admin"))
+
+<<< {'exclusions': {'SVC_ZGZA': ['192.168.0.1', '192.168.0.254']}}
+                          </pre>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3 id="post_exclusion"><b>POST /api/exclusion</b></h3>
+                    <p>This endpoint is where you can submit an exclusion list. The JSON in your POST must have a valid format as shown below.<br>
+                    Rule IDs can be retrieved from <b>/opt/nerve/rules/**/*.py files</b></p>
+                    <div class="card">
+                        <div class="card-header"><b><code>POST /api/exclusion</code></b></div>
+                        <div class="card-body">
+                          <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+# FORMAT:
+# 'MY_RULE_ID':['MY_IP-1', 'MY_IP-2']
+
+EXCLUSIONS = {
+  'SVC_ZGZA':['192.168.0.1', '192.168.0.254'],
+  'CVE_72D3':['192.168.0.1'],
+}
+
+>>> requests.post('http://endpoint/api/exclusion', auth=HTTPBasicAuth("admin", "admin"), json=EXCLUSIONS)
+
+<<< {'status':'ok'}
+                          </pre>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3 id="get_update"><b>GET /api/update/platform</b></h3>
+                    <p>This endpoint allows you to check if you have the latest NERVE version.</p>
+                    <div class="card">
+                        <div class="card-header"><b><code>GET /api/update/platform</code></b></div>
                         <div class="card-body">
                           <pre>
 import requests
