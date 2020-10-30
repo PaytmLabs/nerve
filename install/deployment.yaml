@@ -2,14 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name:  nerve
+  namespace: default
   labels:
     app:  nerve
-
 spec:
   selector:
     matchLabels:
       app: nerve
-  
   replicas: 1
   strategy:
     rollingUpdate:
@@ -20,16 +19,14 @@ spec:
     metadata:
       labels:
         app:  nerve
-    
     spec:
       # initContainers:
         # Init containers are exactly like regular containers, except:
           # - Init containers always run to completion.
           # - Each init container must complete successfully before the next one starts.
       containers:
-        name:  nerve
+      - name:  nerve
         image:  docker.pkg.github.com/shojinspear/nerve/nerve:latest
-        imagePullPolicy: Always
         env:
           - name: password
             value: Q749SZEyYGwDVGH
@@ -39,6 +36,7 @@ spec:
         - containerPort:  8080
           name:  nerve
       restartPolicy: Always
+
 ---
 apiVersion: v1
 kind: Service
