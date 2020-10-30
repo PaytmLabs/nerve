@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NERVE</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
@@ -61,35 +62,42 @@
                     <div class="page-title">
                         <h3>Reports</h3>
                     </div>
+                    <p><medium>Below you can download your latest assessment report in various formats.</medium></p>
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-3">
+                        
                         <div class="card">
                             <div class="card-header"><b>Detailed Report (HTML)</b></div>
                             <div class="card-body">
-                                <p class="card-title">Report for the auditors</p>
                                 <center><a href="/download/report_html"><img src="static/img/report.png" width="150px" height="150px"/></a></center>
                             </div>
                             
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card">
                             <div class="card-header"><b>Raw Report (TXT)</b></div>
                             <div class="card-body">
-                                <p class="card-title">Report for the minimalists </p>
                                 <center><a href="/download/report_txt"><img src="static/img/report_txt.png" width="150px" height="150px"/></a></center>
                             </div>  
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                       <div class="card">
                           <div class="card-header"><b>Raw Report (CSV)</b></div>
                           <div class="card-body">
-                              <p class="card-title">Report for the nerds</p>
                               <center><a href="/download/report_csv"><img src="static/img/report_csv.png" width="150px" height="150px"/></a></center>
                           </div>
                       </div>
                   </div>  
+                  <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header"><b>Raw Report (XML)</b></div>
+                        <div class="card-body">
+                            <center><a href="/download/report_xml"><img src="static/img/report_xml.png" width="150px" height="150px"/></a></center>
+                        </div>
+                    </div>
+                </div>  
                 </div>
                 </div>
             </div>

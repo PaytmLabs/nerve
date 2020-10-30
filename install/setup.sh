@@ -50,7 +50,7 @@ function install_redhat {
   yum install -y python3-devel && \
   yum install -y wget && \
   yum clean all
-  wget https://nmap.org/dist/nmap-7.80-1.x86_64.rpm 
+  wget https://nmap.org/dist/nmap-7.90-1.x86_64.rpm
   rpm -U nmap-*.rpm
   rm -rf nmap-*.rpm
 }
@@ -122,8 +122,6 @@ WantedBy=multi-user.target
   chmod 644 "$systemd_service"
 fi
 
-pip3 install -r requirements.txt
-
 if [ "$os" == "ubuntu" ]; then 
   echo "Installing packages..."
   install_ubuntu
@@ -137,8 +135,9 @@ elif [ "$os" == "redhat" ]; then
   echo "Starting Redis..."
   systemctl enable redis
   systemctl start redis
-
 fi
+
+pip3 install -r requirements.txt
 
 echo "Generating password"
 if [ -f "config.py" ]; then

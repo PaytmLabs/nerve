@@ -1,7 +1,6 @@
 import ftplib
 
 from core.redis       import rds
-from core.triage      import Triage
 from core.parser      import ScanParser, ConfParser
 from db.db_passwds    import known_weak
 from db.db_users      import known_users
@@ -33,7 +32,6 @@ FTP should not be listening on an external interface. If required, it is recomme
       
   def check_rule(self, ip, port, values, conf):
     c = ConfParser(conf)
-    t = Triage()
     p = ScanParser(port, values)
     
     domain = p.get_domain()

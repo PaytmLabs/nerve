@@ -16,22 +16,45 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class Triage:
   def __init__(self):
+    self.global_timeout = 10
     self.headers = {
       'User-Agent':USER_AGENT
       }
     
-  def http_request(self, ip, port, headers=None, follow_redirects=True, uri='/'):
+  def http_request(self, ip, port, method="GET", params=None, data=None, json=None, headers=None, follow_redirects=True, timeout=None, uri='/'):
     resp = None
 
     if headers:
       self.headers = {**headers, **self.headers}
+
+    if method not in ('GET', 'POST', 'OPTIONS', 'PUT', 'DELETE', 'HEAD'):
+      logger.error('HTTP Method is not supported.')
+      return
+    
+    if not timeout:
+      timeout = self.global_timeout
 
     url = 'http://{}:{}{}'.format(ip, port, uri)
     
     if port == 443 or port == 8443 or '443' in str(port):
       url = 'https://{}:{}{}'.format(ip, port, uri)
     try:
-      resp = requests.get(url, verify=False, timeout=8, allow_redirects=follow_redirects, headers=self.headers)
+      if method == 'GET':
+        resp = requests.get(url, verify=False, timeout=timeout, params=params, allow_redirects=follow_redirects, headers=self.headers)
+      elif method == 'PUT':
+        resp = requests.put(url, verify=False, timeout=timeout, params=params, data=data, json=json, allow_redirects=follow_redirects, headers=self.headers)
+      elif method == 'POST':
+        resp = requests.post(url, verify=False, timeout=timeout, params=params, data=data, json=json, allow_redirects=follow_redirects, headers=self.headers)
+      elif method == 'OPTIONS':
+        resp = requests.options(url, verify=False, timeout=timeout, params=params, allow_redirects=follow_redirects, headers=self.headers)
+      elif method == 'DELETE':
+        resp = requests.delete(url, verify=False, timeout=timeout, params=params, data=data, json=json, allow_redirects=follow_redirects, headers=self.headers)
+      elif method == 'HEAD':
+        resp = requests.head(url, verify=False, timeout=timeout, params=params, allow_redirects=follow_redirects, headers=self.headers)
+      else:
+        # Default to GET.
+        resp = requests.get(url, verify=False, timeout=timeout, params=params, data=data, json=json, allow_redirects=follow_redirects, headers=self.headers)
+
       
     except requests.exceptions.ConnectTimeout:
       logger.debug('http_request {} {} (Timeout)'.format(ip, port))
@@ -60,45 +83,44 @@ class Triage:
         return resp
     return False
 
-  def socket_banner(self, ip, port):
+  def get_tcp_socket_banner(self, ip, port, timeout=None):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
     socket_banner = None
     
-    sock.settimeout(6)
+    if not timeout:
+      timeout = self.global_timeout
+    sock.settimeout(timeout)
     try:
       result = sock.connect_ex((ip, port))
       if result == 0:
         socket_banner = str(sock.recv(1024))
-    except Exception as e:
-      logger.debug('socket_open banner {} {} {}'.format(ip, port, e))
+    except:
+      pass
     
     finally:
       sock.close()
 
     return socket_banner
   
-  def socket_open(self, ip, port):
+  def is_socket_open(self, ip, port, timeout=None):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.settimeout(6)
+    
+    if not timeout:
+      timeout = self.global_timeout
+    
+    sock.settimeout(timeout)
+    
     try:
       result = sock.connect_ex((ip, port))
       if result == 0:
         return True
-    except Exception as e:
+    except:
       pass
 
     finally:
       sock.close()
 
     return False
-
-  def is_ssh(self, ip, port):
-    is_ssh = False
-    banner = self.socket_banner(ip, port)
-    if banner and 'SSH' in str(banner):
-      is_ssh = True
-
-    return is_ssh
 
   def run_cmd(self, command):
     result = None
@@ -115,18 +137,17 @@ class Triage:
     if not any(char.isdigit() for char in cpe):
       return False
       
-    try:
-      req = requests.get('https://nvd.nist.gov/vuln/search/results?form_type=Advanced&cves=on&cpe_version={}'.format(cpe), verify=False, timeout=5)
-      if req:
-        soup = BeautifulSoup(req.text, 'html.parser')
-        for a in soup.find_all('a', href=True):
-          if a.has_attr('data-testid') and a.contents:
-            sevs = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
-            if any(word in a.contents[0] for word in sevs):
-              score, sev = a.contents[0].split()
-              if float(score) >= 8.9:
-                return True
-    except:
-      pass
-
+    req = self.http_request('nvd.nist.gov', 443, method="GET", uri='/vuln/search/results?form_type=Advanced&cves=on&cpe_version=' + cpe)
+    if not req:
+      return 
+    
+    soup = BeautifulSoup(req.text, 'html.parser')
+    for a in soup.find_all('a', href=True):
+      if a.has_attr('data-testid') and a.contents:
+        sevs = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
+        if any(word in a.contents[0] for word in sevs):
+          score, sev = a.contents[0].split()
+          if float(score) >= 8.9:
+            return True
+    
     return False

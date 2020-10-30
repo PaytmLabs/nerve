@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NERVE</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/DataTables/datatables.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
@@ -83,6 +84,8 @@
                               <li><a href="#reports">3. Reports</a></li>
                               <li><a href="#notifications">4. Notifications</a></li>
                               <li><a href="#security">5. Security</a></li>
+                              <li><a href="#upgrade">6. Upgrade</a></li>
+                              <li><a href="#miscellaneous">7. Miscellaneous</a></li>
                               </div>
                           </div>
                         
@@ -130,7 +133,7 @@
                           <hr>
                           <h4 id="configuration">Configuration</h4>
                           <p>This is where the advanced configuration of the scan is defined.</p>
-                          <p><b>Assessment Behaviour</b></p>
+                          <p><b>Aggressiveness Level</b></p>
                           <p>This is going to ultimately decide which rules (checking if SSH is open is an example of a rule) run against your target scope. The more aggressive it is, the more rules are going to run.</p>
                           <p>For example, a rule that makes a lot of HTTP GET requests will be run only if you choose the use the aggressive mode. A rule that checks if a port is open, would run under all conditions.</p>
                           <p><b>Allow Outbound Connections</b></p>
@@ -149,6 +152,11 @@
                           <p>However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you. 
                              Too little ports means you may miss out on services, but the scan is going to be faster. Too many means you may sacrifice speed.</p>
                           <p>The default value for maximum ports is <b>100</b> ports (this ensures that at least http/https/ftp/ssh are covered).</p>
+                          
+                          <p><b>Custom Ports</b></p>
+                          <p>You could specify your own custom list of ports. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.</p>
+                          <p>By default, if you do not specify a Custom Port list, NERVE will use the Maximum Ports value of <b>100</b>.</p>
+                          <p>If you specify <b>both</b> Maximum Ports and Custom Ports, <b>Custom Ports will take presedence</b> and Maximum Ports will simply be ignored.</p>
                           
                           <p><b>Parallel Scan</b></p>
                           <p>This value represents the number of hosts which will be scanned simultaneously, for example, 60 means the port scan will run against 60 hosts at the same time.</p>
@@ -183,72 +191,71 @@
                         <p>A web hook is basically a post-process event that happens after some condition is met (such as, after a scan is completed.)</p>
                         <p>NERVE can send you the Assessment data as soon as a scan completes, to an endpoint of your choice. Your endpoint must be able to be accessed by NERVE, and receive JSON data.</p>
                         <p>The data NERVE is going to send, may look like the following:</p>
-                        <pre>
-                          {
-                            "status":"done",
-                            "vulnerabilities":{
-                               "vuln_0e365ca243180c516c3cbf5382017aa4eb8de62e":{
-                                  "ip":"192.168.1.55",
-                                  "port":22,
-                                  "domain":null,
-                                  "rule_id":"SVC_6509",
-                                  "rule_sev":3,
-                                  "rule_desc":"Checks for Remote Management Ports",
-                                  "rule_confirm":"Remote Server Exposes Administration Port(s)",
-                                  "rule_details":"Open Port: 22 (SSH)",
-                                  "rule_mitigation":"Bind all possible services to localhost, and confirm only those which require remote clients are allowed remotely."
-                               }
-                            },
-                            "scan_config":{
-                               "targets":{
-                                  "networks":[
-                                     "192.168.1.1/24"
-                                  ],
-                                  "excluded_networks":[
-                                  ],
-                                  "domains":[
-                                     
-                                  ]
-                               },
-                               "config":{
-                                  "name":"test",
-                                  "description":"",
-                                  "engineer":"",
-                                  "allow_aggressive":3,
-                                  "allow_dos":false,
-                                  "allow_bf":true,
-                                  "allow_internet":true,
-                                  "dictionary":{
-                                     "usernames":[
-                                        
-                                     ],
-                                     "passwords":[
-                                        
-                                     ]
-                                  },
-                                  "scan_opts":{
-                                     "interface":null,
-                                     "max_ports":100,
-                                     "parallel_scan":50,
-                                     "parallel_attack":30
-                                  },
-                                  "post_event":{
-                                     "webhook":"http://192.168.1.10:8000"
-                                  },
-                                  "frequency":"once"
-                               },
-                               "metadata":{
-                                  "unique_id":"be3c7849",
-                                  "timestamp":"2020-09-21 14:20:58",
-                                  "node":"HOSTNAME1",
-                                  "issuer":{
-                                     "source_ip":"127.0.0.1"
-                                  }
-                               }
-                            }
-                         }
-                           
-                        </pre>
+<pre>
+{
+  "status":"done",
+  "vulnerabilities":{
+      "vuln_0e365ca243180c516c3cbf5382017aa4eb8de62e":{
+        "ip":"192.168.1.55",
+        "port":22,
+        "domain":null,
+        "rule_id":"SVC_6509",
+        "rule_sev":3,
+        "rule_desc":"Checks for Remote Management Ports",
+        "rule_confirm":"Remote Server Exposes Administration Port(s)",
+        "rule_details":"Open Port: 22 (SSH)",
+        "rule_mitigation":"..snip..Bind all possible services to localhost..snip.."
+      }
+  },
+  "scan_config":{
+      "targets":{
+        "networks":[
+            "192.168.1.1/24"
+        ],
+        "excluded_networks":[
+        ],
+        "domains":[
+            
+        ]
+      },
+      "config":{
+        "name":"test",
+        "description":"",
+        "engineer":"",
+        "allow_aggressive":3,
+        "allow_dos":false,
+        "allow_bf":true,
+        "allow_internet":true,
+        "dictionary":{
+            "usernames":[
+              
+            ],
+            "passwords":[
+              
+            ]
+        },
+        "scan_opts":{
+            "interface":null,
+            "max_ports":100,
+            "custom_ports":[],
+            "parallel_scan":50,
+            "parallel_attack":30
+        },
+        "post_event":{
+            "webhook":"http://192.168.1.10:8000"
+        },
+        "frequency":"once"
+      },
+      "metadata":{
+        "unique_id":"be3c7849",
+        "timestamp":"2020-09-21 14:20:58",
+        "node":"HOSTNAME1",
+        "issuer":{
+            "source_ip":"127.0.0.1"
+        }
+      }
+  }
+}</pre>
                         <p>A webhook endpoint may look like this: <b>http://example.com/recieve</b>, or with a specified port <b>https://example.com:8000/receive</b></p>
                         <hr>
                         <h4 id="reports">Reports</h4>
@@ -257,8 +264,10 @@
                           <li>HTML</li>
                           <li>TXT</li>
                           <li>CSV</li>
+                          <li>XML</li>
                         </ul>
-                        If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a>
+                        <p>All the reports are saved on disk at <b>/opt/nerve/reports</b> if you need to go back in time and fetch historical reports.</p>
+                        <p>If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a></p>
 
                         <hr>
                         <h4 id="notifications">Notifications</h4>
@@ -278,6 +287,20 @@
                           <li><b>Cookie Protection</b> - Cookie security flags are used, such as SameSite, HttpOnly, etc.</li>
                         </ul>
                         If you identify a security vulnerability, please submit a bug to us on GitHub.
+                        <hr>
+                        <h4 id="upgrade">Upgrade</h4>
+                        <p>If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.</p>
+                        <ol>
+                          <li>Make a copy of <b>config.py</b> if you wish to save your configurations</li>
+                          <li>Remove <b>/opt/nerve</b> and git clone it again from: <a href="https://github.com/PaytmLabs/nerve">GitHub</a></li>
+                          <li>Move <b>config.py</b> file back into <b>/opt/nerve</b></li>
+                          <li>Restart the service using <b>systemctl restart nerve</b></li>
+                        </ol>
+                        <p>You could set up a cron task auto-upgrade NERVE, there's an API endpoint to check whether you have the latest version or not that you could use for this purpose: <a href="#get_update">/api/update/platform</a></p>
+                        <hr>
+                        <h4 id="miscellaneous">Miscellaneous</h4>
+                        <h6>Web Interface Logo</h6>
+                        <p>If you want to brand NERVE with your own Logo, simply replace <b>static/img/nerve_logo.png</b> with your own picture.<br>400px x 100px is the recommended size.</b></p>
                       </div>
                       </div>
                   </div>
@@ -286,6 +309,8 @@
             </div>
         </div>
 
+        <hr>
+        
             <div class="content" id="api">
                 <div class="container-fluid">
                     <div class="page-title">
@@ -307,6 +332,9 @@
                                     <li><a href="#post_scan">POST /api/scan</a></li>
                                     <li><a href="#get_status">GET /api/scan/status</a></li>
                                     <li><a href="#put_reset">PUT /api/scan/reset</a></li>
+                                    <li><a href="#get_exclusion">GET /api/exclusion</a></li>
+                                    <li><a href="#post_exclusion">POST /api/exclusion</a></li>
+                                    <li><a href="#get_update">GET /api/update/platform</a></li>
                                   </ul>
                                 </li>
                                 </div>
@@ -320,31 +348,38 @@
 
                     </div>
                     </div>
+                    
+                    <hr>
 
                     <div class="row">
                       <div class="col-md-12">
+                        <h3 id="authentication"><b>Authentication</b></h3>
                         <div class="card">
-                            <div id="authentication" class="card-header"><b>Authentication</b></div>
+                            <div class="card-header"><b>Authentication</b></div>
                             <div class="card-body">
                               <p>API Authentication is done using Basic Authentication.</p>
                               <p>Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password</p>
                               <p>With each API call, you need to pass the credentials. Here is an example with Python and the requests library:</p>
-                              <hr>
-                              <pre class="bash">import requests
+<pre>
+import requests
 from requests.auth import HTTPBasicAuth
 username = 'admin'
 password = 'admin'
-requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password), json={'key':'value'})</pre>
+requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password), json={'key':'value'})
+</pre>
                             </div>
                         </div>
                     </div>
                     </div>
+                    
+                    <hr>
+
                     <div class="row">
                       <div class="col-md-12">
+                        <h3 id="endpoints" ><b>API Table</b></h3>
                         <div class="card">
                             <div class="card-header"><b>API Endpoints</b></div>
                             <div class="card-body">
-
                                 <table id="api" class="table">
                                   <thead>
                                       <tr>
@@ -384,6 +419,27 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                                         <td>True</td>
                                         <td>Resets the Server. Roll Back.</td>
                                         </tr>
+                                        <tr>
+                                          <th scope="row">5.</th>
+                                          <td><code>GET</code></td>
+                                          <td><a href="#get_exclusion">/api/exclusion</a></td>
+                                          <td>True</td>
+                                          <td>Returns the current exclusion list</td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">6.</th>
+                                          <td><code>POST</code></td>
+                                          <td><a href="#post_exclusion">/api/exclusion</a></td>
+                                          <td>True</td>
+                                          <td>Submits an exclusion list</td>
+                                        </tr>
+                                      <tr>
+                                        <th scope="row">7.</th>
+                                        <td><code>GET</code></td>
+                                        <td><a href="#get_update">/api/update/platform</a></td>
+                                        <td>True</td>
+                                        <td>Checks if updates are available</td>
+                                      </tr>
                                   </tbody>
                               </table>
                                 
@@ -394,92 +450,107 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                     </div>
                     </div>
 
+                    <hr>
+
                     <div class="row">
                       <div class="col-md-12">
+                        <h3 id="get_health">GET /health</h3>
+                        <p>Health is an endpoint to do basic sanity-checks for monitoring systems, etc.</p>
                         <div class="card">
-                            <div id="get_health" class="card-header"><b><code>GET /health</code></b></div>
+                            <div class="card-header"><b><code>GET /health</code></b></div>
                             <div class="card-body">
                             <pre>
-    import requests
-    >>> requests.get('http://endpoint/health')
+import requests
+>>> requests.get('http://endpoint/health')
 
-    <<< {'status': 'OK'}
+<<< {'status': 'OK'}
                             </pre>           
                             </div>                  
                         </div>
                     </div>
                   </div>
 
+                  <hr>
+
                   <div class="row">
                     <div class="col-md-12">
+                      <h3 id="post_scan">POST /api/scan</h3>
+                      <p>This endpoint is where you can submit new scans with a configuration file similar to the Web Interface.<br>
+                      The configuration file must be provided as-is without removing any entries.</p>
                       <div class="card">
-                          <div id="post_scan" class="card-header"><b><code>POST /api/scan</code></b></div>
+                          <div class="card-header"><b><code>POST /api/scan</code></b></div>
                           <div class="card-body">
                             <pre>
-      import requests
-      from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
 
-      DEFAULT_SCAN = {
-        'targets':{
-          'networks':[],
-          'excluded_networks':[],
-          'domains':[]
-        },
-        'config':{
-          'name':'Default',
-          'description':'My Default Scan',
-          'engineer':'Default',
-          'allow_aggressive':3,
-          'allow_dos':True,
-          'allow_bf':True,
-          'allow_internet':True,
-          'dictionary':{
-            'usernames':[],
-            'passwords':[]
-          },
-          'scan_opts':{
-            'interface':None,
-            'max_ports':1000,
-            'parallel_scan':50,
-            'parallel_attack':30,
-          },
-          'post_event':{
-            'webhook':None
-          },
-          'frequency':'once'
-        }
-      }
+DEFAULT_SCAN = {
+  'targets':{
+    'networks':[],
+    'excluded_networks':[],
+    'domains':[]
+  },
+  'config':{
+    'name':'Default',
+    'description':'My Default Scan',
+    'engineer':'Default',
+    'allow_aggressive':3,
+    'allow_dos':True,
+    'allow_bf':True,
+    'allow_internet':True,
+    'dictionary':{
+      'usernames':[],
+      'passwords':[]
+    },
+    'scan_opts':{
+      'interface':None,
+      'max_ports':1000,
+      'custom_ports':[],
+      'parallel_scan':50,
+      'parallel_attack':30,
+    },
+    'post_event':{
+      'webhook':None
+    },
+    'frequency':'once'
+  }
+}
 
 
 
-      >>> requests.post('http://endpoint/api/scan', auth=HTTPBasicAuth("admin", "admin"), json=DEFAULT_SCAN)
+>>> requests.post('http://endpoint/api/scan', auth=HTTPBasicAuth("admin", "admin"), json=DEFAULT_SCAN)
 
-      <<< {'status': 'Registered a new scan successfully!'}
+<<< {'status': 'Registered a new scan successfully!'}
                               </pre>        
                           </div>
                       </div>
                   </div>
                   </div>
 
+                  <hr>
+
                   <div class="row">
                     <div class="col-md-12">
+                      <h3 id="get_status"> <b>GET /api/scan/status</b></h3>
+                      <p>This endpoint is where you can view the state of a running scan.<br>
+                      Note that you do not need to wait for a scan to complete, results will be shown as soon as new data is created.</p>
                       <div class="card">
-                          <div id="get_status" class="card-header"><b><code>GET /api/scan/status</code></b></div>
+                          <div class="card-header"><b><code>GET /api/scan/status</code></b></div>
                           <div class="card-body">
                             <pre>
-          import requests
-          from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
 
-          >>> resp = requests.get('http://endpoint/api/scan/status', auth=HTTPBasicAuth("admin", "admin"))
+>>> resp = requests.get('http://endpoint/api/scan/status', auth=HTTPBasicAuth("admin", "admin"))
 
-          <<<
-          .. snip .. 
-          {'scan_config': {'metadata': {'issuer': {'source_ip': '127.0.0.1'},
-                              'timestamp': '2020-07-29 00:19:27',
-                              'unique_id': '6eddab7b'},
-                          'status': 'incomplete',
-                          'vulnerabilities': {}}
-          .. snip ..    
+<<<
+.. snip .. 
+{'scan_config': {'metadata': {'issuer': {'source_ip': '127.0.0.1'},
+                    'timestamp': '2020-07-29 00:19:27',
+                    'unique_id': '6eddab7b'},
+                'status': 'incomplete',
+                'vulnerabilities': {}}
+.. snip ..    
           </pre>
                           </div>
                           
@@ -487,29 +558,107 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                     
                   </div>
                   </div>
+                
+                <hr>
 
                 <div class="row">
                   <div class="col-md-12">
+                    <h3 id="put_reset"><b>PUT /api/scan/reset</b></h3>
+                    <p>This endpoint allows you to reset the system / stop a currently running assessment (such as continuous)</p>
                     <div class="card">
-                        <div id="put_reset" class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
+                        <div class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
                         <div class="card-body">
                           <pre>
-            import requests
-            from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
 
-            >>> requests.put('http://endpoint/api/scan/reset', auth=HTTPBasicAuth("admin", "admin"))
+>>> requests.put('http://endpoint/api/scan/reset', auth=HTTPBasicAuth("admin", "admin"))
 
-            <<< {'status': 'flushed scan state'}
+<<< {'status': 'flushed scan state'}
                           </pre>
                         </div>
                     </div>
                 </div>
                 </div>
 
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3 id="get_exclusion"><b>GET /api/exclusion</b></h3>
+                    <p>This endpoint is where you get the current exclusion list.<br>
+                    You may want to the Exclusion functionality to prevent certain traffic from running against certain assets, or to prevent certain alerts from getting created.</p>
+                    <div class="card">
+                        <div class="card-header"><b><code>GET /api/exclusion</code></b></div>
+                        <div class="card-body">
+                          <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+>>> requests.get('http://endpoint/api/exclusion', auth=HTTPBasicAuth("admin", "admin"))
+
+<<< {'exclusions': {'SVC_ZGZA': ['192.168.0.1', '192.168.0.254']}}
+                          </pre>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3 id="post_exclusion"><b>POST /api/exclusion</b></h3>
+                    <p>This endpoint is where you can submit an exclusion list. The JSON in your POST must have a valid format as shown below.<br>
+                    Rule IDs can be retrieved from <b>/opt/nerve/rules/**/*.py files</b></p>
+                    <div class="card">
+                        <div class="card-header"><b><code>POST /api/exclusion</code></b></div>
+                        <div class="card-body">
+                          <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+# FORMAT:
+# 'MY_RULE_ID':['MY_IP-1', 'MY_IP-2']
+
+EXCLUSIONS = {
+  'SVC_ZGZA':['192.168.0.1', '192.168.0.254'],
+  'CVE_72D3':['192.168.0.1'],
+}
+
+>>> requests.post('http://endpoint/api/exclusion', auth=HTTPBasicAuth("admin", "admin"), json=EXCLUSIONS)
+
+<<< {'status':'ok'}
+                          </pre>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h3 id="get_update"><b>GET /api/update/platform</b></h3>
+                    <p>This endpoint allows you to check if you have the latest NERVE version.</p>
+                    <div class="card">
+                        <div class="card-header"><b><code>GET /api/update/platform</code></b></div>
+                        <div class="card-body">
+                          <pre>
+import requests
+from requests.auth import HTTPBasicAuth
+
+>>> requests.put('http://endpoint/api/update/platform', auth=HTTPBasicAuth("admin", "admin"))
+
+<<< {'status': 'system is up to date'}
+                          </pre>
+                        </div>
+                    </div>
+                </div>
+                </div>
                 
               </div>
           </div>
-
 
      </div>
      </div>

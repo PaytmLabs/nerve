@@ -19,8 +19,9 @@ SSH Key based authentication should be enabled on the server, and passwords shou
     p = ScanParser(port, values)
     
     domain  = p.get_domain()
+    module = p.get_module()
     
-    if port in ssh_ports and t.is_ssh(ip, port):
+    if port in ssh_ports and 'ssh' in module.lower():
       output = t.run_cmd('ssh -o PreferredAuthentications=none -o ConnectTimeout=5 -o StrictHostKeyChecking=no -o NoHostAuthenticationForLocalhost=yes user@"{}" -p "{}"'.format(ip, port))
       if output and 'password' in str(output): 
         self.rule_details = 'Server accepts passwords as an authentication option'

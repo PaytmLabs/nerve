@@ -29,9 +29,12 @@ from views.view_vulns      import vulns
 from views.view_alert      import alert
 from views.view_startover  import startover
 
+
 # Import REST API Endpoints
 from views_api.api_health import Health
 from views_api.api_scan import Scan
+from views_api.api_update import Update
+from views_api.api_exclusions import Exclusion
 
 app = Flask(__name__)
 
@@ -56,6 +59,7 @@ app.register_blueprint(scan)
 app.register_blueprint(alert)
 app.register_blueprint(startover)
 
+
 app.config.update(
   SESSION_COOKIE_SAMESITE='Strict',
 )
@@ -63,7 +67,9 @@ app.secret_key = os.urandom(24)
 
 api = Api(app)
 api.add_resource(Health, '/health')
-api.add_resource(Scan, '/api/scan', '/api/scan/<string:action>')
+api.add_resource(Update, '/api/update', '/api/update/<string:component>')
+api.add_resource(Scan,   '/api/scan', '/api/scan/<string:action>')
+api.add_resource(Exclusion,   '/api/exclusion', '/api/exclusion')
 
 
 # Set Security Headers

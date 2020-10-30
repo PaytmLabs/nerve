@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     {% if status != "Ready" %}<meta http-equiv="refresh" content="30; URL=/topology">{% endif %}
     <title>NERVE</title>
-
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <script type="text/javascript" src={{ url_for('static', filename="/vendor/visjs/vis-network.min.js") }}></script>
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
@@ -154,8 +154,8 @@ function draw() {
         nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_low', value: 1});
         edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140, width: WIDTH_SCALE * 1, color:RED});
         {% elif value.rule_sev == 2 %}
-        nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_med', value: 1});
-        edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140, width: WIDTH_SCALE * 1, color:RED});
+        nodes.push({id: "{{key}}",label: '{{value.rule_confirm}}', group: 'vulnerability_med', value: 1});
+        edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140,width: WIDTH_SCALE * 1, color:RED});
         {% elif value.rule_sev == 3 %}
         nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_high', value: 1});
         edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140, width: WIDTH_SCALE * 1, color:RED});
@@ -221,6 +221,15 @@ function draw() {
     }
   };
   network = new vis.Network(container, data, options);
+
+  network.on( 'click', function(properties) {
+    node_id = properties.nodes[0]
+    if(properties.nodes[0] && String(properties.nodes[0]).startsWith('vuln_'))
+    {
+      window.open("/alert/view/"  + properties.nodes[0], '_blank');
+    }
+      
+  });
   
 }
 

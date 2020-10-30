@@ -42,11 +42,94 @@ class SchemaParser:
       dictionary_usernames = self.data['config']['dictionary']['usernames']
       dictionary_passwords = self.data['config']['dictionary']['passwords']
       max_ports = self.data['config']['scan_opts']['max_ports']
+      custom_ports = self.data['config']['scan_opts']['custom_ports']
       net_interface  = self.data['config']['scan_opts']['interface']
       parallel_scan   = self.data['config']['scan_opts']['parallel_scan']
       parallel_attack = self.data['config']['scan_opts']['parallel_attack']
       frequency = self.data['config']['frequency']
       
+      """
+        Check Structure
+      """
+      if not isinstance(name, str):
+        error = 'Option [ASSESSMENT_NAME] must be a String'
+        verified = False
+      
+      if not isinstance(networks, list):
+        error = 'Option [NETWORKS] must be an Array'
+        verified = False
+      
+      if not isinstance(excluded_networks, list):
+        error = 'Option [EXCLUDED_NETWORKS] must be an Array'
+        verified = False
+      
+      if not isinstance(domains, list):
+        error = 'Option [DOMAINS] must be an Array'
+        verified = False
+
+      if not isinstance(intrusive_level, int):
+        error = 'Option [AGGRESSIVENESS_LEVEL] must be an Integer'
+        verified = False
+      
+      if not isinstance(allow_dos, bool):
+        error = 'Option [ALLOW_DENIAL_OF_SERVICE] must be a Boolean'
+        verified = False
+      
+      if not isinstance(allow_inet, bool):
+        error = 'Option [ALLOW_INTERNET_OUTBOUND] must be a Boolean'
+        verified = False
+      
+      if not isinstance(allow_bf, bool):
+        error = 'Option [ALLOW_BRUTE_FORCE] must be a Boolean'
+        verified = False
+      
+      if not isinstance(dictionary_usernames, list):
+        error = 'Option [DICTIONARY_USERNAMES] must be an Array'
+        verified = False
+      
+      if not isinstance(dictionary_passwords, list):
+        error = 'Option [DICTIONARY_PASSWORDS] must be an Array'
+        verified = False
+      
+      if not isinstance(net_interface, (str, type(None))):
+        error = 'Option [NET_INTERFACE] must be null or a String'
+        verified = False
+
+      if not isinstance(max_ports, int):
+        error = 'Option [MAX_PORTS] must be an Integer'
+        verified = False
+      
+      if not isinstance(custom_ports, list):
+        error = 'Option [MAX_PORTS] must be an Array'
+        verified = False
+
+      if not isinstance(custom_ports, list):
+        error = 'Option [CUSTOM_PORTS] must be an Array'
+        verified = False
+
+      if not isinstance(parallel_scan, int):
+        error = 'Option [PARALLEL_SCAN] must be an Integer'
+        verified = False
+      
+      if not isinstance(parallel_attack, int):
+        error = 'Option [PARALLEL_ATTACK] must be an Integer'
+        verified = False
+      
+      if not isinstance(webhook, (str, type(None))):
+        error = 'Option [WEB_HOOK] must be null or a String'
+        verified = False
+
+      if not isinstance(frequency, str):
+        error = 'Option [FREQUENCY] must be a String'
+        verified = False
+
+      if not verified:
+        return (verified, error, self.data)
+      
+      """
+        Check passed values
+      """
+
       if len(name) > 30 or not self.utils.is_string_safe(name):
         error = 'Option [ASSESSMENT_NAME] must not exceed 30 characters and must not have special characters.'
         verified = False
@@ -63,42 +146,27 @@ class SchemaParser:
       
       if webhook:
         if not self.utils.is_string_url(webhook):
-          error = 'Option [WEBHOOK] must be a valid URL.'
+          error = 'Option [WEB_HOOK] must be a valid URL.'
           verified = False
       
       if frequency not in ('once', 'continuous'):
         error = 'Option [SCHEDULE] must be "once" or "continuous"'
         verified = False
-        
-      if allow_dos not in (True, False):
-        error = 'Option [ALLOW_DENIAL-OF-SERVICE] must be true or false.'
+
+      if not 0 <= intrusive_level <= 3:
+        error = 'Option [AGGRESSIVE_LEVEL] must be between 0-3'
         verified = False
-      
-      if allow_bf not in (True, False):
-        error = 'Option [ALLOW_BRUTEFORCE] must be true or false.'
-        verified = False
-        
-      if allow_inet not in (True, False):
-        error = 'Option [ALLOW_INTERNET-OUTBOUND] must be true or false.'
-        verified = False
-        
-      try:
-        if intrusive_level < 0 or intrusive_level > 3:
-          error = 'Option [AGGRESSIVE_LEVEL] must be between 0-3'
-          verified = False
           
-      except TypeError:
-        error = 'Option [AGGRESSIVE_LEVEL] must be an Integer'
-        verified = False
-        
-      try:
-        if max_ports < 10 or max_ports > 65535:
-          error = 'Option [MAX_PORTS] must be between 10-7000'
-          verified = False
-          
-      except TypeError:
-        error = 'Option [MAX_PORTS] must be an Integer'
-        verified = False
+      if max_ports:
+        if not self.netutils.is_valid_port(max_ports):
+          error = 'Option [MAX_PORTS] must be a value between 0-65535'
+          verified = False          
+
+      if custom_ports:
+        for cport in custom_ports:
+          if not self.netutils.is_valid_port(cport):
+            error = 'Option [CUSTOM_PORTS] must be an array of values between 0-65535'
+            verified = False
         
       if not networks and not domains:
         error = 'Options [DOMAINS] or Options [NETWORKS] must not be empty'
@@ -135,39 +203,22 @@ class SchemaParser:
       if net_interface:
         n = Network()
         if not net_interface in n.get_nics():
-          error = 'Option [INTERFACE] must be valid'
+          error = 'Option [NET_INTERFACE] must be valid'
           verified = False
       
       else:
         self.data['config']['scan_opts']['interface'] = None
       
-      try:
-        if parallel_attack < 10 or parallel_attack > 100:
-          error = 'Option [ATTACK_THREADS] must be between 10-1000'
-          verified = False
-      except TypeError:
-        error = 'Option [ATTACK_THREADS] must be an Integer'
-        verified = False
-      
-      try:
-        if parallel_scan < 10 or parallel_scan > 100:
-          error = 'Option [SCAN_THREADS] must be between 10-1000'
-          verified = False
-      except TypeError:
-        error = 'Option [SCAN_THREADS] must be an Integer'
+      if not 1 <= parallel_attack <= 100:
+        error = 'Option [ATTACK_THREADS] must be between 1-100'
         verified = False
 
-      if not isinstance(dictionary_usernames, list):
-        error = 'Option [DICTIONARY_USERNAMES] must be an array'
+      if not 1 <= parallel_scan <= 100:
+        error = 'Option [SCAN_THREADS] must be between 1-100'
         verified = False
-      
-      if not isinstance(dictionary_passwords, list):
-        error = 'Option [DICTIONARY_PASSWORDS] must be an array'
-        verified = False
-        
+   
     except KeyError as e:
-      print(e)
-      error = 'One or more options are missing'
+      error = 'One or more options are missing: {}'.format(e)
       verified = False
       
     return (verified, error, self.data)
@@ -246,6 +297,9 @@ class ConfParser:
     
   def get_cfg_max_ports(self):
     return self.values['config']['scan_opts']['max_ports']
+  
+  def get_cfg_custom_ports(self):
+    return self.values['config']['scan_opts']['custom_ports']
   
   def get_cfg_usernames(self):
     return self.values['config']['dictionary']['usernames']

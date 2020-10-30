@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NERVE</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
@@ -130,7 +131,7 @@
                                   
                                   <div class="col-md-6">
                                     <label for="" class="form-control-label"><b>Assessment Configuration</b></label><br>  
-                                      <label for="" class="form-control-label">Assessment Behaviour</label>
+                                      <label for="" class="form-control-label">Aggressiveness Level</label>
                                       <div class="form-group">
                                         <select id="aggressive_level" name="aggressive_level" class="form-control">
                                             <option value="3">Extremely Aggressive (Default)</option>
@@ -189,6 +190,12 @@
                                           </select>
                                           <small class="text-muted">1000 = one thousand most commonly used ports</small>
                                       </div>
+                                      <div class="form-group">
+                                        <label for="" class="form-control-label">Custom Ports</label>
+                                        <input type="text" id="custom_ports" name="custom_ports" class="form-control" placeholder="20,21,22,80,443,8443">
+                                        <small class="text-muted">Comma separated integers. Takes presedence over <b>MAX_PORTS</b>.</small>
+                                        
+                                    </div>
                                       <div class="form-group">
                                           <label for="parallel_scans" class="form-control-label">Parallel Scan</label>
                                           <select name="parallel_scans" id="parallel_scans" class="form-control">
@@ -316,6 +323,7 @@
             var bruteforce = true;
             var net_interface = null
             var max_ports = 100
+            var custom_ports = []
             var parallel_scans = 10
             var parallel_attack = 10
 
@@ -368,6 +376,8 @@
                 toastr.warning("Networks or Domains must be defined.")
                 return;
             }
+
+
             
             var e = document.getElementById("aggressive_level");
             if (e){
@@ -395,7 +405,12 @@
             if (document.getElementById("max_ports")){
                 max_ports = parseInt(document.getElementById("max_ports").value)
             }
-            
+
+            var u_custom_ports = document.getElementById("custom_ports")
+            if (u_custom_ports && u_custom_ports.value != ''){
+                custom_ports = trim_whitespace(u_custom_ports.value).split(",").map(Number);   
+            }
+
             var e = document.getElementById("parallel_scans");
             if (e){
                 parallel_scans = parseInt(e.options[e.selectedIndex].value)
@@ -437,6 +452,7 @@
                     'scan_opts':{
                         'interface':net_interface,
                         'max_ports':max_ports,
+                        'custom_ports':custom_ports,
                         'parallel_scan':parallel_scans,
                         'parallel_attack':parallel_attack,
                     },

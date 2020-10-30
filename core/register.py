@@ -4,7 +4,6 @@ from core.parser   import ConfParser
 from core.utils    import Utils
 from core.logging  import logger
 from core.redis    import rds
-from bin.scheduler import scheduler
 
 class Register:
   def __init__(self):

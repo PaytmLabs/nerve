@@ -90,7 +90,15 @@ class Network:
     if validators.domain(addr):
       return True
     return False
-    
+  
+  def is_valid_port(self, port):
+    try:
+      if 0 <= port <= 65535:
+        return True
+      return False
+    except TypeError:
+      return False
+
   def get_primary_ip(self):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
@@ -157,11 +165,11 @@ class Integration:
     logger.info('Sending the webhook...')
     try:
       data = {'status':'done', 'vulnerabilities':data, 'scan_config':cfg}
-      resp = requests.post(webhook, 
-                          json=data, 
-                          headers={'User-Agent':USER_AGENT, 
-                                  'Content-Type':'application/json'},
-                          verify=False)
+      requests.post(webhook, 
+                    json=data, 
+                    headers={'User-Agent':USER_AGENT, 
+                            'Content-Type':'application/json'},
+                    verify=False)
       return True
     except Exception as e:
       logger.error('Could not submit webhook: {}'.format(e))

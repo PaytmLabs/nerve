@@ -4,15 +4,15 @@ from core.parser  import ScanParser
 
 class Rule:
   def __init__(self):
-    self.rule = 'CFG_DFFF'
+    self.rule = 'CFG_32A0'
     self.rule_severity = 1
-    self.rule_description = 'This rule checks if Cross Origin Resource Sharing Headers support Wildcard Origins'
-    self.rule_confirm = 'CORS Policy allows any domain'
+    self.rule_description = 'This rule checks if Cross Origin Resource Sharing policy trusts null origins'
+    self.rule_confirm = 'CORS Policy Allows Null Origins'
     self.rule_details = ''
     self.rule_mitigation = '''Consider hardening your Cross Origin Resource Sharing Policy to define specific Origins \
 https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS'''
     self.intensity = 1
-    
+  
   def check_rule(self, ip, port, values, conf):
     t = Triage()
     p = ScanParser(port, values)
@@ -26,17 +26,16 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS'''
     resp = None
     
     if domain:
-      resp = t.http_request(domain, port)
+      resp = t.http_request(domain, port, headers={'Origin':'null'})
     else:
-      resp = t.http_request(ip, port)
+      resp = t.http_request(ip, port, headers={'Origin':'null'})
     
     if resp is None:
       return
     
-    for header, value in resp.headers.items():
-      if header.lower() == 'access-control-allow-origin' and value == '*':
-        self.rule_details = 'Server responded with an HTTP Response Header of Access-Control-Allow-Origin: *'
-        rds.store_vuln({
+    if 'Access-Control-Allow-Origin' in resp.headers and resp.headers['Access-Control-Allow-Origin'] == 'null':
+      self.rule_details = 'Remote Server accepted a NULL origin. Header used: "Origin: null"'
+      rds.store_vuln({
                 'ip':ip,
                 'port':port,
                 'domain':domain,
@@ -47,6 +46,5 @@ https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS'''
                 'rule_details':self.rule_details,
                 'rule_mitigation':self.rule_mitigation
               })
-        return
-  
+
     return

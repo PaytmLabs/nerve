@@ -58,9 +58,18 @@ span.banner_sm {
 .scan_type_indicator {
   font-size:10px;
   font-weight: bold;
-  color:red;
-  letter-spacing: 2px;
+  color:darkorange;
+  letter-spacing: 3px;
 }
+
+.withlove {
+  font-size:7px;
+  font-weight: bold;
+  color:lightgrey;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
 
 .logo-text {
   font-size:8px;
@@ -104,6 +113,10 @@ span.banner_sm {
 }
 .c-orange {
   color:orange
+}
+
+.c-darkorange {
+  color:darkorange
 }
 
 .c-red {

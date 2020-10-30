@@ -1,7 +1,6 @@
 import mysql.connector
 
 from core.redis       import rds
-from core.triage      import Triage
 from core.parser      import ScanParser, ConfParser
 from db.db_passwds    import known_weak
 from db.db_users      import known_users
@@ -31,7 +30,6 @@ Refer to the MySQL Hardening Guideline for more information: https://dev.mysql.c
       
   def check_rule(self, ip, port, values, conf):
     c = ConfParser(conf)
-    t = Triage()
     p = ScanParser(port, values)
 
     domain = p.get_domain()

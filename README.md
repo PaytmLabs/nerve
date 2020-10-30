@@ -11,10 +11,14 @@
   * [Deployment Recommendations](#Deployment-Recommendation)
   * [Installation - Docker](#docker)
   * [Installation - Bare Metal](#server)
+  * [Installation - Multi Node](#Multi-Node-Installation)
+  * [Upgrade](#upgrade)
 * [Security](#security)
 * [Usage](#usage)
 * [License](#license)
+* [Mentions](#mentions)
 * [Screenshots](#screenshots)
+
 
 # Continuous Security
 We believe security scanning should be done continuously. Not daily, weekly, monthly, or quarterly.
@@ -31,10 +35,6 @@ NERVE was created to address this problem. Commercial tools are great, but they 
 # About NERVE
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
 
-It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode only.
-
-NERVE will do "some" CVE checks, but this is primarily coming from version fingerprinting. 
-
 Example of some of NERVE's detection capabilities:
 * Interesting Panels (Solr, Django, PHPMyAdmin, etc.)
 * Subdomain takeovers
@@ -48,6 +48,8 @@ Example of some of NERVE's detection capabilities:
 * Directory Indexing
 * Best Practices
 
+It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode only.
+
 # Features
 NERVE offers the following features:
 * Dashboard (With a Login interface)
@@ -60,15 +62,17 @@ NERVE offers the following features:
   * TXT
   * CSV
   * HTML
+  * XML
 * Customizable scans
   * Configurable intrusiveness levels
   * Scan depth
   * Exclusions
   * DNS / IP Based
-  * Threading
+  * Thread Control
+  * Custom Ports
 * Network Topology Graphs
 
-We put together Graphical User Interface primarily for ease of use, but we will be putting more emphasis on detections and new signatures than creating full blown user interface. 
+We put together the Graphical User Interface primarily for ease of use, but we will be putting more emphasis on detections and new signatures than creating a full blown user interface. 
 
 # Prerequisites
 NERVE will install all the prerequisites for you automatically if you choose the Server installation (CentOS 7.x and Ubuntu 18.x were tested) (by using `install/setup.sh` script). It also comes with a Dockerfile for your convenience. 
@@ -113,19 +117,38 @@ Here are the high level steps we recommend to get the most optimal results:
 In your browser, navigate to http://ip.add.re.ss:80 and login with the credentials you specified to in the previous command.
 
 # Server
-## Navigate to /opt
+### Navigate to /opt
 `cd /opt/`
 
-## Clone the repository
+### Clone the repository
 `git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
 
-## Run Installer (requires root)
+### Run Installer (requires root)
 `bash install/setup.sh`
 
-## Check NERVE is running
+### Check NERVE is running
 `systemctl status nerve`
 
 In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
+
+
+# Multi Node Installation
+If you want to install NERVE in a multi-node deployment, you can follow the normal bare metal installation process, afterwards:
+1. Modify the config.py file on each node
+2. Change the server address of Redis `RDS_HOST` to point to a central Redis server that all NERVE instances will report to.
+3. Run `service nerve restart` or `systemctl restart nerve` to reload the configuration
+4. Run `apt-get remove redis` / `yum remove redis` (Depending on the Linux Distribution) since you will no longer need each instance to report to itself.
+Don't forget to allow port 3769 inbound on the Redis instance, so that the NERVE instances can communicate with it.
+
+# Upgrade
+If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.
+
+* Make a copy of `config.py` if you wish to save your configurations
+* Remove `/opt/nerve` and git clone it again.
+* Move `config.py` file back into `/opt/nerve`
+* Restart the service using `systemctl restart nerve`.
+
+You could set up a cron task to auto-upgrade NERVE. There's an API endpoint to check whether you have the latest version or not that you could use for this purpose: `GET /api/update/platform`
 
 # Security
 There are a few security mechanisms implemented into NERVE you need to be aware of.
@@ -155,6 +178,14 @@ Once you deploy it, authenticate and on the left sidebar you will find a documen
 
 # License
 It is distributed under the MIT License. See LICENSE for more information.
+
+# Mentions
+:trophy: NERVE has been mentioned in various places so far, here are a few links.
+* Kitploit - https://www.kitploit.com/2020/09/nerve-network-exploitation.html
+* Hakin9 - https://hakin9.org/nerve-network-exploitation-reconnaissance-vulnerability-engine/
+* PentestTools - https://pentesttools.net/nerve-network-exploitation-reconnaissance-vulnerability-engine/
+* SecnHack.in - https://secnhack.in/nerve-exploitation-reconnaissance-vulnerability-engine/
+* 100security.com - https://www.100security.com.br/nerve
 
 # Screenshots
 ## Login Screen

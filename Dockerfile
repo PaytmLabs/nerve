@@ -13,8 +13,8 @@ RUN yum install epel-release -y && \
     yum clean all
 
 
-RUN wget https://nmap.org/dist/nmap-7.80-1.x86_64.rpm
-RUN rpm -ivh nmap-7.80-1.x86_64.rpm
+RUN wget https://nmap.org/dist/nmap-7.90-1.x86_64.rpm
+RUN rpm -ivh nmap-*.x86_64.rpm
 
 RUN mkdir /opt/nerve
 

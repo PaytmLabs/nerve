@@ -23,7 +23,8 @@ class Scan(Resource):
       return {'status':state, 'vulnerabilities':data, 'scan_config':cfg}
     
     return {'status':'unsupported action'}, 400
-    
+
+  @auth.login_required   
   def put(self, action=None):
     if action == 'reset':
       rds.clear_session()
@@ -47,8 +48,3 @@ class Scan(Resource):
     res, code, msg = register.scan(scan)
     
     return {'status': msg}, code
-
-  @auth.login_required
-  def delete(self):
-    rds.flushdb()
-    return {'status':'OK'}

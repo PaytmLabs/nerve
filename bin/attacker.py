@@ -8,7 +8,8 @@ from core.redis     import rds
 
 def run_rules(conf):
   data = rds.get_scan_data()
-  
+  exclusions = rds.get_exclusions()
+
   if not data:
     return
 
@@ -18,9 +19,18 @@ def run_rules(conf):
       for port in values['ports']:
         logger.info('Attacking Asset: {} on port: {}'.format(ip, port))
         for rule in rules.values():
+          """
+            Check if the target is in exclusions list, if it is, skip.
+          """
+          if rule.rule in exclusions and ip in exclusions[rule.rule]:
+            logger.debug('Skipping rule {} for target {}'.format(rule.rule, ip))
+            continue
+
+          """
+            Only run rules that are in the allowed_aggressive config level.
+          """
           if conf['config']['allow_aggressive'] >= rule.intensity:
             thread = threading.Thread(target=rule.check_rule, args=(ip, port, values, conf))
-            thread.name = 'rule_{}_{}_{}'.format(rule.rule, ip, port)
             thread.start()
 
 def attacker():
