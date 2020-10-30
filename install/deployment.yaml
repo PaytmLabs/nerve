@@ -28,7 +28,7 @@ spec:
           # - Each init container must complete successfully before the next one starts.
       containers:
         name:  nerve
-        image:  registry.gitlab.com/shojinspear/nerve
+        image:  docker.pkg.github.com/shojinspear/nerve/nerve:latest
         magePullPolicy: Always
         resources: {}
         terminationMessagePath: /dev/termination-log
