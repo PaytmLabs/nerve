@@ -1,0 +1,8 @@
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: nerve
+spec:
+  host: nerve.netopen.local
+  prefix: /
+  service: nerve:8080

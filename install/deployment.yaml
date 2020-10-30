@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  nerve
+  labels:
+    app:  nerve
+
+spec:
+  selector:
+    matchLabels:
+      app: nerve
+  
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  nerve
+    
+    spec:
+      # initContainers:
+        # Init containers are exactly like regular containers, except:
+          # - Init containers always run to completion.
+          # - Each init container must complete successfully before the next one starts.
+      containers:
+        name:  nerve
+        image:  registry.gitlab.com/shojinspear/nerve
+        magePullPolicy: Always
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        env:
+          - name: password
+            value: Q749SZEyYGwDVGH
+          - name: username
+            value: admin
+        ports:
+        - containerPort:  8080
+          name:  nerve
+      restartPolicy: Always
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nerve
+spec:
+  selector:
+    app: nerve
+  type: ClusterIP
+  ports:
+  - name: nerve
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+    #nodePort: 
