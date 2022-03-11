@@ -18,21 +18,16 @@ if [ ! -f "requirements.txt" ]; then
   exit 1
 fi
 
-supported=no
-if [ -f "/etc/redhat-release" ]; then
-  os="redhat"
-  supported=yes
-elif [ -f "/etc/os-release" ]; then
-  if grep -qi Ubuntu "/etc/os-release"; then
-    os="ubuntu"
-    supported=yes
-  fi
-fi
-
-if [ "$supported" == "no" ]; then 
-  echo "Can only run on CentOS 7.x or Ubuntu 18.x"
+os=$(grep '^ID=' /etc/*-release | cut -d'=' -f2)
+case $os in
+"redhat" | "ubuntu" | "debian")
+  echo "$os is supported."
+  ;;
+*)
+  echo "$os is not supported. Only CentOS 7.x, Ubuntu 18.x, Debian 11.x are supported."
   exit 1
-fi
+  ;;
+esac
 
 if ! ping -c 1 -W 3 google.com &> /dev/null; then
   echo "You must have a working internet connection to download the dependencies."
@@ -55,15 +50,15 @@ function install_redhat {
   rm -rf nmap-*.rpm
 }
 
+function install_debian {
+  apt -y update && \
+  apt -y install gcc redis python3 python3-pip python3-dev \
+                 libjpeg-dev libffi-dev wget nmap 
+}
+
 function install_ubuntu {
-  apt update -y && \
-  apt install -y gcc && \
-  apt install -y redis && \
-  apt install -y python3 && \
-  apt install -y python3-pip && \
-  apt install -y python3-dev && \
-  apt install -y wget && \
-  apt install -y nmap
+  apt -y update && \
+  apt -y install gcc redis python3 python3-pip python3-dev wget nmap
 }
 
 function configure_firewalld {
@@ -122,21 +117,32 @@ WantedBy=multi-user.target
   chmod 644 "$systemd_service"
 fi
 
-if [ "$os" == "ubuntu" ]; then 
-  echo "Installing packages..."
+
+redis_service=""
+echo "Installing packages..."
+
+case $os in
+"ubuntu")
   install_ubuntu
-  echo "Starting Redis..."
-  systemctl enable redis-server
-  systemctl start redis-server
+  redis_service="redis-server"
+  ;;
 
-elif [ "$os" == "redhat" ]; then
-  echo "Installing packages..."
+"debian")
+  install_debian
+  redis_service="redis-server.service"
+  ;;
+
+"redhat")
   install_redhat
-  echo "Starting Redis..."
-  systemctl enable redis
-  systemctl start redis
-fi
+  redis_service="redis"
+  ;;
+esac
 
+echo "Starting Redis..."
+systemctl enable $redis_service
+systemctl start $redis_service
+
+echo "Installing python3 dependencies..."
 pip3 install -r requirements.txt
 
 echo "Generating password"
