@@ -59,7 +59,7 @@
             <div class="content">
               <div class="container-fluid">
                   <div class="page-title">
-                      <h3>Assessment</h3>
+                      <h3>Configuración</h3>
                   </div>
                   <div class="box box-primary">
                       <div class="box-body">
@@ -130,32 +130,32 @@
                               <div class="tab-pane fade" id="config" role="tabpanel" aria-labelledby="config-tab">
                                   
                                   <div class="col-md-6">
-                                    <label for="" class="form-control-label"><b>Assessment Configuration</b></label><br>  
-                                      <label for="" class="form-control-label">Aggressiveness Level</label>
+                                    <label for="" class="form-control-label"><b>Configuración Evaluación</b></label><br>  
+                                      <label for="" class="form-control-label">Nivel de Agresividad</label>
                                       <div class="form-group">
                                         <select id="aggressive_level" name="aggressive_level" class="form-control">
-                                            <option value="3">Extremely Aggressive (Default)</option>
-                                            <option value="2">Aggressive</option>
-                                            <option value="1">Mildly Aggressive</option>
-                                            <option value="0">Gentle</option>
+                                            <option value="3">Extremadante Agresivo(predeterminado)</option>
+                                            <option value="2">Agresivo</option>
+                                            <option value="1">Medianamente Agresivo</option>
+                                            <option value="0">Gentíl</option>
                                         </select>
                                     </div>
                                       <div class="form-group">
-                                        <label for="" class="form-control-label">Allow Outbound Internet Connections</label>
+                                        <label for="" class="form-control-label">Permitir Conecciones Salientes de Internet</label>
                                         <div class="custom-control custom-switch">
                                           <input type="checkbox" class="custom-control-input" name="attempt_0" id="attempt_0" checked>
                                           <label class="custom-control-label" for="attempt_0"></label>
                                       </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="form-control-label">Attempt Brute Force Attacks</label>
+                                        <label for="" class="form-control-label">Intentar Ataques de Fuerza Bruta</label>
                                         <div class="custom-control custom-switch">
                                           <input type="checkbox" class="custom-control-input" name="attempt_3" id="attempt_3" checked>
                                           <label class="custom-control-label" for="attempt_3"></label>
                                       </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="" class="form-control-label">Attempt Denial of Service Attacks</label>
+                                        <label for="" class="form-control-label">Intentar Ataques de Negación de Servicio</label>
                                         
                                         <div class="custom-control custom-switch">
                                           <input type="checkbox" class="custom-control-input" name="attempt_1" id="attempt_1">
@@ -163,16 +163,16 @@
                                       </div>
                                     </div>
                                     
-                                      <label for="" class="form-control-label"><b>Port Scanning Options</b></label>
+                                      <label for="" class="form-control-label"><b>Opciones de Escaneos de Puerto</b></label>
                                       <div class="form-group">
                                         <div class="form-group">
                                             <label for="" class="form-control-label">Ethernet</label>
                                             <input type="text" id="interface" name="interface" placeholder="eth0" class="form-control">
-                                            <small class="text-muted">Uses default if not specified</small>
+                                            <small class="text-muted">Se usa default en caso de no especificar</small>
                                         </div>
                                       </div>
                                       <div class="form-group">
-                                          <label for="" class="form-control-label">Maximum Ports</label>
+                                          <label for="" class="form-control-label">Cantidad Máxima de Puertos</label>
                                           <select name="max_ports" id="max_ports" class="form-control">
                                             <option value="10">10</option>  
                                             <option value="100" selected>100</option>
@@ -186,18 +186,18 @@
                                             <option value="30000">30,000</option>
                                             <option value="40000">40,000</option>
                                             <option value="50000">50,000</option>
-                                            <option value="65535">All Ports (EXTREMELY slow.)</option>
+                                            <option value="65535">Todos los puertos (EXTREMEMADAMENTE lento.)</option>
                                           </select>
-                                          <small class="text-muted">1000 = one thousand most commonly used ports</small>
+                                          <small class="text-muted">1000 = mil más comúnmente usados</small>
                                       </div>
                                       <div class="form-group">
-                                        <label for="" class="form-control-label">Custom Ports</label>
+                                        <label for="" class="form-control-label">Puertos Personalizados</label>
                                         <input type="text" id="custom_ports" name="custom_ports" class="form-control" placeholder="20,21,22,80,443,8443">
-                                        <small class="text-muted">Comma separated integers. Takes presedence over <b>MAX_PORTS</b>.</small>
+                                        <small class="text-muted">Enteros separados por coma. Toma prioridad sobre <b>Cantidad Máxima de Puertos</b>.</small>
                                         
                                     </div>
                                       <div class="form-group">
-                                          <label for="parallel_scans" class="form-control-label">Parallel Scan</label>
+                                          <label for="parallel_scans" class="form-control-label">Escaneo en Paralelo</label>
                                           <select name="parallel_scans" id="parallel_scans" class="form-control">
                                               <option value="10">10</option>
                                               <option value="30">30</option>
@@ -206,7 +206,7 @@
                                           </select>
                                       </div>
                                       <div class="form-group">
-                                          <label for="parallel_attack" class="form-control-label">Parallel Attack</label>
+                                          <label for="parallel_attack" class="form-control-label">Ataque en Paralelo</label>
                                           <select name="parallel_attack" id="parallel_attack" class="form-control">
                                             <option value="10">10</option>
                                             <option value="30" selected>30</option>
@@ -220,19 +220,20 @@
 
                               <div class="tab-pane fade" id="dictionary" role="tabpanel" aria-labelledby="dictionary-tab">
                                 <div class="col-md-6">
-                                <p class="text-muted">Add your preferred word lists to be used in Brute Force attacks.<br>
-                                    <b>Note:</b> If no dictionary is specified, a built in dictionary will be used.
+                                <p class="text-muted">Agregue su lista de palabras para ser usada en ataques de Fuerza Bruta.<br>
+                                    <b>Nota:</b> Si no se incluye un diccionario se ocupará uno predeterminado.
                                 </p>
-                                <label for="" class="form-control-label"><b>Brute Force</b></label>
+                                <label for="" class="form-control-label"><b>Fuerza Bruta</b></label>
+                                <!-- Ojo con los placeholders-->
                                 <div class="form-group">
-                                  <label class="form-control-label">Usernames</label>
+                                  <label class="form-control-label">Nombres de Usuario</label>
                                   <textarea class="form-control" id="usernames" name="usernames" placeholder="Paste your list here" rows="6"></textarea>
-                                  <small class="text-muted">Separate the usernames with a new line.</small><br>
+                                  <small class="text-muted">Separe los nombres de usuario con una línea.</small><br>
                               </div>
                               <div class="form-group">
-                                  <label class="form-control-label">Passwords</i></label>
+                                  <label class="form-control-label">Contraseñas</i></label>
                                   <textarea class="form-control" id="passwords" name="passwords" placeholder="Paste your list here" rows="6"></textarea>
-                                  <small class="text-muted">Separate the passwords with a new line.</small><br>
+                                  <small class="text-muted">Separe las contraseñas con una línea.</small><br>
                               </div>
                                 </div>
                               </div>
