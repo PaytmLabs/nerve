@@ -69,6 +69,7 @@ class RedisManager:
     key = 'sch_' + value
     self.store(key, value)
     
+  # Returns dictionary with ips as keys 
   def get_ips_to_scan(self, limit):
     data = {}
     count = 0
@@ -91,6 +92,7 @@ class RedisManager:
 
     return data
 
+  # Returns dictionary with ips and values
   def get_scan_data(self):
     kv = {}
     ip_key = None
