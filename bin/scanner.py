@@ -20,11 +20,11 @@ def scanner():
     if not conf:
       time.sleep(10)
       continue
-    
+
     c = ConfParser(conf)
 
     hosts = rds.get_ips_to_scan(limit = c.get_cfg_scan_threads())
-
+    
     if hosts:
       conf = rds.get_scan_config()
       scan_data = scanner.scan(hosts, 
@@ -36,7 +36,7 @@ def scanner():
         for host, values in scan_data.items():
           if 'ports' in values and values['ports']:
             logger.info('Discovered Asset: {}'.format(host))
-            logger.debug('Host: {}, Open Ports: {}'.format(host, values['ports']))
+            logger.info('Host: {}, Open Ports: {}'.format(host, values['ports']))
             rds.store_topology(host)
             rds.store_sca(host, values)
             rds.store_inv(host, values)
@@ -44,3 +44,8 @@ def scanner():
             if values['status_reason'] == 'echo-reply':
               logger.info('Discovered Asset: {}'.format(host))
               rds.store_topology(host)
+      else:
+        logger.info('failed scan_data')
+    else:
+      logger.info('failed hosts')
+

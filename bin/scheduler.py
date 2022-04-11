@@ -14,20 +14,23 @@ def schedule_ips(networks, excluded_networks):
     net = ipaddress.ip_network(network, strict=False)
     for ip_address in net:
       ip_addr = str(ip_address)
-      
+      logger.info('Ip_addr: {}'.format(ip_addr))
       if not isinstance(ip_addr, str):
         continue
       
       if excluded_networks:
         skip = False
-        for excluded_network in excluded_networks: 
+        for excluded_network in excluded_networks:
+          logger.info('Excluded network: {}'.format(excluded_network)) 
           if ipaddress.ip_address(ip_addr) in ipaddress.ip_network(excluded_network):
             skip = True
-        
+        logger.info('Skip: {}'.format(skip))
         if not skip:
+          logger.info('Store ip')
           rds.store_sch(ip_addr)
       
-      else: 
+      else:
+        logger.info('Store ip')
         rds.store_sch(ip_addr)
 
 def schedule_domains(domains):
@@ -56,12 +59,13 @@ def scheduler():
     networks = conf.get_cfg_networks()
     domains  = conf.get_cfg_domains()
     excluded_networks = conf.get_cfg_exc_networks()
-    excluded_networks.append(net_utils.get_primary_ip() + '/32')
+    # Exclude private ip of host from scan
+    #excluded_networks.append(net_utils.get_primary_ip() + '/32')
     frequency = conf.get_cfg_frequency()
     
     if frequency == 'once':
       rds.start_session()
-      
+
       if networks:
         schedule_ips(networks, excluded_networks)
       
@@ -69,7 +73,7 @@ def scheduler():
         schedule_domains(domains)
       
       checks = 0
-      
+
       while True:
         if rds.is_session_active():
           checks = 0
@@ -104,8 +108,10 @@ def scheduler():
         time.sleep(20)
     
     elif frequency == 'continuous':
+      logger.info('Start session called')
       rds.start_session()
-      
+      logger.info('Start session after')
+
       if networks:
         schedule_ips(networks, excluded_networks)
       

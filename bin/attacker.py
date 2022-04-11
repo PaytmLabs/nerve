@@ -49,24 +49,45 @@ def run_lua_rules():
 
   # Nmap args
   path_to_scripts = '/usr/share/nmap/scripts/'
-  name_of_scripts = ['unusual-port.nse','reverse-index.nse'] # Con el .nse?
+  name_of_scripts = ['ftp-steal.nse'] #['ftp-force.nse']
   ports = ''
-  script_args = "--script="
+  scripts = "--script " # Por ahora se esta testeando solo 1 script con sus argumentos, a futuro verificar que esto funcione con multiples
+  script_args = "--script-args user=ftp_user,pass=ftp_user,dir=files"
   for n in name_of_scripts:
-    script_args += path_to_scripts + n + ','
+    scripts += path_to_scripts + n + ','
 
   # IPs and Ports
   # Falta añadir threading
   for ip, values in data.items():
+    logger.info('Values: {}, ports: {}'.format(values, values['ports']))
     if 'ports' in values and len(values['ports']) > 0:  
       ports = '-p {}'.format(','.join([str(p) for p in values['ports']]))
       # Execute script
-      nm.scan(ip, arguments='{} {}'.format(ports, script_args[:-1]))
-      while nma.still_scanning():
-        logger.info("Still scanning >>>")
-        nma.wait(2)
-      # Scan result
-      logger.info(nm._scan_result['scan'][ip]['hostscript'])
+      logger.info('Ports:{}, Scripts: {}, Scripts args: {}, Ip: {}'.format(ports, scripts[:-1], script_args, ip))
+      test = nm.scan(ip, arguments='{} {} {}'.format(ports, scripts[:-1], script_args))
+      logger.info(nm.command_line())
+      test_scan_finished = nm.all_hosts()
+      test_scan_finished_len = len(test_scan_finished)
+      # Check if the host has not been  switched off in the middle of scan
+      if test_scan_finished_len == 0:
+        logger.info(test)
+        logger.info('Error during scan')
+      else:
+        output_scan = nm._scan_result['scan'][ip]
+        logger.info(output_scan)
+        logger.info(output_scan.keys())
+        logger.info('-----')
+        #check if script worked
+        scan_results_test = "script"
+        for p in values['ports']:
+          # Que pasa si es UDP o alguna otra cosa
+          logger.info('Port: ' + str(p))
+          if scan_results_test in output_scan['tcp'][p]:
+            logger.info('Sucessful scan')
+            logger.info(output_scan['tcp'][p]['script'])
+            logger.info('End')
+          else:
+            logger.info('Error while executing script')
 
 def attacker():
   count = 0
