@@ -30,6 +30,8 @@ class Triage:
         'PUT': requests.put,
         'DELETE': requests.delete
     }
+
+    self.severity_labels = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
     
   def http_request(self, ip, port, method="GET", params=None, data=None, json=None, headers=None, follow_redirects=True, timeout=None, uri='/'):
     method = method.upper()
@@ -164,8 +166,7 @@ class Triage:
     soup = BeautifulSoup(req.text, 'html.parser')
     for a in soup.find_all('a', href=True):
       if a.has_attr('data-testid') and a.contents:
-        sevs = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
-        if any(word in a.contents[0] for word in sevs):
+        if any(label in a.contents[0] for label in self.severity_labels):
           score, sev = a.contents[0].split()
           if float(score) >= 8.9:
             return True
