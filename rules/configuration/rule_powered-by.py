@@ -29,7 +29,7 @@ in ASP.NET: https://doc.sitecore.com/developers/90/platform-administration-and-a
     if resp is None:
       return
     
-    powered_by_headers = ['X-Powered-By', 'X-AspNet-Version']
+    powered_by_headers = ['X-AspNet-Version', 'X-Generator', 'X-Powered-By', 'X-Redirect-By']
     for poweredby_header in powered_by_headers:
       result = t.string_in_headers(resp, poweredby_header)
       if result:
