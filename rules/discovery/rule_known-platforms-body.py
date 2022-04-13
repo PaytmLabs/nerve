@@ -237,7 +237,12 @@ class Rule:
                       'app':'GITHUB',
                       'match':['GitHub · Enterprise'],
                       'title':'GitHub Enterprise'
-                    }
+                    },
+                    'Joomla':{
+                      'app':'JOOMLA',
+                      'match':['com_login'],
+                      'title':'Joomla! CMS Login'
+                    },
                   }
 
     self.intensity = 3

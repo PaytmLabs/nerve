@@ -125,7 +125,12 @@ class Rule:
                               'app':'ADMINER',
                               'match':['adminer.org'],
                               'title':'Adminer PHP'
-                            }
+                            },
+                            'Drupal':{
+                              'app':'DRUPAL',
+                              'match':['Drupal'],
+                              'title':'Drupal CMS'
+                            },
                       }
     self.intensity = 1
 
