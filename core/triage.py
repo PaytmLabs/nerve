@@ -21,40 +21,59 @@ class Triage:
       'User-Agent':USER_AGENT
       }
     
+    # this dictionary maps HTTP verbs to the correct requests method
+    self.http_verb__requests_method__map = {
+        'GET': requests.get,
+        'POST': requests.post,
+        'HEAD': requests.head,
+        'OPTIONS': requests.options,
+        'PUT': requests.put,
+        'DELETE': requests.delete
+    }
+    
   def http_request(self, ip, port, method="GET", params=None, data=None, json=None, headers=None, follow_redirects=True, timeout=None, uri='/'):
-    resp = None
+    method = method.upper()
 
+    if method not in self.http_verb__requests_method__map.keys():
+      logger.error("HTTP Method '{}' is not supported.".format(method))
+      return
+    
+    resp = None
+    
+    scheme = 'https' if bool('443' in str(port)) else 'http'
+    url = '{}://{}:{}{}'.format(scheme, ip, port, uri)
+    
     if headers:
       self.headers = {**headers, **self.headers}
-
-    if method not in ('GET', 'POST', 'OPTIONS', 'PUT', 'DELETE', 'HEAD'):
-      logger.error('HTTP Method is not supported.')
-      return
     
     if not timeout:
       timeout = self.global_timeout
 
-    scheme = 'https' if bool('443' in str(port)) else 'http'
-    url = '{}://{}:{}{}'.format(scheme, ip, port, uri)
-
     try:
-      if method == 'GET':
-        resp = requests.get(url, verify=False, timeout=timeout, params=params, allow_redirects=follow_redirects, headers=self.headers)
-      elif method == 'PUT':
-        resp = requests.put(url, verify=False, timeout=timeout, params=params, data=data, json=json, allow_redirects=follow_redirects, headers=self.headers)
-      elif method == 'POST':
-        resp = requests.post(url, verify=False, timeout=timeout, params=params, data=data, json=json, allow_redirects=follow_redirects, headers=self.headers)
-      elif method == 'OPTIONS':
-        resp = requests.options(url, verify=False, timeout=timeout, params=params, allow_redirects=follow_redirects, headers=self.headers)
-      elif method == 'DELETE':
-        resp = requests.delete(url, verify=False, timeout=timeout, params=params, data=data, json=json, allow_redirects=follow_redirects, headers=self.headers)
-      elif method == 'HEAD':
-        resp = requests.head(url, verify=False, timeout=timeout, params=params, allow_redirects=follow_redirects, headers=self.headers)
-      else:
-        # Default to GET.
-        resp = requests.get(url, verify=False, timeout=timeout, params=params, data=data, json=json, allow_redirects=follow_redirects, headers=self.headers)
-
+      # we use the "HTTP verbs => requests method" map to get the correct requests method
+      # that can be called here, according to the value of method
+      func = self.http_verb__requests_method__map[method]
       
+      # this set of parameters is used by all requests methods that we can call here
+      func_params = {
+        'verify': False,
+        'timeout': timeout,
+        'params': params,
+        'allow_redirects': follow_redirects,
+        'headers': self.headers
+      }
+      
+      # this set of parameters is additional in case
+      # we use POST, PUT or DELETE
+      if method in ['POST', 'PUT', 'DELETE']:
+        func_params.update({
+          'data': data,
+          'json': json
+        })
+
+      # we can call the right requests method with the right parameters
+      resp = func(url, **func_params)
+
     except requests.exceptions.ConnectTimeout:
       logger.debug('http_request {} {} (Timeout)'.format(ip, port))
     except urllib3.exceptions.MaxRetryError:
