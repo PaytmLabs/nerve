@@ -108,7 +108,9 @@ class Triage:
     
     if not timeout:
       timeout = self.global_timeout
+      
     sock.settimeout(timeout)
+    
     try:
       result = sock.connect_ex((ip, port))
       if result == 0:
@@ -123,6 +125,7 @@ class Triage:
   
   def is_socket_open(self, ip, port, timeout=None):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    is_open = False
     
     if not timeout:
       timeout = self.global_timeout
@@ -130,16 +133,14 @@ class Triage:
     sock.settimeout(timeout)
     
     try:
-      result = sock.connect_ex((ip, port))
-      if result == 0:
-        return True
+      is_open = bool(sock.connect_ex((ip, port)) == 0)
     except:
       pass
 
     finally:
       sock.close()
 
-    return False
+    return is_open
 
   def run_cmd(self, command):
     result = None
