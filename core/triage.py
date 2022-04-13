@@ -34,10 +34,9 @@ class Triage:
     if not timeout:
       timeout = self.global_timeout
 
-    url = 'http://{}:{}{}'.format(ip, port, uri)
-    
-    if port == 443 or port == 8443 or '443' in str(port):
-      url = 'https://{}:{}{}'.format(ip, port, uri)
+    scheme = 'https' if bool('443' in str(port)) else 'http'
+    url = '{}://{}:{}{}'.format(scheme, ip, port, uri)
+
     try:
       if method == 'GET':
         resp = requests.get(url, verify=False, timeout=timeout, params=params, allow_redirects=follow_redirects, headers=self.headers)
