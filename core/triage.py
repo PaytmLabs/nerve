@@ -79,7 +79,8 @@ class Triage:
 
   def string_in_headers(self, resp, string):
     for k, v in resp.headers.items():
-      if string in k or string in v:
+      s = string.upper()
+      if s in k.upper() or s in v.upper():
         return resp
     return False
 
