@@ -1,7 +1,7 @@
 #!/bin/bash
 systemd_service="/lib/systemd/system/nerve.service"
 cwd="$(pwd)"
-password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-12} | head -n 1)
+password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 12)
 
 if [ "$EUID" -ne 0 ]; then 
   echo "Please run as root."
@@ -101,30 +101,13 @@ function check_fw {
   configure_iptables
 }
 
-if [ ! -f "$systemd_service" ]; then
-  echo "Setting up systemd service"
-  echo "
-[Unit]
-Description=NERVE
-
-[Service]
-Type=simple
-ExecStart=/bin/bash -c 'cd /opt/nerve/ && /usr/bin/python3 /opt/nerve/main.py'
-
-[Install]
-WantedBy=multi-user.target
-" >> "$systemd_service"
-  chmod 644 "$systemd_service"
-fi
-
-
 redis_service=""
 echo "Installing packages..."
 
 case $os in
 "ubuntu")
   install_ubuntu
-  redis_service="redis-server"
+  redis_service="redis-server.service"
   ;;
 
 "debian")
@@ -134,9 +117,27 @@ case $os in
 
 "redhat")
   install_redhat
-  redis_service="redis"
+  redis_service="redis.service"
   ;;
 esac
+
+if [ ! -f "$systemd_service" ]; then
+  echo "Setting up systemd service"
+  echo "
+[Unit]
+Description=NERVE
+After=network.target $redis_service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/nerve
+ExecStart=/bin/bash -c 'cd /opt/nerve/ && /usr/bin/python3 /opt/nerve/main.py'
+
+[Install]
+WantedBy=multi-user.target
+" >> "$systemd_service"
+  chmod 644 "$systemd_service"
+fi
 
 echo "Starting Redis..."
 systemctl enable $redis_service
