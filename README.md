@@ -124,12 +124,13 @@ In your browser, navigate to http://ip.add.re.ss:80 and login with the credentia
 `git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
 
 ### Run Installer (requires root)
-`bash install/setup.sh`
+`source install/setup.sh`
 
 ### Check NERVE is running
 `systemctl status nerve`
 
-In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
+In your browser, navigate to http://ip.add.re.ss:8080 and
+use the information printed by the installer script to get (or set) your login credentials.
 
 
 # Multi Node Installation

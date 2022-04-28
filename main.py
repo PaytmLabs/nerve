@@ -1,5 +1,6 @@
 import config
 import os
+import sys
 
 from core.redis   import rds
 from core.workers import start_workers
@@ -116,7 +117,22 @@ def show_frequency():
 def show_vuln_count():
   return dict(vuln_count=len(rds.get_vuln_data()))
 
-if __name__ == '__main__':  
+if __name__ == '__main__':
+  if not (config.WEB_USER or config.WEB_PASSW):
+    reason = "The username or password environment variables are not set correctly."
+
+    service_filepath = "/lib/systemd/system/nerve.service"
+    if os.path.isfile(service_filepath):
+      reason += """
+
+If you are running NERVE as a systemd service,
+please edit {} in order to set valid username and password.
+Once done, remember to reload and restart NERVE:
+systemctl daemon-reload && systemctl restart nerve
+""".format(service_filepath)
+      
+    sys.exit(reason)
+
   rds.initialize()
   start_workers()
   app.run(debug = config.WEB_DEBUG, 

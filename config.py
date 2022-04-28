@@ -7,15 +7,15 @@ LOG_LEVEL = 'INFO'
 WEB_HOST = '0.0.0.0'
 WEB_PORT = 8080
 WEB_DEBUG = False
-WEB_USER = os.environ.get('username', 'admin')
-WEB_PASSW = os.environ.get('password', 'admin')
+WEB_USER = os.environ.get('username', '')
+WEB_PASSW = os.environ.get('password', '')
 WEB_LOG = 'nerve.log'
 
 # Web Security
 # Setting this to True will return all responses with security headers.
 WEB_SECURITY = True
 WEB_SEC_HEADERS = {
-  'CSP':'default-src \'self\' \'unsafe-inline\'; object-src \'none\'; img-src \'self\' data:',
+  'CSP':"default-src 'self' 'unsafe-inline'; object-src 'none'; img-src 'self' data:",
   'CTO':'nosniff',
   'XSS':'1; mode=block',
   'XFO':'DENY',
