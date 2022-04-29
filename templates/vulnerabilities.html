@@ -91,16 +91,16 @@
                                          <td>{% if value.domain %} {{value.domain}} {% else %} N/A {% endif %}</td>
                                          <td>{{value.port}}</td>
                                          {% if value.rule_sev == 0 %}
-                                         <td><span class="informational">Informational</td> 
-                                        {% elif value.rule_sev == 1 %}
-                                        <td><span class="low">Low</td>
-                                        {% elif value.rule_sev == 2 %}
-                                        <td><span class="medium">Medium</td>
-                                        {% elif value.rule_sev == 3 %}
-                                        <td><span class="high">High</span></td>
-                                        {% elif value.rule_sev == 4 %}
-                                        <td><span class="critical">Critical</td>
-                                        {% endif %}
+                                         <td data-order="0"><span class="informational">Informational</td> 
+                                         {% elif value.rule_sev == 1 %}
+                                         <td data-order="1"><span class="low">Low</td>
+                                         {% elif value.rule_sev == 2 %}
+                                         <td data-order="2"><span class="medium">Medium</td>
+                                         {% elif value.rule_sev == 3 %}
+                                         <td data-order="3"><span class="high">High</span></td>
+                                         {% elif value.rule_sev == 4 %}
+                                         <td data-order="4"><span class="critical">Critical</td>
+                                         {% endif %}
                                          <td>{{value.rule_confirm}}</td>
                                          <td>
                                             <a href="/alert/view/{{key}}">
