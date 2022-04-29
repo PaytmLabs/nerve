@@ -13,10 +13,14 @@ if [ -f $systemd_service ]; then
   username=$(grep "Environment=username=" /lib/systemd/system/nerve.service)
   password=${password#"Environment=password="}
   username=${username#"Environment=username="}
+  
+  fresh_installation=0
 else
   # ... otherwise we generate new random access credentials.
   password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 12)
   username="admin_"$(cat /dev/urandom | tr -dc '0-9' | head -c 4)
+
+  fresh_installation=1
 fi
 
 # if NERVE's config.py exists...
@@ -217,12 +221,6 @@ chown root:root "$systemd_service"
 chmod 640 "$systemd_service"
 
 
-# we enable and start NERVE
-echo "[+] Starting NERVE..."
-systemctl daemon-reload
-systemctl enable nerve
-systemctl start nerve
-
 # we check and setup the firewall (if present)
 echo "[+] Checking Firewall..."
 check_fw
@@ -231,10 +229,20 @@ check_fw
 echo "[+] Checking SELinux..."
 configure_selinux
 
-# we check if nerve is running
+
+# we enable and start NERVE
+echo -n "[+] Starting NERVE... "
+systemctl daemon-reload
+systemctl enable nerve
+systemctl start nerve
+
+
+# we double check if NERVE is running
 systemctl is-active --quiet nerve
 if [ $? != 1 ]; then
-  cat <<EOF
+  echo "OK!"
+
+  cat <<EOL
 
 [+] Setup Complete!
 
@@ -243,8 +251,21 @@ if [ $? != 1 ]; then
 [+] Credentials:
     - You must have valid credentials to access NERVE.
 
-    - If this is a fresh installation, some random credentials have been generated.
-      Otherwise, your old credentials have been kept.
+EOL
+
+  if [ "$fresh_installation" -eq 1 ]; then
+    cat <<EOL
+    - Since this is a fresh installation,
+      some random credentials have been generated.
+EOL
+  else
+    cat <<EOL
+    - Since this is not a fresh installation,
+      your old credentials have been kept.
+EOL
+  fi
+
+  cat <<EOL
 
     - NERVE stores credentials in the file $systemd_service,
       which is owned and editable by root only.
@@ -253,9 +274,10 @@ if [ $? != 1 ]; then
       Once done, remember to reload and restart NERVE:
         systemctl daemon-reload && systemctl restart nerve
 
-EOF
+EOL
   exit 0
 else
+  echo "KO"
   echo "Something went wrong, and the service could not be started."
   exit 1
 fi
