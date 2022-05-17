@@ -51,7 +51,9 @@ class Scanner():
       logger.error('Error with scan. {}'.format(e))
     
     if 'scan' in result:  
+      logger.info('Result Preemptive Scan: {}'.format(result))
       for host, res in result['scan'].items():
+        logger.info('For host {}, res {}'.format(host, res))
         
         data[host] = {}
         data[host]['status'] = res['status']['state']
