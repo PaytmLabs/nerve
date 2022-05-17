@@ -42,7 +42,7 @@ class Utils:
     return hashlib.sha1(f'{text}'.encode()).hexdigest()
   
   def sev_to_human(self, severity):
-    color_map = {4:'Critical', 3:'High', 2:'Medium' , 1:'Low', 0:'Informational'}
+    color_map = {4:'Critical', 3:'High', 2:'Medium' , 1:'Low', 0:'Informational', 5:'Undefined'}
     return color_map[severity]
   
   def is_string_url(self, url):
@@ -178,7 +178,7 @@ class Integration:
 
 class Charts:
   def make_doughnut(self, data):
-    vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0}
+    vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0}
     if data:
       for k, v in data.items():
         vuln_count[v['rule_sev']] += 1

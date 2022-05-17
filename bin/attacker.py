@@ -102,7 +102,7 @@ def NSE_rules(nm, ip, values, scripts, scripts_args):
         description = ''
         description_found = False
         description_done = False
-        severity_level = '' # En el caso que no se encuentre el campo debería quedar en blanco (?), como afecta esto a las estadisticas
+        severity_level = 5 # 
         severity_level_found = False
         confirm_description = ''
         confirm_found = False

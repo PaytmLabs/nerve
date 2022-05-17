@@ -306,14 +306,14 @@
     var myChart1 = new Chart(donut, {
         type: 'doughnut',
         data: {
-            labels: ["Critical", "High", "Medium", "Low"],
+            labels: ["Critical", "High", "Medium", "Low", "Undefined"],
             datasets: [{
                 {% if chart %}
-                data: [{{chart.4}}, {{chart.3}}, {{chart.2}}, {{chart.1}}],
+                data: [{{chart.4}}, {{chart.3}}, {{chart.2}}, {{chart.1}}, {{chart.5}}],
                 {% else %}
-                data: [0, 0, 0, 0],
+                data: [0, 0, 0, 0, 0],
                 {% endif %}
-                backgroundColor: ["black","red","orange","green"],
+                backgroundColor: ["black","red","orange","green","grey"],
             }]
         },
         options: {

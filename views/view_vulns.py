@@ -1,6 +1,7 @@
 from core.security import session_required
 from flask import Blueprint, render_template
 from core.redis import rds
+from core.logging import logger
 
 vulns = Blueprint('vulnerabilities', __name__,
                    template_folder='templates')
@@ -13,4 +14,5 @@ def view_vulns():
     data = {k: v for k, v in sorted(data.items(), 
             key=lambda item: item[1]['rule_sev'], 
             reverse=True)}
+    logger.info('DATA: {}'.format(data))
   return render_template('vulnerabilities.html', data=data)
