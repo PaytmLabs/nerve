@@ -83,7 +83,7 @@
                               </ul>
                               <div class="tab-content" id="myTabContent">   
                                   <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">{% if vuln %} {{ vuln.data.rule_desc }}. {% endif %}</div>
-                                  <div class="tab-pane fade" id="result" role="tabpanel" aria-labelledby="result-tab">{% if vuln %} {{ vuln.data.rule_details }}. {% endif %}</div>
+                                  <div class="tab-pane fade" id="result" role="tabpanel" aria-labelledby="result-tab" style="white-space: pre-wrap;">{% if vuln %} {{ vuln.data.rule_details }}. {% endif %}</div>
                                   <div class="tab-pane fade" id="mitigation" role="tabpanel" aria-labelledby="mitigation-tab">{% if vuln %} {{ vuln.data.rule_mitigation }} {% endif %}</div>
                                   <hr>
                                   <a href="/alert/resolve/{{vuln.key}}">
