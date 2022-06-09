@@ -10,11 +10,20 @@ RUN yum install epel-release -y && \
     yum install -y python3-pip && \
     yum install -y python3-devel && \
     yum install -y wget && \
+    yum install -y bzip2 && \
+    yum install -y make && \
+    yum install -y gcc-c++ && \
+    yum install -y postgresql-devel && \
+    yum install -y libffi-devel && \
+    yum install -y openssl-devel && \
+    yum install -y libjpeg-turbo-devel && \
+    yum install -y openssh-clients && \
     yum clean all
 
 
-RUN wget https://nmap.org/dist/nmap-7.90-1.x86_64.rpm
-RUN rpm -ivh nmap-*.x86_64.rpm
+RUN wget https://nmap.org/dist/nmap-7.92.tar.bz2
+RUN bzip2 -cd nmap-7.92.tar.bz2 | tar xvf -
+RUN cd nmap-7.92 && ./configure && make && make install
 
 RUN mkdir /opt/nerve
 

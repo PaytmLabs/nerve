@@ -106,13 +106,13 @@ Here are the high level steps we recommend to get the most optimal results:
 
 ## Docker
 ### Clone the repository
-`git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
+`git clone git@github.com:kavat/nerve.git && cd nerve`
 
 ### Build the Docker image
 `docker build -t nerve .`
 
 ### Create a container from the image
-`docker run -e username="YOUR_USER" -e password="YOUR_PASSWORD" -d -p 80:8080 nerve`
+`docker run -e username="YOUR_USER" -e password="YOUR_PASSWORD" -d --privileged -p 80:8080 nerve`
 
 In your browser, navigate to http://ip.add.re.ss:80 and login with the credentials you specified to in the previous command.
 
@@ -121,7 +121,7 @@ In your browser, navigate to http://ip.add.re.ss:80 and login with the credentia
 `cd /opt/`
 
 ### Clone the repository
-`git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
+`git clone git@github.com:kavat/nerve.git && cd nerve`
 
 ### Run Installer (requires root)
 `bash install/setup.sh`

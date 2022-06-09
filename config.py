@@ -38,6 +38,7 @@ USER_AGENT = 'NERVE'
 # Default scan configuration
 # This will be used in the "Quick Start" scan. 
 DEFAULT_SCAN = {
+  'type_ie':'external',
   'targets':{
     'networks':[],
     'excluded_networks':[],

@@ -54,3 +54,4 @@ urllib3==1.25.9
 validators==0.18.1
 webencodings==0.5.1
 Werkzeug==1.0.1
+pexpect

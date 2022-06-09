@@ -18,6 +18,7 @@ from views.view_topology   import topology
 from views.view_assets     import assets
 from views.view_welcome    import welcome
 from views.view_qs         import qs
+from views.view_agentscan  import agentscan
 from views.view_login      import login
 from views.view_console    import console
 from views.view_logout     import logout
@@ -50,6 +51,7 @@ app.register_blueprint(console)
 app.register_blueprint(documentation)
 app.register_blueprint(dashboard)
 app.register_blueprint(qs)
+app.register_blueprint(agentscan)
 app.register_blueprint(reports)
 app.register_blueprint(assessment)
 app.register_blueprint(topology)

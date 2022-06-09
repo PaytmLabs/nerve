@@ -133,7 +133,7 @@ class Triage:
       result = stderr
     return result
 
-  def has_cves(self, cpe):
+  def has_cves(self, cpe, min, max):
     if not any(char.isdigit() for char in cpe):
       return False
       
@@ -147,7 +147,7 @@ class Triage:
         sevs = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']
         if any(word in a.contents[0] for word in sevs):
           score, sev = a.contents[0].split()
-          if float(score) >= 8.9:
+          if float(score) >= min and float(score) <= max:
             return True
     
     return False
