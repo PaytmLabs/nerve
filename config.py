@@ -1,7 +1,7 @@
 import os
 
 # Logger Configuration
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'DEBUG'
 
 # Webserver Configuration
 WEB_HOST = '0.0.0.0'
@@ -47,7 +47,7 @@ DEFAULT_SCAN = {
   'config':{
     'name':'Default',
     'description':'My Default Scan',
-    'engineer':'John Doe',
+    'engineer':'Andrea',
     'allow_aggressive':3,
     'allow_dos':False,
     'allow_bf':False,

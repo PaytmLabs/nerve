@@ -72,9 +72,11 @@ def scheduler():
       
       while True:
         if rds.is_session_active():
+          logger.info("Session active..")
           checks = 0
         else:
           checks += 1 
+          logger.info("Session inactive n " + str(checks))
         
         if checks == 10:
           logger.info('Session is about to end...')
@@ -116,9 +118,11 @@ def scheduler():
       
       while True:
         if rds.is_session_active():
+          logger.info("Session active..")
           checks = 0
         else:
           checks += 1 
+          logger.info("Session inactive n " + str(checks))
         
         if checks == 10:
           logger.info('Session is about to end...')

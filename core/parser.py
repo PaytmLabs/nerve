@@ -158,9 +158,10 @@ class SchemaParser:
         verified = False
 
       if max_ports:
-        if not self.netutils.is_valid_port(max_ports):
-          error = 'Option [MAX_PORTS] must be a value between 0-65535'
-          verified = False
+        if max_ports != -1:
+          if not self.netutils.is_valid_port(max_ports):
+            error = 'Option [MAX_PORTS] must be a value between 0-65535'
+            verified = False
 
       if custom_ports:
         for cport in custom_ports:

@@ -36,19 +36,25 @@ class Scanner():
     else:
       ports = '--top-ports 100'
 
+    if max_ports == -1:
+      ports = '-p-'
 
     if interface:
       extra_args += '-e {}'.format(interface)
     
     if self.utils.is_user_root():
       scan_cmdline = 'priv_scan'
-    
+   
     result = {}
     
     try:
+      logger.info('Executing scan with {} {} {}'.format(self.nmap_args[scan_cmdline], ports, extra_args))
       result = self.nmap.scan(hosts, arguments='{} {} {}'.format(self.nmap_args[scan_cmdline], ports, extra_args))
+      logger.info("Post scan execution..")
     except nmap.nmap.PortScannerError as e:
       logger.error('Error with scan. {}'.format(e))
+    except Exception as egen:
+      logger.error('Generic error with scan. {}'.format(egen))
     
     if 'scan' in result:  
       for host, res in result['scan'].items():

@@ -49,6 +49,7 @@ def view_agentscan():
         scan['username_ssh'] = username_ssh
         scan['password_ssh'] = password_ssh
         scan['targets']['networks'].append(ip)
+        scan['targets']['networks'].append(real_ip)
         schema = SchemaParser(scan, request)
         vfd, msg, scan = schema.verify()
 
