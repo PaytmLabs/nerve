@@ -61,10 +61,16 @@ Manually creation has requirement that preliminary operations on destination hos
 
 User has to login to destination host and run the following command 
 
-gugiuoh
-uhiohn
-hlhnp
-hilh
+```
+sed "s/^[#]\{0,1\}PermitTunnel\(.*\)/PermitTunnel point-to-point/g" /etc/ssh/sshd_config -i
+systemctl restart sshd
+ip tuntap add tun0 mode tun
+ip addr add 10.0.2.2/30 dev tun0
+ip link set dev tun0 up
+sysctl net.ipv4.ip_forward=1
+sysctl net.ipv4.conf.all.route_localnet=1
+iptables -t nat -I PREROUTING -i tun0 -j DNAT --to 127.0.0.1
+```
 
 After, interface will launches SSH VPN tunnel by itself 
 
