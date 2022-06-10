@@ -56,8 +56,10 @@ Based on NMAP library, NERVE check for open doors and analyzes services related:
 
 To reach inside of host, interface creates a SSH tunnel among itself and destination host: automatically or manually.
 
+Internal scans at this moment can support only Linux hosts and a single host at a time, new features will support Windows hosts and networks CIDR.
+
 ## Manually
-Manually creation has requirement that preliminary operations on destination host has to be done by user.
+Manual creation has as requirement that preliminary operations on destination host has to be done by user.
 
 User has to login to destination host and run the following command 
 
@@ -72,7 +74,7 @@ sysctl net.ipv4.conf.all.route_localnet=1
 iptables -t nat -I PREROUTING -i tun0 -j DNAT --to 127.0.0.1
 ```
 
-After, interface will launches SSH VPN tunnel by itself 
+After, interface will launches SSH VPN tunnel by itself (on destination host specified with SSH username and password) and it will starts assessment operations 
 
 # Features
 NERVE offers the following features:
