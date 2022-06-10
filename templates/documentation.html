@@ -22,12 +22,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                       <li class="nav-item dropdown">
-                              
+
                         <div class="nav-dropdown">
                             <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                            <div class="dropdown-menu dropdown-menu-right nav-link-menu">
                                 <ul class="nav-list">
-                                  <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
+                                  <li><a href="https://github.com/kavat/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
                                   <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
                                   <div class="dropdown-divider"></div>
                                   <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -40,19 +40,19 @@
                         {% if vuln_count %}
                         <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
                         {% else %}
-                        <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
+                        <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span>
                         {% endif %}
                       </div>
-                      </li>  
+                      </li>
                         <li class="nav-item dropdown">
                           <div class="nav-dropdown">
                             {% if status == "Ready" %}
                             <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
                             {% else %}
-                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
+                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span>
                             {% endif %}
                           </div>
-                      </li>  
+                      </li>
                     </ul>
                 </div>
             </nav>
@@ -88,7 +88,7 @@
                               <li><a href="#miscellaneous">7. Miscellaneous</a></li>
                               </div>
                           </div>
-                        
+
                           <div class="card-body" >
                           <h3 id="quickstart"><b>Quickstart</b></h3>
                           <p>Quickstart is the best way to try out NERVE in its most simplest form. Think of it as running a basic scan, without the ability to define how it will execute.</p>
@@ -149,15 +149,15 @@
 
                           <p><b>Maximum Ports</b></p>
                           <p>This is a relatively important option. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.</p>
-                          <p>However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you. 
+                          <p>However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you.
                              Too little ports means you may miss out on services, but the scan is going to be faster. Too many means you may sacrifice speed.</p>
                           <p>The default value for maximum ports is <b>100</b> ports (this ensures that at least http/https/ftp/ssh are covered).</p>
-                          
+
                           <p><b>Custom Ports</b></p>
                           <p>You could specify your own custom list of ports. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.</p>
                           <p>By default, if you do not specify a Custom Port list, NERVE will use the Maximum Ports value of <b>100</b>.</p>
                           <p>If you specify <b>both</b> Maximum Ports and Custom Ports, <b>Custom Ports will take presedence</b> and Maximum Ports will simply be ignored.</p>
-                          
+
                           <p><b>Parallel Scan</b></p>
                           <p>This value represents the number of hosts which will be scanned simultaneously, for example, 60 means the port scan will run against 60 hosts at the same time.</p>
                           <p>The default value for Parallel Scan is <b>50</b></p>
@@ -215,7 +215,7 @@
         "excluded_networks":[
         ],
         "domains":[
-            
+
         ]
       },
       "config":{
@@ -228,10 +228,10 @@
         "allow_internet":true,
         "dictionary":{
             "usernames":[
-              
+
             ],
             "passwords":[
-              
+
             ]
         },
         "scan_opts":{
@@ -276,7 +276,7 @@
                         <p>For email, you can use Amazon SES or a different provider. You will receive an attachment with the findings in a JSON format, once a scan is completed.</p>
                         <p>For slack, use an <a href="https://api.slack.com/messaging/webhooks">incoming webhook</a> and paste the URL Slack gives you at the end of the process. You will receive a slack notification with the results once a scan is completed.</p>
                         If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a>
-                        
+
                         <hr>
                         <h4 id="security">Security</h4>
                         <p>There are a few security mechanisms implemented into NERVE you need to be aware of.</p>
@@ -292,7 +292,7 @@
                         <p>If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.</p>
                         <ol>
                           <li>Make a copy of <b>config.py</b> if you wish to save your configurations</li>
-                          <li>Remove <b>/opt/nerve</b> and git clone it again from: <a href="https://github.com/PaytmLabs/nerve">GitHub</a></li>
+                          <li>Remove <b>/opt/nerve</b> and git clone it again from: <a href="https://github.com/kavat/nerve">GitHub</a></li>
                           <li>Move <b>config.py</b> file back into <b>/opt/nerve</b></li>
                           <li>Restart the service using <b>systemctl restart nerve</b></li>
                         </ol>
@@ -305,12 +305,12 @@
                       </div>
                   </div>
                   </div>
-              
+
             </div>
         </div>
 
         <hr>
-        
+
             <div class="content" id="api">
                 <div class="container-fluid">
                     <div class="page-title">
@@ -341,14 +341,14 @@
                                 <p>Welcome to the API section of NERVE.</p>
                                 <p>NERVE's API is simple, you can post a scan, get the scan result and status, and reset the system.</p>
                                 <p>For posting a scan, NERVE uses the same settings that exist in the Web Interface, should you need to understand more about what a particular setting does, just refer to the <a href="#gui">Graphical User Interface section</a> of the document.</p>
-                            </div>    
-                            
+                            </div>
+
 
                         </div>
 
                     </div>
                     </div>
-                    
+
                     <hr>
 
                     <div class="row">
@@ -371,7 +371,7 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                         </div>
                     </div>
                     </div>
-                    
+
                     <hr>
 
                     <div class="row">
@@ -442,11 +442,11 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                                       </tr>
                                   </tbody>
                               </table>
-                                
+
                             </div>
-                            
+
                         </div>
-                      
+
                     </div>
                     </div>
 
@@ -464,8 +464,8 @@ import requests
 >>> requests.get('http://endpoint/health')
 
 <<< {'status': 'OK'}
-                            </pre>           
-                            </div>                  
+                            </pre>
+                            </div>
                         </div>
                     </div>
                   </div>
@@ -521,7 +521,7 @@ DEFAULT_SCAN = {
 >>> requests.post('http://endpoint/api/scan', auth=HTTPBasicAuth("admin", "admin"), json=DEFAULT_SCAN)
 
 <<< {'status': 'Registered a new scan successfully!'}
-                              </pre>        
+                              </pre>
                           </div>
                       </div>
                   </div>
@@ -544,21 +544,21 @@ from requests.auth import HTTPBasicAuth
 >>> resp = requests.get('http://endpoint/api/scan/status', auth=HTTPBasicAuth("admin", "admin"))
 
 <<<
-.. snip .. 
+.. snip ..
 {'scan_config': {'metadata': {'issuer': {'source_ip': '127.0.0.1'},
                     'timestamp': '2020-07-29 00:19:27',
                     'unique_id': '6eddab7b'},
                 'status': 'incomplete',
                 'vulnerabilities': {}}
-.. snip ..    
+.. snip ..
           </pre>
                           </div>
-                          
+
                       </div>
-                    
+
                   </div>
                   </div>
-                
+
                 <hr>
 
                 <div class="row">
@@ -656,13 +656,13 @@ from requests.auth import HTTPBasicAuth
                     </div>
                 </div>
                 </div>
-                
+
               </div>
           </div>
 
      </div>
      </div>
-     
+
     <script src={{ url_for('static', filename="vendor/jquery3/jquery-3.4.1.min.js") }}></script>
     <script src={{ url_for('static', filename="vendor/bootstrap4/js/bootstrap.bundle.min.js") }}></script>
     <script src={{ url_for('static', filename="vendor/fontawesome5/js/solid.min.js") }}></script>

@@ -41,7 +41,7 @@ fi
 
 
 function install_redhat {
-  yum install epel-release -y && \
+RUN yum install epel-release -y && \
   yum update -y && \
   yum install -y gcc && \
   yum install -y redis && \
@@ -49,8 +49,16 @@ function install_redhat {
   yum install -y python3-pip && \
   yum install -y python3-devel && \
   yum install -y wget && \
+  yum install -y bzip2 && \
+  yum install -y make && \
+  yum install -y gcc-c++ && \
+  yum install -y postgresql-devel && \
+  yum install -y libffi-devel && \
+  yum install -y openssl-devel && \
+  yum install -y libjpeg-turbo-devel && \
+  yum install -y openssh-clients && \
   yum clean all
-  wget https://nmap.org/dist/nmap-7.90-1.x86_64.rpm
+  wget https://nmap.org/dist/nmap-7.92.x86_64.rpm
   rpm -U nmap-*.rpm
   rm -rf nmap-*.rpm
 }

@@ -28,12 +28,12 @@
                 <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
-                      <li class="nav-item dropdown">     
+                      <li class="nav-item dropdown">
                         <div class="nav-dropdown">
                             <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
+                            <div class="dropdown-menu dropdown-menu-right nav-link-menu">
                                 <ul class="nav-list">
-                                  <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
+                                  <li><a href="https://github.com/kavat/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
                                   <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
                                   <div class="dropdown-divider"></div>
                                   <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -46,23 +46,23 @@
                         {% if vuln_count %}
                         <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
                         {% else %}
-                        <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
+                        <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span>
                         {% endif %}
                       </div>
-                  </li>  
+                  </li>
                         <li class="nav-item dropdown">
                           <div class="nav-dropdown">
                             {% if status == "Ready" %}
                             <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
                             {% else %}
-                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
+                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span>
                             {% endif %}
                           </div>
-                      </li>  
+                      </li>
                     </ul>
                 </div>
             </nav>
-            
+
             <div class="content">
                 <div class="container-fluid">
                     <div class="page-title">
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md-12 col-lg-12">                      
+                      <div class="col-md-12 col-lg-12">
                         <div class="table-responsive">
                           <table class="table">
                               <thead>
@@ -124,11 +124,11 @@ function draw() {
   var width = WIDTH_SCALE * 2;
   var color = GRAY;
   var label = null;
-  
+
   {% if data %}
     // Starting point - map center
     nodes.push({ id: 2, label: "NERVE", group: "nerve", value: 10 });
-    
+
     {% for key in data %}
       nodes.push({
         id: "{{key.decode('utf-8')}}",
@@ -165,7 +165,7 @@ function draw() {
       {% endif %}
     {% endfor %}
   {% endif %}
- 
+
 
   var mynetwork = document.getElementById("mynetwork");
   var x = -mynetwork.clientWidth / 2 + 50;
@@ -228,9 +228,9 @@ function draw() {
     {
       window.open("/alert/view/"  + properties.nodes[0], '_blank');
     }
-      
+
   });
-  
+
 }
 
 window.addEventListener("load", () => {
@@ -244,7 +244,7 @@ window.addEventListener("load", () => {
             </div>
         </div>
     </div>
-    
+
     <script src={{ url_for('static', filename="vendor/jquery3/jquery-3.4.1.min.js") }}></script>
     <script src={{ url_for('static', filename="vendor/bootstrap4/js/bootstrap.bundle.min.js") }}></script>
     <script src={{ url_for('static', filename="vendor/fontawesome5/js/solid.min.js") }}></script>

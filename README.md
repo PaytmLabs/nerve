@@ -1,10 +1,11 @@
 # Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/2.png?raw=true)
 
 # Table of Contents
 * [Continuous Security](#Continuous-Security)
 * [About NERVE](#)
   * [What is NERVE](#about-Nerve)
+  * [How it works](#how-it-works)
   * [Features](#features)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
@@ -30,7 +31,7 @@ The benefit of running security scanning contiuously can be any of the following
 
 NERVE was created to address this problem. Commercial tools are great, but they are also heavy, not easily extensible, and cost money. 
 
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/12.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/12.png?raw=true)
 
 # About NERVE
 NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
@@ -48,7 +49,24 @@ Example of some of NERVE's detection capabilities:
 * Directory Indexing
 * Best Practices
 
-It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode only.
+# How it works
+Different from previous project, NERVE can do autheticated scans operating not in black-box mode only from version 3.
+
+Based on NMAP library, NERVE check for open doors and analyzes services related: normal scans do it from outside, internal scans do it from inside.
+
+To reach inside of host, interface creates a SSH tunnel among itself and destination host: automatically or manually.
+
+## Manually
+Manually creation has requirement that preliminary operations on destination host has to be done by user.
+
+User has to login to destination host and run the following command 
+
+gugiuoh
+uhiohn
+hlhnp
+hilh
+
+After, interface will launches SSH VPN tunnel by itself 
 
 # Features
 NERVE offers the following features:
@@ -171,10 +189,10 @@ To learn about NERVE (GUI, API, etc.) we advise you to check out the documentati
 Once you deploy it, authenticate and on the left sidebar you will find a documentation link for API and GUI usage.
 
 ## GUI Documentation
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/10.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/10.png?raw=true)
 
 ## API Documentation
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/11.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/11.png?raw=true)
 
 # License
 It is distributed under the MIT License. See LICENSE for more information.
@@ -189,20 +207,20 @@ It is distributed under the MIT License. See LICENSE for more information.
 
 # Screenshots
 ## Login Screen
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/1.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/1.png?raw=true)
 ## Dashboard Screen
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/2.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/2.png?raw=true)
 ## Assessment Configuration
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/3.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/3.png?raw=true)
 ## API Documentation
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/4.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/4.png?raw=true)
 ## Reporting
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/5.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/5.png?raw=true)
 ## Network Map
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/6.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/6.png?raw=true)
 ## Vulnerability page
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/7.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/7.png?raw=true)
 ## Log Console
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/8.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/8.png?raw=true)
 ## HTML Report
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/9.png?raw=true)
+![Nerve](https://github.com/kavat/nerve/blob/master/static/screenshots/9.png?raw=true)
