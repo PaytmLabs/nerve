@@ -8,8 +8,23 @@ from core.redis     import rds
 from core.parser    import ScanParser
 
 import nmap
+import os
+import sys
+import pip
+# Dotenv no quedo instalado en el path de las otras librerías, por lo que hay que añadir el path. En al instalación original no debería ocurrir este problema.
+sys.path.append('/home/ubuntu/.local/lib/python3.6/site-packages')
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def run_python_rules(conf):
+  """
+   Launch python rules according to config
+
+   Parameters: 
+     conf (dict): Scan configuration variable. Used to know which rules to run.
+  """
+
   data = rds.get_scan_data()
   exclusions = rds.get_exclusions()
 
@@ -42,28 +57,31 @@ def run_python_rules(conf):
             thread = threading.Thread(target=rule.check_rule, args=(ip, port, values, conf))
             thread.start()
 
+# [FALTA INCORPORAR CONFIG]
 def run_NSE_rules():
+  """
+   Launch lua rules according to config
+  """
   # Redis data
   data = rds.get_scan_data()
   #exclusions = rds.get_exclusions() # Not implemented for nmap yet
   nm = nmap.PortScanner()
   
   # Nmap args
-  path_to_scripts = '/usr/share/nmap/scripts/'
-  #name_of_scripts = ['ftp-anon.nse'] #['ftp-steal.nse'] ['ftp-brute'.nse']
+  path_to_scripts = os.environ['Nmap_scripts_path']
   scripts_names = ['ftp-brute.nse','ftp-steal.nse']
   #scripts_args = "--script-args user=ftp_user,pass=ftp_user,dir=files"
   scripts_args = "--script-args brute.credfile=/home/ubuntu/Documents/creds.txt,user=ftp_user,pass=ftp_user,dir=files"
-  #scripts_args = ""
 
-  #logger.info('Scripts to be executed: {}'.format(scripts_path))
-  #logger.info('Scripts args: {}'.format(scripts_args))
+  #logger.debug('Scripts to be executed: {}'.format(scripts_path))
+  #logger.debug('Scripts args: {}'.format(scripts_args))
 
   # Nmap doesn't support multiple ports with different ports on one command.
-  # Therefore multiple commands are ran in parallel for multiple hosts.
-  # IPs and Ports
+  # Therefore multiple commands are ran in parallel for each port of each host.
+  # Note: It is not possible to map a script to a specific port but not the other scripts to that port as well. Thus all scripts are executed for each port,ip combination.
+  # For each host launch a new attack thread
   for ip, values in data.items():
-    #logger.info('Debug INFO:: Values: {}, ports: {}'.format(values, values['ports']))
+
     if 'ports' in values and len(values['ports']) > 0:  
       logger.info('Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
 
@@ -71,47 +89,63 @@ def run_NSE_rules():
       thread = threading.Thread(target=NSE_rules, args=(nm, ip, values, scripts_names, path_to_scripts, scripts_args))
       thread.start()
 
+
 def NSE_rules(nm, ip, values, scripts_names, path_to_scripts, scripts_args):
-  # Get ports
+  """
+   Execute nse rules for host on ports.
+
+   Parameters:
+     nm (object): Nmap Portscanner object. Can execute nse scripts.
+     ip (string): Ip of host
+     values (dict): Related info to host
+     scripts_names (list): List of scripts names to execute
+     path_to_scripts (string): Path of nmap scripts folder
+     scripts_args (string): Arguments used by scripts
+  """
+
+  # Get ports to attack
   ports = ','.join([str(p) for p in values['ports']])
-  
+ 
   # Get scripts to execute
+  # Path should be hidden better, or execute script installed in nerve!
   scripts_path = "" 
   for n in scripts_names:
     scripts_path += path_to_scripts + n + ','
-  scripts_path = scripts_path[:-1] # Correct formatting
-  scripts_syntax = "--script " + scripts_path # Por ahora se esta testeando solo 1 script con sus argumentos, a futuro verificar que esto funcione con multiples
+  scripts_path = scripts_path[:-1] # do not use last ,
+  scripts_syntax = "--script " + scripts_path # 
   
   # Start scan 
   nm.scan(ip, ports=ports, arguments='{} {}'.format(scripts_syntax, scripts_args)) 
-  logger.info(nm.command_line()) # Command ran
+  # logger.info('Scan command: ' + str(nm.command_line()))
 
-  # Check if the host has not been  switched off in the middle of scan  
+  # Check if the host has not been  switched off in the middle of scan 
   test_scan_finished = nm.all_hosts()
   test_scan_finished_len = len(test_scan_finished)
   if test_scan_finished_len == 0:
     logger.info('Error during scan, host switched off')
   else:
+
+    # Scan finished
     output_scan = nm._scan_result['scan'][ip]
     logger.info(output_scan)
     logger.info(output_scan.keys())
     logger.info('-----')
     
     #Check if NSE script was executed correctly
-    scan_results_test = "script"
     for p in values['ports']:
-      if scan_results_test in output_scan['tcp'][p]:
-        # Each key corresponds to scan results
+      if 'script' in output_scan['tcp'][p]:
+
+        # key is the script
         for key,result in output_scan['tcp'][p]['script'].items():
           logger.info('Sucessful scan')
-          logger.info('Output {}: {}'.format(key,result))
+          logger.info('Script {}, Output: {}'.format(key,result))
  
           # Obtain metadata of script from nse file
           nse_script = open(path_to_scripts + key + '.nse', 'r') 
           description = ''
           description_found = False
           description_done = False
-          severity_level = 5 # 
+          severity_level = 5 # PORQUE 5?
           severity_level_found = False
           confirm_description = ''
           confirm_found = False
@@ -145,16 +179,16 @@ def NSE_rules(nm, ip, values, scripts_names, path_to_scripts, scripts_args):
                  mitigation_found = True
       
           # Debug
-          #logger.info('Description: {}'.format(description))
-          #logger.info('Severity: {}'.format(severity_level))
-          #logger.info('Confirm: {}'.format(confirm_description))
-          #logger.info('Mitigation: {}'.format(mitigation_description))
-          #logger.info('--------')         
-          #logger.info('Description_found: {}'.format(description_found))
-          #logger.info('Description_done: {}'.format(description_done))
-          #logger.info('Severity_found: {}'.format(severity_level_found))
-          #logger.info('Confirm_found: {}'.format(confirm_found))
-          #logger.info('Mitigation_found: {}'.format(mitigation_found))
+          #logger.debug('Description: {}'.format(description))
+          #logger.debug('Severity: {}'.format(severity_level))
+          #logger.debug('Confirm: {}'.format(confirm_description))
+          #logger.debug('Mitigation: {}'.format(mitigation_description))
+          #logger.debug('--------')         
+          #logger.debug('Description_found: {}'.format(description_found))
+          #logger.debug('Description_done: {}'.format(description_done))
+          #logger.debug('Severity_found: {}'.format(severity_level_found))
+          #logger.debug('Confirm_found: {}'.format(confirm_found))
+          #logger.debug('Mitigation_found: {}'.format(mitigation_found))
      
           # Obtain domain from parser
           parser = ScanParser(p, values)
@@ -172,12 +206,19 @@ def NSE_rules(nm, ip, values, scripts_names, path_to_scripts, scripts_args):
            'rule_details': result,                             # Check, Resultados del script
            'rule_mitigation': mitigation_description           # Check, Descripción breve de como evitar el problema, permite string vacío creo
           })
+
+      # Scripts were not executed correctly
       else:
-        logger.info('Error while executing script')
+        logger.debug('Error while executing scripts')
+        logger.debug('Error for scripts {} on host {}, port {}'.format(scripts_names, ip, p))
 
   return
 
 def attacker():
+  """
+   Daemon, launches scans.
+  """
+
   count = 0
   logger.info('Attacker process started')
   

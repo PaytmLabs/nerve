@@ -6,3 +6,4 @@ reports/
 **/reports/*.html
 **/logs/nerve.log
 tests/
+.env
