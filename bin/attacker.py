@@ -40,6 +40,7 @@ def run_python_rules(conf):
         for rule in rules.values():
           """
             Check if the target is in exclusions list, if it is, skip.
+            Exclusion list can be accessed through api/exclusion api endpoint. More info on documentation view.
           """
           if rule.rule in exclusions and ip in exclusions[rule.rule]:
             logger.debug('Skipping rule {} for target {}'.format(rule.rule, ip))
@@ -61,8 +62,7 @@ def run_NSE_rules(conf):
   """
   # Redis data
   data = rds.get_scan_data()
-  #exclusions = rds.get_exclusions() # Not implemented for nmap yet
-  
+
   # HARD CODED FOR NOW, SHOULD USE CONF IN THE FUTURE? 
   scripts_names = ['ftp-brute','ftp-steal']
   scripts_args = "brute.credfile={},user=ftp_user,pass=ftp_user,dir=files".format(os.environ['credfile_path'])

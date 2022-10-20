@@ -14,23 +14,18 @@ def schedule_ips(networks, excluded_networks):
     net = ipaddress.ip_network(network, strict=False)
     for ip_address in net:
       ip_addr = str(ip_address)
-      logger.info('Ip_addr: {}'.format(ip_addr))
       if not isinstance(ip_addr, str):
         continue
       
       if excluded_networks:
         skip = False
         for excluded_network in excluded_networks:
-          logger.info('Excluded network: {}'.format(excluded_network)) 
           if ipaddress.ip_address(ip_addr) in ipaddress.ip_network(excluded_network):
             skip = True
-        logger.info('Skip: {}'.format(skip))
         if not skip:
-          logger.info('Store ip')
           rds.store_sch(ip_addr)
       
       else:
-        logger.info('Store ip')
         rds.store_sch(ip_addr)
 
 def schedule_domains(domains):

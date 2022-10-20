@@ -20,6 +20,7 @@ class Register:
     self.rds.create_session()
     
     logger.info('Storing the new configuration')
+    logger.debug('Scan sess_config: {}'.format(scan))
     self.rds.store_json('sess_config', scan)
     
     networks = cfg.get_cfg_networks()
