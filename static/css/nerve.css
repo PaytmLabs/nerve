@@ -123,6 +123,10 @@ span.banner_sm {
   color:red
 }
 
+.c-purple {
+  color:purple
+}
+
 .critical {
   color:black
 }
@@ -145,4 +149,8 @@ span.banner_sm {
 
 .undefined {
   color:grey
+}
+
+.potential {
+  color:purple
 }

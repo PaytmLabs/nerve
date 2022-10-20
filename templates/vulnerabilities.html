@@ -102,6 +102,8 @@
                                         <td><span class="critical">Critical</td>
                                         {% elif value.rule_sev == 5 %}
                                         <td><span class="undefined">Undefined</td>
+                                        {% elif value.rule_sev == 6 %}
+                                        <td><span class="potential">Potential</td>
                                         {% endif %}
                                          <td>{{value.rule_confirm}}</td>
                                          <td>

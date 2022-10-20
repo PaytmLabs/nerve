@@ -178,7 +178,7 @@ class Integration:
 
 class Charts:
   def make_doughnut(self, data):
-    vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0}
+    vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
     if data:
       for k, v in data.items():
         vuln_count[v['rule_sev']] += 1

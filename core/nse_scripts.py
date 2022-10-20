@@ -81,16 +81,19 @@ def check_rule(script, script_args, metadata, ip, values, conf):
           logger.debug('Script {}, Output: {}'.format(key,result))
           
           # List of supported nse scripts by tool
-          supported_scripts = ['ftp-steal', 'ftp-brute']
+          # Currently modified to test potential vulns
+          supported_scripts = ['ftp-steal']
           if key in supported_scripts:
             vulnerable = verify_output(result, key)
             logger.debug('Verify output: {}, {}'.format(vulnerable, key))
  
             if vulnerable:
               # Save result in redis for further display
-              save_result(key, result, metadata, ip, p, values)
+              save_result(key, result, metadata, ip, p, values, True)
 
-          # ELSE POTENTIAL THREAT, RESULT OF OUTPUT PARSE NOT SUPPORTED BY TOOL ATM
+          # Potential Threat, means tool does not support output result for script
+          else:
+            save_result(key, result, metadata, ip, p, values, False)
       
       # Script not executed correctly
       else:
@@ -165,7 +168,7 @@ def get_metadata(script):
     return {'error': e}
 
 
-def save_result(script, result, metadata, ip, port, values):
+def save_result(script, result, metadata, ip, port, values, confirmed):
   """
    Save scan result in Redis.
 
@@ -175,6 +178,7 @@ def save_result(script, result, metadata, ip, port, values):
    :param ip str: Host ip
    :param port str: Host port
    :param values dict(str): Previous port scan info.
+   :param confirmed bool: Boolean indicating if result is a confirmed vulnerability.
   """ 
 
   # Obtain domain from parser
@@ -185,14 +189,19 @@ def save_result(script, result, metadata, ip, port, values):
   confirm = metadata['confirm']
   if confirm == '':
     confirm = result
-
+  
+  # If result if not confirmed mark as potential 
+  severity = metadata['severity_level']
+  if not confirmed:
+    severity = 6 # Potential
+ 
   # Save results on redis
   rds.store_vuln({
     'ip':ip,                                                 # Check
     'port':port,                                             # Check
     'domain':domain,                                         # Check, es None en el caso que no halla
     'rule_id':script,                                        # A medias, Corresponde a un código de 8 caracteres. Sin embargo, creo que lo úni      co que se hace con este es realizar un hash más adelante y no es relevante el largo. Por ahora para identificar cada script se usara el nombre.       CREO QUE ESTO PUEDE FALLAR EN ALGUNOS CASOS.
-    'rule_sev': metadata['severity_level'],                  # Check, usar campo 'severity' de scripts nse
+    'rule_sev': severity,                                    # Check, usar campo 'severity' de scripts nse
     'rule_desc': metadata['description'],                    # Check, Usar descripción del script de nmap
     'rule_confirm': confirm,                     # Check, Descripción de algo, falta identificar de que, se puede dejar como strin      g vacío supongo
     'rule_details': result,                                  # Check, Resultados del script

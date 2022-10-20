@@ -58,10 +58,13 @@
                 </nav>
             
             <div class="content">
-                <div class="container-fluid">
-  
+                <div class="container-fluid">  
+                    <!-- ESTO HAY QUE SACARLO DESPUES-->
+                    <div class="page-title">
+                      <h3>Chart {{ total_confirmed_vulns }}</h3>
+                    </div>
                     <div class="row">
-                      <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                      <div class="col-sm-6 col-md-6 col-lg mt">
                           <div class="card">
                               <div class="content">
                                   <div class="row">
@@ -86,7 +89,7 @@
                               </div>
                           </div>
                       </div>
-                      <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                      <div class="col-sm-6 col-md-6 col-lg mt">
                           <div class="card">
                               <div class="content">
                                   <div class="row">
@@ -111,7 +114,7 @@
                               </div>
                           </div>
                       </div>
-                      <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                      <div class="col-sm-6 col-md-6 col-lg mt">
                           <div class="card">
                               <div class="content">
                                   <div class="row">
@@ -136,7 +139,7 @@
                               </div>
                           </div>
                       </div>
-                      <div class="col-sm-6 col-md-6 col-lg-3 mt-3">
+                      <div class="col-sm-6 col-md-6 col-lg mt">
                           <div class="card">
                               <div class="content">
                                   <div class="row">
@@ -147,8 +150,37 @@
                                       </div>
                                       <div class="col-sm-8">
                                           <div class="detail text-center">
-                                              <p>Total Vulnerabilities</p>
-                                              <span class="number"><a class="c-red" href="/vulnerabilities">{{vulns|length}}</a></span>
+                                              <p>Confirmed Vulns</p>
+                                              <span class="number">
+                                                  <a class="c-red" href="/vulnerabilities">{{ total_confirmed_vulns }}</a>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="footer">
+                                      <hr />
+                                      <div class="stats">
+                                          <i class="fas fa-fire-extinguisher"></i> Since Last Assessment
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg mt">
+                          <div class="card">
+                              <div class="content">
+                                  <div class="row">
+                                      <div class="col-sm-4"> 
+                                          <div class="icon-big text-center">
+                                              <i class="violet fas fa-bug"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-8">
+                                          <div class="detail text-center">
+                                              <p>Potential Vulns</p>
+                                              <span class="number">
+                                                  <a class="c-darkorange" href="/vulnerabilities">{{ total_potential_vulns }}</a>
+                                              </span>
                                           </div>
                                       </div>
                                   </div>
@@ -306,14 +338,14 @@
     var myChart1 = new Chart(donut, {
         type: 'doughnut',
         data: {
-            labels: ["Critical", "High", "Medium", "Low", "Undefined"],
+            labels: ["Critical", "High", "Medium", "Low", "Undefined", "Potential"],
             datasets: [{
                 {% if chart %}
-                data: [{{chart.4}}, {{chart.3}}, {{chart.2}}, {{chart.1}}, {{chart.5}}],
+                data: [{{chart.4}}, {{chart.3}}, {{chart.2}}, {{chart.1}}, {{chart.5}}, {{chart.6}}],
                 {% else %}
-                data: [0, 0, 0, 0, 0],
+                data: [0, 0, 0, 0, 0, 0],
                 {% endif %}
-                backgroundColor: ["black","red","orange","green","grey"],
+                backgroundColor: ["black","red","orange","green","grey","purple"],
             }]
         },
         options: {
