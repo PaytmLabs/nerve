@@ -23,7 +23,7 @@ def run_python_rules(conf):
    :param conf dict: Scan configuration variable. Used to know which rules to run.
   """
 
-  data = rds.get_scan_data()
+  data = rds.get_scan_data(False)
   exclusions = rds.get_exclusions()
 
   if not data:
@@ -56,12 +56,18 @@ def run_python_rules(conf):
             thread = threading.Thread(target=rule.check_rule, args=(ip, port, values, conf))
             thread.start()
 
-def run_NSE_rules(conf):
+  logger.info("Finished executing python rules")
+
+def run_nse_rules(conf):
   """
    Launch NSE rules according to config (??)
   """
-  # Redis data
-  data = rds.get_scan_data()
+
+  # Get scan data from Redis
+  data = rds.get_scan_data(True)
+
+  if not data:
+    return
 
   # HARD CODED FOR NOW, SHOULD USE CONF IN THE FUTURE? 
   scripts_names = ['ftp-brute','ftp-steal']
@@ -73,23 +79,21 @@ def run_NSE_rules(conf):
   # Therefore multiple commands are ran in parallel for each port of each host.
   # For each host launch a new attack thread
   for ip, values in data.items():
-    if 'ports' in values and len(values['ports']) > 0:  
+    if 'ports' in values and len(values['ports']) > 0: 
+      # ESTE MENSAJE SE MUESTRA TANTO PARA LOS SCRIPTS PYTHON COMO LUA 
       logger.info('Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
 
-      # Filter scripts with higher intensity
       for script in scripts_names:
         metadata = get_metadata(script)
-        logger.debug('Metadata: ' + str(metadata))
 
-        logger.debug('Config intensity: ' + str(conf['config']['allow_aggressive']))
-        logger.debug('Rule intensity: ' + str(metadata['intensity']))
         if conf['config']['allow_aggressive'] >= metadata['intensity']:
          
           # Start new thread for each NSE script
-          thread = threading.Thread(target=check_rule, args=(script, scripts_args, metadata, ip, values, conf))
+          thread = threading.Thread(target=check_rule, args=(script, scripts_args, metadata, ip, values, conf), name='nse_rule_{}'.format(script))
+          logger.info("NSE thread name: {}".format(thread.name))
           thread.start()
 
-
+  
 def attacker():
   """
    Daemon, always running. Launches scans.
@@ -105,8 +109,8 @@ def attacker():
       time.sleep(10)
       continue
     
-    #run_python_rules(conf)
-    run_NSE_rules(conf)
+    run_python_rules(conf)
+    run_nse_rules(conf)
     count += 1
       
     if count == conf['config']['scan_opts']['parallel_attack']:

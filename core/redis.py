@@ -93,7 +93,7 @@ class RedisManager:
     return data
 
   # Returns dictionary with ips and values
-  def get_scan_data(self):
+  def get_scan_data(self, delete):
     kv = {}
     ip_key = None
     
@@ -108,8 +108,10 @@ class RedisManager:
           result = pickle.loads(data)
           if result:
             ip = ip_key.split('_')[1]
-            kv[ip] = result
-            self.r.delete(ip_key)
+            kv[ip] = result 
+            # Methods is called twice(python and lua), key should be erased on second call
+            if delete:
+              self.r.delete(ip_key)
         except pickle.UnpicklingError as e:
           logger.error('Error unpickling %s' % e)
           logger.debug('IP Key: %s' % ip_key)
