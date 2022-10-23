@@ -56,7 +56,6 @@ def run_python_rules(conf):
             thread = threading.Thread(target=rule.check_rule, args=(ip, port, values, conf))
             thread.start()
 
-  logger.info("Finished executing python rules")
 
 def run_nse_rules(conf):
   """
@@ -90,7 +89,6 @@ def run_nse_rules(conf):
          
           # Start new thread for each NSE script
           thread = threading.Thread(target=check_rule, args=(script, scripts_args, metadata, ip, values, conf), name='nse_rule_{}'.format(script))
-          logger.info("NSE thread name: {}".format(thread.name))
           thread.start()
 
   

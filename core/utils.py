@@ -42,7 +42,7 @@ class Utils:
     return hashlib.sha1(f'{text}'.encode()).hexdigest()
   
   def sev_to_human(self, severity):
-    color_map = {4:'Critical', 3:'High', 2:'Medium' , 1:'Low', 0:'Informational', 5:'Undefined'}
+    color_map = {6:'Potential', 5:'Undefined', 4:'Critical', 3:'High', 2:'Medium' , 1:'Low', 0:'Informational'}
     return color_map[severity]
   
   def is_string_url(self, url):

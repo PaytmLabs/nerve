@@ -82,7 +82,7 @@ def check_rule(script, script_args, metadata, ip, values, conf):
           
           # List of supported nse scripts by tool
           # Currently modified to test potential vulns
-          supported_scripts = ['ftp-steal']
+          supported_scripts = ['ftp-brute']
           if key in supported_scripts:
             vulnerable = verify_output(result, key)
             logger.debug('Verify output: {}, {}'.format(vulnerable, key))

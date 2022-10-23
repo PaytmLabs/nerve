@@ -30,7 +30,7 @@ def generate_csv(data):
   return filename
 
 def generate_html(vulns, conf):
-  vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0}
+  vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
   filename = 'report-{}-{}.html'.format(utils.generate_uuid(), utils.get_date())
   templateLoader = jinja2.FileSystemLoader(searchpath="./templates/")
   templateEnv = jinja2.Environment(loader=templateLoader)

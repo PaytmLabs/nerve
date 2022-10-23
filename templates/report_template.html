@@ -104,7 +104,13 @@
       #details tr:nth-child(even) td:hover{
           background-color:white;
       }
-
+       
+      #details .sev_6 {
+          background-color:#C16BA5;
+      }
+      #details .sev_5 {
+          background-color:#7A7A7A;
+      }
       #details .sev_4 {
           background-color:#ff6666;
       }
@@ -199,6 +205,10 @@
           <td>{{json_data.vuln_count.0}}</td>
       </tr>
       <tr>
+          <th>POTENTIAL</th>
+          <td>{{json_data.vuln_count.6}}</td>
+      </tr>
+      <tr>
           <th>UNDEFINED</th>
           <td>{{json_data.vuln_count.5}}</td>
       </tr>
@@ -217,7 +227,7 @@
       <th class='sev_{{value.rule_sev}}'>TITLE</th>
       <th class='sev_{{value.rule_sev}}'>{{value.rule_desc}}</th>
   </tr>
-  <tr>
+  </tr>
       <th class='sev_{{value.rule_sev}}'>FINDINGS</th>
       <td>{{value.rule_confirm}}</td>
   </tr>
@@ -253,3 +263,4 @@
   <center><p>NERVE</p></center>
 </footer>
 </body>
+</script>
