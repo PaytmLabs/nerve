@@ -1,5 +1,7 @@
 import time
 import threading
+import config
+import datetime
 
 from core.manager     import rule_manager
 from core.parser      import ConfParser
@@ -8,13 +10,7 @@ from core.redis       import rds
 from core.nse_scripts import check_rule, get_metadata
 
 import os
-import sys
 import pip
-# Dotenv no quedo instalado en el path de las otras librerías, por lo que hay que añadir el path. En al instalación original no debería ocurrir este problema.
-sys.path.append('/home/ubuntu/.local/lib/python3.6/site-packages')
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def run_python_rules(conf):
   """
@@ -36,7 +32,7 @@ def run_python_rules(conf):
     rules = rule_manager(role='attacker')
     if 'ports' in values and len(values['ports']) > 0:  
       for port in values['ports']:
-        logger.info('Attacking Asset: {} on port: {}'.format(ip, port))
+        logger.info('Python scripts: Attacking Asset: {} on port: {}'.format(ip, port))
         for rule in rules.values():
           """
             Check if the target is in exclusions list, if it is, skip.
@@ -68,27 +64,21 @@ def run_nse_rules(conf):
   if not data:
     return
 
-  # HARD CODED FOR NOW, SHOULD USE CONF IN THE FUTURE? 
-  scripts_names = ['ftp-brute','ftp-steal']
-  scripts_args = "brute.credfile={},user=ftp_user,pass=ftp_user,dir=files".format(os.environ['credfile_path'])
-  #logger.debug('Scripts to be executed: {}'.format(scripts_path))
-  #logger.debug('Scripts args: {}'.format(scripts_args))
+  scripts_names = ['ftp-brute','ftp-steal'] 
 
   # Nmap doesn't support multiple scripts with different ports on one command.
   # Therefore multiple commands are ran in parallel for each port of each host.
   # For each host launch a new attack thread
   for ip, values in data.items():
     if 'ports' in values and len(values['ports']) > 0: 
-      # ESTE MENSAJE SE MUESTRA TANTO PARA LOS SCRIPTS PYTHON COMO LUA 
-      logger.info('Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
-
+      logger.info('NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
       for script in scripts_names:
         metadata = get_metadata(script)
 
         if conf['config']['allow_aggressive'] >= metadata['intensity']:
          
           # Start new thread for each NSE script
-          thread = threading.Thread(target=check_rule, args=(script, scripts_args, metadata, ip, values, conf), name='nse_rule_{}'.format(script))
+          thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))
           thread.start()
 
   
@@ -101,12 +91,18 @@ def attacker():
   logger.info('Attacker process started')
   
   while True:
-    conf = rds.get_scan_config()
+    conf = rds.get_next_scan_config()
     
     if not conf:
       time.sleep(10)
       continue
     
+    c = ConfParser(conf)
+
+    if c.get_cfg_schedule() > datetime.datetime.now():
+      time.sleep(10)
+      continue
+
     run_python_rules(conf)
     run_nse_rules(conf)
     count += 1
@@ -119,3 +115,5 @@ def attacker():
         logger.debug('Sleeping for 30 seconds to control threads (Threads: {})'.format(threading.active_count()))  
         time.sleep(30)
     
+      time.sleep(10)
+      continue

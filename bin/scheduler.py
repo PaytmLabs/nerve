@@ -2,6 +2,7 @@ import json
 import time
 import ipaddress
 import requests
+import datetime
 
 from core.redis   import rds
 from core.utils   import Network, Integration
@@ -39,18 +40,23 @@ def scheduler():
   
   while True:
     time.sleep(10)
-    session_state = rds.get_session_state()
     
-    if not session_state or session_state != 'created':
-      continue
-    
-    config = rds.get_scan_config()
+    config = rds.get_next_scan_config()
     
     if not config:
+      #logger.debug('No Config yet')
       continue
     
     conf = ConfParser(config)
+   
+    if conf.get_cfg_schedule() > datetime.datetime.now():
+      #logger.debug('Schedule: ' + conf.get_cfg_schedule().strftime("%m/%d/%Y, %H:%M:%S"))
+      #logger.debug('Now: ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+      continue
     
+    rds.clear_session()
+    logger.info('Starting scan at: ' + conf.get_cfg_schedule().strftime("%m/%d/%Y, %H:%M:%S"))
+
     networks = conf.get_cfg_networks()
     domains  = conf.get_cfg_domains()
     excluded_networks = conf.get_cfg_exc_networks()
@@ -58,7 +64,7 @@ def scheduler():
     #excluded_networks.append(net_utils.get_primary_ip() + '/32')
     frequency = conf.get_cfg_frequency()
     
-    if frequency == 'once':
+    if frequency == 'once' or frequency == 'schedule':
       rds.start_session()
 
       if networks:
@@ -97,15 +103,14 @@ def scheduler():
             int_utils.submit_slack(hook = slack_settings, 
                                    data = vuln_data)
 
+          rds.advance_scan_config_queue()
           rds.end_session()  
           break  
         
         time.sleep(20)
     
     elif frequency == 'continuous':
-      logger.info('Start session called')
       rds.start_session()
-      logger.info('Start session after')
 
       if networks:
         schedule_ips(networks, excluded_networks)

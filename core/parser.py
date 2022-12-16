@@ -1,4 +1,5 @@
 import socket
+import datetime
 
 from socket import gethostname
 from core.utils import Network, Utils
@@ -47,6 +48,7 @@ class SchemaParser:
       parallel_scan   = self.data['config']['scan_opts']['parallel_scan']
       parallel_attack = self.data['config']['scan_opts']['parallel_attack']
       frequency = self.data['config']['frequency']
+      schedule_date = self.data['config']['schedule_date']
       
       """
         Check Structure
@@ -123,6 +125,10 @@ class SchemaParser:
         error = 'Option [FREQUENCY] must be a String'
         verified = False
 
+      if not isinstance(schedule_date, str):
+        error = 'Option [SCHEDULE_DATE] must be a String'
+        verified = False
+
       if not verified:
         return (verified, error, self.data)
       
@@ -149,9 +155,42 @@ class SchemaParser:
           error = 'Option [WEB_HOOK] must be a valid URL.'
           verified = False
       
-      if frequency not in ('once', 'continuous'):
-        error = 'Option [SCHEDULE] must be "once" or "continuous"'
+      if frequency not in ('once', 'continuous','schedule'):
+        error = 'Option [SCHEDULE] must be "once" or "continuous" or "schedule"'
         verified = False
+
+      if not schedule_date and frequency == 'schedule':
+        error = 'Option [SCHEDULE_DATE] must not be empty if scheduling a scan'
+        verified = False
+
+      if schedule_date:
+        # split throws exception when delimiter is not present.
+        # int throws exception when string value is not int. 
+        # datetime throws exception when date is not valid.
+        try: 
+          date_time_split = schedule_date.split("T")
+          date_part = date_time_split[0].split("-")
+          time_part = date_time_split[1].split(":")
+          yyyy = int(date_part[0])
+          mm = int(date_part[1])
+          dd = int(date_part[2])
+          hh = int(time_part[0])
+          mins = int(time_part[1])
+   
+          # Verify correct format
+          check_date = datetime.datetime(year=yyyy,month=mm,day=dd,hour=hh,minute=mins)
+
+          # Check scheduled date is posterior to current date
+          if (datetime.datetime.now() > check_date): 
+            error = 'Option [SCHEDULE_DATE] must be prior to current date'
+            verified = False
+          # Verify date is no more than 2100
+          if (yyyy > 2100):
+            error = 'Option [SCHEDULE_DATE] must not surpass year 2100'
+            verified = False
+        except Exception as e:
+           error = 'Option [SCHEDULE_DATE] must be in date format yyyy-mm-ddThh:mm'
+           verified = False
 
       if not 0 <= intrusive_level <= 3:
         error = 'Option [AGGRESSIVE_LEVEL] must be between 0-3'
@@ -321,6 +360,9 @@ class ConfParser:
   
   def get_cfg_frequency(self):
     return self.values['config']['frequency']
+
+  def get_cfg_schedule(self):
+    return self.values['config']['schedule_date']
  
 class Helper:
   def cpeHyperlink(self, cpe):

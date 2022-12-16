@@ -90,9 +90,7 @@ def status():
   progress = rds.get_scan_progress()
   session_state = rds.get_session_state()
   status = 'Ready'
-  if session_state == 'created':
-    status = 'Initializing...'
-  elif session_state == 'running':
+  if session_state == 'running':
     if progress: 
       status = 'Scanning... [QUEUE:{}]'.format(progress)
     else:
@@ -106,7 +104,7 @@ def show_version():
 
 @app.context_processor
 def show_frequency():
-  config = rds.get_scan_config()
+  config = rds.get_next_scan_config()
   scan_frequency = None
   if config:
     scan_frequency = config['config']['frequency']

@@ -11,17 +11,14 @@ class Register:
     self.utils = Utils()
   
   def scan(self, scan):
-    if rds.get_session_state() in ('running', 'created'):
+    state = rds.get_session_state()
+    if state is not None and state == 'running':
       return (False, 429, 'There is already a scan in progress!')
 
     cfg = ConfParser(scan)
     
-    self.rds.clear_session()
-    self.rds.create_session()
-    
     logger.info('Storing the new configuration')
-    logger.debug('Scan sess_config: {}'.format(scan))
-    self.rds.store_json('sess_config', scan)
+    self.rds.store_config(scan)
     
     networks = cfg.get_cfg_networks()
     domains = cfg.get_cfg_domains()

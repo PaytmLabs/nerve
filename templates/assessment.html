@@ -242,13 +242,24 @@
                                 <div class="col-md-6">
                                     <label for="" class="form-control-label"><b>Assessment Schedule</b></label>
                                     <div class="form-group">
-                                      <select id="frequency" name="frequency" class="form-control">
+                                      <select id="frequency" name="frequency" class="form-control" onchange="display_date()">
                                           <option value="once" selected>Run Once</option>
                                           <option value="continuous">Run Continuously</option>
+                                          <option value="schedule">Schedule Run</option>
                                       </select>
+<!--
+                                      <div class="input-group date" data-provide="datepicker">
+                                        <input type="text" class="form-control">
+                                        <div class="input-group-addon">
+                                          <span class="glyphicon glyphicon-th"></span>
+                                        </div>
+                                      </div> -->
                                       <small class="text-muted">* Running continuously will not stop until you reset the system</small><br>
                                   </div>
-
+                                  <label for="" class="form-control-label" id="calendar-title" style="display:none"><b>Schedule date and time</b></label>
+                                  <div class="form-group">
+                                    <input class="form-control" type="datetime-local" id="calendar" style="display:none" min="2022-11-21T00:01" max="2100-01-01T00:01" required/>
+                                  </div>
                                 </div>
                             </div>
 
@@ -302,8 +313,104 @@
     </script>
 
     <script>
+        function getCurrentDate() {
+            var current_date = new Date();
+            var mins = current_date.getMinutes();
+            var hh = current_date.getHours();
+            var dd = current_date.getDate();
+            var mm = current_date.getMonth() + 1; // January is 0
+            var yyyy = current_date.getFullYear();
+
+            if (mins < 10) {
+                mins = '0' + mins;
+            }
+      
+            if (hh < 10) {
+                hh = '0' + hh;
+            }
+ 
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
+            if (mm < 10) {
+                mm = '0' + mm;
+            }
+ 
+            return yyyy + '-' + mm + '-' + dd + 'T' + hh + ':' + mins;
+        }
+
+        // Adjust min schedule date to today
+        document.getElementById("calendar").setAttribute("min", getCurrentDate());
+    </script>
+
+
+    <script>
         function trim_whitespace(text){
             return text.replace(/\s+/g, '');
+        }
+
+        // Displays calendar for date selection in case schedule scan is selected
+        function display_date() {
+            var scan_type = $('#frequency').val();
+            var calendar = $('#calendar');
+            var calendar_title = $('#calendar-title');
+            if (scan_type == "schedule") {
+                calendar_title.css("display", "block");
+                calendar.css("display", "block");
+            }
+            else {
+                calendar_title.css("display", "none");
+                calendar.css("display", "none");
+            }
+        }
+
+        // Check input date is valid and satisfies min, max values
+        function validate_date() {
+            var selected_date = document.getElementById("calendar").value;
+            var date_time_split = selected_date.split("T");
+            var date_part = date_time_split[0].split("-");
+            var time_part = date_time_split[1].split(":");    
+            var yyyy = date_part[0];
+            var mm = date_part[1];
+            var dd = date_part[2];
+            var hh = time_part[0];
+            var mins = time_part[1];
+
+            var check_date = new Date(yyyy, mm - 1, dd, hh, mins) // January is 0
+
+            if (Number(yyyy) < 100) {
+                toastr.warning("Schedule date must not be prior to current time.");
+                return false;        
+            }
+
+            // Check if date format is correct
+            if (check_date.getFullYear() == yyyy && check_date.getMonth() + 1 == mm && check_date.getDate() == dd && check_date.getHours() == hh && check_date.getMinutes() == mins) {
+                 // Check date selected is > than current date
+                 // There can be a difference in time when assessment page is loaded and when schedule scan is called
+                 // Min attribute uses current date when assessment page is loaded. In theory this should be used.
+                 //var current_date = document.getElementById("calendar").getAttribute("min");
+                 if (check_date >= new Date()) {
+                     if (check_date < new Date("2100","10")) {
+                         console.log('Success');
+                         return true;
+                     }
+                     else {
+                         toastr.warning("Schedule date must not surpass year 2100.");
+                         return false;  
+                     }
+                 }
+                 else {
+                     toastr.warning("Schedule date must not be prior to current time.");
+                     return false;  
+                 }
+            }
+            else {
+                console.log('Failed');
+                console.log('Selected: ' + yyyy + '/' + mm + '/' +  dd + 'T' + hh + ':' +  mins);
+                console.log('Check: ' + check_date.getFullYear() + '/' + check_date.getMonth() + '/' +  check_date.getDate()  + 'T' + check_date.getHours()  + ':' +  check_date.getMinutes());
+                toastr.warning("Schedule date not in correct format.");
+                return false;
+            }
         }
 
         function submit_assessment(){
@@ -317,7 +424,8 @@
             var description = document.getElementById("description").value
             var engineer = document.getElementById("engineer").value
             
-            var frequency = 'once'
+            var frequency = document.getElementById("frequency").value
+            var schedule_date = document.getElementById("calendar").value
             var aggressive_level = 3
             var dos = true
             var outbound = true
@@ -328,7 +436,25 @@
             var parallel_scans = 10
             var parallel_attack = 10
 
-            
+            if (frequency == "schedule")  {
+                // Verify calendar value is selected when attempting scheduled scan
+                if (schedule_date.length === 0) {
+                    toastr.warning("Schedule date must be selected.");
+                    return;
+                }
+                // Check date format is correct and bounds are respected
+                if (!validate_date()) {
+                    return;
+                }
+            }
+
+
+            // Check calendar value, if no input is selected and frequency is 'once' or 'continuos' use empty string.
+            if (frequency == "once" || frequency == "continuos" ) {
+                schedule_date = "";
+            }
+
+
             if(title == '') {
                 toastr.warning("Assessment title must be set.")
                 return;
@@ -460,7 +586,8 @@
                     'post_event':{
                     'webhook':webhook
                     },
-                    'frequency':frequency
+                    'frequency':frequency,
+                    'schedule_date':schedule_date
                 }
                 }
 

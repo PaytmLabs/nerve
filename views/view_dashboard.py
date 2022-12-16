@@ -15,7 +15,7 @@ def view_dashboard():
   domains  = []
   
   hosts = rds.get_topology()
-  cfg   = rds.get_scan_config()
+  cfg   = rds.get_next_scan_config()
   vulns = rds.get_vuln_data()
  
   total_potential_vulns = 0

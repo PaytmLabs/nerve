@@ -3,6 +3,7 @@ import sys
 import redis
 import threading
 import pickle
+import datetime
 
 from core.logging import logger
 from core.utils   import Utils
@@ -34,7 +35,32 @@ class RedisManager:
   
   def store_topology(self, host):
     self.r.sadd("sess_topology", host)
-  
+   
+  def store_config (self, scan):
+    date = scan['config']['schedule_date']
+
+    if date: 
+      date_time_split = date.split("T")
+      date_part = date_time_split[0].split("-")
+      time_part = date_time_split[1].split(":")
+      yyyy = int(date_part[0])
+      mm = int(date_part[1])
+      dd = int(date_part[2])
+      hh = int(time_part[0])
+      mins = int(time_part[1])
+ 
+      date = datetime.datetime(year=yyyy,month=mm,day=dd,hour=hh,minute=mins)
+
+    else:
+      date = datetime.datetime.now()
+
+    # Change date from string to datetime object
+    scan['config']['schedule_date'] = date
+    date_in_sec = int(date.timestamp())
+    pickle_cfg = pickle.dumps(scan) 
+
+    self.r.zadd("scan_configs", {pickle_cfg : date_in_sec})
+
   def get_slack_settings(self):
     return self.r.get('p_settings_slack')
   
@@ -153,16 +179,20 @@ class RedisManager:
   def get_topology(self):
     return self.r.smembers("sess_topology")
 
-  def get_scan_config(self):
-    cfg = self.r.get('sess_config')
-    if cfg: 
-      return pickle.loads(cfg)
-    return {}
-  
+  def get_next_scan_config(self):
+    cfg = self.r.zrange("scan_configs",0,0)
+    if cfg:
+      return pickle.loads(cfg[0])
+    return {}  
+
+  def advance_scan_config_queue(self): 
+    self.r.zremrangebyrank("scan_configs",0,0)
+
   def get_scan_progress(self):
     count = 0
     for k in self.r.scan_iter(match="sch_*"):
       count += 1
+      logger.debug('Sch_ thread is active')
     return count
   
   def get_exclusions(self):
@@ -180,6 +210,7 @@ class RedisManager:
   def is_attack_active(self):
     for i in threading.enumerate():
       if i.name.startswith('rule_'):
+        logger.debug('Rule is active')
         return True
     return False
 
@@ -197,14 +228,12 @@ class RedisManager:
       return state.decode('utf-8')
     return None
   
-  def create_session(self):
-    self.store('sess_state', 'created')
-    self.r.incr('p_scan-count')
-    self.r.set('p_last-scan', self.utils.get_datetime())
-    
   def start_session(self):
     logger.info('Starting a new session...')
     self.store('sess_state', 'running')
+    # Recently added last part
+    self.r.incr('p_scan-count')
+    self.r.set('p_last-scan', self.utils.get_datetime())
     
   def end_session(self):
     logger.info('The session has ended.')
@@ -215,7 +244,7 @@ class RedisManager:
       for key in self.r.scan_iter(match="{}_*".format(prefix)):
         self.r.delete(key)
       
-    for i in ('topology', 'config', 'state'):
+    for i in ('topology', 'state'):
       self.r.delete('sess_{}'.format(i))
     
     self.utils.clear_log()
@@ -245,6 +274,7 @@ class RedisManager:
   
   def initialize(self):
     self.clear_session()
+    self.clear_config()
     self.r.set('p_scan-count', 0)
     self.r.set('p_last-scan', 'N/A')
     
@@ -254,4 +284,7 @@ class RedisManager:
   def delete(self, key):
     self.r.delete(key)
     
+  def clear_config(self):
+    self.r.zremrangebyrank("scan_configs",0,-1)
+
 rds = RedisManager()

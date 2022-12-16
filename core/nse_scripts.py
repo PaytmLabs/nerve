@@ -10,6 +10,7 @@ from core.redis import rds
 
 import os
 import nmap
+import config
 
 load_dotenv()
 
@@ -29,7 +30,7 @@ def verify_output(output, script):
   if script == 'ftp-steal':
     lines = output.split("\n")
     for line in lines:  
-      if (not 'Lines containing keywords:' in line) and (not len(line.strip()) == 0):
+      if 'Lines containing keywords:' in line:
         vulnerability_found = True
 
   elif script == 'ftp-brute':
@@ -40,12 +41,36 @@ def verify_output(output, script):
 
   return vulnerability_found
 
-def check_rule(script, script_args, metadata, ip, values, conf):
+def get_args():
+  """
+   Get arguments of NSE script
+
+   return script_args str: NSE script args string in execution parameter format
+  """
+  script_args = '--script_args '
+  if hasattr(config, 'NMAP_USER'):
+    script_args += 'user={},'.format(config.NMAP_USER)
+  else:
+    script_args += 'user=root,'
+  if hasattr(config, 'NMAP_PASS'):
+    script_args += 'pass={},'.format(config.NMAP_PASS)
+  else:
+    script_args += 'pass=root,'
+  if hasattr(config, 'NMAP_DIR'):
+    script_args += 'dir={},'.format(config.NMAP_DIR)
+  else:
+    script_args += 'dir=.,'
+  if hasattr(config, 'NMAP_CREDFILE_PATH'):
+    script_args += 'brute.credfile={},'.format(config.NMAP_CREDFILE_PATH)
+    
+  return script_args[:-1] 
+
+
+def check_rule(script, metadata, ip, values, conf):
   """
    Launch attack to service
 
    :param script str: Script name
-   :param scripts str: Scripts args [Actualmente se pueden ingresar args de otros scripts, lo que no tiene sentido]
    :param metadata dict(str or int): Metadata of script
    :param ip str: Host ip
    :param values dict(str): Port scan info
@@ -54,11 +79,11 @@ def check_rule(script, script_args, metadata, ip, values, conf):
   nm = nmap.PortScanner() 
 
   script_syntax = '--script ' + os.environ['nmap_scripts_path'] + script + '.nse'
-  script_args_syntax = '--script-args ' + script_args  
   ports = ','.join([str(p) for p in values['ports']])
 
-  # Start scan
-  nm.scan(ip, ports=ports, arguments='{} {}'.format(script_syntax, script_args_syntax))
+  # Start scan 
+  # Note: All scripts run with the same arguments
+  nm.scan(ip, ports=ports, arguments='{} {}'.format(script_syntax, get_args()))
 
   # Check if the host is switched off in the middle of scan 
   test_scan_finished = nm.all_hosts()
@@ -82,7 +107,7 @@ def check_rule(script, script_args, metadata, ip, values, conf):
           
           # List of supported nse scripts by tool
           # Currently modified to test potential vulns
-          supported_scripts = ['ftp-brute']
+          supported_scripts = ['ftp-steal']
           if key in supported_scripts:
             vulnerable = verify_output(result, key)
             logger.debug('Verify output: {}, {}'.format(vulnerable, key))

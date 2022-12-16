@@ -1,4 +1,12 @@
 import os
+import sys
+
+ # Dotenv no quedo instalado en el path de las otras librerías, por lo que hay que añadir el path. En al instalación original no debería ocurrir este problema.
+sys.path.append('/home/ubuntu/.local/lib/python3.6/site-packages')
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 # Logger Configuration
 LOG_LEVEL = 'DEBUG'
@@ -68,3 +76,12 @@ DEFAULT_SCAN = {
     'frequency':'once'
   }
 }
+
+# NMAP scripts parameters
+# Login Credentials
+NMAP_USER = "ftp_user"
+NMAP_PASS = "ftp_user"
+# Bruteforce credentials file path
+NMAP_CREDFILE_PATH = os.environ['credfile_path']
+# Search directory
+NMAP_DIR = "files"
