@@ -3,6 +3,7 @@ import os
 
 from core.redis   import rds
 from core.workers import start_workers
+from core.parser  import ConfParser
 
 from version import VERSION
 from flask   import Flask
@@ -89,13 +90,16 @@ def add_security_headers(resp):
 def status():
   progress = rds.get_scan_progress()
   session_state = rds.get_session_state()
+  config = rds.get_next_scan_config()
   status = 'Ready'
   if session_state == 'running':
     if progress: 
       status = 'Scanning... [QUEUE:{}]'.format(progress)
     else:
       status = 'Busy...'
-
+  elif config:
+    conf = ConfParser(config)
+    status = 'Ready, next scan scheduled for {}'. format(conf.get_cfg_schedule().strftime("%d/%m/%Y, %H:%M"))
   return dict(status=status)
 
 @app.context_processor

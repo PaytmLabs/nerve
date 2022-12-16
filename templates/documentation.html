@@ -46,7 +46,7 @@
                       </li>  
                         <li class="nav-item dropdown">
                           <div class="nav-dropdown">
-                            {% if status == "Ready" %}
+                            {% if "Ready" in status%}
                             <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
                             {% else %}
                             <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
@@ -292,7 +292,7 @@
                         <p>If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.</p>
                         <ol>
                           <li>Make a copy of <b>config.py</b> if you wish to save your configurations</li>
-                          <li>Remove <b>/opt/nerve</b> and git clone it again from: <a href="https://github.com/PaytmLabs/nerve">GitHub</a></li>
+                          <li>Remove <b>/opt/nerve</b> and git clone it again from: <a href="https://github.com/TomasTorresB/nerve">GitHub</a></li>
                           <li>Move <b>config.py</b> file back into <b>/opt/nerve</b></li>
                           <li>Restart the service using <b>systemctl restart nerve</b></li>
                         </ol>

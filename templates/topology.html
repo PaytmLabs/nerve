@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {% if status != "Ready" %}<meta http-equiv="refresh" content="30; URL=/topology">{% endif %}
+    {% if "Ready" not in status %}<meta http-equiv="refresh" content="30; URL=/topology">{% endif %}
     <title>NERVE</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <script type="text/javascript" src={{ url_for('static', filename="/vendor/visjs/vis-network.min.js") }}></script>
@@ -52,7 +52,7 @@
                   </li>  
                         <li class="nav-item dropdown">
                           <div class="nav-dropdown">
-                            {% if status == "Ready" %}
+                            {% if "Ready" in status %}
                             <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
                             {% else %}
                             <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 

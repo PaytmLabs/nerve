@@ -46,7 +46,7 @@
                             </li>  
                             <li class="nav-item dropdown">
                               <div class="nav-dropdown">
-                                {% if status == "Ready" %}
+                                {% if "Ready" in status %}
                                 <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
                                 {% else %}
                                 <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
@@ -59,10 +59,6 @@
             
             <div class="content">
                 <div class="container-fluid">  
-                    <!-- ESTO HAY QUE SACARLO DESPUES-->
-                    <div class="page-title">
-                      <h3>Chart {{ total_confirmed_vulns }}</h3>
-                    </div>
                     <div class="row">
                       <div class="col-sm-6 col-md-6 col-lg mt">
                           <div class="card">
