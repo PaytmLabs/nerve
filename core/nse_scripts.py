@@ -1,18 +1,11 @@
-import sys
-# Dotenv no quedo instalado en el path de las otras librerías, por lo que hay que añadir el path. En al instalación original no debería ocurrir este problema.
-sys.path.append('/home/ubuntu/.local/lib/python3.6/site-packages')
-from dotenv import load_dotenv
-
 from core.parser import ScanParser
 from core.logging import logger
 from core.redis import rds
 
-
+import sys
 import os
 import nmap
 import config
-
-load_dotenv()
 
 def verify_output(output, script):
   """
@@ -48,20 +41,20 @@ def get_args():
    return script_args str: NSE script args string in execution parameter format
   """
   script_args = '--script_args '
-  if hasattr(config, 'NMAP_USER'):
-    script_args += 'user={},'.format(config.NMAP_USER)
+  if hasattr(config, 'FTP_STEAL_USER'):
+    script_args += 'user={},'.format(config.FTP_STEAL_USER)
   else:
     script_args += 'user=root,'
-  if hasattr(config, 'NMAP_PASS'):
-    script_args += 'pass={},'.format(config.NMAP_PASS)
+  if hasattr(config, 'FTP_STEAL_PASS'):
+    script_args += 'pass={},'.format(config.FTP_STEAL_PASS)
   else:
     script_args += 'pass=root,'
-  if hasattr(config, 'NMAP_DIR'):
-    script_args += 'dir={},'.format(config.NMAP_DIR)
+  if hasattr(config, 'FTP_STEAL_DIR'):
+    script_args += 'dir={},'.format(config.FTP_STEAL_DIR)
   else:
     script_args += 'dir=.,'
-  if hasattr(config, 'NMAP_CREDFILE_PATH'):
-    script_args += 'brute.credfile={},'.format(config.NMAP_CREDFILE_PATH)
+  if hasattr(config, 'FTP_BRUTE_CREDFILE_PATH'):
+    script_args += 'brute.credfile={},'.format(config.FTP_BRUTE_CREDFILE_PATH)
     
   return script_args[:-1] 
 
@@ -77,8 +70,8 @@ def check_rule(script, metadata, ip, values, conf):
    :param conf dict(str): Scan configuration info 
   """
   nm = nmap.PortScanner() 
-
-  script_syntax = '--script ' + os.environ['nmap_scripts_path'] + script + '.nse'
+  
+  script_syntax = '--script ' + config.NMAP_INSTALL_PATH + script + '.nse'
   ports = ','.join([str(p) for p in values['ports']])
 
   # Start scan 

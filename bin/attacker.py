@@ -75,7 +75,7 @@ def run_nse_rules(conf):
       for script in scripts_names:
         metadata = get_metadata(script)
 
-        if conf['config']['allow_aggressive'] >= metadata['intensity']:
+        if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:
          
           # Start new thread for each NSE script
           thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))

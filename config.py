@@ -1,13 +1,6 @@
 import os
 import sys
 
- # Dotenv no quedo instalado en el path de las otras librerías, por lo que hay que añadir el path. En al instalación original no debería ocurrir este problema.
-sys.path.append('/home/ubuntu/.local/lib/python3.6/site-packages')
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
 # Logger Configuration
 LOG_LEVEL = 'DEBUG'
 
@@ -16,7 +9,7 @@ WEB_HOST = '0.0.0.0'
 WEB_PORT = 8080
 WEB_DEBUG = False
 WEB_USER = os.environ.get('username', 'admin')
-WEB_PASSW = os.environ.get('password', 'admin')
+WEB_PASSW = 'admin'
 WEB_LOG = 'nerve.log'
 
 # Web Security
@@ -77,11 +70,17 @@ DEFAULT_SCAN = {
   }
 }
 
-# NMAP scripts parameters
-# Login Credentials
-NMAP_USER = "ftp_user"
-NMAP_PASS = "ftp_user"
-# Bruteforce credentials file path
-NMAP_CREDFILE_PATH = os.environ['credfile_path']
+# NMAP parameters
+NMAP_INSTALL_PATH = "/usr/share/nmap" # Default location can also be: /usr/local/share/nmap
+
+# ftp-steal args
+# ftp login credentials
+FTP_STEAL_USER = "ftp_user"
+FTP_STEAL_PASS = "ftp_user"
 # Search directory
-NMAP_DIR = "files"
+FTP_STEAL_DIR = "files"
+
+# Bruteforce credentials file path
+FTP_BRUTE_CREDFILE_PATH = ""
+
+
