@@ -48,6 +48,7 @@ function install_redhat {
   yum install -y python3 && \
   yum install -y python3-pip && \
   yum install -y python3-devel && \
+  yum install -y libpq-devel && \
   yum install -y wget && \
   yum clean all
   wget https://nmap.org/dist/nmap-7.90-1.x86_64.rpm
@@ -62,6 +63,7 @@ function install_ubuntu {
   apt install -y python3 && \
   apt install -y python3-pip && \
   apt install -y python3-dev && \
+  apt install -y libpq-dev && \
   apt install -y wget && \
   apt install -y nmap
 }
