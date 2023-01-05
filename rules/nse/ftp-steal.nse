@@ -88,7 +88,7 @@ action = function(host, port)
 
 -- Receive file information through pasv socket
 -- Check for keywords in each line
-  local lines_list = {}
+  local lines_list = {"Lines containing keywords:"}
   while true do
     local line_status, line_data = pasv_socket:receive_buf("\r?\n", false)
     if (not line_status and line_data == "EOF") or line_data == "" then
@@ -100,7 +100,7 @@ action = function(host, port)
       return line_status, line_data
     end
     if string.find(line_data,"password") or string.find(line_data,"tftp") or string.find(line_data,"write") then
-      lines_list[#lines_list + 1] = line_data
+      lines_list[#lines_list + 1] = "  " .. line_data
     end
   end
 
@@ -110,6 +110,10 @@ action = function(host, port)
  
 -- Close FTP connection
   ftp.close(socket)
- 
-  return lines_list
+  
+  if (#lines_list > 1) then
+    return lines_list
+  else 
+    return nil
+  end
 end
