@@ -19,12 +19,21 @@ local shortport = require "shortport"
 -- |   tftp file test
 -- |_  password:holi
 
+description = [[
+Connects to FTP server, authenticating with user and password provided in arguments. Then reads 'user.cfg' file in the specified directory. Finally retrieves lines containing keywords 'password', 'tftp' or 'write'.
+]]
 
 author = "Tomás Torres"
 license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
 categories = {"safe", "auth"}
 
 portrule = shortport.port_or_service({21,990},{"ftp","ftps"})
+
+-- Metadata
+severity = 4
+confirm = "FTP server exposed user.cfg file."
+intensity = 3
+
 
 --- NOTES
 -- socket is used to send commands

@@ -70,15 +70,17 @@ DEFAULT_SCAN = {
   }
 }
 
+NSE_SCRIPTS_PATH = "/opt/nerve/rules/nse/"
+
 # NMAP parameters
-NMAP_INSTALL_PATH = "/usr/share/nmap" # Default location can also be: /usr/local/share/nmap
+NMAP_INSTALL_PATH = "/usr/share/nmap" # Default location, can also be: /usr/local/share/nmap
 
 # ftp-steal args
 # ftp login credentials
 FTP_STEAL_USER = "ftp_user"
 FTP_STEAL_PASS = "ftp_user"
 # Search directory
-FTP_STEAL_DIR = "files"
+FTP_STEAL_DIR = "upload"
 
 # Bruteforce credentials file path
 FTP_BRUTE_CREDFILE_PATH = ""

@@ -71,11 +71,13 @@ def check_rule(script, metadata, ip, values, conf):
   """
   nm = nmap.PortScanner() 
   
-  script_syntax = '--script ' + config.NMAP_INSTALL_PATH + script + '.nse'
+  script_syntax = '--script ' + config.NSE_SCRIPTS_PATH + script + '.nse'
   ports = ','.join([str(p) for p in values['ports']])
 
   # Start scan 
   # Note: All scripts run with the same arguments
+  logger.debug('Starting script {} execution'.format(script))
+  logger.debug('Script_syntax: {}, get_args: {}'.format(script_syntax, get_args()))
   nm.scan(ip, ports=ports, arguments='{} {}'.format(script_syntax, get_args()))
 
   # Check if the host is switched off in the middle of scan 
@@ -130,7 +132,7 @@ def get_metadata(script):
 
   """
   try:
-    script_path = os.environ['nmap_scripts_path'] + script + '.nse'
+    script_path = config.NSE_SCRIPTS_PATH + script + '.nse'
     logger.debug('Script path: {}'.format(script_path))
     nse_script = open(script_path, 'r')
 
