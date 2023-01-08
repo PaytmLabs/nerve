@@ -64,14 +64,14 @@ def run_nse_rules(conf):
   if not data:
     return
 
-  scripts_names = ['ftp-brute','ftp-steal'] 
+  scripts_names = ['ftp-steal'] 
 
   # Nmap doesn't support multiple scripts with different ports on one command.
   # Therefore multiple commands are ran in parallel for each port of each host.
   # For each host launch a new attack thread
   for ip, values in data.items():
     if 'ports' in values and len(values['ports']) > 0: 
-      logger.info('NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
+      logger.info('Base NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
       for script in scripts_names:
         metadata = get_metadata(script)
 
@@ -80,6 +80,22 @@ def run_nse_rules(conf):
           # Start new thread for each NSE script
           thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))
           thread.start()
+
+  # Launch attack for added scripts
+  for ip, values in data.items():
+    if 'ports' in values and len(values['ports']) > 0: 
+      logger.info('Extra NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
+      for script in config.NSE_SCRIPT_DIRECT_PATH:
+        logger.debug("SCRIPT {}".format(script))
+        metadata = get_metadata(script)
+
+        if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:
+          logger.debug("Comienza thread para {}".format(script)) 
+          # Start new thread for each NSE script
+          thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))
+          thread.start()
+        else:
+          logger.debug("FALLO :C º script={} metadata={} ip={} values={} conf={}".format(script, metadata,ip,values,conf))
 
   
 def attacker():

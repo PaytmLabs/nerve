@@ -11,8 +11,8 @@ def verify_output(output, script):
   """
    Check if output corresponds to found vulnerability, only for supported scripts.
 
-   :param output str: Scan result output
-   :param script str: Corresponding script name
+   :param output str: Scan result output.
+   :param script str: Corresponding script name.
    :return vulnerability_found bool: Boolean indicating if vulnerability was found during scan.
    :return result_string str: If vulnerability was found returns parsed output if not empty string.
   """
@@ -34,27 +34,41 @@ def verify_output(output, script):
 
   return vulnerability_found
 
-def get_args():
+def get_args(script):
   """
    Get arguments of NSE script
 
+   param script str: Name of nse script associated with args.
    return script_args str: NSE script args string in execution parameter format
   """
   script_args = '--script_args '
-  if hasattr(config, 'FTP_STEAL_USER'):
-    script_args += 'user={},'.format(config.FTP_STEAL_USER)
+
+  if script == 'ftp-steal':
+    if hasattr(config, 'FTP_STEAL_USER'):
+      script_args += 'user={},'.format(config.FTP_STEAL_USER)
+    else:
+      script_args += 'user=root,'
+    if hasattr(config, 'FTP_STEAL_PASS'):
+      script_args += 'pass={},'.format(config.FTP_STEAL_PASS)
+    else:
+      script_args += 'pass=root,'
+    if hasattr(config, 'FTP_STEAL_DIR'):
+      script_args += 'dir={},'.format(config.FTP_STEAL_DIR)
+    else:
+      script_args += 'dir=.,'
+
+  elif script == 'ftp-brute':
+    if hasattr(config, 'FTP_BRUTE_BRUTE_CREDFILE'):
+      script_args += 'brute.credfile={},'.format(config.FTP_BRUTE_BRUTE_CREDFILE)
+  
+  # Get config arguments from script name 
   else:
-    script_args += 'user=root,'
-  if hasattr(config, 'FTP_STEAL_PASS'):
-    script_args += 'pass={},'.format(config.FTP_STEAL_PASS)
-  else:
-    script_args += 'pass=root,'
-  if hasattr(config, 'FTP_STEAL_DIR'):
-    script_args += 'dir={},'.format(config.FTP_STEAL_DIR)
-  else:
-    script_args += 'dir=.,'
-  if hasattr(config, 'FTP_BRUTE_CREDFILE_PATH'):
-    script_args += 'brute.credfile={},'.format(config.FTP_BRUTE_CREDFILE_PATH)
+    for name ,value in vars(config).items():
+      name_match = script.replace("-","_").upper()
+      if name.startswith(name_match):
+         data = name.split(name_match + '_')
+         arg_name = data[1].replace("_",".").lower()
+         script_args += '{}={},'.format(arg_name, value)
     
   return script_args[:-1] 
 
@@ -63,22 +77,27 @@ def check_rule(script, metadata, ip, values, conf):
   """
    Launch attack to service
 
-   :param script str: Script name
+   :param script str: Script name or script path.
    :param metadata dict(str or int): Metadata of script
    :param ip str: Host ip
    :param values dict(str): Port scan info
    :param conf dict(str): Scan configuration info 
   """
   nm = nmap.PortScanner() 
-  
-  script_syntax = '--script ' + config.NSE_SCRIPTS_PATH + script + '.nse'
+  if not os.path.isabs(script):
+    script_syntax = '--script ' + config.NSE_SCRIPTS_PATH + script + '.nse'
+  else:
+    script_syntax = '--script ' + script
+    script = script.split("/")[-1][:-4]
   ports = ','.join([str(p) for p in values['ports']])
 
   # Start scan 
-  # Note: All scripts run with the same arguments
   logger.debug('Starting script {} execution'.format(script))
-  logger.debug('Script_syntax: {}, get_args: {}'.format(script_syntax, get_args()))
-  nm.scan(ip, ports=ports, arguments='{} {}'.format(script_syntax, get_args()))
+  script_args = get_args(script)
+  if script_args == '--script-args ':
+    nm.scan(ip, ports=ports, arguments='{}'.format(script_syntax)) # Case when no arguments are given
+  else:
+    nm.scan(ip, ports=ports, arguments='{} {}'.format(script_syntax, get_args(script)))
 
   # Check if the host is switched off in the middle of scan 
   test_scan_finished = nm.all_hosts()
@@ -117,8 +136,7 @@ def check_rule(script, metadata, ip, values, conf):
       
       # Script not executed correctly
       else:
-        logger.debug('Error while executing scripts')
-        logger.debug('Error for script {} on host {}, port {}'.format(script, ip, p))
+        logger.debug('Error while executing script {} on host {} for port {}'.format(script, ip, p))
              
 
   return
@@ -132,7 +150,10 @@ def get_metadata(script):
 
   """
   try:
-    script_path = config.NSE_SCRIPTS_PATH + script + '.nse'
+    if not os.path.isabs(script):
+      script_path = config.NSE_SCRIPTS_PATH + script + '.nse'
+    else:
+      script_path = script
     logger.debug('Script path: {}'.format(script_path))
     nse_script = open(script_path, 'r')
 

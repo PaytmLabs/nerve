@@ -31,7 +31,7 @@ portrule = shortport.port_or_service({21,990},{"ftp","ftps"})
 
 -- Metadata
 severity = 4
-confirm = "FTP server exposed user.cfg file."
+confirm = "FTP server exposes user.cfg file."
 intensity = 3
 
 
