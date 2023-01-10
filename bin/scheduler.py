@@ -50,8 +50,7 @@ def scheduler():
     conf = ConfParser(config)
    
     if conf.get_cfg_schedule() > datetime.datetime.now():
-      #logger.debug('Schedule: ' + conf.get_cfg_schedule().strftime("%m/%d/%Y, %H:%M:%S"))
-      #logger.debug('Now: ' + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+      #logger.debug('Is not yet scheduled time {}, current time is {}.'.format(conf.get_cfg_schedule().strftime("%m/%d/%Y, %H:%M:%S"), datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
       continue
     
     rds.clear_session()
@@ -137,7 +136,7 @@ def scheduler():
                                      cfg = conf.get_raw_cfg(), 
                                      data = vuln_data)
             
-          rds.create_session()
+          # Scan is not removed from queue in order to maintain continuity
           break
           
         time.sleep(20)

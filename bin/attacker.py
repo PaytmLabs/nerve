@@ -55,10 +55,14 @@ def run_python_rules(conf):
 
 def run_nse_rules(conf):
   """
-   Launch NSE rules according to config (??)
+   Launch NSE rules according to config
+
+   :param conf dict: Scan configuration variable. Used to know which rules to run.
   """
 
-  # Get scan data from Redis
+  """
+    Get scan data from Redis, True param is used to erase data from db.
+  """
   data = rds.get_scan_data(True)
 
   if not data:
@@ -66,9 +70,11 @@ def run_nse_rules(conf):
 
   scripts_names = ['ftp-steal'] 
 
-  # Nmap doesn't support multiple scripts with different ports on one command.
-  # Therefore multiple commands are ran in parallel for each port of each host.
-  # For each host launch a new attack thread
+  """
+    Nmap doesn't support multiple scripts with different ports on one command.
+    Therefore multiple commands are ran in parallel for each port of each host.
+    For each host launch a new attack thread
+  """
   for ip, values in data.items():
     if 'ports' in values and len(values['ports']) > 0: 
       logger.info('Base NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
@@ -76,26 +82,21 @@ def run_nse_rules(conf):
         metadata = get_metadata(script)
 
         if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:
-         
-          # Start new thread for each NSE script
           thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))
           thread.start()
 
-  # Launch attack for added scripts
+  """
+    Launch attack for user added scripts
+  """
   for ip, values in data.items():
     if 'ports' in values and len(values['ports']) > 0: 
       logger.info('Extra NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
       for script in config.NSE_SCRIPT_DIRECT_PATH:
-        logger.debug("SCRIPT {}".format(script))
-        metadata = get_metadata(script)
-
         if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:
-          logger.debug("Comienza thread para {}".format(script)) 
-          # Start new thread for each NSE script
           thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))
           thread.start()
         else:
-          logger.debug("FALLO :C º script={} metadata={} ip={} values={} conf={}".format(script, metadata,ip,values,conf))
+          logger.info("Error {} for script: {}".format(metadata['error'], script))
 
   
 def attacker():
