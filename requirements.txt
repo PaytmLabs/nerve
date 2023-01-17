@@ -13,6 +13,7 @@ decorator==4.4.2
 dnspython==2.0.0
 docutils==0.16
 Flask==1.1.2
+Flask-Babel==2.0.0
 Flask-HTTPAuth==4.1.0
 Flask-RESTful==0.3.8
 html5lib==1.1

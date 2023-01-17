@@ -1,0 +1,96 @@
+# Spanish translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-01-12 13:41-0500\n"
+"PO-Revision-Date: 2023-01-11 13:26-0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: main.py:99
+msgid "Ready"
+msgstr "Listo"
+
+#: main.py:102
+msgid "Scanning... [QUEUE:{}]"
+msgstr "Escaneando... [COLA:{}]"
+
+#: main.py:104
+msgid "Busy..."
+msgstr "Ocupado"
+
+#: main.py:107
+msgid "Ready, next scan scheduled for {}"
+msgstr "Listo, próximo escaneo agendada para {}"
+
+#: templates/welcome.html:63
+msgid "Hi!"
+msgstr "Hola!"
+
+#: templates/welcome.html:68
+msgid "About"
+msgstr "Intro"
+
+#: templates/welcome.html:70
+msgid "Welcome to"
+msgstr "Bienvenido a"
+
+#: templates/welcome.html:70
+msgid "the"
+msgstr "correspondiente a"
+
+#: templates/welcome.html:71
+msgid ""
+"Its purpose is to scan and identify short and long lived security flaws "
+"using one-time or continous scan modes on a given network or host."
+msgstr ""
+"Su proposito es escanear e identificar fallas de seguridad de corto y "
+"largo tiempo de vida utilizando distintos modos de escanoe en una red o "
+"sistema dado."
+
+#: templates/welcome.html:72
+msgid "This can be achieved either programmatically via the"
+msgstr "Esto se puede lograr mediante la"
+
+#: templates/welcome.html:72
+msgid "or using the Graphical User Interface"
+msgstr "o utilizando la Interfaz Gráfica para usuarios."
+
+#: templates/welcome.html:73
+msgid "How does it work?"
+msgstr "¿Como funciona?"
+
+#: templates/welcome.html:76
+msgid "You configure your network or domain list"
+msgstr "Configura la red o lista de dominios"
+
+#: templates/welcome.html:79
+msgid "You define which attacks to run (Brute Force, etc.)"
+msgstr "Decide que ataques correr(Fuerza Bruta, etc.)"
+
+#: templates/welcome.html:82
+msgid "You run the assessment..."
+msgstr "Corre la evaluación"
+
+#: templates/welcome.html:85
+msgid "You wait for the results!"
+msgstr "¡Espera por los resultados!"
+
+#~ msgid ""
+#~ "This can be acheived either "
+#~ "programmatically via the)}} <a "
+#~ "href=\"/documentation\">API</a> {{̣_(or using the"
+#~ " Graphical User Interface"
+#~ msgstr "owo"
+

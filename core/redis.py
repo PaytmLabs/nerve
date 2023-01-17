@@ -206,6 +206,12 @@ class RedisManager:
   
   def get_scan_count(self):
     return self.r.get('p_scan-count')
+
+  def get_interface_language(self):
+    return self.r.get('language').decode('utf-8')
+
+  def change_language(self, lang):
+    self.r.set('language', lang)
   
   def is_attack_active(self):
     for i in threading.enumerate():
@@ -277,6 +283,8 @@ class RedisManager:
     self.clear_config()
     self.r.set('p_scan-count', 0)
     self.r.set('p_last-scan', 'N/A')
+    self.r.set('language', config.DEFAULT_LANGUAGE)
+    #self.r.set('language', 'es')
     
   def flushdb(self):
     self.r.flushdb()

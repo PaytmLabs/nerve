@@ -70,8 +70,7 @@ DEFAULT_SCAN = {
   }
 }
 
-AVIALABLE_LANGUAGES = ['en', 'es']
-DEFAULT_LANGUAGE = 'es'
+LANGUAGE = ['en', 'es']
 
 NERVE_INSTALL_PATH = "/opt/nerve/"
 NSE_SCRIPTS_PATH = NERVE_INSTALL_PATH + "rules/nse/"

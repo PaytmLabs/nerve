@@ -7,3 +7,4 @@ reports/
 **/logs/nerve.log
 tests/
 .env
+messages.pot
