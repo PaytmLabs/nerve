@@ -18,8 +18,6 @@
                 <div class="card-body text-center">
                     <div class="mb-4">
                         <img class="brand" src="static/img/nerve_logo_black.png" width="30%" height="30%">
-                        <br>
-                        <span style="font-size:10px"><b>Powered  by  <a href="https://paytm.com">Paytm</a></b></span>
                     </div>
                     <form action="/login" method="POST">
                         <div class="form-group">
@@ -28,13 +26,13 @@
                         <div class="form-group">
                             <input type="password" class="form-control" name="password" placeholder="Password" required>
                         </div>
-                        <button class="btn btn-primary shadow-2 mb-4">Login</button>
+                        <button class="btn btn-primary shadow-2 mb-4">{{_('Login')}}</button>
                         <br>
                         {% if err %}
-                        <span style="color:red">Error: {{err}}</span>
+                        <span style="color:red">Error: {{ err }}</span>
                         {% endif %}
 
-                        {% if msg == "New Version is Available" %}
+                        {% if msg == _("New Version is Available") %}
                             <span style="color:darkorange; font-weight:bold">{{msg}}!</a></span><br>
                             <span style="color:orange"><a href="https://github.com/TomasTorresB/nerve">Download</a></span>
                         {% endif %}

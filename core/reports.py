@@ -6,6 +6,9 @@ from core.redis import rds
 from core.utils import Utils
 from version import VERSION
 
+from flask_babel import gettext
+from flask_babel import ngettext
+
 utils = Utils()
 
 def generate_csv(data):  
@@ -33,7 +36,8 @@ def generate_html(vulns, conf):
   vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
   filename = 'report-{}-{}.html'.format(utils.generate_uuid(), utils.get_date())
   templateLoader = jinja2.FileSystemLoader(searchpath="./templates/")
-  templateEnv = jinja2.Environment(loader=templateLoader)
+  templateEnv = jinja2.Environment(loader=templateLoader, autoescape=True, extensions=['jinja2.ext.i18n'])
+  templateEnv.install_gettext_callables(gettext=gettext, ngettext=ngettext, newstyle=True)
   TEMPLATE_FILE = "report_template.html"
   template = templateEnv.get_template(TEMPLATE_FILE)
   

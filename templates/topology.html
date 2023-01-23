@@ -29,7 +29,7 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="page-title">
-                        <h3>Network Topology</i></h3>
+                        <h3>{{_('Network Topology')}}</i></h3>
                     </div>
 
                     <div class="row">
@@ -38,13 +38,15 @@
                           <table class="table">
                               <thead>
                                   <tr>
-                                  <th>LEGEND</th>
-                                  <th><img width="30px" height="30px" src="/static/img/black_triangle.png"> Self</th>
-                                  <th><img width="30px" height="30px" src="/static/img/blue_square.png">  Asset</th>
-                                  <th><img width="35px" height="35px" src="/static/img/green_circle.png"> Low</th>
-                                  <th><img width="30px" height="30px" src="/static/img/orange_circle.png"> Medium</th>
-                                  <th><img width="30px" height="30px" src="/static/img/red_circle.png"> High</th>
-                                  <th><img width="30px" height="30px" src="/static/img/black_circle.png"> Critical</th>
+                                  <th>{{_('LEGEND')}}</th>
+                                  <th><img width="30px" height="30px" src="/static/img/black_triangle.png">{{_(' Self')}}</th>
+                                  <th><img width="30px" height="30px" src="/static/img/blue_square.png">{{_('  Asset')}}</th>
+                                  <th><img width="35px" height="35px" src="/static/img/green_circle.png">{{_(' Low')}}</th>
+                                  <th><img width="30px" height="30px" src="/static/img/orange_circle.png">{{_(' Medium')}}</th>
+                                  <th><img width="30px" height="30px" src="/static/img/red_circle.png">{{_(' High')}}</th>
+                                  <th><img width="30px" height="30px" src="/static/img/black_circle.png">{{_(' Critical')}}</th>
+                                  <th><img width="30px" height="30px" src="/static/img/purple_circle.png">{{_(' Potential')}}</th>
+                                  <th><img width="30px" height="30px" src="/static/img/grey_circle.png">{{_(' Undefined')}}</th>
                                   </tr>
                               </thead>
                           </table>
@@ -114,16 +116,22 @@ function draw() {
   {% if vulns %}
     {% for key, value in vulns.items() %}
         {% if value.rule_sev == 1 %}
-        nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_low', value: 1});
+        nodes.push({id: "{{key}}", label: "{{value.rule_confirm}}", group: 'vulnerability_low', value: 1});
         edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140, width: WIDTH_SCALE * 1, color:RED});
         {% elif value.rule_sev == 2 %}
-        nodes.push({id: "{{key}}",label: '{{value.rule_confirm}}', group: 'vulnerability_med', value: 1});
+        nodes.push({id: "{{key}}", label: "{{value.rule_confirm}}", group: 'vulnerability_med', value: 1});
         edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140,width: WIDTH_SCALE * 1, color:RED});
         {% elif value.rule_sev == 3 %}
-        nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_high', value: 1});
+        nodes.push({id: "{{key}}", label: "{{value.rule_confirm}}", group: 'vulnerability_high', value: 1});
         edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}", length: 140, width: WIDTH_SCALE * 1, color:RED});
         {% elif value.rule_sev == 4 %}
-        nodes.push({id: "{{key}}", label: '{{value.rule_confirm}}', group: 'vulnerability_crit', value: 1});
+        nodes.push({id: "{{key}}", label: "{{value.rule_confirm}}", group: 'vulnerability_crit', value: 1});
+        edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}",length: 140, width: WIDTH_SCALE * 1, color:RED});
+        {% elif value.rule_sev == 5 %}
+        nodes.push({id: "{{key}}", label: "{{value.rule_confirm}}", group: 'vulnerability_und', value: 1});
+        edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}",length: 140, width: WIDTH_SCALE * 1, color:RED});
+        {% elif value.rule_sev == 6 %}
+        nodes.push({id: "{{key}}", label: "{{value.rule_confirm}}", group: 'vulnerability_pot', value: 1});
         edges.push({from: "{{value.ip}}", to: "{{key}}", label: "{{value.port}}",length: 140, width: WIDTH_SCALE * 1, color:RED});
       {% endif %}
     {% endfor %}
@@ -159,7 +167,7 @@ function draw() {
     groups: {
       nerve: {
         shape: "triangle",
-        color: "black" // orange
+        color: "black" 
       },
       endpoint: {
         shape: "square",
@@ -167,19 +175,27 @@ function draw() {
       },
       vulnerability_low: {
         shape: "dot",
-        color: "green" // red
+        color: "green"
       },
       vulnerability_med: {
         shape: "dot",
-        color: "orange" // red
+        color: "orange" 
       },
       vulnerability_high: {
         shape: "dot",
-        color: "red" // red
+        color: "red" 
       },
       vulnerability_crit: {
         shape: "dot",
-        color: "black" // red
+        color: "black" 
+      },
+      vulnerability_und: {
+        shape: "dot",
+        color: "#7A7A7A" // grey
+      },
+      vulnerability_pot: {
+        shape: "dot",
+        color: "#C16BA5" // purple
       },
     }
   };

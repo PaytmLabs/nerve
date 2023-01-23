@@ -3,6 +3,7 @@ from core.register import Register
 from core.parser   import SchemaParser
 
 from flask import Blueprint, request
+from flask_babel import _
 
 scan = Blueprint('scan', __name__,
                   template_folder='templates')
@@ -20,7 +21,7 @@ def view_scan():
     if not vfd:
       return {'status':'Error: ' + msg }, 400
   else:
-    return {'status':'Malformed Scan Data'}, 400
+    return {'status':_('Malformed Scan Data')}, 400
   
   res, code, msg = register.scan(scan)
 

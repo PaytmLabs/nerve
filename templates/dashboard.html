@@ -34,7 +34,7 @@
                                       </div>
                                       <div class="col-sm-8">
                                           <div class="detail text-center">
-                                              <p>Hosts Discovered</p>
+                                              <p>{{_('Hosts Discovered')}}</p>
                                               <span class="number">{{hosts|length}}</span>
                                           </div>
                                       </div>
@@ -42,7 +42,7 @@
                                   <div class="footer">
                                       <hr />
                                       <div class="stats">
-                                          <i class="fas fa-redo-alt"></i> Since Last Assessment
+                                          <i class="fas fa-redo-alt"></i>{{_('Since Last Assessment')}}
                                       </div>
                                   </div>
                               </div>
@@ -59,7 +59,7 @@
                                       </div>
                                       <div class="col-sm-8">
                                           <div class="detail text-center">
-                                              <p>Scans Executed</p>
+                                              <p>{{_('Scans Executed')}}</p>
                                               <span class="number">{{scan_count.decode('utf-8')}}</span>
                                           </div>
                                       </div>
@@ -67,7 +67,7 @@
                                   <div class="footer">
                                       <hr />
                                       <div class="stats">
-                                          <i class="fas fa-calendar"></i> Since Last System Reset
+                                          <i class="fas fa-calendar"></i>{{_('Since Last System Reset')}}
                                       </div>
                                   </div>
                               </div>
@@ -84,7 +84,7 @@
                                       </div>
                                       <div class="col-sm-8">
                                           <div class="detail text-center">
-                                              <p>Last Scanned</p>
+                                              <p>{{_('Last Scanned')}}</p>
                                               <span class="number"><span style="font-size:17px"><b>{{last_scan.decode('utf-8')}}</b></span></span>
                                           </div>
                                       </div>
@@ -92,7 +92,7 @@
                                   <div class="footer">
                                       <hr />
                                       <div class="stats">
-                                          <i class="fas fa-stopwatch"></i> Since Last Assessment
+                                          <i class="fas fa-stopwatch"></i>{{_('Since Last Assessment')}}
                                       </div>
                                   </div>
                               </div>
@@ -109,7 +109,7 @@
                                       </div>
                                       <div class="col-sm-8">
                                           <div class="detail text-center">
-                                              <p>Confirmed Vulns</p>
+                                              <p>{{_('Confirmed Vulns')}}</p>
                                               <span class="number">
                                                   <a class="c-red" href="/vulnerabilities">{{ total_confirmed_vulns }}</a>
                                               </span>
@@ -119,7 +119,7 @@
                                   <div class="footer">
                                       <hr />
                                       <div class="stats">
-                                          <i class="fas fa-fire-extinguisher"></i> Since Last Assessment
+                                          <i class="fas fa-fire-extinguisher"></i>{{_('Since Last Assessment')}}
                                       </div>
                                   </div>
                               </div>
@@ -136,7 +136,7 @@
                                       </div>
                                       <div class="col-sm-8">
                                           <div class="detail text-center">
-                                              <p>Potential Vulns</p>
+                                              <p>{{_('Potential Vulns')}}</p>
                                               <span class="number">
                                                   <a class="c-darkorange" href="/vulnerabilities">{{ total_potential_vulns }}</a>
                                               </span>
@@ -146,7 +146,7 @@
                                   <div class="footer">
                                       <hr />
                                       <div class="stats">
-                                          <i class="fas fa-fire-extinguisher"></i> Since Last Assessment
+                                          <i class="fas fa-fire-extinguisher"></i>{{_('Since Last Assessment')}}
                                       </div>
                                   </div>
                               </div>
@@ -159,7 +159,7 @@
                         <div class="card">
                             <div class="content">
                                 <div class="head">
-                                    <h4 class="mb-0">Vulnerability Distribution</h4>
+                                    <h4 class="mb-0">{{_('Vulnerability Distribution')}}</h4>
                                 </div>
                                 <div class="canvas-wrapper">
                                     <canvas class="chart" id="doughnutchart"></canvas>
@@ -173,7 +173,7 @@
                         <div class="card">
                             <div class="content">
                                 <div class="head">
-                                    <h4 class="mb-0">Port Distribution</h4>
+                                    <h4 class="mb-0">{{_('Port Distribution')}}</h4>
                                 </div>
                         <div class="canvas-wrapper">
                             <canvas class="chart" id="radar"></canvas>
@@ -189,15 +189,15 @@
                     <div class="card">
                         <div class="content">
                             <div class="head">
-                                <h4 class="mb-0">Networks Scanned</h4>
-                                <p class="text-muted">Your last assessment included these networks</p>
+                                <h4 class="mb-0">{{_('Networks Scanned')}}</h4>
+                                <p class="text-muted">{{_('Your last assessment included these networks')}}</p>
                             </div>
                             <div class="canvas-wrapper">
                                 <table class="table no-margin bg-lighter-grey">
                                     <thead class="success">
                                         <tr>
                                             <th></th>
-                                            <th class="text-right">Networks</th>
+                                            <th class="text-right">{{_('Networks')}}</th>
                                         </tr>
                                     </thead}>
                                     {% if networks %}
@@ -214,15 +214,15 @@
                             </div>
                             <br>
                             <div class="head">
-                                <h4 class="mb-0">Domains Scanned</h4>
-                                <p class="text-muted">Your last assessment included these domains</p>
+                                <h4 class="mb-0">{{_('Domains Scanned')}}</h4>
+                                <p class="text-muted">{{_('Your last assessment included these domains')}}</p>
                             </div>
                             <div class="canvas-wrapper">
                                 <table class="table no-margin bg-lighter-grey">
                                     <thead class="success">
                                         <tr>
                                             <th></th>
-                                            <th class="text-right">Domains</th>
+                                            <th class="text-right">{{_('Domains')}}</th>
                                         </tr>
                                     </thead}>
                                     {% if domains %}
@@ -246,15 +246,15 @@
                     <div class="card">
                         <div class="content">
                             <div class="head">
-                                <h4 class="mb-0">Live Hosts</h4>
-                                <p class="text-muted">These hosts were identified to be alive</p>
+                                <h4 class="mb-0">{{_('Live Hosts')}}</h4>
+                                <p class="text-muted">{{_('These hosts were identified to be alive')}}</p>
                             </div>
                             <div class="canvas-wrapper">
                                 <table class="table no-margin bg-lighter-grey">
                                     <thead class="success">
                                         <tr>
                                             <th></th>
-                                            <th class="text-right">IP Addresses</th>
+                                            <th class="text-right">{{_('IP Addresses')}}</th>
                                         </tr>
                                     </thead>
                                     {% if hosts %}
@@ -297,7 +297,7 @@
     var myChart1 = new Chart(donut, {
         type: 'doughnut',
         data: {
-            labels: ["Critical", "High", "Medium", "Low", "Undefined", "Potential"],
+            labels: ["{{gettext("Critical")}}", "{{gettext("High")}}", "{{gettext("Medium")}}", "{{gettext("Low")}}", "{{gettext("Undefined")}}", "{{gettext("Potential")}}"],
             datasets: [{
                 {% if chart %}
                 data: [{{chart.4}}, {{chart.3}}, {{chart.2}}, {{chart.1}}, {{chart.5}}, {{chart.6}}],
@@ -348,7 +348,7 @@
     },
     options: {
         legend: {position: 'top',display: false,},
-        title: {display: true,text: 'Ports'},
+        title: {display: true,text: '{{gettext('Ports')}}'},
         scale: {
             angleLines: {
               display: false

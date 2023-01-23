@@ -29,17 +29,17 @@
                   <div class="row">
                     <div class="col-md-12 col-lg-12">
                       <div class="card">
-                          <div class="card-header">Alert</div>
+                          <div class="card-header">{{_('Alert')}}</div>
                           <div class="card-body">
                               <ul class="nav nav-tabs" id="myTab" role="tablist">
                                   <li class="nav-item">
-                                      <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
+                                      <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">{{_('Details')}}</a>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#result" role="tab" aria-controls="result" aria-selected="true">Result</a>
+                                    <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#result" role="tab" aria-controls="result" aria-selected="true">{{_('Result')}}</a>
                                 </li>
                                   <li class="nav-item">
-                                      <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#mitigation" role="tab" aria-controls="mitigation" aria-selected="true">Mitigation</a>
+                                      <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#mitigation" role="tab" aria-controls="mitigation" aria-selected="true">{{_('Mitigation')}}</a>
                                   </li>
 
                               </ul>
@@ -49,7 +49,7 @@
                                   <div class="tab-pane fade" id="mitigation" role="tabpanel" aria-labelledby="mitigation-tab">{% if vuln %} {{ vuln.data.rule_mitigation }} {% endif %}</div>
                                   <hr>
                                   <a href="/alert/resolve/{{vuln.key}}">
-                                    <button type="button" class="btn btn-square btn-success mb-2">Resolve</button>
+                                    <button type="button" class="btn btn-square btn-success mb-2">{{_('Resolve')}}</button>
                                 </a>
                               </div>
                           </div>

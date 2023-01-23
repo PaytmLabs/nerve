@@ -92,6 +92,8 @@ def run_nse_rules(conf):
     if 'ports' in values and len(values['ports']) > 0: 
       logger.info('Extra NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
       for script in config.NSE_SCRIPT_DIRECT_PATH:
+        metadata = get_metadata(script)
+
         if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:
           thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))
           thread.start()

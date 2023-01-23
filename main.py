@@ -101,12 +101,12 @@ def status():
   status = _('Ready')
   if session_state == 'running':
     if progress: 
-      status = _l('Scanning... [QUEUE:{}]'.format(progress))
+      status = _('Scanning... [QUEUE:%(prog)s]', prog=progress)
     else:
       status = _('Busy...')
   elif config:
     conf = ConfParser(config)
-    status = _l('Ready, next scan scheduled for {}'. format(conf.get_cfg_schedule().strftime("%d/%m/%Y, %H:%M")))
+    status = _('Ready, next scan scheduled for %(date)s', date=conf.get_cfg_schedule().strftime('%Y-%m-%d %H:%M:%S'))
   return dict(status=status)
 
 @app.context_processor
@@ -140,4 +140,5 @@ if __name__ == '__main__':
           host  = config.WEB_HOST, 
           port  = config.WEB_PORT,
           threaded=True,
-          use_evalex=False)
+          use_evalex=False
+          )

@@ -188,6 +188,18 @@ class RedisManager:
   def advance_scan_config_queue(self): 
     self.r.zremrangebyrank("scan_configs",0,0)
 
+  def get_last_scan_config(self):
+    cfg = self.r.get('last_config')
+    if cfg: 
+      return pickle.loads(cfg)
+    return {}
+
+  def get_last_vuln_data(self):
+    cfg = self.r.get('last_vuln_data')
+    if cfg: 
+      return pickle.loads(cfg)
+    return {}
+
   def get_scan_progress(self):
     count = 0
     for k in self.r.scan_iter(match="sch_*"):
@@ -237,7 +249,6 @@ class RedisManager:
   def start_session(self):
     logger.info('Starting a new session...')
     self.store('sess_state', 'running')
-    # Recently added last part
     self.r.incr('p_scan-count')
     self.r.set('p_last-scan', self.utils.get_datetime())
     
@@ -284,7 +295,6 @@ class RedisManager:
     self.r.set('p_scan-count', 0)
     self.r.set('p_last-scan', 'N/A')
     self.r.set('language', config.DEFAULT_LANGUAGE)
-    #self.r.set('language', 'es')
     
   def flushdb(self):
     self.r.flushdb()
@@ -294,5 +304,7 @@ class RedisManager:
     
   def clear_config(self):
     self.r.zremrangebyrank("scan_configs",0,-1)
+    self.r.delete("last_config")
+    self.r.delete('last_vuln_data')
 
 rds = RedisManager()

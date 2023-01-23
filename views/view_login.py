@@ -2,6 +2,7 @@ from core.utils import Utils
 from core.redis import rds
 from core.security import verify_password
 
+from flask_babel import _
 from flask import (
   Blueprint, 
   render_template, 
@@ -23,16 +24,16 @@ def view_login():
     password = request.form.get('password', None)
     
     if rds.is_ip_blocked(request.remote_addr):
-      return render_template('login.html', err='Your IP has been blocked.')
+      return render_template('login.html', err=_('Your IP has been blocked.'))
     
     if verify_password(username, password):
       session['session'] = username
       return redirect('/')
     else:
-      return render_template('login.html', err='Incorrect username or password. \
-                                                After 5 attempts, you will get blocked.')
+      return render_template('login.html', err=_('Incorrect username or password. \
+                                                After 5 attempts, you will get blocked.'))
   
   if not utils.is_version_latest():
-    msg = 'New Version is Available'
+    msg = _('New Version is Available')
   
   return render_template('login.html', msg=msg)

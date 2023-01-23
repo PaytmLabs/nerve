@@ -21,18 +21,18 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="page-title">
-                        <h3>Console</h3>
+                        <h3>{{_('Console')}}</h3>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
                           <div class="card">
-                              <div class="card-header">Console Output</div>
+                              <div class="card-header">{{_('Console Output')}}</div>
                               <div class="card-body">
-                                  <p class="card-title"><b>This console will start populating once data comes in...</b></p>
-                                 <i class="fa fa-spinner fa-spin"></i> <small>File is streaming...</small>
+                                  <p class="card-title"><b>{{_('This console will start populating once data comes in...')}}</b></p>
+                                 <i class="fa fa-spinner fa-spin"></i> <small>{{_('File is streaming...')}}</small>
                                   <pre class="bash" id="output"></pre>              
                                   <form method="GET" action="/download/server_log">
-                                    <button type="submit">Download</button>
+                                    <button type="submit">{{_('Download')}}</button>
                                  </form>
                               </div>
                           </div>

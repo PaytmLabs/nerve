@@ -7,6 +7,7 @@ from core.parser import SchemaParser
 from core.register  import Register
 from core.logging   import logger
 
+from flask_babel import _
 from flask import (
   Blueprint, 
   render_template, 
@@ -37,7 +38,7 @@ def view_qs():
         res, code, msg = register.scan(scan)
         if res:
           logger.info('A scan was initiated')
-          flash('Assessment started.', 'success')
+          flash(_('Assessment started.'), 'success')
           return redirect('/qs')
         else:
           flash(msg, 'error')

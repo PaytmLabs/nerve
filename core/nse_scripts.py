@@ -6,6 +6,7 @@ import sys
 import os
 import nmap
 import config
+import re
 
 def verify_output(output, script):
   """
@@ -167,10 +168,10 @@ def get_metadata(script):
 
     # Info
     description = ''
-    severity_level = 5 # 5 corresponds to undefined
+    severity_level = 5 # Undefined
     confirm_description = ''  
     mitigation_description = ''
-    intensity = 0 # Lowest possible, always executes script
+    intensity = 3 # Default Highest possible, execute only on extremely aggressive
 
     # Traverse file
     for line in nse_script:
@@ -200,7 +201,22 @@ def get_metadata(script):
         if 'intensity' == line[:9]:
           intensity = int(line[-2])
           intensity_found = True
-  
+ 
+    # Check and format values values
+    # Value must be between 0 - 6 
+    if severity_level > 6 or severity_level < 0:
+      severity_level = 5 # Undefined
+    # Value must be between 0 - 3
+    if intensity > 3 or intensity < 0:
+      intensity = 3
+    # If result if not confirmed mark as potential 
+    if not confirm_description:
+      severity_level = 6 # Potential
+
+    # Normalize values(confirm will be normalized down the line)
+    description = re.sub(r"[^a-zA-Z0-9 ]", "", description)
+    mitigation_description = re.sub(r"[^a-zA-Z0-9 ]", "", mitigation_description)
+
     result = {'description': description, 'severity_level': severity_level, 'confirm': confirm_description, 'mitigation': mitigation_description, 'intensity': intensity}
     return result
   
@@ -230,11 +246,6 @@ def save_result(script, result, metadata, ip, port, values, confirmed):
   confirm = metadata['confirm']
   if confirm == '':
     confirm = result
-  
-  # If result if not confirmed mark as potential 
-  severity = metadata['severity_level']
-  if not confirmed:
-    severity = 6 # Potential
  
   # Save results on redis
   rds.store_vuln({
@@ -242,9 +253,9 @@ def save_result(script, result, metadata, ip, port, values, confirmed):
     'port':port,                                             # Check
     'domain':domain,                                         # Check, es None en el caso que no halla
     'rule_id':script,                                        # A medias, Corresponde a un código de 8 caracteres. Sin embargo, creo que lo úni      co que se hace con este es realizar un hash más adelante y no es relevante el largo. Por ahora para identificar cada script se usara el nombre.       CREO QUE ESTO PUEDE FALLAR EN ALGUNOS CASOS.
-    'rule_sev': severity,                                    # Check, usar campo 'severity' de scripts nse
+    'rule_sev': metadata['severity_level'],                                    # Check, usar campo 'severity' de scripts nse
     'rule_desc': metadata['description'],                    # Check, Usar descripción del script de nmap
-    'rule_confirm': confirm,                     # Check, Descripción de algo, falta identificar de que, se puede dejar como strin      g vacío supongo
+    'rule_confirm': re.sub(r"[^a-zA-Z0-9 ]", "", confirm),                     # Check, Descripción de algo, falta identificar de que, se puede dejar como strin      g vacío supongo
     'rule_details': result,                                  # Check, Resultados del script
     'rule_mitigation': metadata['mitigation']                # Check, Descripción breve de como evitar el problema, permite string vacío creo
           })

@@ -5,6 +5,8 @@ from core.utils    import Utils
 from core.logging  import logger
 from core.redis    import rds
 
+from flask_babel    import _
+
 class Register:
   def __init__(self):
     self.rds = rds
@@ -13,7 +15,7 @@ class Register:
   def scan(self, scan):
     state = rds.get_session_state()
     if state is not None and state == 'running':
-      return (False, 429, 'There is already a scan in progress!')
+      return (False, 429, _('There is already a scan in progress!'))
 
     cfg = ConfParser(scan)
     
@@ -29,4 +31,4 @@ class Register:
     if domains:
       logger.info('Scheduling domains(s): {}'.format(', '.join(domains)))
     
-    return (True, 200, 'Registered a new scan successfully!')
+    return (True, 200, _('Registered a new scan successfully!'))

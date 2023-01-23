@@ -14,6 +14,7 @@ from core.logging import logger
 from config import WEB_LOG, USER_AGENT
 from urllib.parse import urlparse
 from version import VERSION
+from flask_babel import _
 
 class Utils:
   def generate_uuid(self):
@@ -42,7 +43,7 @@ class Utils:
     return hashlib.sha1(f'{text}'.encode()).hexdigest()
   
   def sev_to_human(self, severity):
-    color_map = {6:'Potential', 5:'Undefined', 4:'Critical', 3:'High', 2:'Medium' , 1:'Low', 0:'Informational'}
+    color_map = {6:_('Potential'), 5:_('Undefined'), 4:_('Critical'), 3:_('High'), 2:_('Medium') , 1:_('Low'), 0:_('Informational')}
     return color_map[severity]
   
   def is_string_url(self, url):
@@ -69,6 +70,13 @@ class Utils:
       return True
     except:
       return True
+
+  def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+      return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
   
 class Network:
   def get_nics(self):

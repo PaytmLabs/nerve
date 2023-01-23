@@ -50,11 +50,10 @@ def scheduler():
     conf = ConfParser(config)
    
     if conf.get_cfg_schedule() > datetime.datetime.now():
-      #logger.debug('Is not yet scheduled time {}, current time is {}.'.format(conf.get_cfg_schedule().strftime("%m/%d/%Y, %H:%M:%S"), datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
       continue
     
     rds.clear_session()
-    logger.info('Starting scan at: ' + conf.get_cfg_schedule().strftime("%m/%d/%Y, %H:%M:%S"))
+    logger.info('Starting scan at: ' + conf.get_cfg_schedule().strftime('%Y-%m-%d %H:%M:%S'))
 
     networks = conf.get_cfg_networks()
     domains  = conf.get_cfg_domains()
@@ -102,6 +101,8 @@ def scheduler():
             int_utils.submit_slack(hook = slack_settings, 
                                    data = vuln_data)
 
+          rds.store_json('last_config', config)
+          rds.store_json('last_vuln_data', vuln_data)
           rds.advance_scan_config_queue()
           rds.end_session()  
           break  
@@ -137,6 +138,8 @@ def scheduler():
                                      data = vuln_data)
             
           # Scan is not removed from queue in order to maintain continuity
+          rds.store_json('last_config', config)
+          rds.store_json('last_vuln_data', vuln_data)
           break
           
         time.sleep(20)

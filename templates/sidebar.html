@@ -7,49 +7,49 @@
             </div>
             <ul class="list-unstyled components">
               <li>
-                <a href="/qs"><i class="fas fa-home"></i> Quick Start</a>
+                <a href="/qs"><i class="fas fa-home"></i>{{_(' Quick Start')}}</a>
                </li>  
                <li>
-                <a href="/dashboard"><i class="fas fa-rocket"></i> Dashboard</a>
+                <a href="/dashboard"><i class="fas fa-rocket"></i>{{_(' Dashboard')}}</a>
                </li>  
                <li>
-                <a href="/assets"><i class="fas fa-laptop"></i> Assets</a>
+                <a href="/assets"><i class="fas fa-laptop"></i>{{_(' Assets')}}</a>
               </li>
                <li>
-                <a href="/assessment"><i class="fas fa-crosshairs"></i> Assessment</a>
+                <a href="/assessment"><i class="fas fa-crosshairs"></i>{{_(' Assessment')}}</a>
               </li>
                <li>
-                <a href="/topology"><i class="fas fa-network-wired"></i> Network Topology</a>
+                <a href="/topology"><i class="fas fa-network-wired"></i>{{_(' Network Topology')}}</a>
                 </li>
                 <li>
-                    <a href="/vulnerabilities"><i class="fas fa-bug"></i> Vulnerabilities</a>
+                    <a href="/vulnerabilities"><i class="fas fa-bug"></i>{{_(' Vulnerabilities')}}</a>
                 </li>
                 <li>
-                    <a href="/reports"><i class="fas fa-file"></i> Reports</a>
+                    <a href="/reports"><i class="fas fa-file"></i>{{_(' Reports')}}</a>
                 </li>
                 <li>
-                    <a href="/console"><i class="fas fa-desktop"></i> Console</a>
+                    <a href="/console"><i class="fas fa-desktop"></i>{{_(' Console')}}</a>
                 </li>
                 <li>
-                    <a href="#authmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-university"></i> Documentation</a>
+                    <a href="#authmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle no-caret-down"><i class="fas fa-university"></i>{{_(' Documentation')}}</a>
                     <ul class="collapse list-unstyled" id="authmenu">
                         <li>
-                            <a href="/documentation#gui"><i class="fas fa-info"></i> Usage</a>
+                            <a href="/documentation#gui"><i class="fas fa-info"></i>{{_(' Usage')}}</a>
                         </li>
                         <li>
-                            <a href="/documentation#api"><i class="fas fa-code"></i> Developer API</a>
+                            <a href="/documentation#api"><i class="fas fa-code"></i>{{_(' Developer API')}}</a>
                         </li>
                     </ul>
                 </li>
                 {% if frequency == "continuous" %}
                 <li>
-                    <a href="/startover"><i class="fas fa-history"></i> Reset System</a>
+                    <a href="/startover"><i class="fas fa-history"></i>{{_(' Reset System')}}</a>
                 </li>
                 <hr>
-                 <center><span class="scan_type_indicator">Continuous Scan Mode</span></center>
+                 <center><span class="scan_type_indicator">{{_('Continuous Scan Mode')}}</span></center>
                 {% endif %}
                 <hr>
-                <center><span><a class="withlove" href="https://github.com/TomasTorresB/nerve" target="_blank"><i class="fas fa-star c-darkorange"></i> Star us on GitHub</a></span></center>
+                <center><span><a class="withlove" href="https://github.com/TomasTorresB/nerve" target="_blank"><i class="fas fa-star c-darkorange"></i>{{_(' Star us on GitHub')}}</a></span></center>
             </ul>
             
         </nav>

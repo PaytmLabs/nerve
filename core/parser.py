@@ -3,7 +3,7 @@ import datetime
 
 from socket import gethostname
 from core.utils import Network, Utils
-
+from flask_babel import _
 
 class SchemaParser:
   def __init__(self, data, req):
@@ -54,79 +54,79 @@ class SchemaParser:
         Check Structure
       """
       if not isinstance(name, str):
-        error = 'Option [ASSESSMENT_NAME] must be a String'
+        error = _('Option [ASSESSMENT_NAME] must be a String')
         verified = False
       
       if not isinstance(networks, list):
-        error = 'Option [NETWORKS] must be an Array'
+        error = _('Option [NETWORKS] must be an Array')
         verified = False
       
       if not isinstance(excluded_networks, list):
-        error = 'Option [EXCLUDED_NETWORKS] must be an Array'
+        error = _('Option [EXCLUDED_NETWORKS] must be an Array')
         verified = False
       
       if not isinstance(domains, list):
-        error = 'Option [DOMAINS] must be an Array'
+        error = _('Option [DOMAINS] must be an Array')
         verified = False
 
       if not isinstance(intrusive_level, int):
-        error = 'Option [AGGRESSIVENESS_LEVEL] must be an Integer'
+        error = _('Option [AGGRESSIVENESS_LEVEL] must be an Integer')
         verified = False
       
       if not isinstance(allow_dos, bool):
-        error = 'Option [ALLOW_DENIAL_OF_SERVICE] must be a Boolean'
+        error = _('Option [ALLOW_DENIAL_OF_SERVICE] must be a Boolean')
         verified = False
       
       if not isinstance(allow_inet, bool):
-        error = 'Option [ALLOW_INTERNET_OUTBOUND] must be a Boolean'
+        error = _('Option [ALLOW_INTERNET_OUTBOUND] must be a Boolean')
         verified = False
       
       if not isinstance(allow_bf, bool):
-        error = 'Option [ALLOW_BRUTE_FORCE] must be a Boolean'
+        error = _('Option [ALLOW_BRUTE_FORCE] must be a Boolean')
         verified = False
       
       if not isinstance(dictionary_usernames, list):
-        error = 'Option [DICTIONARY_USERNAMES] must be an Array'
+        error = _('Option [DICTIONARY_USERNAMES] must be an Array')
         verified = False
       
       if not isinstance(dictionary_passwords, list):
-        error = 'Option [DICTIONARY_PASSWORDS] must be an Array'
+        error = _('Option [DICTIONARY_PASSWORDS] must be an Array')
         verified = False
       
       if not isinstance(net_interface, (str, type(None))):
-        error = 'Option [NET_INTERFACE] must be null or a String'
+        error = _('Option [NET_INTERFACE] must be null or a String')
         verified = False
 
       if not isinstance(max_ports, int):
-        error = 'Option [MAX_PORTS] must be an Integer'
+        error = _('Option [MAX_PORTS] must be an Integer')
         verified = False
       
       if not isinstance(custom_ports, list):
-        error = 'Option [MAX_PORTS] must be an Array'
+        error = _('Option [MAX_PORTS] must be an Array')
         verified = False
 
       if not isinstance(custom_ports, list):
-        error = 'Option [CUSTOM_PORTS] must be an Array'
+        error = _('Option [CUSTOM_PORTS] must be an Array')
         verified = False
 
       if not isinstance(parallel_scan, int):
-        error = 'Option [PARALLEL_SCAN] must be an Integer'
+        error = _('Option [PARALLEL_SCAN] must be an Integer')
         verified = False
       
       if not isinstance(parallel_attack, int):
-        error = 'Option [PARALLEL_ATTACK] must be an Integer'
+        error = _('Option [PARALLEL_ATTACK] must be an Integer')
         verified = False
       
       if not isinstance(webhook, (str, type(None))):
-        error = 'Option [WEB_HOOK] must be null or a String'
+        error = _('Option [WEB_HOOK] must be null or a String')
         verified = False
 
       if not isinstance(frequency, str):
-        error = 'Option [FREQUENCY] must be a String'
+        error = _('Option [FREQUENCY] must be a String')
         verified = False
 
       if not isinstance(schedule_date, str):
-        error = 'Option [SCHEDULE_DATE] must be a String'
+        error = _('Option [SCHEDULE_DATE] must be a String')
         verified = False
 
       if not verified:
@@ -137,30 +137,30 @@ class SchemaParser:
       """
 
       if len(name) > 30 or not self.utils.is_string_safe(name):
-        error = 'Option [ASSESSMENT_NAME] must not exceed 30 characters and must not have special characters.'
+        error = _('Option [ASSESSMENT_NAME] must not exceed 30 characters and must not have special characters.')
         verified = False
       
       if description:
         if len(description) > 50 or not self.utils.is_string_safe(description):
-          error = 'Option [ASSESSMENT_DESCRIPTION] must not exceed 200 characters and must not have special characters.'
+          error = _('Option [ASSESSMENT_DESCRIPTION] must not exceed 200 characters and must not have special characters.')
           verified = False
       
       if engineer:
         if len(engineer) > 20 or not self.utils.is_string_safe(engineer):
-          error = 'Option [ENGINEER] must not exceed 20 characters and must not have special characters.'
+          error = _('Option [ENGINEER] must not exceed 20 characters and must not have special characters.')
           verified = False
       
       if webhook:
         if not self.utils.is_string_url(webhook):
-          error = 'Option [WEB_HOOK] must be a valid URL.'
+          error = _('Option [WEB_HOOK] must be a valid URL.')
           verified = False
       
       if frequency not in ('once', 'continuous','schedule'):
-        error = 'Option [SCHEDULE] must be "once" or "continuous" or "schedule"'
+        error = _('Option [SCHEDULE] must be "once" or "continuous" or "schedule"')
         verified = False
 
       if not schedule_date and frequency == 'schedule':
-        error = 'Option [SCHEDULE_DATE] must not be empty if scheduling a scan'
+        error = _('Option [SCHEDULE_DATE] must not be empty if scheduling a scan')
         verified = False
 
       if schedule_date:
@@ -182,43 +182,43 @@ class SchemaParser:
 
           # Check scheduled date is posterior to current date
           if (datetime.datetime.now() > check_date): 
-            error = 'Option [SCHEDULE_DATE] must be prior to current date'
+            error = _('Option [SCHEDULE_DATE] must not be prior to current date')
             verified = False
           # Verify date is no more than 2100
           if (yyyy > 2100):
-            error = 'Option [SCHEDULE_DATE] must not surpass year 2100'
+            error = _('Option [SCHEDULE_DATE] must not surpass year 2100')
             verified = False
         except Exception as e:
-           error = 'Option [SCHEDULE_DATE] must be in date format yyyy-mm-ddThh:mm'
+           error = _('Option [SCHEDULE_DATE] must be in date format yyyy-mm-ddThh:mm')
            verified = False
 
       if not 0 <= intrusive_level <= 3:
-        error = 'Option [AGGRESSIVE_LEVEL] must be between 0-3'
+        error = _('Option [AGGRESSIVE_LEVEL] must be between 0-3')
         verified = False
           
       if max_ports:
         if not self.netutils.is_valid_port(max_ports):
-          error = 'Option [MAX_PORTS] must be a value between 0-65535'
+          error = _('Option [MAX_PORTS] must be a value between 0-65535')
           verified = False          
 
       if custom_ports:
         for cport in custom_ports:
           if not self.netutils.is_valid_port(cport):
-            error = 'Option [CUSTOM_PORTS] must be an array of values between 0-65535'
+            error = _('Option [CUSTOM_PORTS] must be an array of values between 0-65535')
             verified = False
         
       if not networks and not domains:
-        error = 'Options [DOMAINS] or Options [NETWORKS] must not be empty'
+        error = _('Options [DOMAINS] or Options [NETWORKS] must not be empty')
         verified = False
         
       if networks:
         for network in networks:
           try:
             if not self.netutils.is_network(network): 
-              error = 'Option [NETWORKS] must be a valid network CIDR'
+              error = _('Option [NETWORKS] must be a valid network CIDR')
               raise ValueError
             elif self.netutils.is_network_in_denylist(network):
-              error = 'Option [NETWORKS] is not allowed'   
+              error = _('Option [NETWORKS] is not allowed')   
               raise ValueError
           
           except ValueError:
@@ -230,34 +230,34 @@ class SchemaParser:
             if not self.netutils.is_network(network):
               raise ValueError
           except ValueError:
-            error = 'Option [EXCLUDED NETWORKS] must be a valid network CIDR'
+            error = _('Option [EXCLUDED NETWORKS] must be a valid network CIDR')
             verified = False
       
       if domains:
         for domain in domains:
           if not self.netutils.is_dns(domain):
-            error = 'Option [DOMAINS] must contain valid domains (and they must be resolveable!)'
+            error = _('Option [DOMAINS] must contain valid domains (and they must be resolveable!)')
             verified = False
       
       if net_interface:
         n = Network()
         if not net_interface in n.get_nics():
-          error = 'Option [NET_INTERFACE] must be valid'
+          error = _('Option [NET_INTERFACE] must be valid')
           verified = False
       
       else:
         self.data['config']['scan_opts']['interface'] = None
       
       if not 1 <= parallel_attack <= 100:
-        error = 'Option [ATTACK_THREADS] must be between 1-100'
+        error = _('Option [ATTACK_THREADS] must be between 1-100')
         verified = False
 
       if not 1 <= parallel_scan <= 100:
-        error = 'Option [SCAN_THREADS] must be between 1-100'
+        error = _('Option [SCAN_THREADS] must be between 1-100')
         verified = False
    
     except KeyError as e:
-      error = 'One or more options are missing: {}'.format(e)
+      error = _('One or more options are missing: %(err)s', err=e)
       verified = False
       
     return (verified, error, self.data)

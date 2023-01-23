@@ -25,24 +25,24 @@
             <div class="content">
               <div class="container-fluid">
                   <div class="page-title">
-                      <h3>Vulnerabilities</h3>
+                      <h3>{{_('Vulnerabilities')}}</h3>
                   </div>
                   <div class="row">
                       <div class="col-md-12 col-lg-12">
                           <div class="card">
-                              <div class="card-header">Vulnerabilities</div>
+                              <div class="card-header">{{_('Vulnerabilities')}}</div>
                               <div class="card-body">
                                   <p class="card-title"></p>
                                   <table class="table table-hover" id="dataTables-vulnerabilities" width="100%">
                                       <thead>
                                           <tr>
                                               <th>#</th>
-                                              <th>Target</th>
-                                              <th>Domain</th>
-                                              <th>Port</th>
-                                              <th>Severity</th>
-                                              <th>Result</th>
-                                              <th>Actions</th>
+                                              <th>{{_('Target')}}</th>
+                                              <th>{{_('Domain')}}</th>
+                                              <th>{{_('Port')}}</th>
+                                              <th>{{_('Severity')}}</th>
+                                              <th>{{_('Result')}}</th>
+                                              <th>{{_('Actions')}}</th>
                                           </tr>
                                       </thead>
                                       {% if data %}
@@ -53,27 +53,27 @@
                                          <td>{% if value.domain %} {{value.domain}} {% else %} N/A {% endif %}</td>
                                          <td>{{value.port}}</td>
                                          {% if value.rule_sev == 0 %}
-                                         <td><span class="informational">Informational</td> 
+                                         <td><span class="informational">{{_('Informational')}}</td> 
                                         {% elif value.rule_sev == 1 %}
-                                        <td><span class="low">Low</td>
+                                        <td><span class="low">{{_('Low')}}</td>
                                         {% elif value.rule_sev == 2 %}
-                                        <td><span class="medium">Medium</td>
+                                        <td><span class="medium">{{_('Medium')}}</td>
                                         {% elif value.rule_sev == 3 %}
-                                        <td><span class="high">High</span></td>
+                                        <td><span class="high">{{_('High')}}</span></td>
                                         {% elif value.rule_sev == 4 %}
-                                        <td><span class="critical">Critical</td>
+                                        <td><span class="critical">{{_('Critical')}}</td>
                                         {% elif value.rule_sev == 5 %}
-                                        <td><span class="undefined">Undefined</td>
+                                        <td><span class="undefined">{{_('Undefined')}}</td>
                                         {% elif value.rule_sev == 6 %}
-                                        <td><span class="potential">Potential</td>
+                                        <td><span class="potential">{{_('Potential')}}</td>
                                         {% endif %}
                                          <td>{{value.rule_confirm}}</td>
                                          <td>
                                             <a href="/alert/view/{{key}}">
-                                            <button type="button" class="btn btn-outline-info mb-2">View</button>
+                                            <button type="button" class="btn btn-outline-info mb-2">{{_('View')}}</button>
                                             </a>
                                             <a href="/alert/resolve/{{key}}">
-                                                <button type="button" class="btn btn-outline-success mb-2">Resolve</button>
+                                                <button type="button" class="btn btn-outline-success mb-2">{{_('Resolve')}}</button>
                                             </a>
                                         </td>
                                        </tr>

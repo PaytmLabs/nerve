@@ -2,6 +2,7 @@ import config
 
 from core.redis import rds
 from core.security import session_required
+from core.logging import logger
 
 from core.reports import (
   generate_html, 
@@ -10,6 +11,7 @@ from core.reports import (
   generate_xml
 )
 
+from flask_babel import _
 from flask import (
   Blueprint,
   flash,
@@ -24,7 +26,7 @@ download = Blueprint('download', __name__,
 @session_required
 def view_download(file):
   if not file:
-    return {'status':'file is missing'}, 400
+    return {'status':_('file is missing')}, 400
   
   if file == 'server_log':
     response = send_from_directory(directory='logs', 
@@ -34,13 +36,17 @@ def view_download(file):
     return response
   
   else:
-    data = rds.get_vuln_data()
-    conf = rds.get_scan_config()
+    data = rds.get_last_vuln_data()
+    conf = rds.get_last_scan_config()
     
-    if not data and not conf:
-      flash('There is no data in the system for report generation', 'error')
+    if not data: 
+      flash(_('There is no data in the system for report generation'), 'error')
       return redirect('/reports')
-    
+     
+    if not conf:
+      flash(_('Last scan has not finished yet.'), 'error')
+      return redirect('/reports')
+ 
     if file == 'report_html':  
       report_file = generate_html(data, conf)
       response = send_from_directory(directory='reports', 

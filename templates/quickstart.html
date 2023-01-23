@@ -22,29 +22,29 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="page-title">
-                        <h3>Quick Start</h3>
+                        <h3>{{_('Quick Start')}}</h3>
                     </div>
 
                     <div class="row">
                       <div class="col-md-12">
                           <div class="card">
-                              <div class="card-header">Quick Start</div>
+                              <div class="card-header">{{_('Quick Start')}}</div>
                               <div class="card-body">
-                                  <p class="card-title">This is the <b>quickest</b> way to get started.</p>
-                                  <p>The quick start method uses predefined settings as we see fit. You can find the scan definitions <a href="/documentation#quickstart" target="_blank">here</a>.</p>
-                                  <p>All you need to do is define the network and click <span   style="font-weight:bold">GO!</span></p>
+                                  <p class="card-title">{{_('This is the')}} <b>{{_('quickest')}}</b> {{_('way to get started.')}}</p>
+                                  <p>{{_('The quick start method uses predefined settings as we see fit. You can find the scan definitions')}} <a href="/documentation#quickstart" target="_blank">{{_('here')}}</a>.</p>
+                                  <p>{{_('All you need to do is define the network and click')}} <span   style="font-weight:bold">{{_('GO!')}}</span></p>
                                   <div class="form-group row">
-                                    <label class="col-sm-2">CIDR Network<br>
-                                        <small class="form-text text-muted"><a href="https://www.ipaddressguide.com/cidr" target="_blank">What is CIDR?</a></small>
+                                    <label class="col-sm-2">{{_('CIDR Network')}}<br>
+                                        <small class="form-text text-muted"><a href="https://www.ipaddressguide.com/cidr" target="_blank">{{_('What is CIDR?')}}</a></small>
                                     </label>
                                     <div class="col-sm-10">
                                         <form method="POST" action="/qs" class="form-inline" accept-charset="utf-8">
                                           <div class="form-group">
-                                              <label for="username" class="sr-only">Network</label>
+                                              <label for="username" class="sr-only">{{_('Network')}}</label>
                                               <input type="text" size="30" name="network" placeholder="192.168.0.0/24" class="form-control">
                                           </div>
                                           <div class="form-group">
-                                              <button type="submit" class="btn btn-success">GO!</button>
+                                              <button type="submit" class="btn btn-success">{{_('GO!')}}</button>
                                           </div> 
                                       </form>
                                       <div>    

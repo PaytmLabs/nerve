@@ -9,11 +9,11 @@
                                     <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
                                         <ul class="nav-list">
                                           {% if language == "es" %}
-                                          <li><button class="dropdown-item" type="submit" onclick="change_language('en');"><img src="{{ url_for('static', filename="img/uk_icon.png") }}" width= "16" height="16"/> English</button></li>
-                                          <li><button class="dropdown-item disabled" style="background-color: #C5E1A5" type="submit" onclick="change_language('es');"><img src="{{ url_for('static', filename="img/spain_icon.png") }}" width= "16" height="16"/> Spanish</button></li>
+                                          <li><button class="dropdown-item" type="submit" onclick="change_language('en');"><img src="{{ url_for('static', filename="img/uk_icon.png") }}" width= "16" height="16"/>{{_(' English')}}</button></li>
+                                          <li><button class="dropdown-item disabled" style="background-color: #C5E1A5" type="submit" onclick="change_language('es');"><img src="{{ url_for('static', filename="img/spain_icon.png") }}" width= "16" height="16"/>{{_(' Spanish')}}</button></li>
                                           {% else %}
-                                          <li><button class="dropdown-item disabled" type="submit" onclick="change_language('en');"><img src="{{ url_for('static', filename="img/uk_icon.png") }}" width= "16" height="16"/> English</button></li>
-                                          <li><button class="dropdown-item" style="background-color: #C5E1A5" type="submit" onclick="change_language('es');"><img src="{{ url_for('static', filename="img/spain_icon.png") }}" width= "16" height="16"/> Spanish</button></li>
+                                          <li><button class="dropdown-item disabled" style="background-color: #C5E1A5" type="submit" onclick="change_language('en');"><img src="{{ url_for('static', filename="img/uk_icon.png") }}" width= "16" height="16"/>{{_(' English')}}</button></li>
+                                          <li><button class="dropdown-item" type="submit" onclick="change_language('es');"><img src="{{ url_for('static', filename="img/spain_icon.png") }}" width= "16" height="16"/>{{_(' Spanish')}}</button></li>
                                           {% endif %}
                                         </ul>
                                     </div>
@@ -25,10 +25,10 @@
                                     <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
                                         <ul class="nav-list">
-                                          <li><a href="https://github.com/TomasTorresB/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
-                                          <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
+                                          <li><a href="https://github.com/TomasTorresB/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i>{{_(' Report a Bug')}}</a></li>
+                                          <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i>{{_(' Settings')}}</a></li>
                                           <div class="dropdown-divider"></div>
-                                          <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                          <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i>{{_(' Logout')}}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -36,7 +36,8 @@
                             <li class="nav-item dropdown">
                                 <div class="nav-dropdown">
                                     {% if vuln_count %}
-                                    <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
+                                    <a href="/vulnerabilities" class="nav-item nav-link"><i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span></a>
+
                                     {% else %}
                                     <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
                                     {% endif %}

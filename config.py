@@ -1,5 +1,6 @@
 import os
 import sys
+from flask_babel import _
 
 # Logger Configuration
 LOG_LEVEL = 'DEBUG'
@@ -45,8 +46,8 @@ DEFAULT_SCAN = {
     'domains':[]
   },
   'config':{
-    'name':'Default',
-    'description':'My Default Scan',
+    'name':_('Default'),
+    'description':_('My Default Scan'),
     'engineer':'John Doe',
     'allow_aggressive':3,
     'allow_dos':False,
@@ -66,7 +67,8 @@ DEFAULT_SCAN = {
     'post_event':{
       'webhook':None
     },
-    'frequency':'once'
+    'frequency':'once',
+    'schedule_date': ''
   }
 }
 

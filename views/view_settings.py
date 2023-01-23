@@ -3,6 +3,7 @@ from core.utils import Utils
 from core.security import session_required
 from core.mailer  import send_email
 
+from flask_babel import _
 from flask import Blueprint, render_template, request
 
 settings = Blueprint('settings', __name__,
@@ -26,12 +27,12 @@ def view_settings():
         hook = u_settings['slack'].get('hook', None)
         if utils.is_string_url(hook):
           rds.store('p_settings_slack', hook)
-          code, msg = 200, 'Saved Slack Setting'
+          code, msg = 200, _('Saved Slack Setting')
         else:
-          code, msg = 400, 'Slack hook must be a URL'
+          code, msg = 400, _('Slack hook must be a URL')
 
       else:
-        code, msg = 400, 'Error Occurred'
+        code, msg = 400, _('Error Occurred')
       
       return  {'status': msg }, code
         
@@ -40,12 +41,12 @@ def view_settings():
     settings = u_settings.get('settings', None)
     if settings == 'email':
       rds.delete('p_settings_email')
-      code, msg = 200, 'Deleted Email Settings'
+      code, msg = 200, _('Deleted Email Settings')
     elif settings == 'slack':
       rds.delete('p_settings_slack')
-      code, msg = 200, 'Deleted Slack Settings'
+      code, msg = 200, _('Deleted Slack Settings')
     else:
-      code, msg = 400, 'Error Occurred'
+      code, msg = 400, _('Error Occurred')
       
     return  {'status': msg}, code
   
