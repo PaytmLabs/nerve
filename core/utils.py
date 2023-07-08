@@ -71,7 +71,7 @@ class Utils:
     except:
       return True
 
-  def json_serial(obj):
+  def json_serial(self, obj):
     """JSON serializer for objects not serializable by default json code"""
 
     if isinstance(obj, (datetime.datetime, datetime.date)):
@@ -172,7 +172,10 @@ class Integration:
   def submit_webhook(self, webhook, cfg, data={}):
     logger.info('Sending the webhook...')
     try:
+      utils = Utils()
+      cfg['config']['schedule_date'] = utils.json_serial(cfg['config']['schedule_date'])
       data = {'status':'done', 'vulnerabilities':data, 'scan_config':cfg}
+      logger.debug("WEBHOOK DATA: {}".format(data))
       requests.post(webhook, 
                     json=data, 
                     headers={'User-Agent':USER_AGENT, 

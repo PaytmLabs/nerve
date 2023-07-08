@@ -22,138 +22,141 @@
             <div class="content" id="gui">
               <div class="container-fluid">
                   <div class="page-title">
-                      <h3>Graphical User Interface</h3>
+                      <h3>{{_('Graphical User Interface')}}</h3>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="card">
-                          <div class="card-header"><b>Usage</b></div>
+                          <div class="card-header"><b>{{_('Usage')}}</b></div>
                           <div class="card-body">
                             <div id="toc_container">
-                              <p class="toc_title">Table of Contents</p>
+                              <p class="toc_title">{{_('Table of Contents')}}</p>
                               <ul class="toc_list">
-                                <li><a href="#quickstart">1. Quickstart</a>
+                                <li><a href="#quickstart">{{_('1. Quickstart')}}</a>
                               </li>
-                              <li><a href="#assessment">2. Assessment</a>
+                              <li><a href="#assessment">{{_('2. Assessment')}}</a>
                                 <ul>
-                                  <li><a href="#general">General</a></li>
-                                  <li><a href="#targets">Targets</a></li>
-                                  <li><a href="#configuration">Configuration</a></li>
-                                  <li><a href="#dictionary">Dictionary</a></li>
-                                  <li><a href="#schedule">Schedule</a></li>
-                                  <li><a href="#post_event">Post Event</a></li>
+                                  <li><a href="#general">{{_('General')}}</a></li>
+                                  <li><a href="#targets">{{_('Targets')}}</a></li>
+                                  <li><a href="#configuration">{{_('Configuration')}}</a></li>
+                                  <li><a href="#dictionary">{{_('Dictionary')}}</a></li>
+                                  <li><a href="#schedule">{{_('Schedule')}}</a></li>
+                                  <li><a href="#post_event">{{_('Post Event')}}</a></li>
                                 </ul>
                               </li>
-                              <li><a href="#reports">3. Reports</a></li>
-                              <li><a href="#notifications">4. Notifications</a></li>
-                              <li><a href="#security">5. Security</a></li>
-                              <li><a href="#upgrade">6. Upgrade</a></li>
-                              <li><a href="#miscellaneous">7. Miscellaneous</a></li>
+                              <li><a href="#reports">{{_('3. Reports')}}</a></li>
+                              <li><a href="#notifications">{{_('4. Notifications')}}</a></li>
+                              <li><a href="#security">{{_('5. Security')}}</a></li>
+                              <li><a href="#upgrade">{{_('6. Upgrade')}}</a></li>
+                              <li><a href="#miscellaneous">{{_('7. Miscellaneous')}}</a></li>
                               </div>
                           </div>
                         
                           <div class="card-body" >
-                          <h3 id="quickstart"><b>Quickstart</b></h3>
-                          <p>Quickstart is the best way to try out NERVE in its most simplest form. Think of it as running a basic scan, without the ability to define how it will execute.</p>
-                          <p>By using this option, you are required to specify <a href="https://www.ipaddressguide.com/cidr">Network CIDR notations</a>, Quickstart <b> doesn't support DNS.</b></p>
-                          <p>For example, if you want to scan your home network, you could simply type <b>192.168.0.0/24</b>. Of course, the IP will depend on your router's IP scope.</p>
+                          <h3 id="quickstart"><b>{{_('Quickstart')}}</b></h3>
+                          <p>{{_('Quickstart is the best way to try out NERVE in its most simplest form. Think of it as running a basic scan, without the ability to define how it will execute.')}}</p>
+                          <p>{{_('By using this option, you are required to specify')}} <a href="https://www.ipaddressguide.com/cidr">{{_('Network CIDR notations')}}</a>, {{_('Quickstart')}} <b> {{_('does not support DNS.')}}</b></p>
+                          <p>{{_('For example, if you want to scan your home network, you could simply type')}} <b>192.168.0.0/24</b>. {{_('Of course, the IP will depend on your router IP scope.')}}</p>
                           <br>
-                          <p>The settings of the scan if you choose to use Quickstart is as follows:</p>
+                          <p>{{_('The settings of the scan if you choose to use Quickstart are as follows:')}}</p>
                           <ul>
-                            <li>Exclusions: <b>None</b></li>
-                            <li>Aggressive level: <b>Maximum</b></li>
-                            <li>Denial of Service: <b>Disabled</b></li>
-                            <li>Brute Force: <b>Disabled</b></li>
-                            <li>Outbound Internet Connections: <b>Enabled</b></li>
-                            <li>Interface: <b>Default</b></li>
-                            <li>Max Ports: <b>100</b></li>
-                            <li>Parallel Scan: <b>50</b></li>
-                            <li>Parallel Attack: <b>30</b></li>
-                            <li>Post Event: <b>None</b></li>
-                            <li>Frequency: <b>Once</b></li>
+                            <li>{{_('Exclusions:')}} <b>{{_('None')}}</b></li>
+                            <li>{{_('Aggressive level:')}} <b>{{_('Maximum')}}</b></li>
+                            <li>{{_('Denial of Service:')}} <b>{{_('Disabled')}}</b></li>
+                            <li>{{_('Brute Force:')}} <b>{{_('Disabled')}}</b></li>
+                            <li>{{_('Outbound Internet Connections:')}} <b>{{_('Enabled')}}</b></li>
+                            <li>{{_('Interface:')}} <b>{{_('Default')}}</b></li>
+                            <li>{{_('Max Ports:')}} <b>100</b></li>
+                            <li>{{_('Parallel Scan:')}} <b>50</b></li>
+                            <li>{{_('Parallel Attack:')}} <b>30</b></li>
+                            <li>{{_('Post Event:')}} <b>{{_('None')}}</b></li>
+                            <li>{{_('Frequency:')}} <b>{{_('Once')}}</b></li>
+                            <li>{{_('Schedule Date:')}} <b>{{_('None')}}</b></li>
                           </ul>
                           <hr>
-                          <h3 id="assessment"><b>Assessment</b></h3>
-                          <p>Assessment is where you configure your first advanced scan.</p>
-                          <h4 id="general">General</h4>
-                          <p>You start by defining some metadata about your scan.</p>
-                          <p><b>Assessment Title</b></p>
-                          <p>This is the name of the assessment. This name appears in the reports you generate in the GUI, such as the HTML. It will also show up in the API output when you call <a href="#get_status">/api/scan/status</a></b></p>
-                          <p><b>Assessment Description</b></p>
-                          <p>This is the description of the assessment. It's a free text description of what this assessment is about. similiarly to the <b>Assessment Title</b>, it will show up in the API output when you call <a href="#get_status">/api/scan/status</a> </b></p>
-                          <p><b>Name of Engineer</b></p>
-                          <p>This is a field to describe who is running the assessment. Similiarly to the <b>Assessment Title</b>, it will show up in the reports, and also in the API output when you call <a href="#get_status">/api/scan/status</a> </b></p>
+                          <h3 id="assessment"><b>{{_('Assessment')}}</b></h3>
+                          <p>{{_('Assessment is where you configure your first advanced scan.')}}</p>
+                          <h4 id="general">{{_('General')}}</h4>
+                          <p>{{_('You start by defining some metadata about your scan.')}}</p>
+                          <p><b>{{_('Assessment Title')}}</b></p>
+                          <p>{{_('This is the name of the assessment. This name appears in the reports you generate in the GUI, such as the HTML. It will also show up in the API output when you call')}} <a href="#get_status">/api/scan/status</a></b></p>
+                          <p><b>{{_('Assessment Description')}}</b></p>
+                         <p>{{_("This is the description of the assessment. It's a free text description of what this assessment is about. Similiarly to the")}} <b>{{_('Assessment Title')}}</b>, {{_('it will show up in the API output when you call')}} <a href="#get_status">/api/scan/status</a> </b></p>
+                          <p><b>{{_('Name of Engineer')}}</b></p>
+                          <p>{{_('This is a field to describe who is running the assessment. Similiarly to the')}} <b>{{_('Assessment Title')}}</b>, {{_('it will show up in the reports, and also in the API output when you call')}} <a href="#get_status">/api/scan/status</a> </b></p>
                           <hr>
-                          <p><h4 id="targets">Targets</h4></p>
-                          <p>Targets are the endpoints that will be scanned and assessed. These can be IP addresses, Domains and Subdomains.</p>
-                          <p>NERVE doesn't do DNS discovery for a given parent domain. There are tools you could potentially use in conjuction with NERVE that will do this work for you. Such as Passive DNS, RiskIQ, Fierce, OWASP Amass, etc.</p>
-                          <p><b>Networks</b></p>
-                          <p>This field takes a list of CIDR Networks (Comma separated). Example: <b>212.199.1.0/24, 212.199.2.0/24</b></p>
-                          <p><b>Excluded Networks</b></p>
-                          <p>This field takes a list of CIDR Networks (Comma separated). Example: <b>212.199.1.1/32, 212.199.2.1/32</b>. Note: Any networks defined here will be excluded from the assessment.</p>
-                          <p><b>Domains</b></p>
-                          <p>This field takes a list of DNS records (Comma separated). Example: <b>example.com, sub.example.com</b></p>
+                          <p><h4 id="targets">{{_('Targets')}}</h4></p>
+                          <p>{{_('Targets are the endpoints that will be scanned and assessed. These can be IP addresses, Domains and Subdomains.')}}</p>
+                          <p>{{_("NERVE doesn't do DNS discovery for a given parent domain. There are tools you could potentially use in conjuction with NERVE that will do this work for you. Such as Passive DNS, RiskIQ, Fierce, OWASP Amass, etc.")}}</p>
+                          <p><b>{{_('Networks')}}</b></p>
+                          <p>{{_('This field takes a list of CIDR Networks (Comma separated). Example:')}} <b>212.199.1.0/24, 212.199.2.0/24</b></p>
+                          <p><b>{{_('Excluded Networks')}}</b></p>
+                          <p>{{_('This field takes a list of CIDR Networks (Comma separated). Example:')}} <b>212.199.1.1/32, 212.199.2.1/32</b>. {{_('Note: Any networks defined here will be excluded from the assessment.')}}</p>
+                          <p><b>{{_('Domains')}}</b></p>
+                          <p>{{_('This field takes a list of DNS records (Comma separated). Example:')}} <b>{{_('example.com, sub.example.com')}}</b></p>
                           <hr>
-                          <h4 id="configuration">Configuration</h4>
-                          <p>This is where the advanced configuration of the scan is defined.</p>
-                          <p><b>Aggressiveness Level</b></p>
-                          <p>This is going to ultimately decide which rules (checking if SSH is open is an example of a rule) run against your target scope. The more aggressive it is, the more rules are going to run.</p>
-                          <p>For example, a rule that makes a lot of HTTP GET requests will be run only if you choose the use the aggressive mode. A rule that checks if a port is open, would run under all conditions.</p>
-                          <p><b>Allow Outbound Connections</b></p>
-                          <p>Some rules require making outbound internet connections, such as checking against CVE lists, etc.</p>
-                          <p>If you run NERVE internally in a dark network without internet, you could simply toggle this off.</p>
-                          <p><b>Attempt Brute Force Attacks</b></p>
-                          <p>Some rules can run brute force attacks against a given server. For example, if a server is determined to have an SSH port open and it also accepts passwords as a mean of authentication, NERVE can attempt to run through a list of passwords and try to authenticate.</p>
-                          <p>Note that if you provide a list of usernames and passwords via the <a href="#dictionary">Dictionary option</a>, it may take a long time for a full assessment to complete. Use with caution.</p>
-                          <p><b>Attempt Denial of Service Attacks</b></p>
-                          <p>Some rules can run test for Denial of Service vulnerabilities against a given server. Disable if you want to ensure your services are not bombarded.</p>
-                          <p><b>Ethernet</b></p>
-                          <p>Defining the Ethernet to use for port scanning. This is optional. if nothing is specified, it will use the default.</p>
+                          <h4 id="configuration">{{_('Configuration')}}</h4>
+                          <p>{{_('This is where the advanced configuration of the scan is defined.')}}</p>
+                          <p><b>{{_('Aggressiveness Level')}}</b></p>
+                          <p>{{_('This is going to ultimately decide which rules (checking if SSH is open is an example of a rule) run against your target scope. The more aggressive it is, the more rules are going to run.')}}</p>
+                          <p>{{_('For example, a rule that makes a lot of HTTP GET requests will be run only if you choose the use the aggressive mode. A rule that checks if a port is open, would run under all conditions.')}}</p>
+                          <p><b>{{_('Allow Outbound Connections')}}</b></p>
+                          <p>{{_('Some rules require making outbound internet connections, such as checking against CVE lists, etc.')}}</p>
+                          <p>{{_('If you run NERVE internally in a dark network without internet, you could simply toggle this off.')}}</p>
+                          <p><b>{{_('Attempt Brute Force Attacks')}}</b></p>
+                          <p>{{_('Some rules can run brute force attacks against a given server. For example, if a server is determined to have an SSH port open and it also accepts passwords as a mean of authentication, NERVE can attempt to run through a list of passwords and try to authenticate.')}}</p>
+                          <p>{{_('Note that if you provide a list of usernames and passwords via the ')}}<a href="#dictionary">{{_('Dictionary option')}}</a>{{_(', it may take a long time for a full assessment to complete. Use with caution.')}}</p>
+                          <p><b>{{_('Attempt Denial of Service Attacks')}}</b></p>
+                          <p>{{_('Some rules can run test for Denial of Service vulnerabilities against a given server. Disable if you want to ensure your services are not bombarded.')}}</p>
+                          <p><b>{{_('Ethernet')}}</b></p>
+                          <p>{{_('Defining the Ethernet to use for port scanning. This is optional, if nothing is specified, it will use the default.')}}</p>
 
-                          <p><b>Maximum Ports</b></p>
-                          <p>This is a relatively important option. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.</p>
-                          <p>However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you. 
-                             Too little ports means you may miss out on services, but the scan is going to be faster. Too many means you may sacrifice speed.</p>
-                          <p>The default value for maximum ports is <b>100</b> ports (this ensures that at least http/https/ftp/ssh are covered).</p>
+                          <p><b>{{_('Maximum Ports')}}</b></p>
+                          <p>{{_('This is a relatively important option. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.')}}</p>
+                          <p>{{_('However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you. 
+                             Too little ports means you may miss out on services, but the scan is going to be faster. Too many means you may sacrifice speed.')}}</p>
+                          <p>{{_('The default value for maximum ports is ')}}<b>100</b>{{_(' ports (this ensures that at least http/https/ftp/ssh are covered).')}}</p>
                           
-                          <p><b>Custom Ports</b></p>
-                          <p>You could specify your own custom list of ports. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.</p>
-                          <p>By default, if you do not specify a Custom Port list, NERVE will use the Maximum Ports value of <b>100</b>.</p>
-                          <p>If you specify <b>both</b> Maximum Ports and Custom Ports, <b>Custom Ports will take presedence</b> and Maximum Ports will simply be ignored.</p>
+                          <p><b>{{_('Custom Ports')}}</b></p>
+                          <p>{{_('You could specify your own custom list of ports. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.')}}</p>
+                          <p>{{_('By default, if you do not specify a Custom Port list, NERVE will use the Maximum Ports value of ')}}<b>100</b>.</p>
+                          <p>{{_('If you specify ')}}<b>{{_('both')}}</b>{{_(' Maximum Ports and Custom Ports, ')}}<b>{{_('Custom Ports will take presedence')}}</b>{{_(' and Maximum Ports will simply be ignored.')}}</p>
                           
-                          <p><b>Parallel Scan</b></p>
-                          <p>This value represents the number of hosts which will be scanned simultaneously, for example, 60 means the port scan will run against 60 hosts at the same time.</p>
-                          <p>The default value for Parallel Scan is <b>50</b></p>
-                          <p><b>Parallel Attack</b></p>
-                          <p>This value represents the number of hosts which will be attacked simultaneously, for example, 60 means the attack rules will run against 60 hosts at the same time.</p>
-                          <p>The default value for Parallel Attack is <b>30</b></p>
+                          <p><b>{{_('Parallel Scan')}}</b></p>
+                          <p>{{_('This value represents the number of hosts which will be scanned simultaneously, for example, 60 means the port scan will run against 60 hosts at the same time.')}}</p>
+                          <p>{{_('The default value for Parallel Scan is ')}}<b>50</b></p>
+                          <p><b>{{_('Parallel Attack')}}</b></p>
+                          <p>{{_('This value represents the number of hosts which will be attacked simultaneously, for example, 60 means the attack rules will run against 60 hosts at the same time.')}}</p>
+                          <p>{{_('The default value for Parallel Attack is ')}}<b>30</b></p>
                           <hr>
-                          <h4 id="dictionary">Dictionary</h4>
-                          <p>Dictionary allows you to bring your own usernames and credentials list.</p>
-                          <p>When the <b>Attempt Brute Force</b> option is enabled, we will take your list and run it against any brute-forceable services we identify.</p>
-                          <p>If you do not provide a list of usernames and passwords, we will simply use our (very short) list of usernames and passwords.</p>
-                          <p>Think of this more of  a sanity check, than a comprehensive brute force attempt. Our goal is not to try millions of passwords, this will not be efficient.</p>
-                          <p>When providing the list, make sure it is separated by a new line, e.g.</p>
+                          <h4 id="dictionary">{{_('Dictionary')}}</h4>
+                          <p>{{_('Dictionary allows you to bring your own usernames and credentials list.')}}</p>
+                          <p>{{_('When the ')}}<b>{{_('Attempt Brute Force')}}</b>{{_(' option is enabled, we will take your list and run it against any brute-forceable services we identify.')}}</p>
+                          <p>{{_('If you do not provide a list of usernames and passwords, we will simply use our (very short) list of usernames and passwords.')}}</p>
+                          <p>{{_('Think of this more of  a sanity check, than a comprehensive brute force attempt. Our goal is not to try millions of passwords, this will not be efficient.')}}</p>
+                          <p>{{_('When providing the list, make sure it is separated by a new line, e.g.')}}</p>
                           <p>
                             <pre>password123<br>admin123</pre>
                           </p>
                           <hr>
-                          <h4 id="schedule">Schedule</h4>
-                          <p>Schedule is how often you want to run an assessment. There are 2 options: <b>Once</b> and <b>Continuously</b></p>
-                          <p><b>Once</b> means a scan will run 1 time, and then it's over.</p>
-                          <p><b>Continuously</b> means, a scan will run, and then another 1 will follow, until the end of humanity.</p>
-                          <p>When running in Continuous Mode, a "Status" indicator will appear on the sidebar (Menu bar) indicating the system will run forever.<br>
-                          If you want to stop, just click on the new button that will appear on the side bar called <b>Reset System</b>.
+                          <h4 id="schedule">{{_('Schedule')}}</h4>
+                          <p>{{_('Schedule is when and how often you want to run an assessment. There are 3 options: ')}}<b>{{_('Once')}}</b>,  <b>{{_('Schedule')}}</b>{{_(' and ')}}<b>{{_('Continuously')}}</b></p>
+                          <p><b>{{_('Once')}}</b>{{_(" means a scan will run 1 time inmediately, and then it's over.")}}</p>
+                          <p><b>{{_('Schedule')}}</b>{{_(' means you can schedule the time the scan will run.')}}</p>
+                          <p>{{_('A calendar input will appear if using this mode. You can set the execution date through the calendar or directly into the input field.')}}</p>
+                          <p><b>{{_('Continuously')}}</b>{{_(' means, a scan will run, and then another one will follow, until the end of humanity.')}}</p>
+                          <p>{{_('When running in Continuous Mode, a "Status" indicator will appear on the sidebar (Menu bar) indicating the system will run forever.')}}<br>
+                          {{_('If you want to stop, just click on the new button that will appear on the side bar called ')}}<b>{{_('Reset System')}}</b>.
 
-                          <p>To achieve true Continuous Security, we recommend to run it in Continuous mode.</p>
+                          <p>{{_('To achieve true Continuous Security, we recommend to run it in Continuous mode.')}}</p>
                         </p>
                         <hr>
-                        <h4 id="post_event">Post Event</h4>
-                        <p>You can configure NERVE to send you post events.</p>
-                        <p><b>Web Hook</b></p>
-                        <p>A web hook is basically a post-process event that happens after some condition is met (such as, after a scan is completed.)</p>
-                        <p>NERVE can send you the Assessment data as soon as a scan completes, to an endpoint of your choice. Your endpoint must be able to be accessed by NERVE, and receive JSON data.</p>
-                        <p>The data NERVE is going to send, may look like the following:</p>
+                        <h4 id="post_event">{{_('Post Event')}}</h4>
+                        <p>{{_('You can configure NERVE to send you post events.')}}</p>
+                        <p><b>{{_('Web Hook')}}</b></p>
+                        <p>{{_('A web hook is basically a post-process event that happens after some condition is met (such as, after a scan is completed.)')}}</p>
+                        <p>{{_('NERVE can send you the Assessment data as soon as a scan completes, to an endpoint of your choice. Your endpoint must be able to be accessed by NERVE, and receive JSON data.')}}</p>
+                        <p>{{_('The data NERVE is going to send, may look like the following:')}}</p>
 <pre>
 {
   "status":"done",
@@ -220,51 +223,51 @@
       }
   }
 }</pre>
-                        <p>A webhook endpoint may look like this: <b>http://example.com/recieve</b>, or with a specified port <b>https://example.com:8000/receive</b></p>
+                        <p>{{_('A webhook endpoint may look like this: ')}}<b>http://example.com/recieve</b>,{{_(' or with a specified port ')}}<b>https://example.com:8000/receive</b></p>
                         <hr>
-                        <h4 id="reports">Reports</h4>
-                        <p>NERVE supports 3 types of reports. These reports are only available via the Web Interface.</p>
+                        <h4 id="reports">{{_('Reports')}}</h4>
+                        <p>{{_('NERVE supports 3 types of reports. These reports are only available via the Web Interface.')}}</p>
                         <ul>
                           <li>HTML</li>
                           <li>TXT</li>
                           <li>CSV</li>
                           <li>XML</li>
                         </ul>
-                        <p>All the reports are saved on disk at <b>/opt/nerve/reports</b> if you need to go back in time and fetch historical reports.</p>
-                        <p>If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a></p>
+                        <p>{{_('All the reports are saved on disk at ')}}<b>/opt/nerve/reports</b>{{_(' if you need to go back in time and fetch historical reports.')}}</p>
+                        <p>{{_('If you want to obtain the results of your assessment via the API, use the endpoint ')}}<a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a></p>
 
                         <hr>
-                        <h4 id="notifications">Notifications</h4>
-                        <p>NERVE supports delivering notifications via 2 methods: <b>Email</b> or <b>Slack</b>.</p>
-                        <p>You can find these settings under the top right menu (Username) -> Settings</p>
-                        <p>For email, you can use Amazon SES or a different provider. You will receive an attachment with the findings in a JSON format, once a scan is completed.</p>
-                        <p>For slack, use an <a href="https://api.slack.com/messaging/webhooks">incoming webhook</a> and paste the URL Slack gives you at the end of the process. You will receive a slack notification with the results once a scan is completed.</p>
-                        If you want to obtain the results of your assessment via the API, use the endpoint <a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a>
+                        <h4 id="notifications">{{_('Notifications')}}</h4>
+                        <p>{{_('NERVE supports delivering notifications via 2 methods: ')}}<b>Email</b>{{_(' or ')}}<b>Slack</b>.</p>
+                        <p>{{_('You can find these settings under the top right menu (Username) -> Settings')}}</p>
+                        <p>{{_('For email, you can use Amazon SES or a different provider. You will receive an attachment with the findings in a JSON format, once a scan is completed.')}}</p>
+                        <p>{{_('For slack, use an ')}}<a href="https://api.slack.com/messaging/webhooks">{{_('incoming webhook')}}</a>{{_(' and paste the URL Slack gives you at the end of the process. You will receive a slack notification with the results once a scan is completed.')}}</p>
+                        {{_('If you want to obtain the results of your assessment via the API, use the endpoint ')}}<a href="http://127.0.0.1:8080/documentation#get_status">/api/scan/status</a>
                         
                         <hr>
-                        <h4 id="security">Security</h4>
-                        <p>There are a few security mechanisms implemented into NERVE you need to be aware of.</p>
+                        <h4 id="security">{{_('Security')}}</h4>
+                        <p>{{_('There are a few security mechanisms implemented into NERVE you need to be aware of.')}}</p>
                         <ul>
-                          <li><b>Content Security Policy</b> - A response header which controls where resource scan be loaded from.</li>
-                          <li><b>Other Security Policies</b> - These Response headers are enabled: Content-Type Options, X-XSS-Protection, X-Frame-Options, Referer-Policy</li>
-                          <li><b>Brute Force Protection</b> - A user will get locked if more than 5 incorrect login attempts are made.</li>
-                          <li><b>Cookie Protection</b> - Cookie security flags are used, such as SameSite, HttpOnly, etc.</li>
+                          <li><b>Content Security Policy</b>{{_(' - A response header which controls where resource scan be loaded from.')}}</li>
+                          <li><b>{{_('Other Security Policies')}}</b>{{_(' - These Response headers are enabled: Content-Type Options, X-XSS-Protection, X-Frame-Options, Referer-Policy')}}</li>
+                          <li><b>{{_('Brute Force Protection')}}</b>{{_(' - A user will get locked if more than 5 incorrect login attempts are made.')}}</li>
+                          <li><b>{{_('Cookie Protection')}}</b>{{_(' - Cookie security flags are used, such as SameSite, HttpOnly, etc.')}}</li>
                         </ul>
-                        If you identify a security vulnerability, please submit a bug to us on GitHub.
+                        {{_('If you identify a security vulnerability, please submit a bug to us on GitHub.')}}
                         <hr>
                         <h4 id="upgrade">Upgrade</h4>
-                        <p>If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.</p>
+                        <p>{{_('If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.')}}</p>
                         <ol>
-                          <li>Make a copy of <b>config.py</b> if you wish to save your configurations</li>
-                          <li>Remove <b>/opt/nerve</b> and git clone it again from: <a href="https://github.com/TomasTorresB/nerve">GitHub</a></li>
-                          <li>Move <b>config.py</b> file back into <b>/opt/nerve</b></li>
-                          <li>Restart the service using <b>systemctl restart nerve</b></li>
+                          <li>{{_('Make a copy of ')}}<b>config.py</b>{{_(' if you wish to save your configurations')}}</li>
+                          <li>{{_('Remove ')}}<b>/opt/nerve</b>{{_(' and git clone it again from: ')}}<a href="https://github.com/TomasTorresB/nerve">GitHub</a></li>
+                          <li>{{_('Move ')}}<b>config.py</b>{{_(' file back into ')}}<b>/opt/nerve</b></li>
+                          <li>{{_('Restart the service using ')}}<b>systemctl restart nerve</b></li>
                         </ol>
-                        <p>You could set up a cron task auto-upgrade NERVE, there's an API endpoint to check whether you have the latest version or not that you could use for this purpose: <a href="#get_update">/api/update/platform</a></p>
+                        <p>{{_("You could set up a cron task auto-upgrade NERVE, there's an API endpoint to check whether you have the latest version or not that you could use for this purpose: ")}}<a href="#get_update">/api/update/platform</a></p>
                         <hr>
-                        <h4 id="miscellaneous">Miscellaneous</h4>
-                        <h6>Web Interface Logo</h6>
-                        <p>If you want to brand NERVE with your own Logo, simply replace <b>static/img/nerve_logo.png</b> with your own picture.<br>400px x 100px is the recommended size.</b></p>
+                        <h4 id="miscellaneous">{{_('Miscellaneous')}}</h4>
+                        <h6>{{_('Web Interface Logo')}}</h6>
+                        <p>{{_('If you want to brand NERVE with your own Logo, simply replace ')}}<b>static/img/nerve_logo.png</b>{{_(' with your own picture.')}}<br>{{_('400px x 100px is the recommended size.')}}</b></p>
                       </div>
                       </div>
                   </div>
@@ -283,14 +286,14 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header"><b>Usage</b></div>
+                            <div class="card-header"><b>{{_('Usage')}}</b></div>
                             <div class="card-body">
                               <div id="toc_container">
-                                <p class="toc_title">Table of Contents</p>
+                                <p class="toc_title">{{_('Table of Contents')}}</p>
                                 <ul class="toc_list">
-                                  <li><a href="#authentication">1. Authentication</a>
+                                  <li><a href="#authentication">{{_('1. Authentication')}}</a>
                                 </li>
-                                <li><a href="#endpoints">2. API Endpoints</a>
+                                <li><a href="#endpoints">{{_('2. API Endpoints')}}</a>
                                   <ul>
                                     <li><a href="#get_health">GET /health</a></li>
                                     <li><a href="#post_scan">POST /api/scan</a></li>
@@ -302,9 +305,9 @@
                                   </ul>
                                 </li>
                                 </div>
-                                <p>Welcome to the API section of NERVE.</p>
-                                <p>NERVE's API is simple, you can post a scan, get the scan result and status, and reset the system.</p>
-                                <p>For posting a scan, NERVE uses the same settings that exist in the Web Interface, should you need to understand more about what a particular setting does, just refer to the <a href="#gui">Graphical User Interface section</a> of the document.</p>
+                                <p>{{_('Welcome to the API section of NERVE.')}}</p>
+                                <p>{{_("NERVE's API is simple, you can post a scan, get the scan result and status, and reset the system.")}}</p>
+                                <p>{{_('For posting a scan, NERVE uses the same settings that exist in the Web Interface, should you need to understand more about what a particular setting does, just refer to the ')}}<a href="#gui">{{_('Graphical User Interface section')}}</a>{{_(' of the document.')}}</p>
                             </div>    
                             
 
@@ -317,13 +320,13 @@
 
                     <div class="row">
                       <div class="col-md-12">
-                        <h3 id="authentication"><b>Authentication</b></h3>
+                        <h3 id="authentication"><b>{{_('Authentication')}}</b></h3>
                         <div class="card">
-                            <div class="card-header"><b>Authentication</b></div>
+                            <div class="card-header"><b>{{_('Authentication')}}</b></div>
                             <div class="card-body">
-                              <p>API Authentication is done using Basic Authentication.</p>
-                              <p>Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password</p>
-                              <p>With each API call, you need to pass the credentials. Here is an example with Python and the requests library:</p>
+                              <p>{{_('API Authentication is done using Basic Authentication.')}}</p>
+                              <p>{{_('Basic authentication is a simple authentication scheme built into the HTTP protocol. The client sends HTTP requests with the Authorization header that contains the word Basic word followed by a space and a base64-encoded string username:password')}}</p>
+                              <p>{{_('With each API call, you need to pass the credentials. Here is an example with Python and the requests library:')}}</p>
 <pre>
 import requests
 from requests.auth import HTTPBasicAuth
@@ -340,7 +343,7 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
 
                     <div class="row">
                       <div class="col-md-12">
-                        <h3 id="endpoints" ><b>API Table</b></h3>
+                        <h3 id="endpoints" ><b>{{_('API Table')}}</b></h3>
                         <div class="card">
                             <div class="card-header"><b>API Endpoints</b></div>
                             <div class="card-body">
@@ -348,10 +351,10 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                                   <thead>
                                       <tr>
                                       <th>ID</th>
-                                      <th>Method</th>
-                                      <th>Endpoint</th>
-                                      <th>Authentication</th>
-                                      <th>Information</th>
+                                      <th>{{_('Method')}}</th>
+                                      <th>{{_('Endpoint')}}</th>
+                                      <th>{{_('Authentication')}}</th>
+                                      <th>{{_('Information')}}</th>
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -359,50 +362,50 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                                       <th scope="row">1.</th>
                                       <td><code>GET</code></td>
                                       <td><a href="#get_health">/health</a></td>
-                                      <td>False</td>
-                                      <td>Returns Server Health Status</td>
+                                      <td>{{_('False')}}</td>
+                                      <td>{{_('Returns Server Health Status')}}</td>
                                       </tr>
                                       <tr>
                                         <th scope="row">2.</th>
                                         <td><code>POST</code></td>
                                         <td><a href="#post_scan">/api/scan</a></td>
-                                        <td>True</td>
-                                        <td>Submits an Assessment</td>
+                                        <td>{{_('True')}}</td>
+                                        <td>{{_('Submits an Assessment')}}</td>
                                       </tr>
                                       <tr>
                                       <th scope="row">3.</th>
                                       <td><code>GET</code></td>
                                       <td><a href="#get_status">/api/scan/status</a></td>
-                                      <td>True</td>
-                                      <td>Returns Assessment Status & Results</td>
+                                      <td>{{_('True')}}</td>
+                                      <td>{{_('Returns Assessment Status & Results')}}</td>
                                       </tr>
                                       <tr>
                                         <th scope="row">4.</th>
                                         <td><code>PUT</code></td>
                                         <td><a href="#put_reset">/api/scan/reset</a></td>
-                                        <td>True</td>
-                                        <td>Resets the Server. Roll Back.</td>
+                                        <td>{{_('True')}}</td>
+                                        <td>{{_('Resets the Server. Roll Back.')}}</td>
                                         </tr>
                                         <tr>
                                           <th scope="row">5.</th>
                                           <td><code>GET</code></td>
                                           <td><a href="#get_exclusion">/api/exclusion</a></td>
-                                          <td>True</td>
-                                          <td>Returns the current exclusion list</td>
+                                          <td>{{_('True')}}</td>
+                                          <td>{{_('Returns the current exclusion list')}}</td>
                                         </tr>
                                         <tr>
                                           <th scope="row">6.</th>
                                           <td><code>POST</code></td>
                                           <td><a href="#post_exclusion">/api/exclusion</a></td>
-                                          <td>True</td>
-                                          <td>Submits an exclusion list</td>
+                                          <td>{{_('True')}}</td>
+                                          <td>{{_('Submits an exclusion list')}}</td>
                                         </tr>
                                       <tr>
                                         <th scope="row">7.</th>
                                         <td><code>GET</code></td>
                                         <td><a href="#get_update">/api/update/platform</a></td>
-                                        <td>True</td>
-                                        <td>Checks if updates are available</td>
+                                        <td>{{_('True')}}</td>
+                                        <td>{{_('Checks if updates are available')}}</td>
                                       </tr>
                                   </tbody>
                               </table>
@@ -419,7 +422,7 @@ requests.post('https://172.21.50.1/scan', auth=HTTPBasicAuth(username, password)
                     <div class="row">
                       <div class="col-md-12">
                         <h3 id="get_health">GET /health</h3>
-                        <p>Health is an endpoint to do basic sanity-checks for monitoring systems, etc.</p>
+                        <p>{{_('Health is an endpoint to do basic sanity-checks for monitoring systems, etc.')}}</p>
                         <div class="card">
                             <div class="card-header"><b><code>GET /health</code></b></div>
                             <div class="card-body">
@@ -439,8 +442,8 @@ import requests
                   <div class="row">
                     <div class="col-md-12">
                       <h3 id="post_scan">POST /api/scan</h3>
-                      <p>This endpoint is where you can submit new scans with a configuration file similar to the Web Interface.<br>
-                      The configuration file must be provided as-is without removing any entries.</p>
+                      <p>{{_('This endpoint is where you can submit new scans with a configuration file similar to the Web Interface.')}}<br>
+                      {{_('The configuration file must be provided as-is without removing any entries.')}}</p>
                       <div class="card">
                           <div class="card-header"><b><code>POST /api/scan</code></b></div>
                           <div class="card-body">
@@ -476,7 +479,8 @@ DEFAULT_SCAN = {
     'post_event':{
       'webhook':None
     },
-    'frequency':'once'
+    'frequency':'once',
+    'schedule_date':''
   }
 }
 
@@ -496,8 +500,8 @@ DEFAULT_SCAN = {
                   <div class="row">
                     <div class="col-md-12">
                       <h3 id="get_status"> <b>GET /api/scan/status</b></h3>
-                      <p>This endpoint is where you can view the state of a running scan.<br>
-                      Note that you do not need to wait for a scan to complete, results will be shown as soon as new data is created.</p>
+                      <p>{{_('This endpoint is where you can view the state of a running scan.')}}<br>
+                      {{_('Note that you do not need to wait for a scan to complete, results will be shown as soon as new data is created.')}}</p>
                       <div class="card">
                           <div class="card-header"><b><code>GET /api/scan/status</code></b></div>
                           <div class="card-body">
@@ -528,7 +532,7 @@ from requests.auth import HTTPBasicAuth
                 <div class="row">
                   <div class="col-md-12">
                     <h3 id="put_reset"><b>PUT /api/scan/reset</b></h3>
-                    <p>This endpoint allows you to reset the system / stop a currently running assessment (such as continuous)</p>
+                    <p>{{_('This endpoint allows you to reset the system / stop a currently running assessment (such as continuous)')}}</p>
                     <div class="card">
                         <div class="card-header"><b><code>PUT /api/scan/reset</code></b></div>
                         <div class="card-body">
@@ -550,8 +554,8 @@ from requests.auth import HTTPBasicAuth
                 <div class="row">
                   <div class="col-md-12">
                     <h3 id="get_exclusion"><b>GET /api/exclusion</b></h3>
-                    <p>This endpoint is where you get the current exclusion list.<br>
-                    You may want to the Exclusion functionality to prevent certain traffic from running against certain assets, or to prevent certain alerts from getting created.</p>
+                    <p>{{_('This endpoint is where you get the current exclusion list.')}}<br>
+                    {{_('You may want to use the Exclusion functionality to prevent certain traffic from running against certain assets, or to prevent certain alerts from getting created.')}}</p>
                     <div class="card">
                         <div class="card-header"><b><code>GET /api/exclusion</code></b></div>
                         <div class="card-body">
@@ -573,8 +577,8 @@ from requests.auth import HTTPBasicAuth
                 <div class="row">
                   <div class="col-md-12">
                     <h3 id="post_exclusion"><b>POST /api/exclusion</b></h3>
-                    <p>This endpoint is where you can submit an exclusion list. The JSON in your POST must have a valid format as shown below.<br>
-                    Rule IDs can be retrieved from <b>/opt/nerve/rules/**/*.py files</b></p>
+                    <p>{{_('This endpoint is where you can submit an exclusion list. The JSON in your POST must have a valid format as shown below.')}}<br>
+                    {{_('Rule IDs can be retrieved from')}} <b>/opt/nerve/rules/**/*.py {{_('files')}}</b></p>
                     <div class="card">
                         <div class="card-header"><b><code>POST /api/exclusion</code></b></div>
                         <div class="card-body">
@@ -604,7 +608,7 @@ EXCLUSIONS = {
                 <div class="row">
                   <div class="col-md-12">
                     <h3 id="get_update"><b>GET /api/update/platform</b></h3>
-                    <p>This endpoint allows you to check if you have the latest NERVE version.</p>
+                    <p>{{_('This endpoint allows you to check if you have the latest NERVE version.')}}</p>
                     <div class="card">
                         <div class="card-header"><b><code>GET /api/update/platform</code></b></div>
                         <div class="card-body">
@@ -623,6 +627,86 @@ from requests.auth import HTTPBasicAuth
                 
               </div>
           </div>
+
+          <hr>
+             <div class="content" id="add_scripts">
+                 <div class="container-fluid">
+                     <div class="page-title">
+                         <h3>{{_('Add new scripts')}}</h3>
+
+                         <p>{{_('Additional custom scripts can be added to NERVE scans by users. The tool by default accepts scripts in a specific Python format, some scripts that follow this format are stored in folder "rules", they can be used as reference when developing custom scripts. To add this type of scripts, just store them in any subfolder of "rules".')}}</p>
+                         <br>
+
+                         <p>{{_('NERVE also allows the execution of scripts in ')}}<a href="https://nmap.org/book/nse.html">Nmap Scripting Engine(NSE)</a>{{_(' format with some restrictions. This restrictions can be lifted with some additional work. The following steps describe the actions needed to add new NSE scripts to the software with all their features. The newly added scripts can then be used in future scans.')}}</p>
+                     </div>
+                          <p><h4 id="steps">{{_('Steps')}}</h4></p>
+                          <p><b>1. </b>{{_('Add the new script to folder')}} "nerve/rules/nse".</p>
+                          <p><b>2. {{_('[Optional]')}}</b>{{_(" Add parameters accepted by script in file 'config.py'. This value will be used in future scans. Everytime the value modified, the application must be restarted in order to apply the changes.")}}</p>
+                          <br>
+
+                          <p>{{_('The parameter is given to the script through a variable defined in config.py file, the format used for the variable is the following: ')}}<b>{{_('NAME_OF_SCRIPT_NAME_OF_PARAMETER = value')}}</b></p>
+                          <br>
+
+                          <p>{{_('Where:')}}</p>
+                              <ul>
+                                <li>{{_("'NAME_OF_SCRIPT' is the name of the file of the script.")}}</li>
+                                <li>{{_("'NAME_OF_PARAMETER' is the name of the parameter accepted by the script.")}}</li>
+                                <li>{{_("'value' is the value that the parameter will adopt when running the script.")}}</li>
+                              </ul> 
+                          <br>
+
+                          <p>{{_('Other things to consider:')}}</p>
+                          <ul>
+                            <li>{{_("The variable name is defined by the union of 'NAME_OF_SCRIPT' and 'NAME_OF_PARAMETER' using the character '_'.")}}</li>
+                            <li>{{_('The variable can be defined in upper or lower case.')}}</li>
+                            <li>{{_("Erase file type from 'NAME_OF_SCRIPT'. For example, if file is called 'ftp_exploit.nse' it should be  used as 'FTP_EXPLOIT'.")}}</li>
+                            <li>{{_("If file name includes character '-' it needs to be replaced by character '_'. For instance, if file is called 'ftp-exploit' then the result would be 'FTP_EXPLOIT'.")}}</li>
+                            <li>{{_("Lastly, if name of parameter includes character '.' replace by character '_'. This way parameter 'brute.credfile' needs to be transformed to 'BRUTE_CREDFILE' to be used.")}}</li>
+                          </ul>
+                          <br>
+
+                          <p>{{_('One final example encompassing all these rules is mentioned here: For ')}}<b>{{_("file 'ftp-steal.nse'")}}</b>{{_(' with ')}}<b>{{_("parameter 'brute.credfile'")}}</b>{{_(' and ')}}<b>{{_("value './credfile'")}}</b>.{{_(' The corresponding variable would be ')}}<b>{{_("'FTP_STEAL_BRUTE_CREDFILE = ./credfile'")}}</b></p>
+                          <br>
+
+                          <p><b>3. {{_('[Optional]')}}</b>{{_(' Add support to different types of outputs provided by script. This allows the tool to correctly determine when a vunerability is found by the script.')}}</p>
+                          <br>
+
+                          <p>{{_("This feature can be added by modifying the function 'verify_output in file 'core/nse_script.py'. Programming knowledge is required in order to parse the different outputs.")}}</p>
+                          <br>
+
+                          <p><b>4. {{_('[Optional]')}}</b>{{_(" Add metadata to scripts. The supported fields are the following:")}}</p>
+                          <ul>
+                            <li><b>{{_('Description: ')}}</b>{{_('Description of the attack or analysis done by the script.')}}</li>
+                            <li><b>{{_('Severity: ')}}</b>{{_('Indicates the severity level of the script. In other words, how critical is the vulnerability associated. It ranges from 0 to 6, where:')}}
+                               <ul>
+                                  <li>0: {{_('Informational')}}</li>
+                                  <li>1: {{_('Low')}}</li>
+                                  <li>2: {{_('Medium')}}</li>
+                                  <li>3: {{_('High')}}</li>
+                                  <li>4: {{_('Critical')}}</li>
+                                  <li>5: {{_('Unknown')}}</li>
+                                  <li>6: {{_('Undefined')}}</li>
+                               </ul>
+                            </li>
+                            <li><b>{{_('Confirm: ')}}</b>{{_('Detail of the vulnerability found.')}}</li>
+                            <li><b>{{_('Mitigation: ')}}</b>{{_('Steps needed to mitigate the vulnerability.')}}</li>
+                            <li><b>{{_('Intensity: ')}}</b>{{_("Same as 'aggressiveness level' used by NERVE. Determines the impact of the running script on its targets. Value ranges from 0 - 3. Where:")}}
+     
+                               <ul>
+                                 <li>0: {{_('Gentle')}}</li>
+                                 <li>1: {{_('Mildly Aggreessive')}}</li>
+                                 <li>2: {{_('Aggressive')}}</li>
+                                 <li>3: {{_('Extremely Agressive')}}</li>
+                               </ul>
+                            </li>
+                         </ul>
+                         <br>
+
+                         <p>{{_('A NSE script containing all metadata fields is available in')}} rule/nse/ftp-steal.nse</p>
+
+              </div>
+          </div>
+
 
      </div>
      </div>

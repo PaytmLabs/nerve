@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-01-22 20:57-0500\n"
+"POT-Creation-Date: 2023-07-08 18:02-0400\n"
 "PO-Revision-Date: 2023-01-20 13:42-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: config.py:49
+#: config.py:49 templates/documentation.html:68
 msgid "Default"
 msgstr "Predeterminado"
 
@@ -211,7 +211,7 @@ msgstr "Opción [FECHA_DE_AGENDADO] no debe estar vacía si se agenda un escaneo
 
 #: core/parser.py:185
 msgid "Option [SCHEDULE_DATE] must not be prior to current date"
-msgstr "Opción [FECHA_DE_AGENDADO] no de ser previa a la fecha actual"
+msgstr "Opción [FECHA_DE_AGENDADO] no debe ser previa a la fecha actual"
 
 #: core/parser.py:189
 msgid "Option [SCHEDULE_DATE] must not surpass year 2100"
@@ -288,31 +288,32 @@ msgid "Potential"
 msgstr "Potencial"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/vulnerabilities.html:66
+#: templates/documentation.html:688 templates/vulnerabilities.html:66
 msgid "Undefined"
 msgstr "Indefinido"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/vulnerabilities.html:64
+#: templates/documentation.html:686 templates/vulnerabilities.html:64
 msgid "Critical"
 msgstr "Crítico"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/vulnerabilities.html:62
+#: templates/documentation.html:685 templates/vulnerabilities.html:62
 msgid "High"
 msgstr "Alto"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/vulnerabilities.html:60
+#: templates/documentation.html:684 templates/vulnerabilities.html:60
 msgid "Medium"
 msgstr "Medio"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/vulnerabilities.html:58
+#: templates/documentation.html:683 templates/vulnerabilities.html:58
 msgid "Low"
 msgstr "Bajo"
 
-#: core/utils.py:46 templates/vulnerabilities.html:56
+#: core/utils.py:46 templates/documentation.html:682
+#: templates/vulnerabilities.html:56
 msgid "Informational"
 msgstr "Informacional"
 
@@ -336,35 +337,43 @@ msgstr "Mitigación"
 msgid "Resolve"
 msgstr "Resolver"
 
-#: templates/assessment.html:25
+#: templates/assessment.html:25 templates/documentation.html:77
 msgid "Assessment"
 msgstr "Evaluación"
 
-#: templates/assessment.html:31
+#: templates/assessment.html:31 templates/documentation.html:39
+#: templates/documentation.html:79
 msgid "General"
 msgstr "General"
 
 #: templates/assessment.html:34 templates/assessment.html:73
+#: templates/documentation.html:40 templates/documentation.html:88
 msgid "Targets"
 msgstr "Objetivos"
 
-#: templates/assessment.html:37
+#: templates/assessment.html:37 templates/documentation.html:41
+#: templates/documentation.html:98
 msgid "Configuration"
 msgstr "Configuración"
 
-#: templates/assessment.html:40
+#: templates/assessment.html:40 templates/documentation.html:42
+#: templates/documentation.html:132
 msgid "Dictionary"
 msgstr "Diccionario"
 
-#: templates/assessment.html:43
+#: templates/assessment.html:43 templates/documentation.html:43
+#: templates/documentation.html:142 templates/documentation.html:143
+#: templates/documentation.html:145
 msgid "Schedule"
 msgstr "Agendar"
 
-#: templates/assessment.html:46
+#: templates/assessment.html:46 templates/documentation.html:44
+#: templates/documentation.html:154
 msgid "Post Event"
 msgstr "Acciones Posteriores"
 
-#: templates/assessment.html:54
+#: templates/assessment.html:54 templates/documentation.html:81
+#: templates/documentation.html:84 templates/documentation.html:86
 msgid "Assessment Title"
 msgstr "Título Evaluación"
 
@@ -372,11 +381,11 @@ msgstr "Título Evaluación"
 msgid "Required"
 msgstr "Requerido"
 
-#: templates/assessment.html:58
+#: templates/assessment.html:58 templates/documentation.html:83
 msgid "Assessment Description"
 msgstr "Descripción Evaluación"
 
-#: templates/assessment.html:62
+#: templates/assessment.html:62 templates/documentation.html:85
 msgid "Name of Engineer"
 msgstr "Nombre del Ingeniero"
 
@@ -385,10 +394,12 @@ msgid "Specify either Networks, Domains, or both."
 msgstr "Specifique Red, Dominio o ambos."
 
 #: templates/assessment.html:75 templates/dashboard.html:200
+#: templates/documentation.html:91
 msgid "Networks"
 msgstr "Redes"
 
 #: templates/assessment.html:81 templates/dashboard.html:225
+#: templates/documentation.html:95
 msgid "Domains"
 msgstr "Dominios"
 
@@ -396,7 +407,7 @@ msgstr "Dominios"
 msgid "Exclusion"
 msgstr "Exclusión"
 
-#: templates/assessment.html:87
+#: templates/assessment.html:87 templates/documentation.html:93
 msgid "Excluded Networks"
 msgstr "Redes Excluidas"
 
@@ -404,7 +415,7 @@ msgstr "Redes Excluidas"
 msgid "Assessment Configuration"
 msgstr "Configuración Evaluación"
 
-#: templates/assessment.html:97
+#: templates/assessment.html:97 templates/documentation.html:100
 msgid "Aggressiveness Level"
 msgstr "Nivel de Agresividad"
 
@@ -412,7 +423,7 @@ msgstr "Nivel de Agresividad"
 msgid "Extremely Aggressive (Default)"
 msgstr "Extremadamente Agresivo (Predeterminado)"
 
-#: templates/assessment.html:101
+#: templates/assessment.html:101 templates/documentation.html:698
 msgid "Aggressive"
 msgstr "Agresivo"
 
@@ -420,7 +431,7 @@ msgstr "Agresivo"
 msgid "Mildly Aggressive"
 msgstr "Moderadamente Agresivo"
 
-#: templates/assessment.html:103
+#: templates/assessment.html:103 templates/documentation.html:696
 msgid "Gentle"
 msgstr "Gentíl"
 
@@ -428,11 +439,11 @@ msgstr "Gentíl"
 msgid "Allow Outbound Internet Connections"
 msgstr "Pemitir Conexciones Salientes de Internet"
 
-#: templates/assessment.html:114
+#: templates/assessment.html:114 templates/documentation.html:106
 msgid "Attempt Brute Force Attacks"
 msgstr "Intentar Ataques de Fuerza Bruta"
 
-#: templates/assessment.html:121
+#: templates/assessment.html:121 templates/documentation.html:109
 msgid "Attempt Denial of Service Attacks"
 msgstr "Intentar Ataques de Denegación de Servicio"
 
@@ -444,7 +455,7 @@ msgstr "Opciones de Escaneos de Puerto"
 msgid "Uses default if not specified"
 msgstr "Utiliza predeterminado en caso que no se especifique"
 
-#: templates/assessment.html:138
+#: templates/assessment.html:138 templates/documentation.html:114
 msgid "Maximum Ports"
 msgstr "Cantidad Máxima de Puertos"
 
@@ -456,7 +467,7 @@ msgstr "Todos los Puertos (EXTREMADAMENTE lento.)"
 msgid "1000 = one thousand most commonly used ports"
 msgstr "1000 = mil puertos más comúnes"
 
-#: templates/assessment.html:157
+#: templates/assessment.html:157 templates/documentation.html:120
 msgid "Custom Ports"
 msgstr "Puertos Personalizados"
 
@@ -468,11 +479,11 @@ msgstr "Enteros separados por coma. Toma prioridad sobre "
 msgid "MAX_PORTS"
 msgstr "Cantidad máxima de puertos"
 
-#: templates/assessment.html:163
+#: templates/assessment.html:163 templates/documentation.html:125
 msgid "Parallel Scan"
 msgstr "Escaneo en Paralelo"
 
-#: templates/assessment.html:172
+#: templates/assessment.html:172 templates/documentation.html:128
 msgid "Parallel Attack"
 msgstr "Ataque en Paralelo"
 
@@ -693,6 +704,1265 @@ msgstr "Estos hosts fueron identificados como activos"
 msgid "IP Addresses"
 msgstr "Direcciones IP"
 
+#: templates/documentation.html:25
+msgid "Graphical User Interface"
+msgstr "Interfaz Gráfica de Usuarios"
+
+#: templates/documentation.html:30 templates/documentation.html:289
+msgid "Usage"
+msgstr "Uso"
+
+#: templates/documentation.html:33 templates/documentation.html:292
+msgid "Table of Contents"
+msgstr "Tabla de Contenidos"
+
+#: templates/documentation.html:35
+msgid "1. Quickstart"
+msgstr "1. Inicio Rápido"
+
+#: templates/documentation.html:37
+msgid "2. Assessment"
+msgstr "2. Evaluación"
+
+#: templates/documentation.html:47
+msgid "3. Reports"
+msgstr "3. Reportes"
+
+#: templates/documentation.html:48
+msgid "4. Notifications"
+msgstr "4. Notificaciones"
+
+#: templates/documentation.html:49
+msgid "5. Security"
+msgstr "5. Seguridad"
+
+#: templates/documentation.html:50
+msgid "6. Upgrade"
+msgstr "6. Upgrade"
+
+#: templates/documentation.html:51
+msgid "7. Miscellaneous"
+msgstr "4. Misceláneo"
+
+#: templates/documentation.html:56 templates/documentation.html:58
+msgid "Quickstart"
+msgstr "Inicio Rápido"
+
+#: templates/documentation.html:57
+msgid ""
+"Quickstart is the best way to try out NERVE in its most simplest form. "
+"Think of it as running a basic scan, without the ability to define how it"
+" will execute."
+msgstr ""
+"Inicio Rápido es la mejor manera de probar NERVE en su forma más simple. "
+"Es similar a correr un escaneo básico sin la necesidad de especificar "
+"como ejecutarlo."
+
+#: templates/documentation.html:58
+msgid "By using this option, you are required to specify"
+msgstr "Al utilizar esta opción es requerido definir"
+
+#: templates/documentation.html:58
+msgid "Network CIDR notations"
+msgstr "la notación CIDR de la red"
+
+#: templates/documentation.html:58
+msgid "does not support DNS."
+msgstr "no soporta DNS."
+
+#: templates/documentation.html:59
+msgid "For example, if you want to scan your home network, you could simply type"
+msgstr ""
+"Por ejemplo, en el caso de querer escanear su propia red loca, basta con "
+"ingresar"
+
+#: templates/documentation.html:59
+msgid "Of course, the IP will depend on your router IP scope."
+msgstr "Donde la dirección IP depende del alcance del router."
+
+#: templates/documentation.html:61
+msgid "The settings of the scan if you choose to use Quickstart are as follows:"
+msgstr ""
+"La configuración de los escaneos bajo la opción de Inicio Rápido es la "
+"siguiente:"
+
+#: templates/documentation.html:63
+msgid "Exclusions:"
+msgstr "Exclusiones:"
+
+#: templates/documentation.html:63 templates/documentation.html:72
+#: templates/documentation.html:74
+msgid "None"
+msgstr "Ninguna"
+
+#: templates/documentation.html:64
+msgid "Aggressive level:"
+msgstr "Nivel de agresividad:"
+
+#: templates/documentation.html:64
+msgid "Maximum"
+msgstr "Máximo"
+
+#: templates/documentation.html:65
+msgid "Denial of Service:"
+msgstr "Denegación de Servicio:"
+
+#: templates/documentation.html:65 templates/documentation.html:66
+msgid "Disabled"
+msgstr "Desabilitado"
+
+#: templates/documentation.html:66
+msgid "Brute Force:"
+msgstr "Fuerza Bruta:"
+
+#: templates/documentation.html:67
+msgid "Outbound Internet Connections:"
+msgstr "Conexiones Salientes de Internet:"
+
+#: templates/documentation.html:67
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: templates/documentation.html:68
+msgid "Interface:"
+msgstr "Interfaz:"
+
+#: templates/documentation.html:69
+msgid "Max Ports:"
+msgstr "Máxima Cantidad de Puertos:"
+
+#: templates/documentation.html:70
+msgid "Parallel Scan:"
+msgstr "Escaneo en Paralelo:"
+
+#: templates/documentation.html:71
+msgid "Parallel Attack:"
+msgstr "Ataque en Paralelo:"
+
+#: templates/documentation.html:72
+msgid "Post Event:"
+msgstr "Acciones Posteriores:"
+
+#: templates/documentation.html:73
+msgid "Frequency:"
+msgstr "Frecuencia:"
+
+#: templates/documentation.html:73 templates/documentation.html:143
+#: templates/documentation.html:144
+msgid "Once"
+msgstr "Una vez"
+
+#: templates/documentation.html:74
+msgid "Schedule Date:"
+msgstr "Fecha de Agendado:"
+
+#: templates/documentation.html:78
+msgid "Assessment is where you configure your first advanced scan."
+msgstr "Evaluación es donde se configura un escaneo más avanzado."
+
+#: templates/documentation.html:80
+msgid "You start by defining some metadata about your scan."
+msgstr "Se parte definiendo metadata del escaneo."
+
+#: templates/documentation.html:82
+msgid ""
+"This is the name of the assessment. This name appears in the reports you "
+"generate in the GUI, such as the HTML. It will also show up in the API "
+"output when you call"
+msgstr ""
+"Corresponde al nombre de la evaluación. Este aparece en los reportes "
+"generados , como HMTL. Este también aparecerá en el output de la API al "
+"llamar a"
+
+#: templates/documentation.html:84
+msgid ""
+"This is the description of the assessment. It's a free text description "
+"of what this assessment is about. Similiarly to the"
+msgstr ""
+"Corresponde a la descripción de la evaluación. Es una descripción libre "
+"sobre lo que trata la evaluación. Similar al "
+
+#: templates/documentation.html:84
+msgid "it will show up in the API output when you call"
+msgstr "también se muestra en el output de la API al llamar a"
+
+#: templates/documentation.html:86
+msgid ""
+"This is a field to describe who is running the assessment. Similiarly to "
+"the"
+msgstr ""
+"Este campo se utiliza para describir la persona encargada de correr la "
+"evaluación. Similar al"
+
+#: templates/documentation.html:86
+msgid "it will show up in the reports, and also in the API output when you call"
+msgstr "se muestra en los reportes y también en el output de la API al llamar a"
+
+#: templates/documentation.html:89
+msgid ""
+"Targets are the endpoints that will be scanned and assessed. These can be"
+" IP addresses, Domains and Subdomains."
+msgstr ""
+"Los objetivos corresponden a los endpoints que serán escaneados y "
+"analizados. Estos puede ser direcciones IP, Dominios o Subdominios."
+
+#: templates/documentation.html:90
+msgid ""
+"NERVE doesn't do DNS discovery for a given parent domain. There are tools"
+" you could potentially use in conjuction with NERVE that will do this "
+"work for you. Such as Passive DNS, RiskIQ, Fierce, OWASP Amass, etc."
+msgstr ""
+"NERVE no realiza descubrimiento DNS para un dominio principal "
+"determinado. Existen herramienta que potencialmente podrían utilizarse en"
+" conjunto con NERVE para lograr esto. Algunas de estas son Passive DNS, "
+"RiskIQ, Fierce, OWASP Amass, etc."
+
+#: templates/documentation.html:92 templates/documentation.html:94
+msgid "This field takes a list of CIDR Networks (Comma separated). Example:"
+msgstr ""
+"Este campo utiliza una lista de redes CIDR (separadas por coma). Por "
+"ejemplo:"
+
+#: templates/documentation.html:94
+msgid "Note: Any networks defined here will be excluded from the assessment."
+msgstr "Nota: Cualquier red definido aquí sera excluída de la evaluación."
+
+#: templates/documentation.html:96
+msgid "This field takes a list of DNS records (Comma separated). Example:"
+msgstr ""
+"Este campo toma una lista de registros DNS (separados por coma). Por "
+"ejemplo:"
+
+#: templates/documentation.html:96
+msgid "example.com, sub.example.com"
+msgstr "ejemplo.com, sub.ejemplo.com"
+
+#: templates/documentation.html:99
+msgid "This is where the advanced configuration of the scan is defined."
+msgstr "Aquí es donde se define la configuración avanzada del escaneo."
+
+#: templates/documentation.html:101
+msgid ""
+"This is going to ultimately decide which rules (checking if SSH is open "
+"is an example of a rule) run against your target scope. The more "
+"aggressive it is, the more rules are going to run."
+msgstr ""
+"Este campo decide que reglas (un ejemplo de regla es chequear que SSH "
+"este abierto) se efectúan sobre los objetivos durante un escaneo."
+
+#: templates/documentation.html:102
+msgid ""
+"For example, a rule that makes a lot of HTTP GET requests will be run "
+"only if you choose the use the aggressive mode. A rule that checks if a "
+"port is open, would run under all conditions."
+msgstr ""
+"Por ejemplo, una regla que efectúa varias solicitudes HTTP GET solo se "
+"ejecuta en el nivel de agresividad más agresivo. Por otro lado, una regla"
+" que chequea si un puerto está abierto se ejecuta bajo cualquier "
+"condición."
+
+#: templates/documentation.html:103
+msgid "Allow Outbound Connections"
+msgstr "Permitir Conexiones Salientes"
+
+#: templates/documentation.html:104
+msgid ""
+"Some rules require making outbound internet connections, such as checking"
+" against CVE lists, etc."
+msgstr ""
+"Algunas reglas requieren conexiones salientes a internet para chequear, "
+"por ejemplo, contra listas de CVEs."
+
+#: templates/documentation.html:105
+msgid ""
+"If you run NERVE internally in a dark network without internet, you could"
+" simply toggle this off."
+msgstr ""
+"En el caso de correr internamente NERVE en una red sin internet, esta "
+"opción simplemente se puede desactivar."
+
+#: templates/documentation.html:107
+msgid ""
+"Some rules can run brute force attacks against a given server. For "
+"example, if a server is determined to have an SSH port open and it also "
+"accepts passwords as a mean of authentication, NERVE can attempt to run "
+"through a list of passwords and try to authenticate."
+msgstr ""
+"Algunas reglas pueden correr ataques de fuerza bruta contra ciertos "
+"servidores. Por ejemplo, si un servidor posee un puerto SSH abierto y "
+"también acepta contraseñas como medio de autenticación, entonces NERVE "
+"puede intentar autenticarse utilizando una lista de usuarios y "
+"contraseñas."
+
+#: templates/documentation.html:108
+msgid "Note that if you provide a list of usernames and passwords via the "
+msgstr ""
+"Es preciso señalar que si se provee una lista de usuarios y contraseñas "
+"vía la "
+
+#: templates/documentation.html:108
+msgid "Dictionary option"
+msgstr "Opción de Diccionario"
+
+#: templates/documentation.html:108
+msgid ""
+", it may take a long time for a full assessment to complete. Use with "
+"caution."
+msgstr ""
+", puede que la herramienta demore bastante en completar la evaluación "
+"completa. Utilice con precaución."
+
+#: templates/documentation.html:110
+msgid ""
+"Some rules can run test for Denial of Service vulnerabilities against a "
+"given server. Disable if you want to ensure your services are not "
+"bombarded."
+msgstr ""
+"Algunas reglas pueden correr pruebas de Denegación de Servicios contra "
+"servidores vulnerables. Es importante desabilitar esta opción para no "
+"afectar los servicios atacados."
+
+#: templates/documentation.html:111
+msgid "Ethernet"
+msgstr "Ethernet"
+
+#: templates/documentation.html:112
+msgid ""
+"Defining the Ethernet to use for port scanning. This is optional, if "
+"nothing is specified, it will use the default."
+msgstr ""
+"Permite definir la Ethernet utilizada para escanear los puertos. Esta es "
+"opcional, si no se especifíca se utilizará el valor por defecto."
+
+#: templates/documentation.html:115
+msgid ""
+"This is a relatively important option. NERVE starts the assessment by "
+"executing a port scan. The more ports you scan for, the less likely you "
+"will miss things."
+msgstr ""
+"Esta opción es relativamente importante. NERVE empieza su evaluación "
+"ejecutando un escaneo de puertos. Mientras más puertos se escaneen, menos"
+" probable es omitir cosas."
+
+#: templates/documentation.html:116
+msgid ""
+"However, scanning for many ports has a cost (time), thus, we typically "
+"recommend scanning for the top 1000-4000 ports. Find the balance that "
+"works for you. \n"
+"                             Too little ports means you may miss out on "
+"services, but the scan is going to be faster. Too many means you may "
+"sacrifice speed."
+msgstr ""
+"Sin embargo, escanear muchos puertos tiene un costo asociado (tiempo), "
+"por lo tanto, se recomienda escanear solo los principales 1000-4000 "
+"puertos. Es importante encontrar el balance que funciona para cada "
+"usuario. Muy pocos puertos puede resultar en omitir varios servicios, "
+"pero el escaneo será más rápido. En tanto, muchos puertos puede "
+"significar un gran sacrificio de velocidad."
+
+#: templates/documentation.html:118
+msgid "The default value for maximum ports is "
+msgstr "El valor por defecto para la máxima cantidad de puertos es "
+
+#: templates/documentation.html:118
+msgid " ports (this ensures that at least http/https/ftp/ssh are covered)."
+msgstr " puertos (esto asegura que al menos http/https/ftp/ssh sea cubierto)."
+
+#: templates/documentation.html:121
+msgid ""
+"You could specify your own custom list of ports. NERVE starts the "
+"assessment by executing a port scan. The more ports you scan for, the "
+"less likely you will miss things."
+msgstr ""
+"También se puede especificar una lista personal de puertos. NERVE empieza"
+" la evaluación ejecutando un escaneo de puertos. Mientras más puertos se "
+"escaneen, menos probable es omitir cosas."
+
+#: templates/documentation.html:122
+msgid ""
+"By default, if you do not specify a Custom Port list, NERVE will use the "
+"Maximum Ports value of "
+msgstr ""
+"En el caso de no especificar una lista personalizada de puertos, se "
+"utilizará por defecto una Máxima Cantidad de Puertos de "
+
+#: templates/documentation.html:123
+msgid "If you specify "
+msgstr "Al especificar "
+
+#: templates/documentation.html:123
+msgid "both"
+msgstr "ambos"
+
+#: templates/documentation.html:123
+msgid " Maximum Ports and Custom Ports, "
+msgstr " Máxima Cantidad de Puertos y Puertos Personalizados, "
+
+#: templates/documentation.html:123
+msgid "Custom Ports will take presedence"
+msgstr "Puertos Personalizados tomará prioridad"
+
+#: templates/documentation.html:123
+msgid " and Maximum Ports will simply be ignored."
+msgstr " y Máxima Cantidad de Puertos simplemente será ingnorada."
+
+#: templates/documentation.html:126
+msgid ""
+"This value represents the number of hosts which will be scanned "
+"simultaneously, for example, 60 means the port scan will run against 60 "
+"hosts at the same time."
+msgstr ""
+"Este valor representa la cantidad de máquina que serán escaneadas "
+"simultáneamente, por ejemplo, 60 significa que el escaneo de puertos "
+"correrá contra 60 máquinas al mismo tiempo."
+
+#: templates/documentation.html:127
+msgid "The default value for Parallel Scan is "
+msgstr "El valor por defecto de los Escaneos en paralelo es "
+
+#: templates/documentation.html:129
+msgid ""
+"This value represents the number of hosts which will be attacked "
+"simultaneously, for example, 60 means the attack rules will run against "
+"60 hosts at the same time."
+msgstr ""
+"Este valor representa la cantidad de máquina que serán atacadas "
+"simúltaneamente, por ejemplo, 60 significa que el ataque de las reglas se"
+" efectuará en 60 máquinas al mismo tiempo."
+
+#: templates/documentation.html:130
+msgid "The default value for Parallel Attack is "
+msgstr "El valor por defecto de los Ataques en Paralelo es "
+
+#: templates/documentation.html:133
+msgid "Dictionary allows you to bring your own usernames and credentials list."
+msgstr ""
+"El diccionario permite ingresar una propia lista de usuarios y "
+"credenciales."
+
+#: templates/documentation.html:134
+msgid "When the "
+msgstr "Cuando la opción "
+
+#: templates/documentation.html:134
+msgid "Attempt Brute Force"
+msgstr "Intentar Fuerza Bruta"
+
+#: templates/documentation.html:134
+msgid ""
+" option is enabled, we will take your list and run it against any brute-"
+"forceable services we identify."
+msgstr ""
+" se encuentra habilitada, se utilizará la lista ingresada contra "
+"cualquier servicio identificado que permita ataques de fuerza bruta."
+
+#: templates/documentation.html:135
+msgid ""
+"If you do not provide a list of usernames and passwords, we will simply "
+"use our (very short) list of usernames and passwords."
+msgstr ""
+"En el caso que no se provea una lista de usuarios y contraseñas, "
+"simplemente se utilizará una lista propia (bien corta) de usuarios y "
+"contraseñas."
+
+#: templates/documentation.html:136
+msgid ""
+"Think of this more of  a sanity check, than a comprehensive brute force "
+"attempt. Our goal is not to try millions of passwords, this will not be "
+"efficient."
+msgstr ""
+"Estos ataques son una especie de chequeo de sanidad, más que un ataque de"
+" fuerza bruta completo e integral. La meta no es probar millones de "
+"contraseñas, puesto que esto no es eficiente."
+
+#: templates/documentation.html:137
+msgid "When providing the list, make sure it is separated by a new line, e.g."
+msgstr ""
+"Al proveer una lista, asegurarse que las entradas estén separadaos por un"
+" nueva línea, p. ej."
+
+#: templates/documentation.html:143
+msgid ""
+"Schedule is when and how often you want to run an assessment. There are 3"
+" options: "
+msgstr ""
+"Agendado permite determinar cuando y donde se quiere efectuar una "
+"evaluación. Existen 3 opciones: "
+
+#: templates/documentation.html:143 templates/documentation.html:668
+msgid " and "
+msgstr " y "
+
+#: templates/documentation.html:143 templates/documentation.html:147
+msgid "Continuously"
+msgstr "Continuo"
+
+#: templates/documentation.html:144
+msgid " means a scan will run 1 time inmediately, and then it's over."
+msgstr ""
+" significa que el escaneo se efectuará una vez inmediatamente, y después "
+"terminará."
+
+#: templates/documentation.html:145
+msgid " means you can schedule the time the scan will run."
+msgstr ""
+" significa que se puede agendar la fecha en la que se efectuará el "
+"escaneo."
+
+#: templates/documentation.html:146
+msgid ""
+"A calendar input will appear if using this mode. You can set the "
+"execution date through the calendar or directly into the input field."
+msgstr ""
+"Un calendario se desplegará al utilizar este modo. La fecha de ejecución "
+"del escaneo se puede seleccionar en el calendario deplegado o inrgesar "
+"directamente en el campo de fecha."
+
+#: templates/documentation.html:147
+msgid ""
+" means, a scan will run, and then another one will follow, until the end "
+"of humanity."
+msgstr ""
+" significa que un escaneo se efectuará y luego otro lo seguirá, hasta el "
+"fin de la humanidad."
+
+#: templates/documentation.html:148
+msgid ""
+"When running in Continuous Mode, a \"Status\" indicator will appear on "
+"the sidebar (Menu bar) indicating the system will run forever."
+msgstr ""
+"Al efectuar un escaneo en el modo Continuo, un indicador \"Estado\" "
+"aparecerá en la barra lateral (barra del Menú) indicando que el sistema "
+"correrá por siempre."
+
+#: templates/documentation.html:149
+msgid ""
+"If you want to stop, just click on the new button that will appear on the"
+" side bar called "
+msgstr ""
+"Para detener la ejecución, simplemente hacer click en el nuevo botón que "
+"aparecerá en la barra lateral llamado "
+
+#: templates/documentation.html:149
+msgid "Reset System"
+msgstr "Resetear Sistema"
+
+#: templates/documentation.html:151
+msgid ""
+"To achieve true Continuous Security, we recommend to run it in Continuous"
+" mode."
+msgstr ""
+"Para alcanzar verdadera Seguridad Continua, se recomiendo utilizar la "
+"herramienta en el modo Continuo."
+
+#: templates/documentation.html:155
+msgid "You can configure NERVE to send you post events."
+msgstr "Se puede configurar NERVE para realizar acciones posteriores a un evento."
+
+#: templates/documentation.html:156
+msgid "Web Hook"
+msgstr "Web Hook"
+
+#: templates/documentation.html:157
+msgid ""
+"A web hook is basically a post-process event that happens after some "
+"condition is met (such as, after a scan is completed.)"
+msgstr ""
+"Un webhook es un evento post-procesamiento que ocurre un tiempo después "
+"de que se cumple una condición (como por ejemplo, después de terminar un "
+"escaneo)."
+
+#: templates/documentation.html:158
+msgid ""
+"NERVE can send you the Assessment data as soon as a scan completes, to an"
+" endpoint of your choice. Your endpoint must be able to be accessed by "
+"NERVE, and receive JSON data."
+msgstr ""
+"NERVE puede enviar la información de la evaluación tan rápido como "
+"termina el escaneo a un endpoint determinado. El endpoint debe permitir "
+"el acceso de NERVE y recibir datos JSON."
+
+#: templates/documentation.html:159
+msgid "The data NERVE is going to send, may look like the following:"
+msgstr "Un ejemplo de los datos que envía NERVE se muestran a continuación:"
+
+#: templates/documentation.html:226
+msgid "A webhook endpoint may look like this: "
+msgstr "Un endpoint de un webhook puede lucir así: "
+
+#: templates/documentation.html:226
+msgid " or with a specified port "
+msgstr " o con un puerto específico "
+
+#: templates/documentation.html:228 templates/reports.html:25
+msgid "Reports"
+msgstr "Reportes"
+
+#: templates/documentation.html:229
+msgid ""
+"NERVE supports 3 types of reports. These reports are only available via "
+"the Web Interface."
+msgstr ""
+"NERVE soporta 3 tipos de reportes. Estos reportes se encuentran "
+"disponibles vía la Interfaz Web de la herramienta."
+
+#: templates/documentation.html:236
+msgid "All the reports are saved on disk at "
+msgstr "Todos los reportes son guardados en disco en "
+
+#: templates/documentation.html:236
+msgid " if you need to go back in time and fetch historical reports."
+msgstr " por si se quieren revisar los reportes históricos."
+
+#: templates/documentation.html:237 templates/documentation.html:245
+msgid ""
+"If you want to obtain the results of your assessment via the API, use the"
+" endpoint "
+msgstr ""
+"En el caso de querer obtener los resultados de la evaluación vía la API, "
+"utilizar el endpoint "
+
+#: templates/documentation.html:240
+msgid "Notifications"
+msgstr "Notificaciones"
+
+#: templates/documentation.html:241
+msgid "NERVE supports delivering notifications via 2 methods: "
+msgstr "NERVE entrega notificaciones por 2 métodos: "
+
+#: templates/documentation.html:241
+msgid " or "
+msgstr " o "
+
+#: templates/documentation.html:242
+msgid ""
+"You can find these settings under the top right menu (Username) -> "
+"Settings"
+msgstr ""
+"Estas opciones se encuentran en el menú superior derecho (Usuario) -> "
+"Configuraciones"
+
+#: templates/documentation.html:243
+msgid ""
+"For email, you can use Amazon SES or a different provider. You will "
+"receive an attachment with the findings in a JSON format, once a scan is "
+"completed."
+msgstr ""
+"Para email, se puede utilizar Amazon SES o un proveedor diferente. Se "
+"recibirá un archivo adjunto con los resultados en formato JSON una vez "
+"terminado el escaneo."
+
+#: templates/documentation.html:244
+msgid "For slack, use an "
+msgstr "Para slack, utilizar un "
+
+#: templates/documentation.html:244
+msgid "incoming webhook"
+msgstr "\"incoming webhook\""
+
+#: templates/documentation.html:244
+msgid ""
+" and paste the URL Slack gives you at the end of the process. You will "
+"receive a slack notification with the results once a scan is completed."
+msgstr ""
+" y pegar la URL que Slack entrega al final del proceso. De este modo, "
+"será posible recibir notificaciones de slack con los resultados una vez "
+"finalizado un escaneo."
+
+#: templates/documentation.html:248 templates/settings.html:99
+msgid "Security"
+msgstr "Seguridad"
+
+#: templates/documentation.html:249
+msgid ""
+"There are a few security mechanisms implemented into NERVE you need to be"
+" aware of."
+msgstr ""
+"Existen algunos mecanismos de seguridad implementados en NERVE que son "
+"importantes de considerar."
+
+#: templates/documentation.html:251
+msgid " - A response header which controls where resource scan be loaded from."
+msgstr ""
+" - Un encabezado de respuesta que controla desde donde serán cargados los"
+" recursos del escaneo."
+
+#: templates/documentation.html:252
+msgid "Other Security Policies"
+msgstr "Otras Políticas de Seguridad"
+
+#: templates/documentation.html:252
+msgid ""
+" - These Response headers are enabled: Content-Type Options, X-XSS-"
+"Protection, X-Frame-Options, Referer-Policy"
+msgstr ""
+" - Estos encabezados de respuestas se encuentra habilitados: Content-Type"
+" Options, X-XSS-Protection, X-Frame-Options, Referer-Policy"
+
+#: templates/documentation.html:253
+msgid "Brute Force Protection"
+msgstr "Protección de Fuerza Bruta"
+
+#: templates/documentation.html:253
+msgid ""
+" - A user will get locked if more than 5 incorrect login attempts are "
+"made."
+msgstr " - El usuario será bloquea al fallar 5 veces el inicio de sesión."
+
+#: templates/documentation.html:254
+msgid "Cookie Protection"
+msgstr "Protección de Cookies"
+
+#: templates/documentation.html:254
+msgid " - Cookie security flags are used, such as SameSite, HttpOnly, etc."
+msgstr ""
+" - Flags de seguridad para Cookies son utilizadas, como SameSite, "
+"HttpOnly, entre otras."
+
+#: templates/documentation.html:256
+msgid ""
+"If you identify a security vulnerability, please submit a bug to us on "
+"GitHub."
+msgstr ""
+"En caso de identificar una vulnerabilidad, por favor notificar el bug en "
+"GitHub."
+
+#: templates/documentation.html:259
+msgid ""
+"If you want to upgrade your platform, the fastest way is to simply git "
+"clone and overwrite all the files while keeping key files such as "
+"configurations."
+msgstr ""
+"En el caso de querer upgradear la plataforma, la forma más simple es "
+"simplemente efectuar git clone y sobreescribir todos los archivos. "
+"Preservando archivos clave como configuraciones."
+
+#: templates/documentation.html:261
+msgid "Make a copy of "
+msgstr "Hacer una copia de "
+
+#: templates/documentation.html:261
+msgid " if you wish to save your configurations"
+msgstr " en el caso de desear guardar las configuraciones"
+
+#: templates/documentation.html:262
+msgid "Remove "
+msgstr "Remover "
+
+#: templates/documentation.html:262
+msgid " and git clone it again from: "
+msgstr " y ejecuar git clone nuevamente desde: "
+
+#: templates/documentation.html:263
+msgid "Move "
+msgstr "Mover"
+
+#: templates/documentation.html:263
+msgid " file back into "
+msgstr " el archivo devuelta a "
+
+#: templates/documentation.html:264
+msgid "Restart the service using "
+msgstr "Resetear el servicio utilizando "
+
+#: templates/documentation.html:266
+msgid ""
+"You could set up a cron task auto-upgrade NERVE, there's an API endpoint "
+"to check whether you have the latest version or not that you could use "
+"for this purpose: "
+msgstr ""
+"Es posible configurar un tarea de cron para actualizar o mejorar "
+"automáticamente la herramienta, existe un API endpoint que permite "
+"chequear la última versión disponible que se puede utilizar para este "
+"proposito: "
+
+#: templates/documentation.html:268
+msgid "Miscellaneous"
+msgstr "Misceláneo"
+
+#: templates/documentation.html:269
+msgid "Web Interface Logo"
+msgstr "Interfaz Web Logo"
+
+#: templates/documentation.html:270
+msgid "If you want to brand NERVE with your own Logo, simply replace "
+msgstr ""
+"En el caso de querer cambiar la marca de la herramienta, simplemente "
+"reemplazar "
+
+#: templates/documentation.html:270
+msgid " with your own picture."
+msgstr " con su propia imágen."
+
+#: templates/documentation.html:270
+msgid "400px x 100px is the recommended size."
+msgstr "400px x 100px es el tamaño recomendado."
+
+#: templates/documentation.html:294
+msgid "1. Authentication"
+msgstr "1. Autenticación"
+
+#: templates/documentation.html:296
+msgid "2. API Endpoints"
+msgstr "2. API Endpoints"
+
+#: templates/documentation.html:308
+msgid "Welcome to the API section of NERVE."
+msgstr "Bienvenido a la sección APIs de NERVE."
+
+#: templates/documentation.html:309
+msgid ""
+"NERVE's API is simple, you can post a scan, get the scan result and "
+"status, and reset the system."
+msgstr ""
+"La API de NERVE es simple, se puede postear un escaneo, obtener los "
+"resultados, obtener el status y resetar el sistema."
+
+#: templates/documentation.html:310
+msgid ""
+"For posting a scan, NERVE uses the same settings that exist in the Web "
+"Interface, should you need to understand more about what a particular "
+"setting does, just refer to the "
+msgstr ""
+"Para postear un escaneo, NERVE utiliza las mismas configuraciones "
+"existentes en la Intefaz Web. En caso de necesitar entender lo que hace "
+"una configuración en particular, refererse a la "
+
+#: templates/documentation.html:310
+msgid "Graphical User Interface section"
+msgstr "sección Interfaz Gŕafica de Usuarios"
+
+#: templates/documentation.html:310
+msgid " of the document."
+msgstr " del documento."
+
+#: templates/documentation.html:323 templates/documentation.html:325
+#: templates/documentation.html:356
+msgid "Authentication"
+msgstr "Autenticación"
+
+#: templates/documentation.html:327
+msgid "API Authentication is done using Basic Authentication."
+msgstr ""
+"La autenticación a través de la API es realizada utilizando Autenticación"
+" Básica."
+
+#: templates/documentation.html:328
+msgid ""
+"Basic authentication is a simple authentication scheme built into the "
+"HTTP protocol. The client sends HTTP requests with the Authorization "
+"header that contains the word Basic word followed by a space and a "
+"base64-encoded string username:password"
+msgstr ""
+"La Autenticación Básica es un esquema simple de autenticación en base al "
+"protocolo HTTP. El cliente envía una solicitud HTTP con el encabezado de "
+"Autorización, el cual contiene la palabra \"Basic\" seguido por un "
+"espacio y un string usuario:contraseña codificado en base64."
+
+#: templates/documentation.html:329
+msgid ""
+"With each API call, you need to pass the credentials. Here is an example "
+"with Python and the requests library:"
+msgstr ""
+"Con cada llamada a la API es necesario pasar credenciales. A continuación"
+" se muestra un ejemplo con Python y la librería de solicitudes:"
+
+#: templates/documentation.html:346
+msgid "API Table"
+msgstr "Tabla de la API"
+
+#: templates/documentation.html:354
+msgid "Method"
+msgstr "Método"
+
+#: templates/documentation.html:355
+msgid "Endpoint"
+msgstr "Endpoint"
+
+#: templates/documentation.html:357
+msgid "Information"
+msgstr "Información"
+
+#: templates/documentation.html:365
+msgid "False"
+msgstr "Falso"
+
+#: templates/documentation.html:366
+msgid "Returns Server Health Status"
+msgstr "Retorna el Estado de Salud del Servidor"
+
+#: templates/documentation.html:372 templates/documentation.html:379
+#: templates/documentation.html:386 templates/documentation.html:393
+#: templates/documentation.html:400 templates/documentation.html:407
+msgid "True"
+msgstr "Verdadero"
+
+#: templates/documentation.html:373
+msgid "Submits an Assessment"
+msgstr "Sube una Evaluación"
+
+#: templates/documentation.html:380
+msgid "Returns Assessment Status & Results"
+msgstr "Retorna el Estado de la Evaluación y los Resultados"
+
+#: templates/documentation.html:387
+msgid "Resets the Server. Roll Back."
+msgstr "Resetea el Servidor. Roll Back."
+
+#: templates/documentation.html:394
+msgid "Returns the current exclusion list"
+msgstr "Retorna el la lista de exclusiones actual"
+
+#: templates/documentation.html:401
+msgid "Submits an exclusion list"
+msgstr "Sube la lista de exclusiones"
+
+#: templates/documentation.html:408
+msgid "Checks if updates are available"
+msgstr "Chequea si existen actualizaciones disponibles"
+
+#: templates/documentation.html:425
+msgid ""
+"Health is an endpoint to do basic sanity-checks for monitoring systems, "
+"etc."
+msgstr ""
+"Salud es un endpoint que permite efectuar chequeos de sanidad básicos "
+"para monitorear sistemas, etc."
+
+#: templates/documentation.html:445
+msgid ""
+"This endpoint is where you can submit new scans with a configuration file"
+" similar to the Web Interface."
+msgstr ""
+"Este endpoint es donde se suben nuevos escaneos en base a un archivo de "
+"configuración, similar a la Interfaz Web."
+
+#: templates/documentation.html:446
+msgid ""
+"The configuration file must be provided as-is without removing any "
+"entries."
+msgstr ""
+"Este archivo de configuración debe mantener el mismo formato, sin remover"
+" ninguna entrada."
+
+#: templates/documentation.html:503
+msgid "This endpoint is where you can view the state of a running scan."
+msgstr "Este endpoint permite visualizar el estado de ejecución de un escaneo."
+
+#: templates/documentation.html:504
+msgid ""
+"Note that you do not need to wait for a scan to complete, results will be"
+" shown as soon as new data is created."
+msgstr ""
+"Notar que no es necesario esperar que el escaneo se complete, los "
+"resultados serán desplegados tan pronto como nuevos datos sean creados."
+
+#: templates/documentation.html:535
+msgid ""
+"This endpoint allows you to reset the system / stop a currently running "
+"assessment (such as continuous)"
+msgstr ""
+"Este endpoint permite reiniciar el sistema / para la evaluación actual "
+"(por ejemplo, en modo Continuo)"
+
+#: templates/documentation.html:557
+msgid "This endpoint is where you get the current exclusion list."
+msgstr "Este endpoint permite obtener la lista de exclusiones actual"
+
+#: templates/documentation.html:558
+msgid ""
+"You may want to use the Exclusion functionality to prevent certain "
+"traffic from running against certain assets, or to prevent certain alerts"
+" from getting created."
+msgstr ""
+"En algunas casos puede ser de utilidad la opción de Exclusión para "
+"prevenir la ejecución de cierto tráfico en ciertos activos informáticos. "
+"O para prevenir que surjan ciertas alertas."
+
+#: templates/documentation.html:580
+msgid ""
+"This endpoint is where you can submit an exclusion list. The JSON in your"
+" POST must have a valid format as shown below."
+msgstr ""
+"Este endpoint es donde se puede subir la lista de exclusiones. El archivo"
+" JSON en POST debe tener el formato válido mostrado más abajo."
+
+#: templates/documentation.html:581
+msgid "Rule IDs can be retrieved from"
+msgstr "Los IDs de las reglas pueden ser extraídos de los archivos"
+
+#: templates/documentation.html:581
+msgid "files"
+msgstr "archivos"
+
+#: templates/documentation.html:611
+msgid "This endpoint allows you to check if you have the latest NERVE version."
+msgstr ""
+"Este endpoint permite chequear si se encuentra instalada la última "
+"versión de NERVE."
+
+#: templates/documentation.html:635
+msgid "Add new scripts"
+msgstr "Agregar nuevos scripts"
+
+#: templates/documentation.html:637
+msgid ""
+"Additional custom scripts can be added to NERVE scans by users. The tool "
+"by default accepts scripts in a specific Python format, some scripts that"
+" follow this format are stored in folder \"rules\", they can be used as "
+"reference when developing custom scripts. To add this type of scripts, "
+"just store them in any subfolder of \"rules\"."
+msgstr ""
+"Scripts personalizados pueden ser agregados a la herramienta porlos "
+"usuarios. NERVE por defecto acepta scripts en un formato específico de "
+"Python, en la carpeta \"rules\" se encuentran algunos scripts en este "
+"formato, los cuales pueden ser utilizados como referencia la hora de "
+"desarrollar nuevos scripts. Para agregar este tipo de scripts a NERVE, "
+"simplemente hay que almacenar los archivos en una de las subcarpetas de "
+"\"rules\"."
+
+#: templates/documentation.html:640
+msgid "NERVE also allows the execution of scripts in "
+msgstr "NERVE también permite la ejecución de scripts en el formato "
+
+#: templates/documentation.html:640
+msgid ""
+" format with some restrictions. This restrictions can be lifted with some"
+" additional work. The following steps describe the actions needed to add "
+"new NSE scripts to the software with all their features. The newly added "
+"scripts can then be used in future scans."
+msgstr ""
+" con algunas restricciones. Estas restricciones pueden ser levantados con"
+" un poco de trabajo adicional. A continuación se detallan los pasos "
+"necesarios para poder agregar nuevos scripts a la herramienta en el "
+"formato NSE con todas sus funcionalidades."
+
+#: templates/documentation.html:642
+msgid "Steps"
+msgstr "Pasos"
+
+#: templates/documentation.html:643
+msgid "Add the new script to folder"
+msgstr "Agregar el nuevo script a la carpeta"
+
+#: templates/documentation.html:644 templates/documentation.html:671
+#: templates/documentation.html:677
+msgid "[Optional]"
+msgstr "[Opcional]"
+
+#: templates/documentation.html:644
+msgid ""
+" Add parameters accepted by script in file 'config.py'. This value will "
+"be used in future scans. Everytime the value modified, the application "
+"must be restarted in order to apply the changes."
+msgstr ""
+"Agregar parámetros aceptados por el script en el archivo 'config.py'. "
+"Este valor será utilizado en escaneos futuros. Cada vez que se modifique "
+"el valor la aplicación debe ser reiniciada para aplicar los cambios."
+
+#: templates/documentation.html:647
+msgid ""
+"The parameter is given to the script through a variable defined in "
+"config.py file, the format used for the variable is the following: "
+msgstr ""
+"Este parámetro se le entrega al script mediante una variable definida en "
+"el archivo 'config.py', el formato utilizado para definir la variable es "
+"el siguiente: "
+
+#: templates/documentation.html:647
+msgid "NAME_OF_SCRIPT_NAME_OF_PARAMETER = value"
+msgstr "NOMBRE_DEL_SCRIPT_NOMBRE_DEL_PARAMETRO = valor"
+
+#: templates/documentation.html:650
+msgid "Where:"
+msgstr "Donde:"
+
+#: templates/documentation.html:652
+msgid "'NAME_OF_SCRIPT' is the name of the file of the script."
+msgstr "'NOMBRE_DEL_SCRIPT' es el nombre del archivo del script."
+
+#: templates/documentation.html:653
+msgid "'NAME_OF_PARAMETER' is the name of the parameter accepted by the script."
+msgstr "'NOMBRE_DEL_PARAMETRO' es el nombre del parámetro aceptado por el script."
+
+#: templates/documentation.html:654
+msgid ""
+"'value' is the value that the parameter will adopt when running the "
+"script."
+msgstr "'valor' es el valor del parámetro que se utiliza al correr el script."
+
+#: templates/documentation.html:658
+msgid "Other things to consider:"
+msgstr "Otras cosas a considerar:"
+
+#: templates/documentation.html:660
+msgid ""
+"The variable name is defined by the union of 'NAME_OF_SCRIPT' and "
+"'NAME_OF_PARAMETER' using the character '_'."
+msgstr ""
+"El nombre de la variable queda definido por la unión del "
+"'NOMBRE_DEL_SCRIPT' con el 'NOMBRE_DEL_PARAMETRO' utilizando el carácter "
+"'_'."
+
+#: templates/documentation.html:661
+msgid "The variable can be defined in upper or lower case."
+msgstr ""
+"La variable puede ser definida con los caracteres en mayúscula o "
+"minúscula."
+
+#: templates/documentation.html:662
+msgid ""
+"Erase file type from 'NAME_OF_SCRIPT'. For example, if file is called "
+"'ftp_exploit.nse' it should be  used as 'FTP_EXPLOIT'."
+msgstr ""
+"Es necesrio borrar el tipo del archivo del 'NOMBRE_DEL_SCRIPT'. Por "
+"ejemplo, si es archivo se llama 'ftp_exploit.nse' debería dejarse como "
+"'FTP_EXPLOIT'."
+
+#: templates/documentation.html:663
+msgid ""
+"If file name includes character '-' it needs to be replaced by character "
+"'_'. For instance, if file is called 'ftp-exploit' then the result would "
+"be 'FTP_EXPLOIT'."
+msgstr ""
+"Si el nombre incluye el carácter '-' debe ser reemplazado por el carácter"
+" '_'. Por ejemplo, si el archivo se llama 'ftp-exploit' entonces el "
+"resultado sería 'FTP_EXPLOIT'."
+
+#: templates/documentation.html:664
+msgid ""
+"Lastly, if name of parameter includes character '.' replace by character "
+"'_'. This way parameter 'brute.credfile' needs to be transformed to "
+"'BRUTE_CREDFILE' to be used."
+msgstr ""
+"Por último, si el nombre del paŕametro incluye el carácter '.' es "
+"necesario reemplazarlo por '_'. De este modo, el parámetro "
+"'brute.credfile' queda como 'BRUTE_CREDFILE' al transformar."
+
+#: templates/documentation.html:668
+msgid "One final example encompassing all these rules is mentioned here: For "
+msgstr ""
+"A continuación se muestra un ejemplo abarcando todas las reglas "
+"mencionadas con anterioridad: Para "
+
+#: templates/documentation.html:668
+msgid "file 'ftp-steal.nse'"
+msgstr "el archivo 'ftp-steal.nse'"
+
+#: templates/documentation.html:668
+msgid " with "
+msgstr " con "
+
+#: templates/documentation.html:668
+msgid "parameter 'brute.credfile'"
+msgstr "parámetro 'brute.credfile'"
+
+#: templates/documentation.html:668
+msgid "value './credfile'"
+msgstr "valor './credfile'"
+
+#: templates/documentation.html:668
+msgid " The corresponding variable would be "
+msgstr " La variable resultante quedo como "
+
+#: templates/documentation.html:668
+msgid "'FTP_STEAL_BRUTE_CREDFILE = ./credfile'"
+msgstr "'FTP_STEAL_BRUTE_CREDFILE = ./credfile'"
+
+#: templates/documentation.html:671
+msgid ""
+" Add support to different types of outputs provided by script. This "
+"allows the tool to correctly determine when a vunerability is found by "
+"the script."
+msgstr ""
+" Agregar soporte a diferentes tipos de outputs provistos por el script. "
+"Esto permite a la herramienta determinar correctamente cuando el script "
+"encuentra una vulnerabilidad."
+
+#: templates/documentation.html:674
+msgid ""
+"This feature can be added by modifying the function 'verify_output in "
+"file 'core/nse_script.py'. Programming knowledge is required in order to "
+"parse the different outputs."
+msgstr ""
+"Esta funcionalidad puede lograrse modificando la función 'verify_output' "
+"en el archivo 'core/nse_scripts.py'. Cabe mencionar que es requerido "
+"conocimiento de programador para parsear los diferentes tipos de outputs."
+" "
+
+#: templates/documentation.html:677
+msgid " Add metadata to scripts. The supported fields are the following:"
+msgstr ""
+" Agregar metada de los scripts. Los campos soportados por NERVE son los "
+"siguientes:"
+
+#: templates/documentation.html:679
+msgid "Description: "
+msgstr "Descripción: "
+
+#: templates/documentation.html:679
+msgid "Description of the attack or analysis done by the script."
+msgstr ""
+"Corresponde a la descripción del ataque o análisis efectuado por el "
+"script."
+
+#: templates/documentation.html:680
+msgid "Severity: "
+msgstr "Severidad: "
+
+#: templates/documentation.html:680
+msgid ""
+"Indicates the severity level of the script. In other words, how critical "
+"is the vulnerability associated. It ranges from 0 to 6, where:"
+msgstr ""
+"Indica el nivel de severidad del script. En otras palabras, que tan "
+"crítica es la vulnerabilidad asociado. Va desde 0 - 6, donde:"
+
+#: templates/documentation.html:687
+msgid "Unknown"
+msgstr "Indeterminado"
+
+#: templates/documentation.html:691
+msgid "Confirm: "
+msgstr "Confirmación: "
+
+#: templates/documentation.html:691
+msgid "Detail of the vulnerability found."
+msgstr "Detalle de la vulnerabilidad encontrada."
+
+#: templates/documentation.html:692
+msgid "Mitigation: "
+msgstr "Mitigación: "
+
+#: templates/documentation.html:692
+msgid "Steps needed to mitigate the vulnerability."
+msgstr "Pasos necesarios para mitigar la vulnerabilidad."
+
+#: templates/documentation.html:693
+msgid "Intensity: "
+msgstr "Intesidad: "
+
+#: templates/documentation.html:693
+msgid ""
+"Same as 'aggressiveness level' used by NERVE. Determines the impact of "
+"the running script on its targets. Value ranges from 0 - 3. Where:"
+msgstr ""
+"Equivalente al 'nivel de agresividad' utilizado por NERVE. Corresponde al"
+" impacto de los scripts en los objetivos de los escaneos. Su valor se "
+"encuentra en el rango 0 - 3. Donde:"
+
+#: templates/documentation.html:697
+msgid "Mildly Aggreessive"
+msgstr "Medianamente Agresivo"
+
+#: templates/documentation.html:699
+msgid "Extremely Agressive"
+msgstr "Extremedamente Agresivo"
+
+#: templates/documentation.html:705
+msgid "A NSE script containing all metadata fields is available in"
+msgstr "Un script NSE con todos los campos de metadata se encuentra disponible en"
+
 #: templates/login.html:29
 msgid "Login"
 msgstr "Inicio de Sesión"
@@ -854,10 +2124,6 @@ msgstr "ID_REGLAS"
 msgid "MITIGATION"
 msgstr "MITIGACIÓN"
 
-#: templates/reports.html:25
-msgid "Reports"
-msgstr "Reportes"
-
 #: templates/reports.html:27
 msgid ""
 "Below you can download your latest completed assessment report in various"
@@ -929,13 +2195,9 @@ msgstr "Dirección Destinatario"
 msgid "Emails will be sent to this address"
 msgstr "Correos serán enviados desde esta dirección"
 
-#: templates/settings.html:99
-msgid "Security"
-msgstr "Seguridad"
-
 #: templates/settings.html:103
 msgid " -- select an option -- "
-msgstr "-- seleccione una opción --"
+msgstr " -- seleccione una opción -- "
 
 #: templates/settings.html:107
 msgid "Currently using"
@@ -1017,15 +2279,19 @@ msgstr " Uso"
 msgid " Developer API"
 msgstr " API Desarrolladores"
 
-#: templates/sidebar.html:46
+#: templates/sidebar.html:43
+msgid " Add new scripts guide"
+msgstr " Guía agregar nuevos scripts"
+
+#: templates/sidebar.html:49
 msgid " Reset System"
 msgstr " Resetear Sistema"
 
-#: templates/sidebar.html:49
+#: templates/sidebar.html:52
 msgid "Continuous Scan Mode"
 msgstr "Modo de Escaneo Continuo"
 
-#: templates/sidebar.html:52
+#: templates/sidebar.html:55
 msgid " Star us on GitHub"
 msgstr " Suma una estrella en GitHub"
 
@@ -1229,7 +2495,4 @@ msgstr "acción no soportada"
 #: views_api/api_scan.py:37
 msgid "flushed scan state"
 msgstr "Estado de escaneo reseteado"
-
-#~ msgid "Option [SCHEDULE_DATE] must be prior to current date"
-#~ msgstr "Opción [FECHA_DE_AGENDADO] debe ser "
 
