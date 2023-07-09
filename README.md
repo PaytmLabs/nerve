@@ -1,7 +1,7 @@
 # Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Dashboard.png?raw=true)
 
-# Table of Contents
+# Tabla de Contenidos
 * [Sobre Este Proyecto](#sobre-este-proyecto)
 * [Seguridad Continua](#seguridad-continua)
 * [Funcionalidades herramienta](#funcionalidades-herramienta)
