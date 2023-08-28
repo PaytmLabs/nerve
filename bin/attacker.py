@@ -68,36 +68,41 @@ def run_nse_rules(conf):
   if not data:
     return
 
-  scripts_names = ['ftp-steal'] 
-
   """
     Nmap doesn't support multiple scripts with different ports on one command.
     Therefore multiple commands are ran in parallel for each port of each host.
     For each host launch a new attack thread
+
+    Launch attack for nse directory scripts
   """
   for ip, values in data.items():
     if 'ports' in values and len(values['ports']) > 0: 
-      logger.info('Base NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
+      logger.info('Running NSE directory scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
+      scripts_names_nse = os.listdir(config.NSE_SCRIPTS_PATH)
+      scripts_names = [x[:-4] for x in scripts_names_nse]
+
       for script in scripts_names:
-        metadata = get_metadata(script)
+        metadata = get_metadata(script, 'local')
 
         if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:
-          thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))
+          thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf, 'local'), name='nse_rule_{}'.format(script))
           thread.start()
+        elif 'error' in metadata:
+          logger.info("Error {} for script: {}".format(metadata['error'], script))
 
   """
-    Launch attack for user added scripts
+    Launch attack for nmap scripts
   """
   for ip, values in data.items():
     if 'ports' in values and len(values['ports']) > 0: 
-      logger.info('Extra NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
-      for script in config.NSE_SCRIPT_DIRECT_PATH:
-        metadata = get_metadata(script)
+      logger.info('Running Nmap NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
+      for script in config.NMAP_SCRIPTS_IN_ASSESSMENT:
+        metadata = get_metadata(script, 'nmap')
 
         if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:
-          thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf), name='nse_rule_{}'.format(script))
+          thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf, 'nmap'), name='nse_rule_{}'.format(script))
           thread.start()
-        else:
+        elif 'error' in metadata:
           logger.info("Error {} for script: {}".format(metadata['error'], script))
 
   
@@ -121,7 +126,7 @@ def attacker():
     if c.get_cfg_schedule() > datetime.datetime.now():
       time.sleep(10)
       continue
-
+ 
     run_python_rules(conf)
     run_nse_rules(conf)
     count += 1

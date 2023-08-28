@@ -80,7 +80,7 @@ NSE_SCRIPTS_PATH = NERVE_INSTALL_PATH + "rules/nse/"
 
 # NMAP parameters
 NMAP_INSTALL_PATH = "/usr/share/nmap/" # Default location, can also be: /usr/local/share/nmap/
-NSE_SCRIPT_DIRECT_PATH = [NMAP_INSTALL_PATH + 'scripts/ftp-brute.nse']
+NMAP_SCRIPTS_IN_ASSESSMENT = ['ftp-brute', 'sshv1']
 
 # ftp-steal args
 # ftp login credentials

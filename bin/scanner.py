@@ -49,8 +49,3 @@ def scanner():
             if values['status_reason'] == 'echo-reply':
               logger.info('Discovered Asset: {}'.format(host))
               rds.store_topology(host)
-      else:
-        logger.info('failed scan_data')
-    else:
-      logger.info('failed hosts')
-

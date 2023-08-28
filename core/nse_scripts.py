@@ -14,24 +14,38 @@ def verify_output(output, script):
 
    :param output str: Scan result output.
    :param script str: Corresponding script name.
-   :return vulnerability_found bool: Boolean indicating if vulnerability was found during scan.
-   :return result_string str: If vulnerability was found returns parsed output if not empty string.
+   :return vulnerability_found string: true,false,unknown value indicating if vulnerability was found during scan.
   """
   
-  vulnerability_found = False
+  vulnerability_found = 'false'
   
   # Verification
   if script == 'ftp-steal':
     lines = output.split("\n")
     for line in lines:  
       if 'Lines containing keywords:' in line:
-        vulnerability_found = True
+        vulnerability_found = 'true'
 
   elif script == 'ftp-brute':
     lines = output.split("\n")
     for line in lines:
       if 'Valid credentials' in line:
-        vulnerability_found = True
+        vulnerability_found = 'true'
+
+  elif script == 'sshv1':
+    lines = output.split("\n")
+    for line in lines:
+      if 'true' in line:
+        vulnerability_found = 'true'
+  
+  elif script == 'ssh-log4shell':
+    lines = output.split("\n")
+    for line in lines:
+      if 'Password as payload succeeded. Weird' in line:
+        vulnerability_found = 'true'
+
+  else:
+    vulnerability_found = 'unknown'
 
   return vulnerability_found
 
@@ -42,7 +56,7 @@ def get_args(script):
    param script str: Name of nse script associated with args.
    return script_args str: NSE script args string in execution parameter format
   """
-  script_args = '--script_args '
+  script_args = '--script-args '
 
   if script == 'ftp-steal':
     if hasattr(config, 'FTP_STEAL_USER'):
@@ -74,7 +88,7 @@ def get_args(script):
   return script_args[:-1] 
 
 
-def check_rule(script, metadata, ip, values, conf):
+def check_rule(script, metadata, ip, values, conf, location):
   """
    Launch attack to service
 
@@ -82,20 +96,19 @@ def check_rule(script, metadata, ip, values, conf):
    :param metadata dict(str or int): Metadata of script
    :param ip str: Host ip
    :param values dict(str): Port scan info
-   :param conf dict(str): Scan configuration info 
+   :param conf dict(str): Scan configuration info
+   :param location str: Location where nse script resides, only supported values at the moment are "local" and "nmap" 
   """
   nm = nmap.PortScanner() 
-  if not os.path.isabs(script):
+  if location == 'local':
     script_syntax = '--script ' + config.NSE_SCRIPTS_PATH + script + '.nse'
-  else:
-    script_syntax = '--script ' + script
-    script = script.split("/")[-1][:-4]
+  elif location == 'nmap':
+    script_syntax = '--script ' + config.NMAP_INSTALL_PATH + 'scripts/' + script + '.nse'
   ports = ','.join([str(p) for p in values['ports']])
 
   # Start scan 
-  logger.debug('Starting script {} execution'.format(script))
   script_args = get_args(script)
-  if script_args == '--script-args ':
+  if script_args == '--script-args':
     nm.scan(ip, ports=ports, arguments='{}'.format(script_syntax)) # Case when no arguments are given
   else:
     nm.scan(ip, ports=ports, arguments='{} {}'.format(script_syntax, get_args(script)))
@@ -109,7 +122,6 @@ def check_rule(script, metadata, ip, values, conf):
  
     # Scan finished
     output_scan = nm._scan_result['scan'][ip]
-    logger.debug('Raw Scan Output: ' + str(output_scan))
  
     #Check if NSE script was executed correctly
     for p in values['ports']:
@@ -117,22 +129,16 @@ def check_rule(script, metadata, ip, values, conf):
  
         # key = script
         for key,result in output_scan['tcp'][p]['script'].items():
-          logger.info('Sucessful scan')
-          logger.debug('Script {}, Output: {}'.format(key,result))
           
-          # List of supported nse scripts by tool
-          # Currently modified to test potential vulns
-          supported_scripts = ['ftp-steal']
-          if key in supported_scripts:
-            vulnerable = verify_output(result, key)
-            logger.debug('Verify output: {}, {}'.format(vulnerable, key))
+          vulnerable = verify_output(result, key)
+          logger.debug('Script {}, Output: {}, Verify : {}'.format(key,result, vulnerable))
  
-            if vulnerable:
-              # Save result in redis for further display
-              save_result(key, result, metadata, ip, p, values, True)
+          if vulnerable == 'true': 
+            # Save result in redis for further display
+            save_result(key, result, metadata, ip, p, values, True)
 
           # Potential Threat, means tool does not support output result for script
-          else:
+          elif vulnerable == 'unknown':
             save_result(key, result, metadata, ip, p, values, False)
       
       # Script not executed correctly
@@ -142,20 +148,20 @@ def check_rule(script, metadata, ip, values, conf):
 
   return
 
-def get_metadata(script):
+def get_metadata(script, location):
   """
    Read through nse file to obtain corresponding metadata
 
-   :param scripts str: Script name
+   :param script str: Script name
+   :param location str: Location where nse script resides, only supported values at the moment are "local" and "nmap" 
    :return result dict(str or int): Metadata values found
 
   """
   try:
-    if not os.path.isabs(script):
-      script_path = config.NSE_SCRIPTS_PATH + script + '.nse'
-    else:
-      script_path = script
-    logger.debug('Script path: {}'.format(script_path))
+    if location == 'local':
+      script_path =  config.NSE_SCRIPTS_PATH + script + '.nse'
+    elif location == 'nmap':
+      script_path = config.NMAP_INSTALL_PATH + 'scripts/' + script + '.nse'
     nse_script = open(script_path, 'r')
 
     # Delimeters
@@ -209,9 +215,6 @@ def get_metadata(script):
     # Value must be between 0 - 3
     if intensity > 3 or intensity < 0:
       intensity = 3
-    # If result if not confirmed mark as potential 
-    if not confirm_description:
-      severity_level = 6 # Potential
 
     # Normalize values(confirm will be normalized down the line)
     description = re.sub(r"[^a-zA-Z0-9 ]", "", description)
@@ -246,18 +249,23 @@ def save_result(script, result, metadata, ip, port, values, confirmed):
   confirm = metadata['confirm']
   if confirm == '':
     confirm = result
+
+  # If result is not confirmed mark as potencial vuln
+  severity = metadata['severity_level']
+  if not confirmed:
+    severity = 6 # Potential
  
   # Save results on redis
   rds.store_vuln({
-    'ip':ip,                                                 # Check
-    'port':port,                                             # Check
-    'domain':domain,                                         # Check, es None en el caso que no halla
-    'rule_id':script,                                        # A medias, Corresponde a un código de 8 caracteres. Sin embargo, creo que lo úni      co que se hace con este es realizar un hash más adelante y no es relevante el largo. Por ahora para identificar cada script se usara el nombre.       CREO QUE ESTO PUEDE FALLAR EN ALGUNOS CASOS.
-    'rule_sev': metadata['severity_level'],                                    # Check, usar campo 'severity' de scripts nse
-    'rule_desc': metadata['description'],                    # Check, Usar descripción del script de nmap
-    'rule_confirm': re.sub(r"[^a-zA-Z0-9 ]", "", confirm),                     # Check, Descripción de algo, falta identificar de que, se puede dejar como strin      g vacío supongo
-    'rule_details': result,                                  # Check, Resultados del script
-    'rule_mitigation': metadata['mitigation']                # Check, Descripción breve de como evitar el problema, permite string vacío creo
+    'ip':ip,                                                 
+    'port':port,                                             
+    'domain':domain,                                         
+    'rule_id':script,                                        # Script name as ID for now
+    'rule_sev': severity,                                    
+    'rule_desc': metadata['description'],                    
+    'rule_confirm': re.sub(r"[^a-zA-Z0-9 ]", "", confirm),   # Falta verificar que pasa cuando es vacó
+    'rule_details': result,                                 
+    'rule_mitigation': metadata['mitigation']                
           })
 
   return

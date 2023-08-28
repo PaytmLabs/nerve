@@ -51,7 +51,6 @@ class Scanner():
       logger.error('Error with scan. {}'.format(e))
     
     if 'scan' in result:  
-      logger.info('Result Preemptive Scan: {}'.format(result))
       for host, res in result['scan'].items():
         logger.info('For host {}, res {}'.format(host, res))
         
@@ -79,6 +78,7 @@ class Scanner():
           
           for port, values in res['tcp'].items():
             if port and values['state'] == 'open':
+              logger.debug('Added host {} on port {} to attacking list.'.format(host,port))
               data[host]['ports'].add(port)    
               data[host]['port_data'][port] = {}
               data[host]['port_data'][port]['cpe'] = values['cpe']
@@ -86,5 +86,5 @@ class Scanner():
               data[host]['port_data'][port]['state']  = values['state']
               data[host]['port_data'][port]['version'] = values['version']
               data[host]['port_data'][port]['product'] = values['product']
-    
+ 
     return data

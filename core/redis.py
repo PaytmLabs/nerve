@@ -121,26 +121,24 @@ class RedisManager:
   # Returns dictionary with ips and values
   def get_scan_data(self, delete):
     kv = {}
-    ip_key = None
     
     for k in self.r.scan_iter(match="sca_*"):
       ip_key = k.decode('utf-8')
-      break # only get one key
 
-    if ip_key:
-      data = self.r.get(ip_key)
-      if data:
-        try:
-          result = pickle.loads(data)
-          if result:
-            ip = ip_key.split('_')[1]
-            kv[ip] = result 
-            # Methods is called twice(python and lua), key should be erased on second call
-            if delete:
-              self.r.delete(ip_key)
-        except pickle.UnpicklingError as e:
-          logger.error('Error unpickling %s' % e)
-          logger.debug('IP Key: %s' % ip_key)
+      if ip_key:
+        data = self.r.get(ip_key)
+        if data:
+          try:
+            result = pickle.loads(data)
+            if result:
+              ip = ip_key.split('_')[1]
+              kv[ip] = result 
+              # Methods is called twice(python and lua), key should be erased on second call
+              if delete:
+                self.r.delete(ip_key)
+          except pickle.UnpicklingError as e:
+            logger.error('Error unpickling %s' % e)
+            logger.debug('IP Key: %s' % ip_key)
 
     return kv
 
@@ -204,7 +202,6 @@ class RedisManager:
     count = 0
     for k in self.r.scan_iter(match="sch_*"):
       count += 1
-      logger.debug('Sch_ thread is active')
     return count
   
   def get_exclusions(self):
@@ -227,8 +224,7 @@ class RedisManager:
   
   def is_attack_active(self):
     for i in threading.enumerate():
-      if i.name.startswith('rule_'):
-        logger.debug('Rule is active')
+      if i.name.startswith('rule_') or i.name.startswith('nse_rule_'):
         return True
     return False
 
