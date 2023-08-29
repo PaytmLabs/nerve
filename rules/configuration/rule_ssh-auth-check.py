@@ -6,7 +6,7 @@ from db.db_ports     import ssh_ports
 class Rule:
   def __init__(self):
     self.rule = 'CFG_FOQW'
-    self.rule_severity = 3
+    self.rule_severity = 2
     self.rule_description = 'This rule checks if OpenSSH allows passwords as an accepted authentication mechanism'
     self.rule_confirm = 'Remote Server Supports SSH Passwords'
     self.rule_details = ''
