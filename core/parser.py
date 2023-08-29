@@ -141,7 +141,7 @@ class SchemaParser:
         verified = False
       
       if description:
-        if len(description) > 50 or not self.utils.is_string_safe(description):
+        if len(description) > 200 or not self.utils.is_string_safe(description):
           error = _('Option [ASSESSMENT_DESCRIPTION] must not exceed 200 characters and must not have special characters.')
           verified = False
       

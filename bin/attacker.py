@@ -64,6 +64,7 @@ def run_nse_rules(conf):
     Get scan data from Redis, True param is used to erase data from db.
   """
   data = rds.get_scan_data(True)
+  exclusions = rds.get_exclusions()
 
   if not data:
     return
@@ -82,6 +83,14 @@ def run_nse_rules(conf):
       scripts_names = [x[:-4] for x in scripts_names_nse]
 
       for script in scripts_names:
+        """
+          Check if the target is in exclusions list, if it is, skip.
+          Exclusion list can be accessed through api/exclusion api endpoint. More info on documentation view.
+        """
+        if script in exclusions and ip in exclusions[script]:
+          logger.debug('Skipping rule {} for target {}'.format(script, ip))
+          continue
+
         metadata = get_metadata(script, 'local')
 
         if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:
@@ -97,6 +106,14 @@ def run_nse_rules(conf):
     if 'ports' in values and len(values['ports']) > 0: 
       logger.info('Running Nmap NSE scripts: Attacking Ports: {} of asset: {}'.format(values['ports'], ip))
       for script in config.NMAP_SCRIPTS_IN_ASSESSMENT:
+        """
+          Check if the target is in exclusions list, if it is, skip.
+          Exclusion list can be accessed through api/exclusion api endpoint. More info on documentation view.
+        """
+        if script in exclusions and ip in exclusions[script]:
+          logger.debug('Skipping rule {} for target {}'.format(script, ip))
+          continue
+
         metadata = get_metadata(script, 'nmap')
 
         if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity']:

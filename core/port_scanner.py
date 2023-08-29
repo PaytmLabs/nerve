@@ -52,7 +52,7 @@ class Scanner():
     
     if 'scan' in result:  
       for host, res in result['scan'].items():
-        logger.info('For host {}, res {}'.format(host, res))
+        logger.info('For host {}, scan nmap result: {}'.format(host, res))
         
         data[host] = {}
         data[host]['status'] = res['status']['state']
@@ -78,7 +78,6 @@ class Scanner():
           
           for port, values in res['tcp'].items():
             if port and values['state'] == 'open':
-              logger.debug('Added host {} on port {} to attacking list.'.format(host,port))
               data[host]['ports'].add(port)    
               data[host]['port_data'][port] = {}
               data[host]['port_data'][port]['cpe'] = values['cpe']

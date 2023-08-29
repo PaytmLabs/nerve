@@ -261,6 +261,7 @@ class RedisManager:
       self.r.delete('sess_{}'.format(i))
     
     self.utils.clear_log()
+    self.r.delete('p_rule-exclusions')
   
   
   def is_ip_blocked(self, ip):

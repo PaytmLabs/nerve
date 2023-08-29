@@ -437,7 +437,7 @@ msgstr "Gentíl"
 
 #: templates/assessment.html:107
 msgid "Allow Outbound Internet Connections"
-msgstr "Pemitir Conexciones Salientes de Internet"
+msgstr "Permitir Conecciones Salientes de Internet"
 
 #: templates/assessment.html:114 templates/documentation.html:106
 msgid "Attempt Brute Force Attacks"

@@ -44,7 +44,6 @@ def scheduler():
     config = rds.get_next_scan_config()
     
     if not config:
-      #logger.debug('No Config yet')
       continue
     
     conf = ConfParser(config)
