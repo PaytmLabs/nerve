@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-07-08 22:06-0400\n"
+"POT-Creation-Date: 2023-08-28 22:31-0400\n"
 "PO-Revision-Date: 2023-01-20 13:42-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -288,31 +288,31 @@ msgid "Potential"
 msgstr "Potencial"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/documentation.html:688 templates/vulnerabilities.html:66
+#: templates/documentation.html:691 templates/vulnerabilities.html:66
 msgid "Undefined"
 msgstr "Indefinido"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/documentation.html:686 templates/vulnerabilities.html:64
+#: templates/documentation.html:689 templates/vulnerabilities.html:64
 msgid "Critical"
 msgstr "Crítico"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/documentation.html:685 templates/vulnerabilities.html:62
+#: templates/documentation.html:688 templates/vulnerabilities.html:62
 msgid "High"
 msgstr "Alto"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/documentation.html:684 templates/vulnerabilities.html:60
+#: templates/documentation.html:687 templates/vulnerabilities.html:60
 msgid "Medium"
 msgstr "Medio"
 
 #: core/utils.py:46 templates/dashboard.html:300
-#: templates/documentation.html:683 templates/vulnerabilities.html:58
+#: templates/documentation.html:686 templates/vulnerabilities.html:58
 msgid "Low"
 msgstr "Bajo"
 
-#: core/utils.py:46 templates/documentation.html:682
+#: core/utils.py:46 templates/documentation.html:685
 #: templates/vulnerabilities.html:56
 msgid "Informational"
 msgstr "Informacional"
@@ -423,7 +423,7 @@ msgstr "Nivel de Agresividad"
 msgid "Extremely Aggressive (Default)"
 msgstr "Extremadamente Agresivo (Predeterminado)"
 
-#: templates/assessment.html:101 templates/documentation.html:698
+#: templates/assessment.html:101 templates/documentation.html:701
 msgid "Aggressive"
 msgstr "Agresivo"
 
@@ -431,7 +431,7 @@ msgstr "Agresivo"
 msgid "Mildly Aggressive"
 msgstr "Moderadamente Agresivo"
 
-#: templates/assessment.html:103 templates/documentation.html:696
+#: templates/assessment.html:103 templates/documentation.html:699
 msgid "Gentle"
 msgstr "Gentíl"
 
@@ -1189,7 +1189,7 @@ msgstr ""
 "Agendado permite determinar cuando y donde se quiere efectuar una "
 "evaluación. Existen 3 opciones: "
 
-#: templates/documentation.html:143 templates/documentation.html:668
+#: templates/documentation.html:143 templates/documentation.html:671
 msgid " and "
 msgstr " y "
 
@@ -1713,7 +1713,7 @@ msgid ""
 "reference when developing custom scripts. To add this type of scripts, "
 "just store them in any subfolder of \"rules\"."
 msgstr ""
-"Scripts personalizados pueden ser agregados a la herramienta porlos "
+"Scripts personalizados pueden ser agregados a la herramienta por los "
 "usuarios. NERVE por defecto acepta scripts en un formato específico de "
 "Python, en la carpeta \"rules\" se encuentran algunos scripts en este "
 "formato, los cuales pueden ser utilizados como referencia la hora de "
@@ -1727,30 +1727,46 @@ msgstr "NERVE también permite la ejecución de scripts en el formato "
 
 #: templates/documentation.html:640
 msgid ""
-" format with some restrictions. This restrictions can be lifted with some"
-" additional work. The following steps describe the actions needed to add "
-"new NSE scripts to the software with all their features. The newly added "
-"scripts can then be used in future scans."
-msgstr ""
-" con algunas restricciones. Estas restricciones pueden ser levantados con"
-" un poco de trabajo adicional. A continuación se detallan los pasos "
-"necesarios para poder agregar nuevos scripts a la herramienta en el "
-"formato NSE con todas sus funcionalidades."
+" format. Scripts in this format can also be added to the tool following "
+"the steps mentioned below. Although it is important to note that "
+"depending on the amount of additional information the script provides "
+"that some functionalities will be limited. Adding to this, some "
+"additional modifications must be done to the tool in order to incorporate"
+" the script and use all the features of the tool."
+msgstr ". Los scripts en este formato también pueden ser añadidos a la herramienta siguiendo los pasos mencionados a continuación. Sin embargo, es importante destacar que dependiendo de la cantidad de información adicional que provean estos script es que algunas funcionalidades de la herramienta puedan ser limitadas. Adicionalmente, también es requerido modificar la herramienta para poder incorporar scripts y aprovechar todas las funcionadlidades de esta."
 
-#: templates/documentation.html:642
+#: templates/documentation.html:643
 msgid "Steps"
 msgstr "Pasos"
 
-#: templates/documentation.html:643
-msgid "Add the new script to folder"
-msgstr "Agregar el nuevo script a la carpeta"
+#: templates/documentation.html:644
+msgid "Add the new script to the tool."
+msgstr "Agregar el nuevo script a la herramienta."
 
-#: templates/documentation.html:644 templates/documentation.html:671
-#: templates/documentation.html:677
+#: templates/documentation.html:645
+msgid ""
+"If the script is located in the Nmap scripts folder, then only the name "
+"of the script must be added to the variable"
+msgstr "Si el script se encuentra localizado en la carpeta de scripts de Nmap, entonces solo el nombre del script debe agregarse a la variable"
+
+#: templates/documentation.html:645
+msgid "located in"
+msgstr "del archivo"
+
+#: templates/documentation.html:646
+msgid "In other cases, the script must be added to the"
+msgstr "En otros casos, agregar el script a la carpeta"
+
+#: templates/documentation.html:646
+msgid "folder."
+msgstr "."
+
+#: templates/documentation.html:647 templates/documentation.html:674
+#: templates/documentation.html:680
 msgid "[Optional]"
 msgstr "[Opcional]"
 
-#: templates/documentation.html:644
+#: templates/documentation.html:647
 msgid ""
 " Add parameters accepted by script in file 'config.py'. This value will "
 "be used in future scans. Everytime the value modified, the application "
@@ -1760,7 +1776,7 @@ msgstr ""
 "Este valor será utilizado en escaneos futuros. Cada vez que se modifique "
 "el valor la aplicación debe ser reiniciada para aplicar los cambios."
 
-#: templates/documentation.html:647
+#: templates/documentation.html:650
 msgid ""
 "The parameter is given to the script through a variable defined in "
 "config.py file, the format used for the variable is the following: "
@@ -1769,33 +1785,33 @@ msgstr ""
 "el archivo 'config.py', el formato utilizado para definir la variable es "
 "el siguiente: "
 
-#: templates/documentation.html:647
+#: templates/documentation.html:650
 msgid "NAME_OF_SCRIPT_NAME_OF_PARAMETER = value"
 msgstr "NOMBRE_DEL_SCRIPT_NOMBRE_DEL_PARAMETRO = valor"
 
-#: templates/documentation.html:650
+#: templates/documentation.html:653
 msgid "Where:"
 msgstr "Donde:"
 
-#: templates/documentation.html:652
+#: templates/documentation.html:655
 msgid "'NAME_OF_SCRIPT' is the name of the file of the script."
 msgstr "'NOMBRE_DEL_SCRIPT' es el nombre del archivo del script."
 
-#: templates/documentation.html:653
+#: templates/documentation.html:656
 msgid "'NAME_OF_PARAMETER' is the name of the parameter accepted by the script."
 msgstr "'NOMBRE_DEL_PARAMETRO' es el nombre del parámetro aceptado por el script."
 
-#: templates/documentation.html:654
+#: templates/documentation.html:657
 msgid ""
 "'value' is the value that the parameter will adopt when running the "
 "script."
 msgstr "'valor' es el valor del parámetro que se utiliza al correr el script."
 
-#: templates/documentation.html:658
+#: templates/documentation.html:661
 msgid "Other things to consider:"
 msgstr "Otras cosas a considerar:"
 
-#: templates/documentation.html:660
+#: templates/documentation.html:663
 msgid ""
 "The variable name is defined by the union of 'NAME_OF_SCRIPT' and "
 "'NAME_OF_PARAMETER' using the character '_'."
@@ -1804,13 +1820,13 @@ msgstr ""
 "'NOMBRE_DEL_SCRIPT' con el 'NOMBRE_DEL_PARAMETRO' utilizando el carácter "
 "'_'."
 
-#: templates/documentation.html:661
+#: templates/documentation.html:664
 msgid "The variable can be defined in upper or lower case."
 msgstr ""
 "La variable puede ser definida con los caracteres en mayúscula o "
 "minúscula."
 
-#: templates/documentation.html:662
+#: templates/documentation.html:665
 msgid ""
 "Erase file type from 'NAME_OF_SCRIPT'. For example, if file is called "
 "'ftp_exploit.nse' it should be  used as 'FTP_EXPLOIT'."
@@ -1819,7 +1835,7 @@ msgstr ""
 "ejemplo, si es archivo se llama 'ftp_exploit.nse' debería dejarse como "
 "'FTP_EXPLOIT'."
 
-#: templates/documentation.html:663
+#: templates/documentation.html:666
 msgid ""
 "If file name includes character '-' it needs to be replaced by character "
 "'_'. For instance, if file is called 'ftp-exploit' then the result would "
@@ -1829,7 +1845,7 @@ msgstr ""
 " '_'. Por ejemplo, si el archivo se llama 'ftp-exploit' entonces el "
 "resultado sería 'FTP_EXPLOIT'."
 
-#: templates/documentation.html:664
+#: templates/documentation.html:667
 msgid ""
 "Lastly, if name of parameter includes character '.' replace by character "
 "'_'. This way parameter 'brute.credfile' needs to be transformed to "
@@ -1839,37 +1855,37 @@ msgstr ""
 "necesario reemplazarlo por '_'. De este modo, el parámetro "
 "'brute.credfile' queda como 'BRUTE_CREDFILE' al transformar."
 
-#: templates/documentation.html:668
+#: templates/documentation.html:671
 msgid "One final example encompassing all these rules is mentioned here: For "
 msgstr ""
 "A continuación se muestra un ejemplo abarcando todas las reglas "
 "mencionadas con anterioridad: Para "
 
-#: templates/documentation.html:668
+#: templates/documentation.html:671
 msgid "file 'ftp-steal.nse'"
 msgstr "el archivo 'ftp-steal.nse'"
 
-#: templates/documentation.html:668
+#: templates/documentation.html:671
 msgid " with "
 msgstr " con "
 
-#: templates/documentation.html:668
+#: templates/documentation.html:671
 msgid "parameter 'brute.credfile'"
 msgstr "parámetro 'brute.credfile'"
 
-#: templates/documentation.html:668
+#: templates/documentation.html:671
 msgid "value './credfile'"
 msgstr "valor './credfile'"
 
-#: templates/documentation.html:668
+#: templates/documentation.html:671
 msgid " The corresponding variable would be "
 msgstr " La variable resultante quedo como "
 
-#: templates/documentation.html:668
+#: templates/documentation.html:671
 msgid "'FTP_STEAL_BRUTE_CREDFILE = ./credfile'"
 msgstr "'FTP_STEAL_BRUTE_CREDFILE = ./credfile'"
 
-#: templates/documentation.html:671
+#: templates/documentation.html:674
 msgid ""
 " Add support to different types of outputs provided by script. This "
 "allows the tool to correctly determine when a vunerability is found by "
@@ -1879,7 +1895,7 @@ msgstr ""
 "Esto permite a la herramienta determinar correctamente cuando el script "
 "encuentra una vulnerabilidad."
 
-#: templates/documentation.html:674
+#: templates/documentation.html:677
 msgid ""
 "This feature can be added by modifying the function 'verify_output in "
 "file 'core/nse_script.py'. Programming knowledge is required in order to "
@@ -1890,27 +1906,27 @@ msgstr ""
 "conocimiento de programador para parsear los diferentes tipos de outputs."
 " "
 
-#: templates/documentation.html:677
+#: templates/documentation.html:680
 msgid " Add metadata to scripts. The supported fields are the following:"
 msgstr ""
 " Agregar metada de los scripts. Los campos soportados por NERVE son los "
 "siguientes:"
 
-#: templates/documentation.html:679
+#: templates/documentation.html:682
 msgid "Description: "
 msgstr "Descripción: "
 
-#: templates/documentation.html:679
+#: templates/documentation.html:682
 msgid "Description of the attack or analysis done by the script."
 msgstr ""
 "Corresponde a la descripción del ataque o análisis efectuado por el "
 "script."
 
-#: templates/documentation.html:680
+#: templates/documentation.html:683
 msgid "Severity: "
 msgstr "Severidad: "
 
-#: templates/documentation.html:680
+#: templates/documentation.html:683
 msgid ""
 "Indicates the severity level of the script. In other words, how critical "
 "is the vulnerability associated. It ranges from 0 to 6, where:"
@@ -1918,31 +1934,31 @@ msgstr ""
 "Indica el nivel de severidad del script. En otras palabras, que tan "
 "crítica es la vulnerabilidad asociado. Va desde 0 - 6, donde:"
 
-#: templates/documentation.html:687
+#: templates/documentation.html:690
 msgid "Unknown"
 msgstr "Indeterminado"
 
-#: templates/documentation.html:691
+#: templates/documentation.html:694
 msgid "Confirm: "
 msgstr "Confirmación: "
 
-#: templates/documentation.html:691
+#: templates/documentation.html:694
 msgid "Detail of the vulnerability found."
 msgstr "Detalle de la vulnerabilidad encontrada."
 
-#: templates/documentation.html:692
+#: templates/documentation.html:695
 msgid "Mitigation: "
 msgstr "Mitigación: "
 
-#: templates/documentation.html:692
+#: templates/documentation.html:695
 msgid "Steps needed to mitigate the vulnerability."
 msgstr "Pasos necesarios para mitigar la vulnerabilidad."
 
-#: templates/documentation.html:693
+#: templates/documentation.html:696
 msgid "Intensity: "
 msgstr "Intesidad: "
 
-#: templates/documentation.html:693
+#: templates/documentation.html:696
 msgid ""
 "Same as 'aggressiveness level' used by NERVE. Determines the impact of "
 "the running script on its targets. Value ranges from 0 - 3. Where:"
@@ -1951,15 +1967,15 @@ msgstr ""
 " impacto de los scripts en los objetivos de los escaneos. Su valor se "
 "encuentra en el rango 0 - 3. Donde:"
 
-#: templates/documentation.html:697
+#: templates/documentation.html:700
 msgid "Mildly Aggreessive"
 msgstr "Medianamente Agresivo"
 
-#: templates/documentation.html:699
+#: templates/documentation.html:702
 msgid "Extremely Agressive"
 msgstr "Extremedamente Agresivo"
 
-#: templates/documentation.html:705
+#: templates/documentation.html:708
 msgid "A NSE script containing all metadata fields is available in"
 msgstr "Un script NSE con todos los campos de metadata se encuentra disponible en"
 
@@ -2503,4 +2519,3 @@ msgstr "acción no soportada"
 #: views_api/api_scan.py:37
 msgid "flushed scan state"
 msgstr "Estado de escaneo reseteado"
-

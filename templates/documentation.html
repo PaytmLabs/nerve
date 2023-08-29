@@ -637,10 +637,13 @@ from requests.auth import HTTPBasicAuth
                          <p>{{_('Additional custom scripts can be added to NERVE scans by users. The tool by default accepts scripts in a specific Python format, some scripts that follow this format are stored in folder "rules", they can be used as reference when developing custom scripts. To add this type of scripts, just store them in any subfolder of "rules".')}}</p>
                          <br>
 
-                         <p>{{_('NERVE also allows the execution of scripts in ')}}<a href="https://nmap.org/book/nse.html">Nmap Scripting Engine(NSE)</a>{{_(' format with some restrictions. This restrictions can be lifted with some additional work. The following steps describe the actions needed to add new NSE scripts to the software with all their features. The newly added scripts can then be used in future scans.')}}</p>
+                         <p>{{_('NERVE also allows the execution of scripts in ')}}<a href="https://nmap.org/book/nse.html">Nmap Scripting Engine(NSE)</a>{{_(' format. Scripts in this format can also be added to the tool following the steps mentioned below. Although it is important to note that depending on the amount of additional information the script provides that some functionalities will be limited. Adding to this, some additional modifications must be done to the tool in order to incorporate the script and use all the features of the tool.')}}</p>
+
                      </div>
                           <p><h4 id="steps">{{_('Steps')}}</h4></p>
-                          <p><b>1. </b>{{_('Add the new script to folder')}} "nerve/rules/nse".</p>
+                          <p><b>1. </b>{{_('Add the new script to the tool.')}}</p>
+                          <p>{{_('If the script is located in the Nmap scripts folder, then only the name of the script must be added to the variable')}}<b> NMAP_SCRIPTS_IN_ASSESSMENT </b>{{_('located in')}} <b>config.py</b>.</p>
+                          <p>{{_('In other cases, the script must be added to the')}} "nerve/rules/nse" {{_('folder.')}}</p>
                           <p><b>2. {{_('[Optional]')}}</b>{{_(" Add parameters accepted by script in file 'config.py'. This value will be used in future scans. Everytime the value modified, the application must be restarted in order to apply the changes.")}}</p>
                           <br>
 
@@ -702,7 +705,7 @@ from requests.auth import HTTPBasicAuth
                          </ul>
                          <br>
 
-                         <p>{{_('A NSE script containing all metadata fields is available in')}} rule/nse/ftp-steal.nse</p>
+                         <p>{{_('A NSE script containing all metadata fields is available in')}} "rules/nse/ftp-steal.nse".</p>
 
               </div>
           </div>
