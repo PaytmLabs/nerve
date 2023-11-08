@@ -151,7 +151,7 @@ Se recomiendan los siguientes pasos antes y después de instalar la herramienta:
 # Uso
 Para aprender más sobre NERVE(GUI,API, Agregar nuevos scripts, etc) se recomienda leer al documentación disponible vía la plataforma. Al desplegar la aplicación, autenticarse y luego en la barra lateral izquierda revisar la documentación.
 
-## Dcoumentación GUI
+## Documentación GUI
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/GUI3.png?raw=true)
 
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/API2.png?raw=true)
@@ -175,24 +175,24 @@ Se distribuye bajo la Licencia MIT. Ver LICENSE para más información.
 * SecnHack.in - https://secnhack.in/nerve-exploitation-reconnaissance-vulnerability-engine/
 * 100security.com - https://www.100security.com.br/nerve
 
-# Screenshots
-## Login Screen
+# Capturas de Pantalla
+## Pantalla de Logeo
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Login1.png?raw=true)
-## Dashboard Screen
+## Dashboard
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Dashboard.png?raw=true)
-## Assessment Configuration
+## Configuración Evaluación
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Assessment_Configuration.png?raw=true)
-## API Documentation
+## Documentación API
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/API1.png?raw=true)
-## Reporting
+## Reportes
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Reportes.png?raw=true)
-## Network Map
+## Mapa de la Red
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Topologia.png?raw=true)
-## Vulnerability page
+## Página de Vulnerabilidades
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Vulnerabilidades.png?raw=true)
-## Log Console
+## Consola de Logeo
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Consola.png?raw=true)
-## HTML Report
+## Reporte HTML
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/HTML_Reporte1.png?raw=true)
 
 ![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/HTML_Reporte2.png?raw=true)

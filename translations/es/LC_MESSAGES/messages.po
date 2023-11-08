@@ -674,7 +674,7 @@ msgstr "Distribución de Vulnerabilidades"
 
 #: templates/dashboard.html:176
 msgid "Port Distribution"
-msgstr "Distribuación de Puertos"
+msgstr "Distribución de Puertos"
 
 #: templates/dashboard.html:192
 msgid "Networks Scanned"
