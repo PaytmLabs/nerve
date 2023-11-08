@@ -2085,7 +2085,7 @@ msgstr "INGENIERO"
 
 #: templates/report_template.html:171
 msgid "SOURCE IP"
-msgstr "DIRECCIÓN IP"
+msgstr "IP DE LA FUENTE"
 
 #: templates/report_template.html:182
 msgid "CRITICAL"
@@ -2126,11 +2126,11 @@ msgstr "TÍTULO"
 
 #: templates/report_template.html:225
 msgid "FINDINGS"
-msgstr "RESULTADOS"
+msgstr "RESULTADO"
 
 #: templates/report_template.html:230
 msgid "ADDRESS"
-msgstr "DIRECCIONES"
+msgstr "DIRECCIÓN"
 
 #: templates/report_template.html:234
 msgid "PORT"
@@ -2138,7 +2138,7 @@ msgstr "PUERTOS"
 
 #: templates/report_template.html:238
 msgid "DETAILS"
-msgstr "DETALLES"
+msgstr "DETALLE"
 
 #: templates/report_template.html:242
 msgid "RULE_ID"
