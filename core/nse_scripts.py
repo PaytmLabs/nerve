@@ -131,32 +131,129 @@ def check_rule(script, metadata, ip, values, conf, location):
         for key,result in output_scan['tcp'][p]['script'].items():
           
           vulnerable = verify_output(result, key)
-          result = {'description': description, 'severity_level': severity_level, 'confirm': confirm_description, 'mitigation': mitigation_description, 'intensity': intensity, 'categories': categories}
+          if vulnerable == 'true': 
+            # Save result in redis for further display
+            save_result(key, result, metadata, ip, p, values, True)
+
+          # Potential Threat, means tool does not support output result for script
+          elif vulnerable == 'unknown':
+            save_result(key, result, metadata, ip, p, values, False)
+      
+      # Script not executed correctly
+      else:
+        logger.debug('Error while executing script {} on host {} for port {}'.format(script, ip, p))
+             
+
+  return
+
+def get_metadata(script, location):
+  """
+   Read through nse file to obtain corresponding metadata
+
+   :param script str: Script name
+   :param location str: Location where nse script resides, only supported values at the moment are "local" and "nmap" 
+   :return result dict(str or int): Metadata values found
+
+  """
+  try:
+    if location == 'local':
+      script_path =  config.NSE_SCRIPTS_PATH + script + '.nse'
+    elif location == 'nmap':
+      script_path = config.NMAP_INSTALL_PATH + 'scripts/' + script + '.nse'
+    nse_script = open(script_path, 'r')
+
+    # Delimeters
+    description_found = False
+    description_done = False
+    severity_level_found = False
+    confirm_found = False
+    mitigation_found = False
+    intensity_found = False
+    categories_found = False
+    categories_done = False
+
+    # Info
+    description = ''
+    severity_level = 5 # Undefined
+    confirm_description = ''  
+    mitigation_description = ''
+    intensity = 3 # Default Highest possible, execute only on extremely aggressive
+    categories = []
+
+    # Traverse file
+    for line in nse_script:
+      # All info has been found
+      if description_done and severity_level_found and confirm_found and mitigation_found and intensity_found and categories_found:
+        break
+      # Case when description is being read
+      elif description_found and not description_done:
+        if ']]' in line:
+          description += line.split(']]')[0]
+          description_done = True
+        else:
+          description += line
+      # Case when categories are being read
+      elif categories_found and not categories_done: 
+        categories.extend(parse_categories(line))
+        if '}' in line:
+          categories_done = True
+      # Info is missing and description is not being read
+      else:
+        if 'description' == line[:11]:
+          description_found = True
+        if 'severity' == line[:8]:
+          line = line.replace(" ","")
+          severity_level = int(line[-2])
+          severity_level_found = True
+        if 'confirm' == line[:7]:
+          confirm_description = line.split('"')[1]
+          confirm_found = True
+        if 'mitigation' == line[:10]:
+          mitigation_description = line.split('"')[1]
+          mitigation_found = True
+        if 'intensity' == line[:9]:
+          intensity = int(line[-2])
+          intensity_found = True
+        if 'categories' == line[:10]:
+          categories_found = True
+          categories.extend(parse_categories(line))
+          if '}' in line:
+            categories_done = True
+ 
+    # Check and format values values
+    # Value must be between 0 - 6 
+    if severity_level > 6 or severity_level < 0:
+      severity_level = 5 # Undefined
+    # Value must be between 0 - 3
+    if intensity > 3 or intensity < 0:
+      intensity = 3
+
+    # Normalize values(confirm will be normalized down the line)
+    description = re.sub(r"[^a-zA-Z0-9 ]", "", description)
+    mitigation_description = re.sub(r"[^a-zA-Z0-9 ]", "", mitigation_description)
+
+    result = {'description': description, 'severity_level': severity_level, 'confirm': confirm_description, 'mitigation': mitigation_description, 'intensity': intensity, 'categories': categories}
     return result
   
   # Error when reading file
   except IOError as e:
     return {'error': e}
 
-# Return values that should be added to categories
-# parse valores como '"a","b","c"'
-# pero también funciona para partes con sintaxis de error como '"a""b""c"'. Esto no es legal en el lenguaje Lua pero igual se parsea acá. Creo que se caería el código, pero eso deja de ser mi problema xd. Creo que así debería funcionar.
-# ACordarse de documentar esto.
 def parse_categories(raw_data):
   """
-   Auxiliary function to parse categories on nse scripts
+   Auxiliary function to parse categories on nse scripts.
 
    :param raw_data str: Raw line of data from nse script categories
    :return categories list(str): List of found categories in data line
   """
-   categories = re.findall(r'\"(.*?)\"', raw_data)
-   if categories:
-     return categories
-   categories_2 = re.findall(r"\'(.*?)\'", raw_data)
-   if categories_2:
-     return categories_2
-   else:
-     return []
+  categories = re.findall(r'\"(.*?)\"', raw_data)
+  if categories:
+    return categories
+  categories_2 = re.findall(r"\'(.*?)\'", raw_data)
+  if categories_2:
+    return categories_2
+  else:
+    return []
 
 def save_result(script, result, metadata, ip, port, values, confirmed):
   """

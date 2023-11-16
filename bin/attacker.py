@@ -92,7 +92,13 @@ def run_nse_rules(conf):
           continue
 
         metadata = get_metadata(script, 'local')
-        if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity'] and not (not conf['config']['allow_bf'] and 'brute' in metadata['categories']):
+        no_error = not 'error' in metadata
+        adequate_aggressiveness = conf['config']['allow_aggressive'] >= metadata['intensity']
+        adequate_bf_config = not (not conf['config']['allow_bf'] and 'brute' in metadata['categories'])
+        adequate_dos_config = not (not conf['config']['allow_dos'] and 'dos' in metadata['categories'])
+        adequate_outbound_config = not (not conf['config']['allow_internet'] and 'external' in metadata['categories'])
+
+        if no_error and adequate_aggressiveness and adequate_bf_config and adequate_dos_config and adequate_outbound_config:
           thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf, 'local'), name='nse_rule_{}'.format(script))
           thread.start()
         elif 'error' in metadata:
@@ -115,7 +121,13 @@ def run_nse_rules(conf):
           continue
 
         metadata = get_metadata(script, 'nmap')
-        if not 'error' in metadata and conf['config']['allow_aggressive'] >= metadata['intensity'] and not (not conf['config']['allow_bf'] and 'brute' in metadata['categories']):
+        no_error = not 'error' in metadata
+        adequate_aggressiveness = conf['config']['allow_aggressive'] >= metadata['intensity']
+        adequate_bf_config = not (not conf['config']['allow_bf'] and 'brute' in metadata['categories'])
+        adequate_dos_config = not (not conf['config']['allow_dos'] and 'dos' in metadata['categories'])
+        adequate_outbound_config = not (not conf['config']['allow_internet'] and 'external' in metadata['categories'])
+
+        if no_error and adequate_aggressiveness and adequate_bf_config and adequate_dos_config and adequate_outbound_config:
           thread = threading.Thread(target=check_rule, args=(script,  metadata, ip, values, conf, 'nmap'), name='nse_rule_{}'.format(script))
           thread.start()
         elif 'error' in metadata:
