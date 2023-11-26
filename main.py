@@ -12,6 +12,7 @@ from flask_restful  import Api
 from flask_babel    import Babel
 from flask_babel    import _
 from flask_babel    import lazy_gettext as _l
+from flask_babel_js import BabelJS
 
 # Import Blueprints
 from views.view_index      import index
@@ -44,6 +45,8 @@ from views_api.api_exclusions import Exclusion
 
 app = Flask(__name__)
 babel = Babel(app)
+babel_js = BabelJS(app)
+
 
 # Initialize Blueprints
 app.register_blueprint(index)

@@ -23,6 +23,9 @@ pre.bash {
   color: white;
   padding: 8px;
   font-family: courier new;
+  white-space: pre-wrap;
+  overflow-y: scroll;
+  word-wrap: break-word;
 }
 
 pre.topology {

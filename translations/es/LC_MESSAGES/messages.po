@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-08-28 22:31-0400\n"
+"POT-Creation-Date: 2023-11-26 13:50-0500\n"
 "PO-Revision-Date: 2023-01-20 13:42-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -26,20 +26,20 @@ msgstr "Predeterminado"
 msgid "My Default Scan"
 msgstr "Mi Escaneo Predeterminado"
 
-#: main.py:101 templates/navbar.html:48
+#: main.py:104 templates/navbar.html:48
 msgid "Ready"
 msgstr "Listo"
 
-#: main.py:104
+#: main.py:107
 #, python-format
 msgid "Scanning... [QUEUE:%(prog)s]"
 msgstr "Escaneando... [COLA:%(prog)s]"
 
-#: main.py:106
+#: main.py:109
 msgid "Busy..."
 msgstr "Ocupado..."
 
-#: main.py:109
+#: main.py:112
 #, python-format
 msgid "Ready, next scan scheduled for %(date)s"
 msgstr "Listo, próximo escaneo agendado para %(date)s"
@@ -316,6 +316,30 @@ msgstr "Bajo"
 #: templates/vulnerabilities.html:56
 msgid "Informational"
 msgstr "Informacional"
+
+#: static/js/initiate-datatables.js:8
+msgid "Search:"
+msgstr "Buscar:"
+
+#: static/js/initiate-datatables.js:10
+msgid "First"
+msgstr "Primera"
+
+#: static/js/initiate-datatables.js:11
+msgid "Previous"
+msgstr "Anterior"
+
+#: static/js/initiate-datatables.js:12
+msgid "Next"
+msgstr "Próxima"
+
+#: static/js/initiate-datatables.js:13
+msgid "Last"
+msgstr "Última"
+
+#: static/js/initiate-datatables.js:15
+msgid "No vulnerabilities have been found."
+msgstr "No se han encontrado vulnerabilidades."
 
 #: templates/alert.html:32
 msgid "Alert"
@@ -1733,7 +1757,14 @@ msgid ""
 "that some functionalities will be limited. Adding to this, some "
 "additional modifications must be done to the tool in order to incorporate"
 " the script and use all the features of the tool."
-msgstr ". Los scripts en este formato también pueden ser añadidos a la herramienta siguiendo los pasos mencionados a continuación. Sin embargo, es importante destacar que dependiendo de la cantidad de información adicional que provean estos script es que algunas funcionalidades de la herramienta puedan ser limitadas. Adicionalmente, también es requerido modificar la herramienta para poder incorporar scripts y aprovechar todas las funcionadlidades de esta."
+msgstr ""
+". Los scripts en este formato también pueden ser añadidos a la "
+"herramienta siguiendo los pasos mencionados a continuación. Sin embargo, "
+"es importante destacar que dependiendo de la cantidad de información "
+"adicional que provean estos script es que algunas funcionalidades de la "
+"herramienta puedan ser limitadas. Adicionalmente, también es requerido "
+"modificar la herramienta para poder incorporar scripts y aprovechar todas"
+" las funcionadlidades de esta."
 
 #: templates/documentation.html:643
 msgid "Steps"
@@ -1747,7 +1778,9 @@ msgstr "Agregar el nuevo script a la herramienta."
 msgid ""
 "If the script is located in the Nmap scripts folder, then only the name "
 "of the script must be added to the variable"
-msgstr "Si el script se encuentra localizado en la carpeta de scripts de Nmap, entonces solo el nombre del script debe agregarse a la variable"
+msgstr ""
+"Si el script se encuentra localizado en la carpeta de scripts de Nmap, "
+"entonces solo el nombre del script debe agregarse a la variable"
 
 #: templates/documentation.html:645
 msgid "located in"
@@ -2519,3 +2552,4 @@ msgstr "acción no soportada"
 #: views_api/api_scan.py:37
 msgid "flushed scan state"
 msgstr "Estado de escaneo reseteado"
+
