@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-11-26 13:50-0500\n"
+"POT-Creation-Date: 2023-11-27 17:59-0500\n"
 "PO-Revision-Date: 2023-01-20 13:42-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -26,20 +26,20 @@ msgstr "Predeterminado"
 msgid "My Default Scan"
 msgstr "Mi Escaneo Predeterminado"
 
-#: main.py:104 templates/navbar.html:48
+#: main.py:103 templates/navbar.html:48
 msgid "Ready"
 msgstr "Listo"
 
-#: main.py:107
+#: main.py:106
 #, python-format
 msgid "Scanning... [QUEUE:%(prog)s]"
 msgstr "Escaneando... [COLA:%(prog)s]"
 
-#: main.py:109
+#: main.py:108
 msgid "Busy..."
 msgstr "Ocupado..."
 
-#: main.py:112
+#: main.py:111
 #, python-format
 msgid "Ready, next scan scheduled for %(date)s"
 msgstr "Listo, próximo escaneo agendado para %(date)s"
@@ -360,6 +360,10 @@ msgstr "Mitigación"
 #: templates/alert.html:52 templates/vulnerabilities.html:76
 msgid "Resolve"
 msgstr "Resolver"
+
+#: templates/alert.html:55
+msgid "Back"
+msgstr "Volver"
 
 #: templates/assessment.html:25 templates/documentation.html:77
 msgid "Assessment"

@@ -11,7 +11,6 @@ from flask          import request
 from flask_restful  import Api
 from flask_babel    import Babel
 from flask_babel    import _
-from flask_babel    import lazy_gettext as _l
 from flask_babel_js import BabelJS
 
 # Import Blueprints

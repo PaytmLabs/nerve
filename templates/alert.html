@@ -48,9 +48,12 @@
                                   <div class="tab-pane fade" id="result" role="tabpanel" aria-labelledby="result-tab" style="white-space: pre-wrap;">{% if vuln %} {{ vuln.data.rule_details }}. {% endif %}</div>
                                   <div class="tab-pane fade" id="mitigation" role="tabpanel" aria-labelledby="mitigation-tab">{% if vuln %} {{ vuln.data.rule_mitigation }} {% endif %}</div>
                                   <hr>
+                                  <a href="/vulnerabilities">
+                                     <button type="button" class="btn btn-square btn-info mb-2">{{_('Back')}}</button>
+                                  </a>
                                   <a href="/alert/resolve/{{vuln.key}}">
                                     <button type="button" class="btn btn-square btn-success mb-2">{{_('Resolve')}}</button>
-                                </a>
+                                  </a>
                               </div>
                           </div>
                       </div>
