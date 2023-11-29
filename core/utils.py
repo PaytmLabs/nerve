@@ -62,7 +62,7 @@ class Utils:
 
   def is_version_latest(self):
     try:
-      resp = requests.get('https://raw.githubusercontent.com/TomasTorresB/nerve/master/version.py', timeout=10)
+      resp = requests.get('https://raw.githubusercontent.com/PaytmLabs/nerve/master/version.py', timeout=10)
       repo_ver = resp.text.split("'")[1].replace('.', '')
       curr_ver = VERSION.replace('.', '').replace('\'', '')
       if int(repo_ver) > int(curr_ver):

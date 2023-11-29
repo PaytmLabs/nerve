@@ -770,7 +770,7 @@ msgstr "6. Upgrade"
 
 #: templates/documentation.html:51
 msgid "7. Miscellaneous"
-msgstr "4. Misceláneo"
+msgstr "7. Misceláneo"
 
 #: templates/documentation.html:56 templates/documentation.html:58
 msgid "Quickstart"

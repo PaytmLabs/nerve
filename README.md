@@ -1,198 +1,228 @@
 # Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Dashboard.png?raw=true)
+[![es](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/PaytmLabs/nerve/blob/master/README.es.md)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/dashboard-en.png?raw=true)
 
-# Tabla de Contenidos
-* [Sobre Este Proyecto](#sobre-este-proyecto)
-* [Seguridad Continua](#seguridad-continua)
-* [Funcionalidades herramienta](#funcionalidades-herramienta)
-* [Prerequisitos](#prerequisitos)
-* [Instalación](#instalación)
-  * [Recomendaciones Despliegue de la Herramienta](#recomendaciones-despliegue-de-la-herramienta)
-  * [Instalación - Bare Metal](#instalación-server)
-  * [Instalación - Multi Nodo](#instalación-multi-nodo)
-  * [Visualización Remota](#visualización-de-interfaces-remotas)
+# Table of Contents
+* [Continuous Security](#Continuous-Security)
+* [About NERVE](#)
+  * [What is NERVE](#about-Nerve)
+  * [Features](#features)
+* [Prerequisites](#prerequisites)
+* [Installation](#installation)
+  * [Deployment Recommendations](#Deployment-Recommendation)
+  * [Installation - Docker](#docker)
+  * [Installation - Bare Metal](#server)
+  * [Installation - Multi Node](#Multi-Node-Installation)
+  * [Remote view of interfaces](#view-remote-interfaces)
   * [Upgrade](#upgrade)
-* [Seguridad](#seguridad)
-* [Uso](#uso)
-* [Licencia](#licencia)
-* [Menciones](#menciones)
+* [Security](#security)
+* [Usage](#usage)
+* [License](#license)
+* [Mentions](#mentions)
 * [Screenshots](#screenshots)
 
 
-# Sobre Este Proyecto
-La herramienta disponible en este repositorio corresponde a una mejora de la herramienta Nerve desarrollada por el equipo Paytm. El proyecto original se encuentra en: https://github.com/PaytmLabs/nerve. El siguiente README incluye la información del repositorio original traducida a español y las nuevas funcionalidades desarrolladas.
+# Continuous Security
+We believe security scanning should be done continuously. Not daily, weekly, monthly, or quarterly.
 
-# Seguridad Continua
-Nosotros creemos que la seguridad de escaneos debe ser realizada continuamente. No diaria, semanal, mensual o trimestral.
+The benefit of running security scanning contiuously can be any of the following:
+* You have a dynamic environment where infrastructure gets created every minute / hour / etc.
+* You want to be the first to catch issues before anyone else
+* You want the ability to respond quicker.
 
-Los beneficios de utilizar este método de escaneo son los siguientes:
-* La existencia de un ambiente dinámico donde infraestructura es creada cada minuto / hora / etc.
-* Es posible encontrar problemas antes que cualquier otra persona.
-* Permite responder más rápidamente a incidentes.
+NERVE was created to address this problem. Commercial tools are great, but they are also heavy, not easily extensible, and cost money. 
 
-Nerve fue creada con esta problematica en mente. Las herramientas comerciales son buenas pero también pesadas, difíciles de extender y cuestan dinero.
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/diagram-en.png?raw=true)
 
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/12.png?raw=true)
+# About NERVE
+NERVE is a vulnerability scanner tailored to find low-hanging fruit level vulnerabilities, in specific application configurations, network services, and unpatched services.
 
-# Funcionalidades herramienta
-NERVE ofrece las siguientes funcionalidades:
-* Dashboard (Con interfaz de logeo)
-* REST API (Para agendar escaneos, obtener resultados, etc)
-* Notificaciones
+Example of some of NERVE's detection capabilities:
+* Interesting Panels (Solr, Django, PHPMyAdmin, etc.)
+* Subdomain takeovers
+* Open Repositories
+* Information Disclosures
+* Abandoned / Default Web Pages
+* Misconfigurations in services (Nginx, Apache, IIS, etc.)
+* SSH Servers
+* Open Databases
+* Open Caches
+* Directory Indexing
+* Best Practices
+
+It is not a replacement for Qualys, Nessus, or OpenVAS. It does not do authenticated scans, and operates in black-box mode only.
+
+# Features
+NERVE offers the following features:
+* Dashboard (With a Login interface)
+* REST API (Scheduling assessments, Obtaining results, etc)
+* Notifications
   * Slack
   * Email
   * Webhook
-* Reportes
+* Reports
   * TXT
   * CSV
   * HTML
   * XML
-* Escaneos personalizados
-  * Configurar niveles de intrusividad
-  * Profundidad del escaneo
-  * Exclusiones
-  * Basadas en DNS / IP 
-  * Control de threads
-  * Puertos personalizados
-  * Modos de escaneo
-* Gráficos de topología de la red
-* Interfaz en Español e Inglés
-* Opciones para agregar nuevos scripts (Ver guía)
+* Customizable scans
+  * Configurable intrusiveness levels
+  * Scan depth
+  * Exclusions
+  * DNS / IP Based
+  * Thread Control
+  * Custom Ports
+  * Mode of scanning
+* Network Topology Graphs
+* Interface in spanish and english
+* Options for adding scripts (see guide)
 
-Además presenta una interfaz gráfica para facilitar el uso de la herramienta, pero el enfásis del trabajo se centra en la detección de vulnerabildidaes y nuevas firmas más que en la creación de una interfaz de usuario completa.
+We put together the Graphical User Interface primarily for ease of use, but we will be putting more emphasis on detections and new signatures than creating a full blown user interface. 
 
-# Prerequisitos
-Nerve instalará todos los prerequisitos automaticamente al escoger la opción de instalación en el servidor(Testeado en Ubuntu 18.x)(al correr el script `install/setup.sh` ). El proyecto original también viene con un Dockerfile para su conviencia.
+# Prerequisites
+NERVE will install all the prerequisites for you automatically if you choose the Server installation (CentOS 7.x and Ubuntu 18.x were tested) (by using `install/setup.sh` script). It also comes with a Dockerfile for your convenience. 
 
-Es importante mencionar que Nerve requiere de acceso *root* para la configuración inicial en la máquina(instalación de paquetes, etc).
+Keep in mind, NERVE requires root access for the initial setup on bare metal (package installation, etc).
 
-Servicios y Paquetes requeridos para que Nerve pueda correr:
-* Servidor Web (Flask)
-* Servidor Redis (local)
-* Paquete Nmap (Binario y librería de Python llamda `python-nmap` )
-* Acceso a conexiones entrantes en el puerto HTTP/S (esto se puede definir en config.py)
+Services and Packages required for NERVE to run:
+* Web Server (Flask)
+* Redis server (binds locally)
+* Nmap package (binary and Python nmap library)
+* Inbound access on HTTP/S port (you can define this in config.py) 
 
-El *script* de instalación se encarga de todo, pero si se opta por una instalación manual es necesario considerar estos requerimientos.
+The installation script takes care of everything for you, but if you want to install it by yourself, keep in mind these are required.
 
-# Instalación
-## Recomendaciones Despliegue de la Herramienta
-La mejor forma de desplegar Nerve, es correr la herramienta contra la infraestructura que se quiere atacar desde múltiples regiones(e.g. múltiples instancias de Nerve en múltiples países) y configurar las herramientas en modo de escaneo continuo para encontrar vulnerabilidades de corta duracióin en ambientes dinámicos o cloud.
+# Installation
+## Deployment Recommendation
+The best way to deploy it, is to run it against your infrastructure from multiple regions (e.g. multiple instances of NERVE, in multiple countries), and toggle continuous mode so that you can catch short-lived vulnerabilities in dynamic environments/cloud.
 
-No se recomienda dar privilegios especiales a las direcciones IP donde ataca Nerve, para realmente probar la infraestrcutura desde el punto de vista de un atacante.
+We typically recommend not to whitelist the IP addresses where NERVE will be initiating the scans from, to truly test your infrastructure from an attacker standpoint.
 
-Para hacer Nerve bastante ligero, no se utilizan otras bases de datos además de Redis.
+To make NERVE fairly lightweight, there's no use of a database other than Redis.
 
-Si se quieren almacenar las vulnerabilidades encontradas a largo plazo, se recomineda utiliza la funcionalidad *Webhook* al finalizar cada ciclo de escaneo. De este modo, Nerve enviará un JSON *payload* a un *endpoint* de elección, en donde se puede almacenar esta información en una base de datos para un analísis posterior.
+If you want to store your vulnerabilities long term, we recommend using the Web hook feature. At the end of each scan cycle, NERVE will dispatch a JSON payload to an endpoint of your choice, and you can then store it in a database for further analysis.
 
-A continuación se mencionan los pasos de alto nivel que se recomiendan para obtener resultados óptimos:
-1. Desplegar Nerve en 1 o más servidores
-2. Crear un *script* que extraiga informacón de servicios Cloud(como WS Route53 para obtener el DNS, AWS ECi2 para obtener las direcciones IPs de la instancia, AWS RDS para obtener las bases de datos de IPs, etc.)
-3. Llamar a la API de Nerve(`POST /api/scan/submit`) y agendar un escaneo utilizando los activos informáticos extraídos en el paso # 2.
-4. Automatizar la obtención de resultados y actuar sobre ellos (SOAR, JIRA, SIEM, etc).
-5. Agregar logica propia (excluir ciertas alertas, agregar a una base de datos, etc).
+Here are the high level steps we recommend to get the most optimal results:
+1. Deploy NERVE on 1 or more servers.
+2. Create a script that fetches your Cloud services (such as AWS Route53 to get the DNS, AWS EC2 to get the instance IPs, AWS RDS to get the database IPs, etc.) and maybe a static list of IP addresses if you have assets in a Datacenter.
+3. Call NERVE API (`POST /api/scan/submit`) and schedule a scan using the assets you gathered in step #2.
+4. Fetch the results programmatically and act on them (SOAR, JIRA, SIEM, etc.)
+5. Add your own logic (exclude certain alerts, add to database, etc.)
 
+## Docker
+### Clone the repository
+`git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
 
-## Instalación Server
-### Navegar a /opt
+### Build the Docker image
+`docker build -t nerve .`
+
+### Create a container from the image
+`docker run -e username="YOUR_USER" -e password="YOUR_PASSWORD" -d -p 80:8080 nerve`
+
+In your browser, navigate to http://ip.add.re.ss:80 and login with the credentials you specified to in the previous command.
+
+## Server
+### Navigate to /opt
 `cd /opt/`
 
-### Clonar el repositorio	
-`git clone git@github.com:TomasTorresB/nerve.git && cd nerve`
+### Clone the repository
+`git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
 
-### Correr el instalador (requiere root)
+### Run Installer (requires root)
 `bash install/setup.sh`
 
-### Chequear que NERVE corra
+### Check NERVE is running
 `systemctl status nerve`
 
-En el navegador web, visitar http://ip.add.re.ss:8080 y utilizar las credenciales imprimidas en el terminal.
+In your browser, navigate to http://ip.add.re.ss:8080 and use the credentials printed in your terminal.
 
 
-## Instalación Multi Nodo
-En el caso que se prefiera una instalación multi-nodo de la herramienta, se pueden seguir las intrucciones básicas de instlación y luego:
-1. Modificar el archivo config.py en cada nodo
-2. Cambiar el "server address" de Redis a `RDS_HOST` para que apunte a servidor central de Redis al que todas las instacias de Nerve reportarán.
-3. Correr `service nerve restart` o `systemctl restart nerve` para recargar las configuraciones
-4. Correr `apt-get remove redis` / `yum remove redis`(Dependiendo de la distribución de Linux) dado que no sera necesario una instancia para cada nodo.
-No olvidar permitir al puerto 3769 recibir conexiones entrantes en la instancia de Redis, de modo que las instancias de Nerve puedan comunicarse con la base de datos.
+# Multi Node Installation
+If you want to install NERVE in a multi-node deployment, you can follow the normal bare metal installation process, afterwards:
+1. Modify the config.py file on each node
+2. Change the server address of Redis `RDS_HOST` to point to a central Redis server that all NERVE instances will report to.
+3. Run `service nerve restart` or `systemctl restart nerve` to reload the configuration
+4. Run `apt-get remove redis` / `yum remove redis` (Depending on the Linux Distribution) since you will no longer need each instance to report to itself.
+Don't forget to allow port 3769 inbound on the Redis instance, so that the NERVE instances can communicate with it.
 
-## Visualización de interfaces remotas
-Para manejar remotamente la interfaces de la herramienta es necesario configurar un tunel que permita interactuar con las interfaces remotamente. La forma más simple de lograr esto es mediante una conexión SSH y un servidor *proxy* local conectado al navegador web de preferencia. A modo de ejemplo se listan los los pasos utilizando el navegador web firefox:
-1. Establecer conexión SSH con la máquina en donde se aloja la herramienta y levantar servidor *proxy* local en puerto 8888: `ssh -D localhost:8888 usuario@nerveIP`
-2. Configurar firefox con el servidor *proxy*:  Configuraciones Firefox -> Proxy -> Socks 5 host:localhost:8888
-3. Visualizar interfaz: http://IPMaquinaRemota:PuertoMaquinaRemota
+## View Remote Interfaces
+In order to use the tool remotely a tunnel must be setup in order to allow interactions between remote and local machines. The easiest way to achieve this is to connect both machines through SSH and have a local proxy connected to your browser. An example using firefox is listed below:
+1. Establish SSH connection between local and remote machines and setup a local proxy on port 8888: : `ssh -D localhost user@nerveIP`
+2. Connect firefox to local proxy: Firefox Config -> Proxy -> Socks 5 host:localhost:8888
+3. Visualiza interfaces: http://RemoteMachineIP:RemoteMachinePort
 
 
-## Upgrade
-En el caso de querer mejorar la plataforma, lo más fácil es simplemente clonar nuevamente el repositorio nuevamente el repositorio y sobreescribir todos los archivos manteniendo los archivos claves como configuraciones. Los pasos se listan a continuación:
-* Hacer una copia del archivo `config.py` en el caso de querer guardar las configuraciones.
-* Borrar  `/opt/nerve` y nuevamente hacer git clone.
-* Mover el archivo `config.py`devuelta a `/opt/nerve`.
-* Reanudar el servicio utilizando `systemctl restart nerve`.
+# Upgrade
+If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.
 
-Se puede configurar un *cron task* para realizar mejorar automáticas de Nerve. Hay un API *endpoint* que permite checkear las últimas versiones disponibles que se puede utilizadar para estos propositos: `GET /api/update/platform`
+* Make a copy of `config.py` if you wish to save your configurations
+* Remove `/opt/nerve` and git clone it again.
+* Move `config.py` file back into `/opt/nerve`
+* Restart the service using `systemctl restart nerve`.
 
-# Seguridad
-Hay algunos mecanismos de seguridad implementados en Nerve que son importantes de considerar.
+You could set up a cron task to auto-upgrade NERVE. There's an API endpoint to check whether you have the latest version or not that you could use for this purpose: `GET /api/update/platform`
 
-* *Content Security Policy* - Corresponde a un encabezado de las respuestas que permite controlar desde donde los recursos de los escaneos son cargados.
-* Otras Políticas de Seguridad - Estos encabezados de respuestas se encuentran habilitados: *Content-Type Options, X-XSS-Protection, X-Frame-Options, Referer-Policy*.
-* Protección de Fuerza Bruta - Un usuario será bloqueado al fallar 5 intentos de inicio de sesión.
-* Protección de *cookies* - *Flags* de seguridad de *cookies* son utilizadas, como SameSite, HttpOnly, etc.
+# Security
+There are a few security mechanisms implemented into NERVE you need to be aware of.
 
-En el caso de identificar una vulnerabilidad en el escaneo, por favor informar el bug el GitHub.
+* Content Security Policy - A response header which controls where resource scan be loaded from.
+* Other Security Policies - These Response headers are enabled: Content-Type Options, X-XSS-Protection, X-Frame-Options, Referer-Policy
+* Brute Force Protection - A user will get locked if more than 5 incorrect login attempts are made.
+* Cookie Protection - Cookie security flags are used, such as SameSite, HttpOnly, etc.
 
-Se recomiendan los siguientes pasos antes y después de instalar la herramienta:
-1. Setear una fuerte contraseña (una contraseña por defecto será configurada en el caso de seguir las intrucciones de instalación).
-2. Proteger el panel de control de conexiones entrantes (Agregar la IP de manejo a la lista de direcciones permitidas del firewall local).
-3. Agregar HTTPS (se puede parchar Flask directamente, o usar un *proxy* inverso como nginx).
-4. Mantener la instancia con los parches al día.
+If you identify a security vulnerability, please submit a bug to us on GitHub.
 
-# Uso
-Para aprender más sobre NERVE(GUI,API, Agregar nuevos scripts, etc) se recomienda leer al documentación disponible vía la plataforma. Al desplegar la aplicación, autenticarse y luego en la barra lateral izquierda revisar la documentación.
+We recommend to take the following steps before and after installation
+1. Set a strong password (a password will be set for you if you use the bare metal installation)
+2. Protect the inbound access to the panel (Add your management IP addresses to the allow list of the local firewall)
+3. Add HTTPS (you can either patch Flask directly, or use a reverse proxy like nginx)
+4. Keep the instance patched
 
-## Documentación GUI
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/GUI3.png?raw=true)
+# Usage
+To learn about NERVE (GUI, API, etc.) we advise you to check out the documentation available to you via the platform.
+Once you deploy it, authenticate and on the left sidebar you will find a documentation link for API and GUI usage.
 
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/API2.png?raw=true)
+## GUI Documentation
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/doc_table-en.png?raw=true)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/auth-en.png?raw=true)
 
-## Documentación API
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/API3.png?raw=true)
+## API Documentation
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/API-en.png?raw=true)
 
-# Documentación agregar nuevos scripts 
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Add_Scripts1.png?raw=true)
+## Add new scripts documentation
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/add_scripts_1-en.png?raw=true)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/add_scripts_2-en.png?raw=true)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/add_scripts_3-en.png?raw=true)
 
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Add_Scripts2.png?raw=true)
+# License
+It is distributed under the MIT License. See LICENSE for more information.
 
-# Licencia
-Se distribuye bajo la Licencia MIT. Ver LICENSE para más información.
-
-# Menciones
-:trophy: NERVE ha sido mencionada en varios lugares hasta ahora, aquí se incluyen algunos links.
+# Mentions
+:trophy: NERVE has been mentioned in various places so far, here are a few links.
 * Kitploit - https://www.kitploit.com/2020/09/nerve-network-exploitation.html
 * Hakin9 - https://hakin9.org/nerve-network-exploitation-reconnaissance-vulnerability-engine/
 * PentestTools - https://pentesttools.net/nerve-network-exploitation-reconnaissance-vulnerability-engine/
 * SecnHack.in - https://secnhack.in/nerve-exploitation-reconnaissance-vulnerability-engine/
 * 100security.com - https://www.100security.com.br/nerve
 
-# Capturas de Pantalla
-## Pantalla de Logeo
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Login1.png?raw=true)
-## Dashboard
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Dashboard.png?raw=true)
-## Configuración Evaluación
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Assessment_Configuration.png?raw=true)
-## Documentación API
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/API1.png?raw=true)
-## Reportes
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Reportes.png?raw=true)
-## Mapa de la Red
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Topologia.png?raw=true)
-## Página de Vulnerabilidades
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Vulnerabilidades.png?raw=true)
-## Consola de Logeo
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/Consola.png?raw=true)
-## Reporte HTML
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/HTML_Reporte1.png?raw=true)
+# Screenshots
+## Login Screen
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/login-en.png?raw=true)
+## Dashboard Screen
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/dashboard-en.png?raw=true)
+## Assessment Configurationi
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/assessment_configuration-en.png?raw=true)
+## API Documentation
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/API-en.png?raw=true)
+## Reporting
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/reports-en.png?raw=true)
+## Network Map
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/topology-en.png?raw=true)
+## Vulnerability page
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/vulnerabilities-en.png?raw=true)
+## Log Console
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/console-en.png?raw=true)
+## HTML Report
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/HTML_report_1-en.png?raw=true)
 
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/HTML_Reporte2.png?raw=true)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/HTML_report_2-en.png?raw=true)
