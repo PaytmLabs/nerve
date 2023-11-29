@@ -1,5 +1,5 @@
 # Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/TomasTorresB/nerve/blob/master/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/PaytmLabs/nerve/blob/master/README.md)
 ![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/dashboard-es.png?raw=true)
 
 # Tabla de Contenidos
@@ -31,7 +31,7 @@ Los beneficios de utilizar este método de escaneo son los siguientes:
 
 Nerve fue creada con esta problematica en mente. Las herramientas comerciales son buenas pero también pesadas, difíciles de extender y cuestan dinero.
 
-![Nerve](https://github.com/TomasTorresB/nerve/blob/master/static/screenshots/diagram-en.png?raw=true)
+![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/diagram-en.png?raw=true)
 
 # Sobre Nerve
 Nerve es un escáner de vulnerabilidades diseñado para encontrar vulnerabilidades del estilo 'low-hanging-fruit' en configuraciones específicas de aplicaciones, redes y servicios sin parchear.
