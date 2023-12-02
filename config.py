@@ -11,7 +11,7 @@ WEB_PORT = 8080
 WEB_DEBUG = False
 WEB_USER = os.environ.get('username', 'admin')
 WEB_PASSW = 'admin'
-WEB_LOG = 'nerve.log'
+WEB_LOG = 'nervana.log'
 
 # Web Security
 # Setting this to True will return all responses with security headers.
@@ -22,7 +22,7 @@ WEB_SEC_HEADERS = {
   'XSS':'1; mode=block',
   'XFO':'DENY',
   'RP':'no-referrer',
-  'Server':'NERVE'
+  'Server':'NERVANA'
 }
 
 # Maximum allowed attempts before banning the remote origin
@@ -35,7 +35,7 @@ RDS_PORT = 6379
 RDS_PASSW = None
 
 # Scan Configuration
-USER_AGENT = 'NERVE'
+USER_AGENT = 'NERVANA'
 
 # Default scan configuration
 # This will be used in the "Quick Start" scan. 
@@ -75,8 +75,8 @@ DEFAULT_SCAN = {
 AVIALABLE_LANGUAGES = ['en', 'es']
 DEFAULT_LANGUAGE = 'en'
 
-NERVE_INSTALL_PATH = "/opt/nerve/"
-NSE_SCRIPTS_PATH = NERVE_INSTALL_PATH + "rules/nse/"
+NERVANA_INSTALL_PATH = "/opt/nervana/"
+NSE_SCRIPTS_PATH = NERVANA_INSTALL_PATH + "rules/nse/"
 
 # NMAP parameters
 NMAP_INSTALL_PATH = "/usr/share/nmap/" # Default location, can also be: /usr/local/share/nmap/
@@ -90,5 +90,5 @@ FTP_STEAL_PASS = "ftp_user"
 FTP_STEAL_DIR = "upload"
 
 # Bruteforce credentials file path
-FTP_BRUTE_BRUTE_CREDFILE = NERVE_INSTALL_PATH + "db/db_userandpass"
+FTP_BRUTE_BRUTE_CREDFILE = NERVANA_INSTALL_PATH + "db/db_userandpass"
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NERVE</title>
+    <title>NERVANA</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/auth.css") }}  rel="stylesheet">
@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <div class="mb-4">
-                        <img class="brand" src="static/img/nerve_logo_black.png" width="30%" height="30%">
+                        <img class="brand" src="static/img/nervana_logo_black.png" width="50%" height="50%">
                     </div>
                     <form action="/login" method="POST">
                         <div class="form-group">
@@ -34,7 +34,7 @@
 
                         {% if msg == _("New Version is Available") %}
                             <span style="color:darkorange; font-weight:bold">{{msg}}!</a></span><br>
-                            <span style="color:orange"><a href="https://github.com/PaytmLabs/nerve">Download</a></span>
+                            <span style="color:orange"><a href="https://github.com/TomasTorresB/nervana">Download</a></span>
                         {% endif %}
                         <br>
                     </form>

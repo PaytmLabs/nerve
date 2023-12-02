@@ -1,6 +1,6 @@
 FROM centos:7
 
-ARG TARGET_FOLDER=/opt/nerve
+ARG TARGET_FOLDER=/opt/nervana
 
 RUN yum install epel-release -y && \
     yum update -y && \
@@ -16,7 +16,7 @@ RUN yum install epel-release -y && \
 RUN wget https://nmap.org/dist/nmap-7.90-1.x86_64.rpm
 RUN rpm -ivh nmap-*.x86_64.rpm
 
-RUN mkdir /opt/nerve
+RUN mkdir /opt/nervana
 
 ADD bin $TARGET_FOLDER/bin
 ADD core $TARGET_FOLDER/core
@@ -40,7 +40,7 @@ WORKDIR $TARGET_FOLDER/
 RUN pip3 install --user -r requirements.txt
 RUN chmod 755 main.py
 RUN chmod 755 start.sh
-ENTRYPOINT ["/opt/nerve/start.sh"]
+ENTRYPOINT ["/opt/nervana/start.sh"]
 
 EXPOSE 8080/tcp
 

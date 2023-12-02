@@ -1,11 +1,11 @@
-# Network Exploitation, Reconnaissance & Vulnerability Engine (N.E.R.V.E)
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/PaytmLabs/nerve/blob/master/README.md)
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/dashboard-es.png?raw=true)
+# Network Exploitation, Reconnaissance & Vulnerability Apparatus with Nmap Additions (N.E.R.V.A.N.A)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/TomasTorresB/nervana/blob/master/README.md)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/dashboard-es.png?raw=true)
 
 # Tabla de Contenidos
 * [Seguridad Continua](#seguridad-continua)
-* [Sobre Nerve](#)
-  * [Que es Nerve](#sobre-nerve)
+* [Sobre Nervana](#)
+  * [Que es Nervana](#sobre-nervana)
   * [Funcionalidades herramienta](#funcionalidades-herramienta)
 * [Prerequisitos](#prerequisitos)
 * [Instalación](#instalación)
@@ -29,14 +29,14 @@ Los beneficios de utilizar este método de escaneo son los siguientes:
 * Es posible encontrar problemas antes que cualquier otra persona.
 * Permite responder más rápidamente a incidentes.
 
-Nerve fue creada con esta problematica en mente. Las herramientas comerciales son buenas pero también pesadas, difíciles de extender y cuestan dinero.
+Nervana fue creada con esta problematica en mente. Las herramientas comerciales son buenas pero también pesadas, difíciles de extender y cuestan dinero.
 
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/diagram-en.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/diagram-en.png?raw=true)
 
-# Sobre Nerve
-Nerve es un escáner de vulnerabilidades diseñado para encontrar vulnerabilidades del estilo 'low-hanging-fruit' en configuraciones específicas de aplicaciones, redes y servicios sin parchear.
+# Sobre Nervana
+Nervana es un escáner de vulnerabilidades diseñado para encontrar vulnerabilidades del estilo 'low-hanging-fruit' en configuraciones específicas de aplicaciones, redes y servicios sin parchear.
 
-A continuación se mencionan algunas de las capacidades de detección de Nerve:
+A continuación se mencionan algunas de las capacidades de detección de Nervana:
 * Paneles Interesantes(Solr, Django, PHPMyAdmin, etc.)
 * Toma de control de Subdominios
 * Repositorios Abiertos
@@ -50,7 +50,7 @@ A continuación se mencionan algunas de las capacidades de detección de Nerve:
 * Mejores Praćticas
 
 # Funcionalidades herramienta
-NERVE ofrece las siguientes funcionalidades:
+NERVANA ofrece las siguientes funcionalidades:
 * Dashboard (Con interfaz de logeo)
 * REST API (Para agendar escaneos, obtener resultados, etc)
 * Notificaciones
@@ -77,11 +77,11 @@ NERVE ofrece las siguientes funcionalidades:
 Además presenta una interfaz gráfica para facilitar el uso de la herramienta, pero el enfásis del trabajo se centra en la detección de vulnerabildidaes y nuevas firmas más que en la creación de una interfaz de usuario completa.
 
 # Prerequisitos
-Nerve instalará todos los prerequisitos automaticamente al escoger la opción de instalación en el servidor(Testeado en Ubuntu 18.x)(al correr el script `install/setup.sh` ). El proyecto original también viene con un Dockerfile para su conviencia.
+Nervana instalará todos los prerequisitos automaticamente al escoger la opción de instalación en el servidor(Testeado en Ubuntu 18.x)(al correr el script `install/setup.sh` ). El proyecto original también viene con un Dockerfile para su conviencia.
 
-Es importante mencionar que Nerve requiere de acceso *root* para la configuración inicial en la máquina(instalación de paquetes, etc).
+Es importante mencionar que Nervana requiere de acceso *root* para la configuración inicial en la máquina(instalación de paquetes, etc).
 
-Servicios y Paquetes requeridos para que Nerve pueda correr:
+Servicios y Paquetes requeridos para que Nervana pueda correr:
 * Servidor Web (Flask)
 * Servidor Redis (local)
 * Paquete Nmap (Binario y librería de Python llamda `python-nmap` )
@@ -91,30 +91,30 @@ El *script* de instalación se encarga de todo, pero si se opta por una instalac
 
 # Instalación
 ## Recomendaciones Despliegue de la Herramienta
-La mejor forma de desplegar Nerve, es correr la herramienta contra la infraestructura que se quiere atacar desde múltiples regiones(e.g. múltiples instancias de Nerve en múltiples países) y configurar las herramientas en modo de escaneo continuo para encontrar vulnerabilidades de corta duracióin en ambientes dinámicos o cloud.
+La mejor forma de desplegar Nervana, es correr la herramienta contra la infraestructura que se quiere atacar desde múltiples regiones(e.g. múltiples instancias de Nervana en múltiples países) y configurar las herramientas en modo de escaneo continuo para encontrar vulnerabilidades de corta duracióin en ambientes dinámicos o cloud.
 
-No se recomienda dar privilegios especiales a las direcciones IP donde ataca Nerve, para realmente probar la infraestrcutura desde el punto de vista de un atacante.
+No se recomienda dar privilegios especiales a las direcciones IP donde ataca Nervana, para realmente probar la infraestrcutura desde el punto de vista de un atacante.
 
-Para hacer Nerve bastante ligero, no se utilizan otras bases de datos además de Redis.
+Para hacer Nervana bastante ligero, no se utilizan otras bases de datos además de Redis.
 
-Si se quieren almacenar las vulnerabilidades encontradas a largo plazo, se recomineda utiliza la funcionalidad *Webhook* al finalizar cada ciclo de escaneo. De este modo, Nerve enviará un JSON *payload* a un *endpoint* de elección, en donde se puede almacenar esta información en una base de datos para un analísis posterior.
+Si se quieren almacenar las vulnerabilidades encontradas a largo plazo, se recomineda utiliza la funcionalidad *Webhook* al finalizar cada ciclo de escaneo. De este modo, Nervana enviará un JSON *payload* a un *endpoint* de elección, en donde se puede almacenar esta información en una base de datos para un analísis posterior.
 
 A continuación se mencionan los pasos de alto nivel que se recomiendan para obtener resultados óptimos:
-1. Desplegar Nerve en 1 o más servidores
+1. Desplegar Nervana en 1 o más servidores
 2. Crear un *script* que extraiga informacón de servicios Cloud(como WS Route53 para obtener el DNS, AWS ECi2 para obtener las direcciones IPs de la instancia, AWS RDS para obtener las bases de datos de IPs, etc.)
-3. Llamar a la API de Nerve(`POST /api/scan/submit`) y agendar un escaneo utilizando los activos informáticos extraídos en el paso # 2.
+3. Llamar a la API de Nervana(`POST /api/scan/submit`) y agendar un escaneo utilizando los activos informáticos extraídos en el paso # 2.
 4. Automatizar la obtención de resultados y actuar sobre ellos (SOAR, JIRA, SIEM, etc).
 5. Agregar logica propia (excluir ciertas alertas, agregar a una base de datos, etc).
 
 ## Docker
 ### Clonar el repositorio
-`git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
+`git clone git@github.com:TomasTorresB/nervana.git && cd nervana`
 
 ### Construir la imagen de Docker
-`docker build -t nerve .`
+`docker build -t nervana .`
 
 ### Crear un contenedor para la imagen
-`docker run -e username="YOUR_USER" -e password="YOUR_PASSWORD" -d -p 80:8080 nerve`
+`docker run -e username="YOUR_USER" -e password="YOUR_PASSWORD" -d -p 80:8080 nervana`
 
 En el browser navegar a http://ip.add.re.ss:80 e iniciar sesión con las credenciales específicadas en el comando previo.
 
@@ -123,13 +123,13 @@ En el browser navegar a http://ip.add.re.ss:80 e iniciar sesión con las credenc
 `cd /opt/`
 
 ### Clonar el repositorio	
-`git clone git@github.com:PaytmLabs/nerve.git && cd nerve`
+`git clone git@github.com:TomasTorresB/nervana.git && cd nervana`
 
 ### Correr el instalador (requiere root)
 `bash install/setup.sh`
 
-### Chequear que NERVE corra
-`systemctl status nerve`
+### Chequear que NERVANA corra
+`systemctl status nervana`
 
 En el navegador web, visitar http://ip.add.re.ss:8080 y utilizar las credenciales imprimidas en el terminal.
 
@@ -137,14 +137,14 @@ En el navegador web, visitar http://ip.add.re.ss:8080 y utilizar las credenciale
 ## Instalación Multi Nodo
 En el caso que se prefiera una instalación multi-nodo de la herramienta, se pueden seguir las intrucciones básicas de instlación y luego:
 1. Modificar el archivo config.py en cada nodo
-2. Cambiar el "server address" de Redis a `RDS_HOST` para que apunte a servidor central de Redis al que todas las instacias de Nerve reportarán.
-3. Correr `service nerve restart` o `systemctl restart nerve` para recargar las configuraciones
+2. Cambiar el "server address" de Redis a `RDS_HOST` para que apunte a servidor central de Redis al que todas las instacias de Nervana reportarán.
+3. Correr `service nervana restart` o `systemctl restart nervana` para recargar las configuraciones
 4. Correr `apt-get remove redis` / `yum remove redis`(Dependiendo de la distribución de Linux) dado que no sera necesario una instancia para cada nodo.
-No olvidar permitir al puerto 3769 recibir conexiones entrantes en la instancia de Redis, de modo que las instancias de Nerve puedan comunicarse con la base de datos.
+No olvidar permitir al puerto 3769 recibir conexiones entrantes en la instancia de Redis, de modo que las instancias de Nervana puedan comunicarse con la base de datos.
 
 ## Visualización de interfaces remotas
 Para manejar remotamente la interfaces de la herramienta es necesario configurar un tunel que permita interactuar con las interfaces remotamente. La forma más simple de lograr esto es mediante una conexión SSH y un servidor *proxy* local conectado al navegador web de preferencia. A modo de ejemplo se listan los los pasos utilizando el navegador web firefox:
-1. Establecer conexión SSH con la máquina en donde se aloja la herramienta y levantar servidor *proxy* local en puerto 8888: `ssh -D localhost:8888 usuario@nerveIP`
+1. Establecer conexión SSH con la máquina en donde se aloja la herramienta y levantar servidor *proxy* local en puerto 8888: `ssh -D localhost:8888 usuario@nervanaIP`
 2. Configurar firefox con el servidor *proxy*:  Configuraciones Firefox -> Proxy -> Socks 5 host:localhost:8888
 3. Visualizar interfaz: http://IPMaquinaRemota:PuertoMaquinaRemota
 
@@ -152,14 +152,14 @@ Para manejar remotamente la interfaces de la herramienta es necesario configurar
 ## Upgrade
 En el caso de querer mejorar la plataforma, lo más fácil es simplemente clonar nuevamente el repositorio nuevamente el repositorio y sobreescribir todos los archivos manteniendo los archivos claves como configuraciones. Los pasos se listan a continuación:
 * Hacer una copia del archivo `config.py` en el caso de querer guardar las configuraciones.
-* Borrar  `/opt/nerve` y nuevamente hacer git clone.
-* Mover el archivo `config.py`devuelta a `/opt/nerve`.
-* Reanudar el servicio utilizando `systemctl restart nerve`.
+* Borrar  `/opt/nervana` y nuevamente hacer git clone.
+* Mover el archivo `config.py`devuelta a `/opt/nervana`.
+* Reanudar el servicio utilizando `systemctl restart nervana`.
 
-Se puede configurar un *cron task* para realizar mejorar automáticas de Nerve. Hay un API *endpoint* que permite checkear las últimas versiones disponibles que se puede utilizadar para estos propositos: `GET /api/update/platform`
+Se puede configurar un *cron task* para realizar mejorar automáticas de Nervana. Hay un API *endpoint* que permite checkear las últimas versiones disponibles que se puede utilizadar para estos propositos: `GET /api/update/platform`
 
 # Seguridad
-Hay algunos mecanismos de seguridad implementados en Nerve que son importantes de considerar.
+Hay algunos mecanismos de seguridad implementados en Nervana que son importantes de considerar.
 
 * *Content Security Policy* - Corresponde a un encabezado de las respuestas que permite controlar desde donde los recursos de los escaneos son cargados.
 * Otras Políticas de Seguridad - Estos encabezados de respuestas se encuentran habilitados: *Content-Type Options, X-XSS-Protection, X-Frame-Options, Referer-Policy*.
@@ -175,26 +175,26 @@ Se recomiendan los siguientes pasos antes y después de instalar la herramienta:
 4. Mantener la instancia con los parches al día.
 
 # Uso
-Para aprender más sobre NERVE(GUI,API, Agregar nuevos scripts, etc) se recomienda leer al documentación disponible vía la plataforma. Al desplegar la aplicación, autenticarse y luego en la barra lateral izquierda revisar la documentación.
+Para aprender más sobre NERVANA(GUI,API, Agregar nuevos scripts, etc) se recomienda leer al documentación disponible vía la plataforma. Al desplegar la aplicación, autenticarse y luego en la barra lateral izquierda revisar la documentación.
 
 ## Documentación GUI
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/doc_table-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/doc_table-es.png?raw=true)
 
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/auth-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/auth-es.png?raw=true)
 
 ## Documentación API
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/API_table-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/API_table-es.png?raw=true)
 
 ## Documentación agregar nuevos scripts 
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/add_scripts_1-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/add_scripts_1-es.png?raw=true)
 
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/add_scripts_2-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/add_scripts_2-es.png?raw=true)
 
 # Licencia
 Se distribuye bajo la Licencia MIT. Ver LICENSE para más información.
 
 # Menciones
-:trophy: NERVE ha sido mencionada en varios lugares hasta ahora, aquí se incluyen algunos links.
+:trophy: La herramienta base NERVE ha sido mencionada en varios lugares hasta ahora, a continuación se mencionan algunos links:
 * Kitploit - https://www.kitploit.com/2020/09/nerve-network-exploitation.html
 * Hakin9 - https://hakin9.org/nerve-network-exploitation-reconnaissance-vulnerability-engine/
 * PentestTools - https://pentesttools.net/nerve-network-exploitation-reconnaissance-vulnerability-engine/
@@ -203,22 +203,22 @@ Se distribuye bajo la Licencia MIT. Ver LICENSE para más información.
 
 # Capturas de Pantalla
 ## Pantalla de Logeo
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/login-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/login-es.png?raw=true)
 ## Dashboard
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/dashboard-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/dashboard-es.png?raw=true)
 ## Configuración Evaluación
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/assessment_configuration-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/assessment_configuration-es.png?raw=true)
 ## Documentación API
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/API-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/API-es.png?raw=true)
 ## Reportes
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/reports-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/reports-es.png?raw=true)
 ## Mapa de la Red
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/topology-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/topology-es.png?raw=true)
 ## Página de Vulnerabilidades
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/vulnerabilities-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/vulnerabilities-es.png?raw=true)
 ## Consola de Logeo
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/console-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/console-es.png?raw=true)
 ## Reporte HTML
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/HTML_report_1-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nevana/blob/master/static/screenshots/HTML_report_1-es.png?raw=true)
 
-![Nerve](https://github.com/PaytmLabs/nerve/blob/master/static/screenshots/HTML_report_2-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/HTML_report_2-es.png?raw=true)

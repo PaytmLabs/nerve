@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NERVE</title>
+    <title>NERVANA</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/DataTables/datatables.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
-    <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/nervana.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
 </head>
 
@@ -54,7 +54,7 @@
                         
                           <div class="card-body" >
                           <h3 id="quickstart"><b>{{_('Quickstart')}}</b></h3>
-                          <p>{{_('Quickstart is the best way to try out NERVE in its most simplest form. Think of it as running a basic scan, without the ability to define how it will execute.')}}</p>
+                          <p>{{_('Quickstart is the best way to try out NERVANA in its most simplest form. Think of it as running a basic scan, without the ability to define how it will execute.')}}</p>
                           <p>{{_('By using this option, you are required to specify')}} <a href="https://www.ipaddressguide.com/cidr">{{_('Network CIDR notations')}}</a>, {{_('Quickstart')}} <b> {{_('does not support DNS.')}}</b></p>
                           <p>{{_('For example, if you want to scan your home network, you could simply type')}} <b>192.168.0.0/24</b>. {{_('Of course, the IP will depend on your router IP scope.')}}</p>
                           <br>
@@ -87,7 +87,7 @@
                           <hr>
                           <p><h4 id="targets">{{_('Targets')}}</h4></p>
                           <p>{{_('Targets are the endpoints that will be scanned and assessed. These can be IP addresses, Domains and Subdomains.')}}</p>
-                          <p>{{_("NERVE doesn't do DNS discovery for a given parent domain. There are tools you could potentially use in conjuction with NERVE that will do this work for you. Such as Passive DNS, RiskIQ, Fierce, OWASP Amass, etc.")}}</p>
+                          <p>{{_("NERVANA doesn't do DNS discovery for a given parent domain. There are tools you could potentially use in conjuction with NERVANA that will do this work for you. Such as Passive DNS, RiskIQ, Fierce, OWASP Amass, etc.")}}</p>
                           <p><b>{{_('Networks')}}</b></p>
                           <p>{{_('This field takes a list of CIDR Networks (Comma separated). Example:')}} <b>212.199.1.0/24, 212.199.2.0/24</b></p>
                           <p><b>{{_('Excluded Networks')}}</b></p>
@@ -102,9 +102,9 @@
                           <p>{{_('For example, a rule that makes a lot of HTTP GET requests will be run only if you choose the use the aggressive mode. A rule that checks if a port is open, would run under all conditions.')}}</p>
                           <p><b>{{_('Allow Outbound Connections')}}</b></p>
                           <p>{{_('Some rules require making outbound internet connections, such as checking against CVE lists, etc.')}}</p>
-                          <p>{{_('If you run NERVE internally in a dark network without internet, you could simply toggle this off.')}}</p>
+                          <p>{{_('If you run NERVANA internally in a dark network without internet, you could simply toggle this off.')}}</p>
                           <p><b>{{_('Attempt Brute Force Attacks')}}</b></p>
-                          <p>{{_('Some rules can run brute force attacks against a given server. For example, if a server is determined to have an SSH port open and it also accepts passwords as a mean of authentication, NERVE can attempt to run through a list of passwords and try to authenticate.')}}</p>
+                          <p>{{_('Some rules can run brute force attacks against a given server. For example, if a server is determined to have an SSH port open and it also accepts passwords as a mean of authentication, NERVANA can attempt to run through a list of passwords and try to authenticate.')}}</p>
                           <p>{{_('Note that if you provide a list of usernames and passwords via the ')}}<a href="#dictionary">{{_('Dictionary option')}}</a>{{_(', it may take a long time for a full assessment to complete. Use with caution.')}}</p>
                           <p><b>{{_('Attempt Denial of Service Attacks')}}</b></p>
                           <p>{{_('Some rules can run test for Denial of Service vulnerabilities against a given server. Disable if you want to ensure your services are not bombarded.')}}</p>
@@ -112,14 +112,14 @@
                           <p>{{_('Defining the Ethernet to use for port scanning. This is optional, if nothing is specified, it will use the default.')}}</p>
 
                           <p><b>{{_('Maximum Ports')}}</b></p>
-                          <p>{{_('This is a relatively important option. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.')}}</p>
+                          <p>{{_('This is a relatively important option. NERVANA starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.')}}</p>
                           <p>{{_('However, scanning for many ports has a cost (time), thus, we typically recommend scanning for the top 1000-4000 ports. Find the balance that works for you. 
                              Too little ports means you may miss out on services, but the scan is going to be faster. Too many means you may sacrifice speed.')}}</p>
                           <p>{{_('The default value for maximum ports is ')}}<b>100</b>{{_(' ports (this ensures that at least http/https/ftp/ssh are covered).')}}</p>
                           
                           <p><b>{{_('Custom Ports')}}</b></p>
-                          <p>{{_('You could specify your own custom list of ports. NERVE starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.')}}</p>
-                          <p>{{_('By default, if you do not specify a Custom Port list, NERVE will use the Maximum Ports value of ')}}<b>100</b>.</p>
+                          <p>{{_('You could specify your own custom list of ports. NERVANA starts the assessment by executing a port scan. The more ports you scan for, the less likely you will miss things.')}}</p>
+                          <p>{{_('By default, if you do not specify a Custom Port list, NERVANA will use the Maximum Ports value of ')}}<b>100</b>.</p>
                           <p>{{_('If you specify ')}}<b>{{_('both')}}</b>{{_(' Maximum Ports and Custom Ports, ')}}<b>{{_('Custom Ports will take presedence')}}</b>{{_(' and Maximum Ports will simply be ignored.')}}</p>
                           
                           <p><b>{{_('Parallel Scan')}}</b></p>
@@ -152,11 +152,11 @@
                         </p>
                         <hr>
                         <h4 id="post_event">{{_('Post Event')}}</h4>
-                        <p>{{_('You can configure NERVE to send you post events.')}}</p>
+                        <p>{{_('You can configure NERVANA to send you post events.')}}</p>
                         <p><b>{{_('Web Hook')}}</b></p>
                         <p>{{_('A web hook is basically a post-process event that happens after some condition is met (such as, after a scan is completed.)')}}</p>
-                        <p>{{_('NERVE can send you the Assessment data as soon as a scan completes, to an endpoint of your choice. Your endpoint must be able to be accessed by NERVE, and receive JSON data.')}}</p>
-                        <p>{{_('The data NERVE is going to send, may look like the following:')}}</p>
+                        <p>{{_('NERVANA can send you the Assessment data as soon as a scan completes, to an endpoint of your choice. Your endpoint must be able to be accessed by NERVANA, and receive JSON data.')}}</p>
+                        <p>{{_('The data NERVANA is going to send, may look like the following:')}}</p>
 <pre>
 {
   "status":"done",
@@ -226,7 +226,7 @@
                         <p>{{_('A webhook endpoint may look like this: ')}}<b>http://example.com/recieve</b>,{{_(' or with a specified port ')}}<b>https://example.com:8000/receive</b></p>
                         <hr>
                         <h4 id="reports">{{_('Reports')}}</h4>
-                        <p>{{_('NERVE supports 3 types of reports. These reports are only available via the Web Interface.')}}</p>
+                        <p>{{_('NERVANA supports 3 types of reports. These reports are only available via the Web Interface.')}}</p>
                         <ul>
                           <li>HTML</li>
                           <li>TXT</li>
@@ -238,7 +238,7 @@
 
                         <hr>
                         <h4 id="notifications">{{_('Notifications')}}</h4>
-                        <p>{{_('NERVE supports delivering notifications via 2 methods: ')}}<b>Email</b>{{_(' or ')}}<b>Slack</b>.</p>
+                        <p>{{_('NERVANA supports delivering notifications via 2 methods: ')}}<b>Email</b>{{_(' or ')}}<b>Slack</b>.</p>
                         <p>{{_('You can find these settings under the top right menu (Username) -> Settings')}}</p>
                         <p>{{_('For email, you can use Amazon SES or a different provider. You will receive an attachment with the findings in a JSON format, once a scan is completed.')}}</p>
                         <p>{{_('For slack, use an ')}}<a href="https://api.slack.com/messaging/webhooks">{{_('incoming webhook')}}</a>{{_(' and paste the URL Slack gives you at the end of the process. You will receive a slack notification with the results once a scan is completed.')}}</p>
@@ -246,7 +246,7 @@
                         
                         <hr>
                         <h4 id="security">{{_('Security')}}</h4>
-                        <p>{{_('There are a few security mechanisms implemented into NERVE you need to be aware of.')}}</p>
+                        <p>{{_('There are a few security mechanisms implemented into NERVANA you need to be aware of.')}}</p>
                         <ul>
                           <li><b>Content Security Policy</b>{{_(' - A response header which controls where resource scan be loaded from.')}}</li>
                           <li><b>{{_('Other Security Policies')}}</b>{{_(' - These Response headers are enabled: Content-Type Options, X-XSS-Protection, X-Frame-Options, Referer-Policy')}}</li>
@@ -259,15 +259,15 @@
                         <p>{{_('If you want to upgrade your platform, the fastest way is to simply git clone and overwrite all the files while keeping key files such as configurations.')}}</p>
                         <ol>
                           <li>{{_('Make a copy of ')}}<b>config.py</b>{{_(' if you wish to save your configurations')}}</li>
-                          <li>{{_('Remove ')}}<b>/opt/nerve</b>{{_(' and git clone it again from: ')}}<a href="https://github.com/PaytmLabs/nerve">GitHub</a></li>
+                          <li>{{_('Remove ')}}<b>/opt/nerve</b>{{_(' and git clone it again from: ')}}<a href="https://github.com/TomasTorresB/nervana">GitHub</a></li>
                           <li>{{_('Move ')}}<b>config.py</b>{{_(' file back into ')}}<b>/opt/nerve</b></li>
                           <li>{{_('Restart the service using ')}}<b>systemctl restart nerve</b></li>
                         </ol>
-                        <p>{{_("You could set up a cron task auto-upgrade NERVE, there's an API endpoint to check whether you have the latest version or not that you could use for this purpose: ")}}<a href="#get_update">/api/update/platform</a></p>
+                        <p>{{_("You could set up a cron task auto-upgrade NERVANA, there's an API endpoint to check whether you have the latest version or not that you could use for this purpose: ")}}<a href="#get_update">/api/update/platform</a></p>
                         <hr>
                         <h4 id="miscellaneous">{{_('Miscellaneous')}}</h4>
                         <h6>{{_('Web Interface Logo')}}</h6>
-                        <p>{{_('If you want to brand NERVE with your own Logo, simply replace ')}}<b>static/img/nerve_logo.png</b>{{_(' with your own picture.')}}<br>{{_('400px x 100px is the recommended size.')}}</b></p>
+                        <p>{{_('If you want to brand NERVANA with your own Logo, simply replace ')}}<b>static/img/nervana_logo_black.png</b>{{_(' with your own picture.')}}<br>{{_('400px x 100px is the recommended size.')}}</b></p>
                       </div>
                       </div>
                   </div>
@@ -305,9 +305,9 @@
                                   </ul>
                                 </li>
                                 </div>
-                                <p>{{_('Welcome to the API section of NERVE.')}}</p>
-                                <p>{{_("NERVE's API is simple, you can post a scan, get the scan result and status, and reset the system.")}}</p>
-                                <p>{{_('For posting a scan, NERVE uses the same settings that exist in the Web Interface, should you need to understand more about what a particular setting does, just refer to the ')}}<a href="#gui">{{_('Graphical User Interface section')}}</a>{{_(' of the document.')}}</p>
+                                <p>{{_('Welcome to the API section of NERVANA.')}}</p>
+                                <p>{{_("NERVANA's API is simple, you can post a scan, get the scan result and status, and reset the system.")}}</p>
+                                <p>{{_('For posting a scan, NERVANA uses the same settings that exist in the Web Interface, should you need to understand more about what a particular setting does, just refer to the ')}}<a href="#gui">{{_('Graphical User Interface section')}}</a>{{_(' of the document.')}}</p>
                             </div>    
                             
 
@@ -608,7 +608,7 @@ EXCLUSIONS = {
                 <div class="row">
                   <div class="col-md-12">
                     <h3 id="get_update"><b>GET /api/update/platform</b></h3>
-                    <p>{{_('This endpoint allows you to check if you have the latest NERVE version.')}}</p>
+                    <p>{{_('This endpoint allows you to check if you have the latest NERVANA version.')}}</p>
                     <div class="card">
                         <div class="card-header"><b><code>GET /api/update/platform</code></b></div>
                         <div class="card-body">
@@ -634,16 +634,16 @@ from requests.auth import HTTPBasicAuth
                      <div class="page-title">
                          <h3>{{_('Add new scripts')}}</h3>
 
-                         <p>{{_('Additional custom scripts can be added to NERVE scans by users. The tool by default accepts scripts in a specific Python format, some scripts that follow this format are stored in folder "rules", they can be used as reference when developing custom scripts. To add this type of scripts, just store them in any subfolder of "rules".')}}</p>
+                         <p>{{_('Additional custom scripts can be added to NERVANA scans by users. The tool by default accepts scripts in a specific Python format, some scripts that follow this format are stored in folder "rules", they can be used as reference when developing custom scripts. To add this type of scripts, just store them in any subfolder of "rules".')}}</p>
                          <br>
 
-                         <p>{{_('NERVE also allows the execution of scripts in ')}}<a href="https://nmap.org/book/nse.html">Nmap Scripting Engine(NSE)</a>{{_(' format. Scripts in this format can also be added to the tool following the steps mentioned below. Although it is important to note that depending on the amount of additional information the script provides that some functionalities will be limited. Adding to this, some additional modifications must be done to the tool in order to incorporate the script and use all the features of the tool.')}}</p>
+                         <p>{{_('NERVANA also allows the execution of scripts in ')}}<a href="https://nmap.org/book/nse.html">Nmap Scripting Engine(NSE)</a>{{_(' format. Scripts in this format can also be added to the tool following the steps mentioned below. Although it is important to note that depending on the amount of additional information the script provides that some functionalities will be limited. Adding to this, some additional modifications must be done to the tool in order to incorporate the script and use all the features of the tool.')}}</p>
 
                      </div>
                           <p><h4 id="steps">{{_('Steps')}}</h4></p>
                           <p><b>1. </b>{{_('Add the new script to the tool.')}}</p>
                           <p>{{_('If the script is located in the Nmap scripts folder, then only the name of the script must be added to the variable')}}<b> NMAP_SCRIPTS_IN_ASSESSMENT </b>{{_('located in')}} <b>config.py</b>.</p>
-                          <p>{{_('In other cases, the script must be added to the')}} "nerve/rules/nse" {{_('folder.')}}</p>
+                          <p>{{_('In other cases, the script must be added to the')}} <b>nerve/rules/nse"</b> {{_('folder.')}}</p>
                           <p><b>2. {{_('[Optional]')}}</b>{{_(" Add parameters accepted by script in file 'config.py'. This value will be used in future scans. Everytime the value modified, the application must be restarted in order to apply the changes.")}}</p>
                           <br>
 
@@ -693,7 +693,7 @@ from requests.auth import HTTPBasicAuth
                             </li>
                             <li><b>{{_('Confirm: ')}}</b>{{_('Detail of the vulnerability found.')}}</li>
                             <li><b>{{_('Mitigation: ')}}</b>{{_('Steps needed to mitigate the vulnerability.')}}</li>
-                            <li><b>{{_('Intensity: ')}}</b>{{_("Same as 'aggressiveness level' used by NERVE. Determines the impact of the running script on its targets. Value ranges from 0 - 3. Where:")}}
+                            <li><b>{{_('Intensity: ')}}</b>{{_("Same as 'aggressiveness level' used by NERVANA. Determines the impact of the running script on its targets. Value ranges from 0 - 3. Where:")}}
      
                                <ul>
                                  <li>0: {{_('Gentle')}}</li>

@@ -23,12 +23,12 @@ Refer to the following OWASP article for more information: https://owasp.org/www
     if 'http' not in module: 
       return
     
-    resp = t.http_request(ip, port, follow_redirects=False, headers={'X-Forwarded-Host':'www.nerve.local'})
+    resp = t.http_request(ip, port, follow_redirects=False, headers={'X-Forwarded-Host':'www.nervana.local'})
     
     if resp is None:
       return
     
-    if 'Location' in resp.headers and resp.headers['Location'] == 'www.nerve.local':
+    if 'Location' in resp.headers and resp.headers['Location'] == 'www.nervana.local':
       self.rule_details = 'Server Redirected to an Arbitrary Location'
       rds.store_vuln({
         'ip':ip,

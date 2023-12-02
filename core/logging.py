@@ -3,7 +3,7 @@ import logging
 
 from config import LOG_LEVEL, WEB_LOG
 
-logger = logging.getLogger('NERVE')
+logger = logging.getLogger('NERVANA')
 level  = logging.getLevelName(LOG_LEVEL)
 logger.setLevel(level)
 

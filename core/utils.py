@@ -153,9 +153,9 @@ class Integration:
         
       slack_data = {
           "color": '#000000',
-          "pretext":"<!channel> NERVE Notification",
+          "pretext":"<!channel> NERVANA Notification",
           "author_name": ':warning: Notification',
-          "title": 'NERVE Report',
+          "title": 'NERVANA Report',
           "fields": fields,
         }
       response = requests.post(hook, data=json.dumps(slack_data))
