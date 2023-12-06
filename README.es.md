@@ -219,6 +219,6 @@ Se distribuye bajo la Licencia MIT. Ver LICENSE para más información.
 ## Consola de Logeo
 ![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/console-es.png?raw=true)
 ## Reporte HTML
-![Nervana](https://github.com/TomasTorresB/nevana/blob/master/static/screenshots/HTML_report_1-es.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/HTML_report_1-es.png?raw=true)
 
 ![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/HTML_report_2-es.png?raw=true)
