@@ -1,6 +1,6 @@
 # Network Exploitation, Reconnaissance & Vulnerability Apparatus with Nmap Additions (N.E.R.V.A.N.A)
 [![es](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/TomasTorresb/nervana/blob/master/README.es.md)
-![Nervana](https://github.com/TomasTorresB/blob/master/static/screenshots/dashboard-en.png?raw=true)
+![Nervana](https://github.com/TomasTorresB/nervana/blob/master/static/screenshots/dashboard-en.png?raw=true)
 
 # Table of Contents
 * [Continuous Security](#Continuous-Security)

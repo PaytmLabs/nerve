@@ -4,7 +4,7 @@ dump.rdb
 .DS_Store
 reports/
 **/reports/*.html
-**/logs/nerve.log
+**/logs/nervana.log
 tests/
 .env
 messages.pot
