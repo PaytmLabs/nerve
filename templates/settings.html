@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NERVE</title>
+    <title>NERVANA</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
-    <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/nervana.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
 </head>
 
@@ -17,90 +17,53 @@
         <div id="sidebar">{% include 'sidebar.html' %}</div>
 
             <div id="body">
-                <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
-                    <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                          <li class="nav-item dropdown">   
-                            <div class="nav-dropdown">
-                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i><i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
-                                    <ul class="nav-list">
-                                      <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
-                                      <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
-                                      <div class="dropdown-divider"></div>
-                                      <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                          <div class="nav-dropdown">
-                            {% if vuln_count %}
-                            <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
-                            {% else %}
-                            <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
-                            {% endif %}
-                          </div>
-                       </li>  
-                          <li class="nav-item dropdown">
-                            <div class="nav-dropdown">
-                              {% if status == "Ready" %}
-                              <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
-                              {% else %}
-                              <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
-                              {% endif %}
-                            </div>
-                          </li>  
-                        </ul>
-                    </div>
-                </nav>
-            
+            <div id="navbar">{% include 'navbar.html' %}</div>
+
             <div class="content">
                 <div class="container-fluid">
                     <div class="page-title">
-                        <h3>Settings</h3>
+                        <h3>{{_('Settings')}}</h3>
                     </div>
                     <div class="row">
                       <div class="col-md-12">
                           <div class="card">
-                              <div class="card-header"><b><i class="fa fa-envelope"></i> Email</b> {% if email.host %} <span class="c-darkgreen"> <i class="fas fa-check"></i> </span>  {% endif %}</div>
+                              <div class="card-header"><b><i class="fa fa-envelope"></i>{{_(' Email')}}</b> {% if email.host %} <span class="c-darkgreen"> <i class="fas fa-check"></i> </span>  {% endif %}</div>
                               <div class="card-body">
                                   <div class="form-group row">
-                                      <label class="col-sm-2">SMTP Host</label>
+                                      <label class="col-sm-2">{{_('SMTP Host')}}</label>
                                       <div class="col-sm-3">
                                           {% if email.host %}
-                                          <input type="text" id="smtp_host" name="smtp_host" class="form-control" placeholder="Configured" disabled>
+                                          <input type="text" id="smtp_host" name="smtp_host" class="form-control" placeholder="{{_("Configured")}}" disabled>
                                           {% else %}
                                           <input type="text" id="smtp_host" name="smtp_host" class="form-control" placeholder="email-smtp.us-east-1.amazonaws.com" required>
                                           {% endif %}
                                       </div>
                                   </div>
                                   <div class="form-group row">
-                                    <label class="col-sm-2">SMTP Port</label>
+                                    <label class="col-sm-2">{{_('SMTP Port')}}</label>
                                     <div class="col-sm-3">
                                         {% if email.port %}
-                                        <input type="number" id="smtp_port" name="smtp_port" class="form-control" placeholder="Configured" disabled>
+                                        <input type="number" id="smtp_port" name="smtp_port" class="form-control" placeholder="{{_("Configured")}}" disabled>
                                         {% else %}
                                         <input type="number" id="smtp_port" name="smtp_port" class="form-control" placeholder="587" required>
                                         {% endif %}
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                  <label class="col-sm-2">SMTP Username</label>
+                                  <label class="col-sm-2">{{_('SMTP Username')}}</label>
                                   <div class="col-sm-3">
                                       {% if email.user %}
-                                      <input type="text" id="smtp_user" name="smtp_user" class="form-control" placeholder="Configured" disabled>
+                                      <input type="text" id="smtp_user" name="smtp_user" class="form-control" placeholder="{{_("Configured")}}" disabled>
                                       {% else %}
                                       <input type="text" id="smtp_user" name="smtp_user" class="form-control" required>
                                       {% endif %}
                                   </div>
                               </div>
                               <div class="form-group row">
-                                <label class="col-sm-2">SMTP Password</label>
+                                <label class="col-sm-2">{{_('SMTP Password')}}</label>
                                 <div class="col-sm-3">
                                   {% if email.pass %}
-                                  <input type="text" id="smtp_pass" name="smtp_pass" class="form-control" placeholder="Configured" disabled>
+                                  <input type="text" id="smtp_pass" name="smtp_pass" class="form-control" placeholder="{{_("Configured")}}" disabled>
                                   {% else %}
                                   <input type="text" id="smtp_pass" name="smtp_pass" class="form-control" required>
                                   {% endif %}
@@ -109,45 +72,45 @@
                             </div>
                                   <div class="line"></div><br>
                                   <div class="form-group row">
-                                    <label class="col-sm-2">From Address</label>
+                                    <label class="col-sm-2">{{_('From Address')}}</label>
                                     <div class="col-sm-3">
                                       {% if email.from_addr %}
-                                      <input type="text" id="from_addr" name="from_addr"  class="form-control" placeholder="Configured" disabled>
+                                      <input type="text" id="from_addr" name="from_addr"  class="form-control" placeholder="{{_("Configured")}}" disabled>
                                       {% else %}
-                                      <input type="text" id="from_addr" name="from_addr"  class="form-control" placeholder="nerve@corp.com" required>
+                                      <input type="text" id="from_addr" name="from_addr"  class="form-control" placeholder="nervana@corp.com" required>
                                       {% endif %}
-                                        <small class="form-text text-muted">Emails will come from this address</small>
+                                        <small class="form-text text-muted">{{_('Emails will come from this address')}}</small>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                  <label class="col-sm-2">Recipient Address</label>
+                                  <label class="col-sm-2">{{_('Recipient Address')}}</label>
                                   <div class="col-sm-3">
                                     {% if email.to_addr %}
-                                    <input type="text" id="to_addr" name="to_addr" class="form-control" placeholder="Configured" disabled>
+                                    <input type="text" id="to_addr" name="to_addr" class="form-control" placeholder="{{_("Configured")}}" disabled>
                                     {% else %}
                                     <input type="text" id="to_addr" name="to_addr" class="form-control" placeholder="alerts@corp.com" required>
                                     {% endif %}
                                       
-                                      <small class="form-text text-muted">Emails will be sent to this address</small>
+                                      <small class="form-text text-muted">{{_('Emails will be sent to this address')}}</small>
                                   </div>
                               </div>
                                   <div class="line"></div><br>
                                   <div class="form-group row">
-                                    <label class="col-sm-2">Security</label>
+                                    <label class="col-sm-2">{{_('Security')}}</label>
 
                                     <div class="col-sm-3">
                                     <select id="ssl_settings" name="ssl_settings" class="form-control" {% if email.ssl_type %}disabled="true"{% endif %}>
-                                        <option disabled selected value> -- select an option -- </option>
+                                        <option disabled selected value>{{_(' -- select an option -- ')}}</option>
                                         <option value="starttls">STARTTLS</option>
                                         <option value="ssl">SSL</option>
                                     </select>
-                                    {% if email.ssl_type %}<small class="form-text text-muted">Currently using <b>{{ email.ssl_type|upper}}</b> </small>{% endif %}
+                                    {% if email.ssl_type %}<small class="form-text text-muted">{{_('Currently using')}} <b>{{ email.ssl_type|upper}}</b> </small>{% endif %}
                                   </div>
                                 </div>
                                   <div class="form-group text-left">
-                                    <button class="btn btn-danger" onclick="reset_settings('email');" type="submit">Reset</button>
-                                    <button class="btn btn-info" onclick="submit_mail('test');" type="submit">Test</button>
-                                    <button class="btn btn-success" onclick="submit_mail('save');" type="submit">Save</button>
+                                    <button class="btn btn-danger" onclick="reset_settings('email');" type="submit">{{_('Reset')}}</button>
+                                    <button class="btn btn-info" onclick="submit_mail('test');" type="submit">{{_('Test')}}</button>
+                                    <button class="btn btn-success" onclick="submit_mail('save');" type="submit">{{_('Save')}}</button>
                                   </div>          
                               </div>
                           </div>
@@ -159,15 +122,15 @@
                                     <label class="col-sm-2">Hook URL</label>
                                     <div class="col-sm-3">
                                         {% if slack %}
-                                        <input type="text" id="slack_hook" name="slack_hook" class="form-control" placeholder="Configured" disabled>
+                                        <input type="text" id="slack_hook" name="slack_hook" class="form-control" placeholder="{{_("Configured")}}" disabled>
                                         {% else %}
                                         <input type="text" id="slack_hook" name="slack_hook" class="form-control" placeholder="https://hooks.slack.com/services/T3Q0..." required>
                                         {% endif %}
                                     </div>
                                 </div>
                                 <div class="form-group text-left">
-                                  <button class="btn btn-danger" onclick="reset_settings('slack');" type="submit">Reset</button>
-                                  <button class="btn btn-success" onclick="submit_slack();" type="submit">Save</button>
+                                  <button class="btn btn-danger" onclick="reset_settings('slack');" type="submit">{{_('Reset')}}</button>
+                                  <button class="btn btn-success" onclick="submit_slack();" type="submit">{{_('Save')}}</button>
                                 </div>
                             </div>
                         </div>
@@ -221,17 +184,17 @@
         
 
         if(smtp_host == '' || smtp_port == ''){
-          toastr.warning("SMTP Host and SMTP Port must be set.")
+          toastr.warning("{{_("SMTP Host and SMTP Port must be set.")}}")
           return;
         }
 
         if(smtp_user == '' || smtp_pass == ''){
-          toastr.warning("SMTP Credentials must be set.")
+          toastr.warning("{{_("SMTP Credentials must be set.")}}")
           return;
         }
 
         if(from_addr == '' || to_addr == ''){
-          toastr.warning("Sender and Recipient must be set.")
+          toastr.warning("{{_("Sender and Recipient must be set.")}}")
           return;
         }
 
@@ -239,7 +202,7 @@
           ssl_settings = ssl_settings.options[ssl_settings.selectedIndex].value
           
           if(!ssl_types.includes(ssl_settings)){
-            toastr.warning("SSL Settings must be STARTTLS or SSL.")
+            toastr.warning("{{_("SSL Settings must be STARTTLS or SSL.")}}")
             return;
           }
         
@@ -280,7 +243,7 @@
         var slack_hook = document.getElementById("slack_hook").value
         
         if(slack_hook == ''){
-          toastr.warning("Slack hook must not be empty.")
+          toastr.warning("{{_("Slack hook must not be empty.")}}")
           return;
         }
 

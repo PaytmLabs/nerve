@@ -1,6 +1,7 @@
 from core.security import session_required
 from flask import Blueprint, render_template
 from core.redis import rds
+from core.logging import logger
 
 vulns = Blueprint('vulnerabilities', __name__,
                    template_folder='templates')

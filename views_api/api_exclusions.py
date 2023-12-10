@@ -2,6 +2,7 @@ from core.security  import auth
 from core.redis import rds
 from flask_restful  import Resource
 from flask import request
+from flask_babel import _
 
 class Exclusion(Resource):
   @auth.login_required
@@ -15,4 +16,4 @@ class Exclusion(Resource):
     if isinstance(user_exclusions, dict):
       rds.store_json('p_rule-exclusions', user_exclusions)
       return {'status':'ok'}
-    return {'status':'Malformed data, must be JSON'}
+    return {'status':_('Malformed data, must be JSON')}

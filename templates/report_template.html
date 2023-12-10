@@ -67,12 +67,6 @@
           overflow: hidden;
       }
 
-      #summary th {
-          background-color:#13869A;
-          padding: 5px 12px;
-          color:white;
-      }
-
       #summary td {
           background-color:darkgrey;
           text-align: center;
@@ -104,20 +98,26 @@
       #details tr:nth-child(even) td:hover{
           background-color:white;
       }
-
-      #details .sev_4 {
+       
+      .sev_6 {
+          background-color:#C16BA5;
+      }
+      .sev_5 {
+          background-color:#7A7A7A;
+      }
+      .sev_4 {
           background-color:#ff6666;
       }
-      #details .sev_3 {
+      .sev_3 {
           background-color:#ff9b8b;
       }
-      #details .sev_2 {
+      .sev_2 {
           background-color:#ffffcc;
       }
-      #details .sev_1 {
+      .sev_1 {
           background-color:#88eeaa;
       }
-      #details .sev_0 {
+      .sev_0 {
           background-color:lightblue;
       }
 
@@ -144,31 +144,31 @@
 
 <body>
 <div class='headerdiv'>
-  <h1>NERVE <span style="font-size:10px">{{json_data.version}}</span></h1>
+  <h1>NERVANA <span style="font-size:10px">{{json_data.version}}</span></h1>
 </div>
-<h2>Overview</h2>
+<h2>{{_('Overview')}}</h2>
 <div class='overviewDiv'>
 
   <div style='width:50%'>
       <table id="overview">
           <tr>
-              <th>TIMESTAMP</th>
+              <th>{{_('TIMESTAMP')}}</th>
               <td colspan="5">{{json_data.conf.metadata.timestamp}}</td>
           </tr>
           <tr>
-            <th>ID</th>
+            <th>{{_('ID')}}</th>
             <td colspan="5">{{json_data.conf.metadata.unique_id|upper}}</td>
         </tr>
           <tr>
-            <th>NAME</th>
+            <th>{{_('NAME')}}</th>
             <td colspan="5">{{json_data.conf.config.name}}</td>
         </tr>
           <tr>
-              <th>ENGINEER</th>
+              <th>{{_('ENGINEER')}}</th>
               <td colspan="5">{{json_data.conf.config.engineer}}</td>
           </tr>
           <tr>
-            <th>SOURCE IP</th>
+            <th>{{_('SOURCE IP')}}</th>
             <td colspan="5">{{json_data.conf.metadata.issuer.source_ip}}</td>
         </tr>
       </table>
@@ -179,64 +179,71 @@
 
   <table id='summary'>
       <tr>
-          <th>CRITICAL</th>
+          <th class="sev_4">{{_('CRITICAL')}}</th>
           <td>{{json_data.vuln_count.4}}</td>
       </tr>
       <tr>
-          <th>HIGH</th>
+          <th class="sev_3">{{_('HIGH')}}</th>
           <td>{{json_data.vuln_count.3}}</td>
       </tr>
       <tr>
-          <th>MEDIUM</th>
+          <th class="sev_2">{{_('MEDIUM')}}</th>
           <td>{{json_data.vuln_count.2}}</td>
       </tr>
       <tr>
-          <th>LOW</th>
+          <th class="sev_1">{{_('LOW')}}</th>
           <td>{{json_data.vuln_count.1}}</td>
       </tr>
       <tr>
-          <th>INFO</th>
+          <th class="sev_0">{{_('INFO')}}</th>
           <td>{{json_data.vuln_count.0}}</td>
       </tr>
-
+      <tr>
+          <th class="sev_6">{{_('POTENTIAL')}}</th>
+          <td>{{json_data.vuln_count.6}}</td>
+      </tr>
+      <tr>
+          <th class="sev_5">{{_('UNDEFINED')}}</th>
+          <td>{{json_data.vuln_count.5}}</td>
+      </tr>
   </table>
   </div>
 
 
 </div>
 
-<h2>Vulnerabilities</h2>
+<h2>{{_('Vulnerabilities')}}</h2>
 <table id="details">
   {% if json_data.vulns %}
   {% for key, value in json_data.vulns.items() %}
   {% if value.rule_sev != 0 %}
   <tr>
-      <th class='sev_{{value.rule_sev}}'>TITLE</th>
+      <th class='sev_{{value.rule_sev}}'>{{_('TITLE')}}</th>
       <th class='sev_{{value.rule_sev}}'>{{value.rule_desc}}</th>
   </tr>
-  <tr>
-      <th class='sev_{{value.rule_sev}}'>FINDINGS</th>
+  </tr>
+      <th class='sev_{{value.rule_sev}}'>{{_('FINDINGS')}}</th>
       <td>{{value.rule_confirm}}</td>
   </tr>
 
   <tr>
-      <th class='sev_{{value.rule_sev}}'>ADDRESS</th>
+      <th class='sev_{{value.rule_sev}}'>{{_('ADDRESS')}}</th>
       <td>{{value.ip}} {% if value.domain %} ({{value.domain}}) {% endif %}</td>
   </tr>
   <tr>
-    <th class='sev_{{value.rule_sev}}'>PORT</th>
+    <th class='sev_{{value.rule_sev}}'>{{_('PORT')}}</th>
     <td>{{value.port}}</td>
 </tr>
   <tr>
-      <th class='sev_{{value.rule_sev}}'>DETAILS</th>
+      <th class='sev_{{value.rule_sev}}'>{{_('DETAILS')}}</th>
       <td class='details'>{{value.rule_details}}</td>
   </tr>
   <tr>
-    <th class='sev_{{value.rule_sev}}'>RULE_ID</th>
+    <th class='sev_{{value.rule_sev}}'>{{_('RULE_ID')}}</th>
     <td>{{value.rule_id}}</td>
 </tr>
   <tr>
-      <th class='sev_{{value.rule_sev}}'>MITIGATION</th>
+      <th class='sev_{{value.rule_sev}}'>{{_('MITIGATION')}}</th>
       <td>{{value.rule_mitigation}}</td>
   </tr>
   {% endif %}
@@ -247,6 +254,7 @@
 </table>
 
 <footer>
-  <center><p>NERVE</p></center>
+ <center><p>NERVANA</p></center>
 </footer>
 </body>
+</script>

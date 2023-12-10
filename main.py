@@ -3,10 +3,15 @@ import os
 
 from core.redis   import rds
 from core.workers import start_workers
+from core.parser  import ConfParser
 
-from version import VERSION
-from flask   import Flask
+from version        import VERSION
+from flask          import Flask
+from flask          import request
 from flask_restful  import Api
+from flask_babel    import Babel
+from flask_babel    import _
+from flask_babel_js import BabelJS
 
 # Import Blueprints
 from views.view_index      import index
@@ -28,6 +33,7 @@ from views.view_scan       import scan
 from views.view_vulns      import vulns
 from views.view_alert      import alert
 from views.view_startover  import startover
+from views.view_language   import language
 
 
 # Import REST API Endpoints
@@ -37,6 +43,9 @@ from views_api.api_update import Update
 from views_api.api_exclusions import Exclusion
 
 app = Flask(__name__)
+babel = Babel(app)
+babel_js = BabelJS(app)
+
 
 # Initialize Blueprints
 app.register_blueprint(index)
@@ -58,6 +67,7 @@ app.register_blueprint(settings)
 app.register_blueprint(scan)
 app.register_blueprint(alert)
 app.register_blueprint(startover)
+app.register_blueprint(language)
 
 
 app.config.update(
@@ -89,15 +99,16 @@ def add_security_headers(resp):
 def status():
   progress = rds.get_scan_progress()
   session_state = rds.get_session_state()
-  status = 'Ready'
-  if session_state == 'created':
-    status = 'Initializing...'
-  elif session_state == 'running':
+  config = rds.get_next_scan_config()
+  status = _('Ready')
+  if session_state == 'running':
     if progress: 
-      status = 'Scanning... [QUEUE:{}]'.format(progress)
+      status = _('Scanning... [QUEUE:%(prog)s]', prog=progress)
     else:
-      status = 'Busy...'
-
+      status = _('Busy...')
+  elif config:
+    conf = ConfParser(config)
+    status = _('Ready, next scan scheduled for %(date)s', date=conf.get_cfg_schedule().strftime('%Y-%m-%d %H:%M:%S'))
   return dict(status=status)
 
 @app.context_processor
@@ -106,7 +117,7 @@ def show_version():
 
 @app.context_processor
 def show_frequency():
-  config = rds.get_scan_config()
+  config = rds.get_next_scan_config()
   scan_frequency = None
   if config:
     scan_frequency = config['config']['frequency']
@@ -116,6 +127,14 @@ def show_frequency():
 def show_vuln_count():
   return dict(vuln_count=len(rds.get_vuln_data()))
 
+@app.context_processor
+def get_language():
+    return dict(language=rds.get_interface_language())
+
+@babel.localeselector
+def get_locale():
+    return rds.get_interface_language()
+
 if __name__ == '__main__':  
   rds.initialize()
   start_workers()
@@ -123,4 +142,5 @@ if __name__ == '__main__':
           host  = config.WEB_HOST, 
           port  = config.WEB_PORT,
           threaded=True,
-          use_evalex=False)
+          use_evalex=False
+          )

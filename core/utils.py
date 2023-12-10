@@ -14,6 +14,7 @@ from core.logging import logger
 from config import WEB_LOG, USER_AGENT
 from urllib.parse import urlparse
 from version import VERSION
+from flask_babel import _
 
 class Utils:
   def generate_uuid(self):
@@ -42,7 +43,7 @@ class Utils:
     return hashlib.sha1(f'{text}'.encode()).hexdigest()
   
   def sev_to_human(self, severity):
-    color_map = {4:'Critical', 3:'High', 2:'Medium' , 1:'Low', 0:'Informational'}
+    color_map = {6:_('Potential'), 5:_('Undefined'), 4:_('Critical'), 3:_('High'), 2:_('Medium') , 1:_('Low'), 0:_('Informational')}
     return color_map[severity]
   
   def is_string_url(self, url):
@@ -61,7 +62,7 @@ class Utils:
 
   def is_version_latest(self):
     try:
-      resp = requests.get('https://raw.githubusercontent.com/PaytmLabs/nerve/master/version.py', timeout=10)
+      resp = requests.get('https://raw.githubusercontent.com/TomasTorresB/nervana/master/version.py', timeout=10)
       repo_ver = resp.text.split("'")[1].replace('.', '')
       curr_ver = VERSION.replace('.', '').replace('\'', '')
       if int(repo_ver) > int(curr_ver):
@@ -69,6 +70,13 @@ class Utils:
       return True
     except:
       return True
+
+  def json_serial(self, obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+      return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
   
 class Network:
   def get_nics(self):
@@ -145,9 +153,9 @@ class Integration:
         
       slack_data = {
           "color": '#000000',
-          "pretext":"<!channel> NERVE Notification",
+          "pretext":"<!channel> NERVANA Notification",
           "author_name": ':warning: Notification',
-          "title": 'NERVE Report',
+          "title": 'NERVANA Report',
           "fields": fields,
         }
       response = requests.post(hook, data=json.dumps(slack_data))
@@ -164,7 +172,10 @@ class Integration:
   def submit_webhook(self, webhook, cfg, data={}):
     logger.info('Sending the webhook...')
     try:
+      utils = Utils()
+      cfg['config']['schedule_date'] = utils.json_serial(cfg['config']['schedule_date'])
       data = {'status':'done', 'vulnerabilities':data, 'scan_config':cfg}
+      logger.debug("WEBHOOK DATA: {}".format(data))
       requests.post(webhook, 
                     json=data, 
                     headers={'User-Agent':USER_AGENT, 
@@ -178,7 +189,7 @@ class Integration:
 
 class Charts:
   def make_doughnut(self, data):
-    vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0}
+    vuln_count = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
     if data:
       for k, v in data.items():
         vuln_count[v['rule_sev']] += 1

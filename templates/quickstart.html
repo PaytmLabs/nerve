@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NERVE</title>
+    <title>NERVANA</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
-    <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/nervana.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
 </head>
 
@@ -17,72 +17,34 @@
         <div id="sidebar">{% include 'sidebar.html' %}</div>
 
         <div id="body">
-            <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
-                <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                              
-                            <div class="nav-dropdown">
-                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
-                                    <ul class="nav-list">
-                                      <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
-                                      <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
-                                      <div class="dropdown-divider"></div>
-                                      <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <div class="nav-dropdown">
-                                {% if vuln_count %}
-                                <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
-                                {% else %}
-                                <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
-                                {% endif %}
-                            </div>
-                        </li>  
-                        <li class="nav-item dropdown">
-                          <div class="nav-dropdown">
-                            {% if status == "Ready" %}
-                            <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
-                            {% else %}
-                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
-                            {% endif %}
-                          </div>
-                      </li>  
-                    </ul>
-                </div>
-            </nav>
-            
+            <div id="navbar">{% include 'navbar.html' %}</div>
+ 
             <div class="content">
                 <div class="container-fluid">
                     <div class="page-title">
-                        <h3>Quick Start</h3>
+                        <h3>{{_('Quick Start')}}</h3>
                     </div>
 
                     <div class="row">
                       <div class="col-md-12">
                           <div class="card">
-                              <div class="card-header">Quick Start</div>
+                              <div class="card-header">{{_('Quick Start')}}</div>
                               <div class="card-body">
-                                  <p class="card-title">This is the <b>quickest</b> way to get started.</p>
-                                  <p>The quick start method uses predefined settings as we see fit. You can find the scan definitions <a href="/documentation#quickstart" target="_blank">here</a>.</p>
-                                  <p>All you need to do is define the network and click <span   style="font-weight:bold">GO!</span></p>
+                                  <p class="card-title">{{_('This is the')}} <b>{{_('quickest')}}</b> {{_('way to get started.')}}</p>
+                                  <p>{{_('The quick start method uses predefined settings as we see fit. You can find the scan definitions')}} <a href="/documentation#quickstart" target="_blank">{{_('here')}}</a>.</p>
+                                  <p>{{_('All you need to do is define the network and click')}} <span   style="font-weight:bold">{{_('GO!')}}</span></p>
                                   <div class="form-group row">
-                                    <label class="col-sm-2">CIDR Network<br>
-                                        <small class="form-text text-muted"><a href="https://www.ipaddressguide.com/cidr" target="_blank">What is CIDR?</a></small>
+                                    <label class="col-sm-2">{{_('CIDR Network')}}<br>
+                                        <small class="form-text text-muted"><a href="https://www.ipaddressguide.com/cidr" target="_blank">{{_('What is CIDR?')}}</a></small>
                                     </label>
                                     <div class="col-sm-10">
                                         <form method="POST" action="/qs" class="form-inline" accept-charset="utf-8">
                                           <div class="form-group">
-                                              <label for="username" class="sr-only">Network</label>
+                                              <label for="username" class="sr-only">{{_('Network')}}</label>
                                               <input type="text" size="30" name="network" placeholder="192.168.0.0/24" class="form-control">
                                           </div>
                                           <div class="form-group">
-                                              <button type="submit" class="btn btn-success">GO!</button>
+                                              <button type="submit" class="btn btn-success">{{_('GO!')}}</button>
                                           </div> 
                                       </form>
                                       <div>    

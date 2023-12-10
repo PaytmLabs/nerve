@@ -52,6 +52,7 @@ class Scanner():
     
     if 'scan' in result:  
       for host, res in result['scan'].items():
+        logger.info('For host {}, scan nmap result: {}'.format(host, res))
         
         data[host] = {}
         data[host]['status'] = res['status']['state']
@@ -84,5 +85,5 @@ class Scanner():
               data[host]['port_data'][port]['state']  = values['state']
               data[host]['port_data'][port]['version'] = values['version']
               data[host]['port_data'][port]['product'] = values['product']
-    
+ 
     return data

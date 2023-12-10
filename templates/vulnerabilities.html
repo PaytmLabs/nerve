@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NERVE</title>
+    <title>NERVANA</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/DataTables/datatables.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
-    <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/nervana.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
 
 
@@ -20,67 +20,29 @@
         <div id="sidebar">{% include 'sidebar.html' %}</div>
 
         <div id="body">
-            <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
-                <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                              
-                            <div class="nav-dropdown">
-                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i> <i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
-                                    <ul class="nav-list">
-                                      <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
-                                      <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
-                                      <div class="dropdown-divider"></div>
-                                      <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <div class="nav-dropdown">
-                                {% if vuln_count %}
-                                <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
-                                {% else %}
-                                <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
-                                {% endif %}
-                            </div>
-                        </li>  
-                        <li class="nav-item dropdown">
-                          <div class="nav-dropdown">
-                            {% if status == "Ready" %}
-                            <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
-                            {% else %}
-                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
-                            {% endif %}
-                          </div>
-                      </li>  
-                    </ul>
-                </div>
-            </nav>
-            
+            <div id="navbar">{% include 'navbar.html' %}</div>
+ 
             <div class="content">
               <div class="container-fluid">
                   <div class="page-title">
-                      <h3>Vulnerabilities</h3>
+                      <h3>{{_('Vulnerabilities')}}</h3>
                   </div>
                   <div class="row">
                       <div class="col-md-12 col-lg-12">
                           <div class="card">
-                              <div class="card-header">Vulnerabilities</div>
+                              <div class="card-header">{{_('Vulnerabilities')}}</div>
                               <div class="card-body">
                                   <p class="card-title"></p>
                                   <table class="table table-hover" id="dataTables-vulnerabilities" width="100%">
                                       <thead>
                                           <tr>
                                               <th>#</th>
-                                              <th>Target</th>
-                                              <th>Domain</th>
-                                              <th>Port</th>
-                                              <th>Severity</th>
-                                              <th>Result</th>
-                                              <th>Actions</th>
+                                              <th>{{_('Target')}}</th>
+                                              <th>{{_('Domain')}}</th>
+                                              <th>{{_('Port')}}</th>
+                                              <th>{{_('Severity')}}</th>
+                                              <th>{{_('Result')}}</th>
+                                              <th>{{_('Actions')}}</th>
                                           </tr>
                                       </thead>
                                       {% if data %}
@@ -91,23 +53,27 @@
                                          <td>{% if value.domain %} {{value.domain}} {% else %} N/A {% endif %}</td>
                                          <td>{{value.port}}</td>
                                          {% if value.rule_sev == 0 %}
-                                         <td><span class="informational">Informational</td> 
+                                         <td><span class="informational">{{_('Informational')}}</td> 
                                         {% elif value.rule_sev == 1 %}
-                                        <td><span class="low">Low</td>
+                                        <td><span class="low">{{_('Low')}}</td>
                                         {% elif value.rule_sev == 2 %}
-                                        <td><span class="medium">Medium</td>
+                                        <td><span class="medium">{{_('Medium')}}</td>
                                         {% elif value.rule_sev == 3 %}
-                                        <td><span class="high">High</span></td>
+                                        <td><span class="high">{{_('High')}}</span></td>
                                         {% elif value.rule_sev == 4 %}
-                                        <td><span class="critical">Critical</td>
+                                        <td><span class="critical">{{_('Critical')}}</td>
+                                        {% elif value.rule_sev == 5 %}
+                                        <td><span class="undefined">{{_('Undefined')}}</td>
+                                        {% elif value.rule_sev == 6 %}
+                                        <td><span class="potential">{{_('Potential')}}</td>
                                         {% endif %}
                                          <td>{{value.rule_confirm}}</td>
                                          <td>
                                             <a href="/alert/view/{{key}}">
-                                            <button type="button" class="btn btn-outline-info mb-2">View</button>
+                                            <button type="button" class="btn btn-outline-info mb-2">{{_('View')}}</button>
                                             </a>
                                             <a href="/alert/resolve/{{key}}">
-                                                <button type="button" class="btn btn-outline-success mb-2">Resolve</button>
+                                                <button type="button" class="btn btn-outline-success mb-2">{{_('Resolve')}}</button>
                                             </a>
                                         </td>
                                        </tr>
@@ -125,6 +91,7 @@
         </div>
     </div>
 
+    <script src="{{ url_for("babel_catalog") }}"></script>
     <script src={{ url_for('static', filename="vendor/jquery3/jquery-3.4.1.min.js") }}></script>
     <script src={{ url_for('static', filename="vendor/bootstrap4/js/bootstrap.bundle.min.js") }}></script>
     <script src={{ url_for('static', filename="vendor/DataTables/datatables.min.js") }}></script>

@@ -1,5 +1,5 @@
 #!/bin/bash
-systemd_service="/lib/systemd/system/nerve.service"
+systemd_service="/lib/systemd/system/nervana.service"
 cwd="$(pwd)"
 password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-12} | head -n 1)
 
@@ -8,13 +8,13 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-if [ "$cwd" != "/opt/nerve" ]; then
-  echo "please run this script from within /opt/nerve folder."
+if [ "$cwd" != "/opt/nervana" ]; then
+  echo "please run this script from within /opt/nervana folder."
   exit 1
 fi
 
 if [ ! -f "requirements.txt" ]; then
-  echo "requirements.txt is missing, did you unpack the files into /opt/nerve?"
+  echo "requirements.txt is missing, did you unpack the files into /opt/nervana?"
   exit 1
 fi
 
@@ -48,6 +48,7 @@ function install_redhat {
   yum install -y python3 && \
   yum install -y python3-pip && \
   yum install -y python3-devel && \
+  yum install -y libpq-devel && \
   yum install -y wget && \
   yum clean all
   wget https://nmap.org/dist/nmap-7.90-1.x86_64.rpm
@@ -62,6 +63,7 @@ function install_ubuntu {
   apt install -y python3 && \
   apt install -y python3-pip && \
   apt install -y python3-dev && \
+  apt install -y libpq-dev && \
   apt install -y wget && \
   apt install -y nmap
 }
@@ -82,8 +84,8 @@ function configure_firewalld {
 
 function configure_iptables {
   if iptables -V &> /dev/null; then
-    if ! iptables -vnL | grep -q "NERVE Console"; then
-      iptables -I INPUT -p tcp --dport 8080 -j ACCEPT -m comment --comment "NERVE Console"
+    if ! iptables -vnL | grep -q "NERVANA Console"; then
+      iptables -I INPUT -p tcp --dport 8080 -j ACCEPT -m comment --comment "NERVANA Console"
       iptables-save
     fi
   fi
@@ -110,11 +112,11 @@ if [ ! -f "$systemd_service" ]; then
   echo "Setting up systemd service"
   echo "
 [Unit]
-Description=NERVE
+Description=NERVANA
 
 [Service]
 Type=simple
-ExecStart=/bin/bash -c 'cd /opt/nerve/ && /usr/bin/python3 /opt/nerve/main.py'
+ExecStart=/bin/bash -c 'cd /opt/nervana/ && /usr/bin/python3 /opt/nervana/main.py'
 
 [Install]
 WantedBy=multi-user.target
@@ -144,9 +146,9 @@ if [ -f "config.py" ]; then
   sed -ine s/^WEB_PASSW\ =\ .*/WEB_PASSW\ =\ \'$password\'/ "config.py"
 fi
 
-echo "Starting NERVE..."
-systemctl enable nerve
-systemctl start nerve
+echo "Starting NERVANA..."
+systemctl enable nervana
+systemctl start nervana
 
 echo "Checking Firewall..."
 check_fw
@@ -154,7 +156,7 @@ check_fw
 echo "Checking SELinux..."
 configure_selinux
 
-systemctl is-active --quiet nerve
+systemctl is-active --quiet nervana
 if [ $? != 1 ]; then
   echo 
   echo

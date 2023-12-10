@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NERVE</title>
+    <title>NERVANA</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link href={{ url_for('static', filename="vendor/bootstrap4/css/bootstrap.min.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="vendor/toastr/toastr.min.css") }}  rel="stylesheet">
-    <link href={{ url_for('static', filename="css/nerve.css") }}  rel="stylesheet">
+    <link href={{ url_for('static', filename="css/nervana.css") }}  rel="stylesheet">
     <link href={{ url_for('static', filename="css/master.css") }}  rel="stylesheet">
 
     <script src=></script>
@@ -18,45 +18,7 @@
         <div id="sidebar">{% include 'sidebar.html' %}</div>
 
         <div id="body">
-            <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
-                <button type="button" id="sidebarCollapse" class="btn btn-outline-light default-light-menu"><i class="fas fa-bars"></i><span></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto"> 
-                        <li class="nav-item dropdown"> 
-                            <div class="nav-dropdown">
-                                <a href="" class="nav-item nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-shield"></i><i style="font-size: .8em;" class="fas fa-caret-down"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right nav-link-menu">   
-                                    <ul class="nav-list">
-                                      <li><a href="https://github.com/PaytmLabs/nerve/issues" class="dropdown-item"><i class="fas fa-bug"></i> Report a Bug</a></li>
-                                      <li><a href="/settings" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a></li>
-                                      <div class="dropdown-divider"></div>
-                                      <li><a href="/logout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <div class="nav-dropdown">
-                            {% if vuln_count %}
-                            <span class="nav-item nav-link"> <i class="fas fa-bell"></i><span class="badge badge-danger">{{vuln_count}}</span>
-                            {% else %}
-                            <span class="nav-item nav-link"> <i class="fa fa-bell"></i><span class="badge badge-success">{{vuln_count}}</span> 
-                            {% endif %}
-                            </div>
-                        </li>  
-                        <li class="nav-item dropdown">
-                          <div class="nav-dropdown">
-                            {% if status == "Ready" %}
-                            <span class="nav-item nav-link"> <span class="navbar-status c-green"><i class="fas fa-smile"></i> {{status}}</span> </span>
-                            {% else %}
-                            <span class="nav-item nav-link"> <span class="navbar-status c-white"> <i class="fa fa-spinner fa-spin"></i> {{status}}</span> </span> 
-                            {% endif %}
-                          </div>
-                      </li>  
-                    </ul>
-                </div>
-            </nav>
-            
+            <div id="navbar">{% include 'navbar.html' %}</div> 
             <div class="content">
               <div class="container-fluid">
                   <div class="page-title">
@@ -67,28 +29,31 @@
                   <div class="row">
                     <div class="col-md-12 col-lg-12">
                       <div class="card">
-                          <div class="card-header">Alert</div>
+                          <div class="card-header">{{_('Alert')}}</div>
                           <div class="card-body">
                               <ul class="nav nav-tabs" id="myTab" role="tablist">
                                   <li class="nav-item">
-                                      <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
+                                      <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">{{_('Details')}}</a>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#result" role="tab" aria-controls="result" aria-selected="true">Result</a>
+                                    <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#result" role="tab" aria-controls="result" aria-selected="true">{{_('Result')}}</a>
                                 </li>
                                   <li class="nav-item">
-                                      <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#mitigation" role="tab" aria-controls="mitigation" aria-selected="true">Mitigation</a>
+                                      <a class="nav-link" id="mitigation-tab" data-toggle="tab" href="#mitigation" role="tab" aria-controls="mitigation" aria-selected="true">{{_('Mitigation')}}</a>
                                   </li>
 
                               </ul>
                               <div class="tab-content" id="myTabContent">   
                                   <div class="tab-pane fade active show" id="details" role="tabpanel" aria-labelledby="details-tab">{% if vuln %} {{ vuln.data.rule_desc }}. {% endif %}</div>
-                                  <div class="tab-pane fade" id="result" role="tabpanel" aria-labelledby="result-tab">{% if vuln %} {{ vuln.data.rule_details }}. {% endif %}</div>
+                                  <div class="tab-pane fade" id="result" role="tabpanel" aria-labelledby="result-tab" style="white-space: pre-wrap;">{% if vuln %} {{ vuln.data.rule_details }}. {% endif %}</div>
                                   <div class="tab-pane fade" id="mitigation" role="tabpanel" aria-labelledby="mitigation-tab">{% if vuln %} {{ vuln.data.rule_mitigation }} {% endif %}</div>
                                   <hr>
+                                  <a href="/vulnerabilities">
+                                     <button type="button" class="btn btn-square btn-info mb-2">{{_('Back')}}</button>
+                                  </a>
                                   <a href="/alert/resolve/{{vuln.key}}">
-                                    <button type="button" class="btn btn-square btn-success mb-2">Resolve</button>
-                                </a>
+                                    <button type="button" class="btn btn-square btn-success mb-2">{{_('Resolve')}}</button>
+                                  </a>
                               </div>
                           </div>
                       </div>

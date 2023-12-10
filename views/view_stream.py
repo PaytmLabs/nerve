@@ -10,7 +10,7 @@ stream = Blueprint('stream', __name__,
 @session_required
 def view_stream():
   def generate():
-    with open('logs/nerve.log') as f:
+    with open('logs/nervana.log') as f:
       while True:
         yield f.read()
         time.sleep(1)
